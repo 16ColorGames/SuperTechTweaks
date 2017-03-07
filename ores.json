@@ -1,0 +1,28 @@
+# Configuration file
+{
+	"coal": {
+        "generator": "cluster",
+        "block": [
+			{"block": "minecraft:coal_ore", "weight": 3},
+			"minecraft:diamond_ore"
+			],
+		"size": 8,
+        "chance": 10,
+        "minHeight": 40,
+        "maxHeight": 75,
+		"properties": {
+			"clusterVariance": 4
+		}
+    },
+    "iron": {
+        "generator": "vein",
+        "block": "minecraft:iron_ore",
+		"size": 4,
+        "chance": 50,
+        "minHeight": 32,
+        "maxHeight": 64,
+		"properties": {
+			"branchLength": 5
+		}
+    }
+}

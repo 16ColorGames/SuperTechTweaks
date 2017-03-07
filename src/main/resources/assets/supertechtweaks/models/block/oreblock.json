@@ -1,0 +1,37 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "blocks/stone",
+    "colored": "supertechtweaks:blocks/ore1"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "tintindex": 0, "texture": "#all", "cullface": "down" },
+        "up":    { "tintindex": 0, "texture": "#all", "cullface": "up" },
+        "north": { "tintindex": 0, "texture": "#all", "cullface": "north" },
+        "south": { "tintindex": 0, "texture": "#all", "cullface": "south" },
+        "west":  { "tintindex": 0, "texture": "#all", "cullface": "west" },
+        "east":  { "tintindex": 0, "texture": "#all", "cullface": "east" }
+      }
+    },
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "tintindex": 1, "texture": "#colored", "cullface": "down" },
+        "up":    { "tintindex": 1, "texture": "#colored", "cullface": "up" },
+        "north": { "tintindex": 1, "texture": "#colored", "cullface": "north" },
+        "south": { "tintindex": 1, "texture": "#colored", "cullface": "south" },
+        "west":  { "tintindex": 1, "texture": "#colored", "cullface": "west" },
+        "east":  { "tintindex": 1, "texture": "#colored", "cullface": "east" }
+      }
+    }
+  ],
+    "variants": {
+        "type": {
+        }
+    }
+}
