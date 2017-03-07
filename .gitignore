@@ -19,4 +19,6 @@ build
 
 # other
 eclipse
-run
+saves
+crash-reports
+logs

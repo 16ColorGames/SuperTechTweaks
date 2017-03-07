@@ -1,0 +1,14 @@
+# Configuration file
+{
+    "iron": {
+        "generator": "vein",
+        "ore": ["iron", {"ore": "copper", "weight": 0.7}],
+		"size": 4,
+        "chance": 50,
+        "minHeight": 32,
+        "maxHeight": 64,
+		"properties": {
+			"branchLength": 5
+		}
+    }
+}
