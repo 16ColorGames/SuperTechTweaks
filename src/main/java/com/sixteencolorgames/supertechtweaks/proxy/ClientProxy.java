@@ -1,7 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
+import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.enums.MetalColor;
+import com.sixteencolorgames.supertechtweaks.enums.Metals;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,10 +16,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy {
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
-	
+
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
 		super.preInit(e);
+		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
+				"inventory");
+		for (int i = 0; i < Metals.values().length; i++) {
+			ModelLoader.setCustomModelResourceLocation(ModItems.itemOreChunk, i, itemModelResourceLocation);
+		}
 	}
 
 	@Override
@@ -29,11 +36,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent e) {
 		super.postInit(e);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new MetalColor(), ModItems.itemOreChunk);
 	}
-	
 
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(SuperTechTweaksMod.modId + ":" + id, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, meta,
+				new ModelResourceLocation(SuperTechTweaksMod.modId + ":" + id, "inventory"));
 	}
 }

@@ -3,6 +3,7 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 import java.io.File;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
+import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
@@ -33,6 +34,7 @@ public class CommonProxy {
 				GenerationParser.parseScripts(new File(configFolder.getPath(), "ores.json")));
 		System.out.println("Generators Loaded");
 		ModBlocks.init();
+		ModItems.init();
 		GameRegistry.registerTileEntity(TileEntityOre.class, e.getModMetadata().modId + "TileEntityOre");
 		GameRegistry.registerWorldGenerator(generator, 3);
 	}

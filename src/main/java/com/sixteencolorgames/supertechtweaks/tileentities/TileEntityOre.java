@@ -7,11 +7,11 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityOre extends TileEntity {
 
-	public int[] metals = new int[] { -1, -1, -1, -1, -1, -1, -1 };
+	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0};
 
 	public boolean addMetal(Metals metal) {
 		for (int i = 0; i < 7; i++) {
-			if (metals[i] == -1) {
+			if (metals[i] == Metals.NONE.getIndex()) {
 				metals[i] = metal.getIndex();
 				return true;
 			}
