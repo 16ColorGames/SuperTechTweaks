@@ -14,6 +14,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+/**
+ * Proxy for clients only.
+ * 
+ * @author oa10712
+ *
+ */
 public class ClientProxy extends CommonProxy {
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
 
@@ -22,7 +28,12 @@ public class ClientProxy extends CommonProxy {
 		super.preInit(e);
 		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
 				"inventory");
-		for (int i = 0; i < Metals.values().length; i++) {
+		for (int i = 0; i < Metals.values().length; i++) {// set all of the
+															// chunks to use the
+															// same model;
+															// MetalColors
+															// handles the color
+															// differences
 			ModelLoader.setCustomModelResourceLocation(ModItems.itemOreChunk, i, itemModelResourceLocation);
 		}
 	}

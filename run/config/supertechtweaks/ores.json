@@ -2,7 +2,7 @@
 {
     "iron": {
         "generator": "vein",
-        "ore": ["iron", {"ore": "copper", "weight": 0.7}],
+        "ore": [{"ore": "iron", "weight": 0.7}, {"ore": "copper", "weight": 0.7}],
 		"size": 4,
         "chance": 50,
         "minHeight": 32,

@@ -4,6 +4,11 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 
 import net.minecraft.item.Item;
 
+/**
+ * Helper class for mod items.
+ * @author oa10712
+ *
+ */
 public class ItemBase extends Item {
 
 	protected String name;

@@ -8,6 +8,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+/**
+ * Helper class for mod blocks
+ * 
+ * @author oa10712
+ *
+ */
 public class BlockBase extends Block implements ItemModelProvider {
 
 	protected String name;
@@ -20,7 +26,7 @@ public class BlockBase extends Block implements ItemModelProvider {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 
-		//setCreativeTab(SuperTechTweaksMod.creativeTab);
+		// setCreativeTab(SuperTechTweaksMod.creativeTab);
 	}
 
 	@Override

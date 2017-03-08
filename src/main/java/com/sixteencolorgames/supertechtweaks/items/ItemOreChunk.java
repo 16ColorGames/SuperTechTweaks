@@ -10,6 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Drops from ore blocks.
+ * 
+ * @author oa10712
+ *
+ */
 public class ItemOreChunk extends Item {
 	public ItemOreChunk() {
 		this.setMaxDamage(0);
@@ -24,7 +30,7 @@ public class ItemOreChunk extends Item {
 	}
 
 	// add a subitem for each item we want to appear in the creative tab
-	// in this case - a full bottle of each colour
+	// in this case - a chunk of each metal
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {

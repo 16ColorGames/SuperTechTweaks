@@ -18,6 +18,10 @@ public class SuperTechTweaksMod {
 	@Mod.Instance(modId)
 	public static SuperTechTweaksMod instance;
 
+	/**
+	 * The proxy to be used. Holds various functions and objects that may need
+	 * to be different based on side.
+	 */
 	@SidedProxy(clientSide = "com.sixteencolorgames.supertechtweaks.proxy.ClientProxy", serverSide = "com.sixteencolorgames.supertechtweaks.proxy.ServerProxy")
 	public static CommonProxy proxy;
 

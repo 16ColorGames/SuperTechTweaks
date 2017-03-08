@@ -5,9 +5,17 @@ import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * Tile entity for ore block. Stores the actual data for it.
+ * 
+ * @author oa10712
+ *
+ */
 public class TileEntityOre extends TileEntity {
-
-	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0};
+	/**
+	 * array of metals in this block. Uses Metals index
+	 */
+	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
 	public boolean addMetal(Metals metal) {
 		for (int i = 0; i < 7; i++) {
@@ -18,8 +26,8 @@ public class TileEntityOre extends TileEntity {
 		}
 		return false;
 	}
-	
-	public int[] getOres(){
+
+	public int[] getOres() {
 		return metals;
 	}
 

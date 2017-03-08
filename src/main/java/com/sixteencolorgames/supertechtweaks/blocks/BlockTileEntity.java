@@ -9,6 +9,13 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+/**
+ * Helper for Tile Entity blocks
+ * 
+ * @author oa10712
+ *
+ * @param <TE>
+ */
 public abstract class BlockTileEntity<TE extends TileEntity> extends BlockBase {
 
 	public BlockTileEntity(Material material, String name) {
@@ -18,7 +25,7 @@ public abstract class BlockTileEntity<TE extends TileEntity> extends BlockBase {
 	public abstract Class<TE> getTileEntityClass();
 
 	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
-		return (TE)world.getTileEntity(pos);
+		return (TE) world.getTileEntity(pos);
 	}
 
 	@Override

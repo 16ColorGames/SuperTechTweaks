@@ -17,12 +17,18 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Proxy functions common to both the client and server side
+ * 
+ * @author oa10712
+ *
+ */
 public class CommonProxy {
 
 	public static Configuration config;
 
 	public void preInit(FMLPreInitializationEvent e) {
-        MainCompatHandler.registerWaila();
+		MainCompatHandler.registerWaila();
 		new Types();
 		File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
 		if (!new File(configFolder.getPath(), "ores.json").exists()) {
@@ -46,7 +52,7 @@ public class CommonProxy {
 	public void postInit(FMLPostInitializationEvent e) {
 
 	}
-	
+
 	public void registerItemRenderer(Item item, int meta, String id) {
 
 	}

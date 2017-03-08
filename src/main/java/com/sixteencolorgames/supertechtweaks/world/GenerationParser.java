@@ -17,6 +17,12 @@ import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 
+/**
+ * Parses through the config file
+ * 
+ * @author oa10712
+ *
+ */
 public class GenerationParser {
 	public static ArrayList<WorldGeneratorBase> parseScripts(File config) {
 		ArrayList<WorldGeneratorBase> generators = new ArrayList<>();
@@ -35,7 +41,14 @@ public class GenerationParser {
 																		// Properties
 			System.out.println("Loading generator: " + key);
 
-			String[] required = new String[] { "generator", "minHeight", "maxHeight", "chance" };
+			String[] required = new String[] { "generator", "minHeight", "maxHeight", "chance" };// ensures
+																									// that
+																									// each
+																									// generator
+																									// has
+																									// all
+																									// required
+																									// components
 			boolean valid = true;
 			for (String tag : required) {
 				if (!entry.has(tag)) {
