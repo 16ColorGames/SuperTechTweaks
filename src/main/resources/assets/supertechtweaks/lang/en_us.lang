@@ -1,1 +1,4 @@
-tile.supertechtweaks.oreblock.name=Super Tech Ore Block
+tile.blockOre.name=Super Tech Ore Block
+item.itemOreChunk.COPPER.name=Copper Ore Chunk
+item.itemOreChunk.IRON.name=Iron Ore Chunk
+item.itemOreChunk.ALUMINUM.name=Aluminum Ore Chunk
