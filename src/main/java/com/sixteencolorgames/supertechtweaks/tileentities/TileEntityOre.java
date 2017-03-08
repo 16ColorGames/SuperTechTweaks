@@ -19,8 +19,8 @@ public class TileEntityOre extends TileEntity {
 
 	public boolean addMetal(Metals metal) {
 		for (int i = 0; i < 7; i++) {
-			if (metals[i] == Metals.NONE.getIndex()) {
-				metals[i] = metal.getIndex();
+			if (metals[i] == Metals.NONE.ordinal()) {
+				metals[i] = metal.ordinal();
 				return true;
 			}
 		}

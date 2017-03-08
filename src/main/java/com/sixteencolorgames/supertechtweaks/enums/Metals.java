@@ -9,9 +9,10 @@ import net.minecraft.util.IStringSerializable;
  *
  */
 public enum Metals implements IStringSerializable {
-	NONE("none", "0x000000", 0, 0), 
-	COPPER("copper", "0xb4713d", 1, 1), 
-	IRON("iron", "0xe0d9cd", 2, 2);
+	NONE("none", "0x000000", 0), 
+	COPPER("copper", "0xb4713d", 1), 
+	IRON("iron", "0xe0d9cd", 2), 
+	ALUMINUM("aluminum", "0xe0d9cd", 2);
 	
 	/**
 	 * The name of the metal
@@ -22,18 +23,13 @@ public enum Metals implements IStringSerializable {
 	 */
 	private String color;
 	/**
-	 * The index of this metal.
-	 */
-	private int index;
-	/**
 	 * The harvest level of this metal.
 	 */
 	private int harvest;
 
-	Metals(String name, String color, int index, int harvest) {
+	Metals(String name, String color, int harvest) {
 		this.name = name;
 		this.color = color;
-		this.index = index;
 		this.harvest = harvest;
 	}
 
@@ -44,10 +40,6 @@ public enum Metals implements IStringSerializable {
 	@Override
 	public String getName() {
 		return name;
-	}
-
-	public int getIndex() {
-		return index;
 	}
 
 	public int getHarvest() {

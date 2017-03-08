@@ -35,7 +35,7 @@ public class ItemOreChunk extends Item {
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		for (Metals metal : Metals.values()) {
-			ItemStack subItemStack = new ItemStack(itemIn, 1, metal.getIndex() + 1);
+			ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + 1);
 			subItems.add(subItemStack);
 		}
 	}

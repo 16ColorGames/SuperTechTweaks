@@ -88,7 +88,7 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 			TileEntityOre ore = (TileEntityOre) tileEntity;
 			int[] ores = ore.getOres();
 			for (int i = 0; i < 7; i++) {
-				if (ores[i] != Metals.NONE.getIndex()) {
+				if (ores[i] != Metals.NONE.ordinal()) {
 					worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
 							new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
 				}
