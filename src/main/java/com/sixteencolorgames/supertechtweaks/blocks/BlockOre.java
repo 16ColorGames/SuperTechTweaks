@@ -27,11 +27,29 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import scala.actors.threadpool.Arrays;
 
+/**
+ * The ore block for world generation. Can hold up to 7 ores.
+ * 
+ * @author oa10712
+ *
+ */
 public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	public BlockOre() {
 		super(Material.ROCK, "blockOre");
+		this.setHardness(3.0f);
 	}
 
+	/**
+	 * Adds a metal to the ores contents
+	 * 
+	 * @param worldIn
+	 *            The world this block is located in
+	 * @param pos
+	 *            The position of the block
+	 * @param metal
+	 *            The metal to add
+	 * @return True if the metal was successfully added
+	 */
 	public boolean addMetal(World worldIn, BlockPos pos, Metals metal) {
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if (tileEntity instanceof TileEntityOre) {
@@ -40,10 +58,29 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 		}
 		return false;
 	}
+
+	/**
+	 * Ensures that this block does not drop any items, this is now handled in
+	 * breakBlock.
+	 * 
+	 * @param meta
+	 * @param random
+	 * @param fortune
+	 * @return
+	 */
 	@Override
 	public Item getItemDropped(IBlockState meta, Random random, int fortune) {
-	    return null;
+		return null;
 	}
+
+	/**
+	 * Method called after the player mines a block. Causes oreChunks to spawn
+	 * that match the contained ores.
+	 * 
+	 * @param worldIn
+	 * @param pos
+	 * @param state
+	 */
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
