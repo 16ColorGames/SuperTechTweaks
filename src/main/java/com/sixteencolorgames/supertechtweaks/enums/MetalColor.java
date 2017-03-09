@@ -2,10 +2,21 @@ package com.sixteencolorgames.supertechtweaks.enums;
 
 import java.awt.Color;
 
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.ItemStack;
+import com.sixteencolorgames.supertechtweaks.ModBlocks;
+import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
-public class MetalColor implements IItemColor {
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import scala.actors.threadpool.Arrays;
+
+public class MetalColor implements IItemColor, IBlockColor {
 
 	/**
 	 * Returns the colour for rendering, based on 1) the itemstack 2) the
@@ -40,5 +51,29 @@ public class MetalColor implements IItemColor {
 			}
 			}
 		}
+	}
+
+	@Override
+	public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if (tileEntity instanceof TileEntityOre) {
+			TileEntityOre ore = (TileEntityOre) tileEntity;
+			int[] ores = ore.getOres();
+			switch (tintIndex) {
+			case 0:
+				return Color.WHITE.getRGB();
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				//return Color.decode(Metals.values()[ores[tintIndex - 1]].getColor()).getRGB();
+			}
+		}
+		return Color.WHITE.getRGB();
 	}
 }

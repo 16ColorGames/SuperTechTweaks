@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.MetalColor;
@@ -47,7 +48,9 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent e) {
 		super.postInit(e);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new MetalColor(), ModItems.itemOreChunk);
+		MetalColor color = new MetalColor();
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
 	}
 
 	@Override
