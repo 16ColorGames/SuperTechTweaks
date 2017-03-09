@@ -1,7 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.tileentities;
 
+import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Metals;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -21,6 +23,9 @@ public class TileEntityOre extends TileEntity {
 		for (int i = 0; i < 7; i++) {
 			if (metals[i] == Metals.NONE.ordinal()) {
 				metals[i] = metal.ordinal();
+				IBlockState state = this.getWorld().getBlockState(this.getPos());
+				state.withProperty(BlockOre.HARVEST, metal.getHarvest());
+				this.getWorld().setBlockState(pos, state);
 				return true;
 			}
 		}

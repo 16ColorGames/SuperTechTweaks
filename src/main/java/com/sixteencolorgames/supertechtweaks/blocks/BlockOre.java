@@ -13,6 +13,9 @@ import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,9 +37,15 @@ import scala.actors.threadpool.Arrays;
  *
  */
 public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
+
+	public static final PropertyInteger HARVEST = PropertyInteger.create("harvest", 0, 15);
+
 	public BlockOre() {
 		super(Material.ROCK, "blockOre");
 		this.setHardness(3.0f);
+		for (int i = 0; i < 16; i++) {
+			this.setHarvestLevel("pickaxe", i, this.getDefaultState().withProperty(HARVEST, i));
+		}
 	}
 
 	/**
@@ -129,8 +138,24 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			TileEntityOre tile = (TileEntityOre) getTileEntity(world, pos);
-			player.addChatMessage(new TextComponentString("Ores: " + Arrays.toString(tile.getOres())));
+			player.addChatMessage(new TextComponentString(
+					"Ores: " + Arrays.toString(tile.getOres()) + " " + state.getValue(HARVEST)));
 		}
 		return true;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(HARVEST, meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(HARVEST);
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { HARVEST });
 	}
 }

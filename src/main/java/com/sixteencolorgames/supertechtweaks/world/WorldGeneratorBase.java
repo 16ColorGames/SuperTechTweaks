@@ -1,14 +1,13 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
-import java.util.AbstractMap;
 import java.util.Map;
-import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -57,12 +56,15 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 	public boolean generateOre(World world, BlockPos pos) {
 		if (Types.stone.contains(world.getBlockState(pos))) {
 			world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-			TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
-			ores.forEach((k, v) -> {
-				if (world.rand.nextDouble() < v) {
-					tile.addMetal(k);
-				}
-			});
+			TileEntity entity = world.getTileEntity(pos);
+			if (entity instanceof TileEntityOre) {
+				TileEntityOre tile = (TileEntityOre) entity;
+				ores.forEach((k, v) -> {
+					if (world.rand.nextDouble() < v) {
+						tile.addMetal(k);
+					}
+				});
+			}
 		} else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
 			TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
 			ores.forEach((k, v) -> {

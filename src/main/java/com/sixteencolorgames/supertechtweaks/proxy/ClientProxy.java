@@ -3,11 +3,13 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.MetalColor;
 import com.sixteencolorgames.supertechtweaks.enums.Metals;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -51,6 +53,9 @@ public class ClientProxy extends CommonProxy {
 		MetalColor color = new MetalColor();
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
 		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
+		ModelLoader.setCustomStateMapper(
+			    ModBlocks.blockOre, (new StateMap.Builder()).ignore(BlockOre.HARVEST).build()
+			);
 	}
 
 	@Override
