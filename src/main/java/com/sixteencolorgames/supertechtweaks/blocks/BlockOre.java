@@ -89,22 +89,32 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	 * @param worldIn
 	 * @param pos
 	 * @param state
+	 * 
+	 * @return True if the block is destroyed
 	 */
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+	public boolean removedByPlayer(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player,
+			boolean willHarvest) {
+		boolean metalLeft = false;
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if (tileEntity instanceof TileEntityOre) {
 			TileEntityOre ore = (TileEntityOre) tileEntity;
 			int[] ores = ore.getOres();
+			System.out.println(Arrays.toString(ores));
 			for (int i = 0; i < 7; i++) {
-				if (ores[i] != Metals.NONE.ordinal()) {
-					worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-							new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
+				if (ores[i] != 0) {
+					if (player.getActiveItemStack() != null && Metals.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand()).getItem().getHarvestLevel(null, "pickaxe")) {
+						worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
+								pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
+						ore.setMetal(i, Metals.NONE);
+					} else {
+						metalLeft = true;
+					}
 				}
 			}
 			// handle dropping of metal chunks
 		}
-		super.breakBlock(worldIn, pos, state);
+		return !metalLeft;
 	}
 
 	public void initModel() {
