@@ -55,25 +55,28 @@ public class MetalColor implements IItemColor, IBlockColor {
 
 	@Override
 	public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
-
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-		if (tileEntity instanceof TileEntityOre) {
-			TileEntityOre ore = (TileEntityOre) tileEntity;
-			int[] ores = ore.getOres();
-			switch (tintIndex) {
-			case 0:
-				return Color.WHITE.getRGB();
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-				//return Color.decode(Metals.values()[ores[tintIndex - 1]].getColor()).getRGB();
+		if (worldIn != null && pos != null) {
+			TileEntity tileEntity = worldIn.getTileEntity(pos);
+			if (tileEntity instanceof TileEntityOre) {
+				TileEntityOre ore = (TileEntityOre) tileEntity;
+				int[] ores = ore.getOres();
+				switch (tintIndex) {
+				case 0:
+					return Color.WHITE.getRGB();
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+					// return Color.decode(Metals.values()[ores[tintIndex -
+					// 1]].getColor()).getRGB();
+				}
 			}
 		}
 		return Color.WHITE.getRGB();
+
 	}
 }

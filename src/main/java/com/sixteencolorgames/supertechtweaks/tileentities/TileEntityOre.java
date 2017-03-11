@@ -36,6 +36,10 @@ public class TileEntityOre extends TileEntity {
 		return metals;
 	}
 
+	public void setMetal(int index, Metals metal) {
+		metals[index] = metal.ordinal();
+	}
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setIntArray("metals", metals);

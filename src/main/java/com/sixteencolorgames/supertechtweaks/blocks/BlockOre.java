@@ -19,6 +19,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -89,22 +90,43 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	 * @param worldIn
 	 * @param pos
 	 * @param state
+	 * 
+	 * @return True if the block is destroyed
 	 */
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-		if (tileEntity instanceof TileEntityOre) {
-			TileEntityOre ore = (TileEntityOre) tileEntity;
-			int[] ores = ore.getOres();
-			for (int i = 0; i < 7; i++) {
-				if (ores[i] != Metals.NONE.ordinal()) {
-					worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-							new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
+	public boolean removedByPlayer(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player,
+			boolean willHarvest) {
+		if (!worldIn.isRemote) {
+			boolean metalLeft = false;
+			TileEntity tileEntity = worldIn.getTileEntity(pos);
+			if (tileEntity instanceof TileEntityOre) {
+				TileEntityOre ore = (TileEntityOre) tileEntity;
+				int[] ores = ore.getOres();
+				System.out.println("Ore Contents: " + Arrays.toString(ores));
+				for (int i = 0; i < 7; i++) {
+					if (ores[i] != Metals.NONE.ordinal()) {
+						if (Metals.values()[ores[i]].getHarvest() <= player
+								.getHeldItem(player.getActiveHand()).getItem().getHarvestLevel(null, "pickaxe")) {
+							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
+									pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
+							ore.setMetal(i, Metals.NONE);
+						} else {
+							System.out.println("Cannot mine, required: " + Metals.values()[ores[i]].getHarvest()
+									+ ", have: " + player.getHeldItem(player.getActiveHand()).getItem()
+											.getHarvestLevel(null, "pickaxe"));
+							metalLeft = true;
+						}
+					}
 				}
+				// handle dropping of metal chunks
 			}
-			// handle dropping of metal chunks
+			willHarvest = metalLeft;
+			if(!metalLeft){
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+			}
+			return !metalLeft;
 		}
-		super.breakBlock(worldIn, pos, state);
+		return true;
 	}
 
 	public void initModel() {
