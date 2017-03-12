@@ -23,12 +23,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.actors.threadpool.Arrays;
 
 /**
@@ -105,8 +109,8 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 				System.out.println("Ore Contents: " + Arrays.toString(ores));
 				for (int i = 0; i < 7; i++) {
 					if (ores[i] != Metals.NONE.ordinal()) {
-						if (Metals.values()[ores[i]].getHarvest() <= player
-								.getHeldItem(player.getActiveHand()).getItem().getHarvestLevel(null, "pickaxe")) {
+						if (Metals.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand())
+								.getItem().getHarvestLevel(null, "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
 									pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
 							ore.setMetal(i, Metals.NONE);
@@ -121,7 +125,7 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 				// handle dropping of metal chunks
 			}
 			willHarvest = metalLeft;
-			if(!metalLeft){
+			if (!metalLeft) {
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			}
 			return !metalLeft;
@@ -179,5 +183,15 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] { HARVEST });
+	}
+
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.SOLID;
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
+		return EnumBlockRenderType.MODEL;
 	}
 }
