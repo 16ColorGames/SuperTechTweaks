@@ -125,7 +125,7 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			GlStateManager.color(red, green, blue); // change the rendering
 													// colour
 
-			vertexBuffer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
+			vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			addBlockVertecies(vertexBuffer);
 			tessellator.draw();
 
@@ -137,9 +137,10 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 
 	private void addBlockVertecies(VertexBuffer vertexBuffer) {
 	    final double[][] vertexTable = {
-	            {0.000,0.000,0.000,0.000,0.000},          //1
-	            {1.000,0.000,0.000,1.000,0.000},
-	            {1.000,1.000,0.000,1.000,1.000}
+	            {1.000,0.000,0.000,1.000,1.000},          //1
+	            {1.000,1.000,0.000,1.000,0.000},
+	            {0.000,1.000,0.000,0.000,0.000},
+	            {0.000,0.000,0.000,0.000,1.000}
 	              };
 
 	    for (double [] vertex : vertexTable) {
