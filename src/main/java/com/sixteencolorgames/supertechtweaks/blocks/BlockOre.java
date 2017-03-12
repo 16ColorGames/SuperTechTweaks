@@ -39,14 +39,10 @@ import scala.actors.threadpool.Arrays;
  */
 public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 
-	public static final PropertyInteger HARVEST = PropertyInteger.create("harvest", 0, 15);
 
 	public BlockOre() {
 		super(Material.ROCK, "blockOre");
 		this.setHardness(3.0f);
-		for (int i = 0; i < 16; i++) {
-			this.setHarvestLevel("pickaxe", i, this.getDefaultState().withProperty(HARVEST, i));
-		}
 	}
 
 	/**
@@ -161,23 +157,8 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 		if (!world.isRemote) {
 			TileEntityOre tile = (TileEntityOre) getTileEntity(world, pos);
 			player.addChatMessage(new TextComponentString(
-					"Ores: " + Arrays.toString(tile.getOres()) + " " + state.getValue(HARVEST)));
+					"Ores: " + Arrays.toString(tile.getOres())));
 		}
 		return true;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(HARVEST, meta);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(HARVEST);
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { HARVEST });
 	}
 }

@@ -27,9 +27,6 @@ public class TileEntityOre extends TileEntity {
 		for (int i = 0; i < 7; i++) {
 			if (metals[i] == Metals.NONE.ordinal()) {
 				metals[i] = metal.ordinal();
-				IBlockState state = this.getWorld().getBlockState(this.getPos());
-				state.withProperty(BlockOre.HARVEST, metal.getHarvest());
-				this.getWorld().setBlockState(pos, state);
 				return true;
 			}
 		}
