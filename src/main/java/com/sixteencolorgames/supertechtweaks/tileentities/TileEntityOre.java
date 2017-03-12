@@ -18,6 +18,10 @@ public class TileEntityOre extends TileEntity {
 	 * array of metals in this block. Uses Metals index
 	 */
 	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+	/**
+	 * unlocalized name for the base block
+	 */
+	private String base;
 
 	public boolean addMetal(Metals metal) {
 		for (int i = 0; i < 7; i++) {
@@ -50,6 +54,14 @@ public class TileEntityOre extends TileEntity {
 	public void readFromNBT(NBTTagCompound compound) {
 		metals = compound.getIntArray("metals");
 		super.readFromNBT(compound);
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String original) {
+		base = original;
 	}
 
 }
