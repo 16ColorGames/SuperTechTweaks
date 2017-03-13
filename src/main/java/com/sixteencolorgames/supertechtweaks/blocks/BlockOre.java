@@ -37,8 +37,7 @@ import scala.actors.threadpool.Arrays;
  * @author oa10712
  *
  */
-public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
-
+public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
 
 	public BlockOre() {
 		super(Material.ROCK, "blockOre");
@@ -101,8 +100,8 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 				System.out.println("Ore Contents: " + Arrays.toString(ores));
 				for (int i = 0; i < 7; i++) {
 					if (ores[i] != Metals.NONE.ordinal()) {
-						if (Metals.values()[ores[i]].getHarvest() <= player
-								.getHeldItem(player.getActiveHand()).getItem().getHarvestLevel(null, "pickaxe")) {
+						if (Metals.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand())
+								.getItem().getHarvestLevel(null, "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
 									pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
 							ore.setMetal(i, Metals.NONE);
@@ -117,7 +116,7 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 				// handle dropping of metal chunks
 			}
 			willHarvest = metalLeft;
-			if(!metalLeft){
+			if (!metalLeft) {
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			}
 			return !metalLeft;
@@ -135,7 +134,7 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntityOre createTileEntity(World world, IBlockState state) {
 		TileEntityOre ore = new TileEntityOre();
 		return ore;
 	}
@@ -143,11 +142,9 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 			IWailaConfigHandler config) {
-		TileEntity te = accessor.getTileEntity();
-		if (te instanceof TileEntityOre) {
-			TileEntityOre dataTileEntity = (TileEntityOre) te;
-			currenttip.add(TextFormatting.GRAY + "Ores: " + Arrays.toString(dataTileEntity.getOres()));
-		}
+		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
+		currenttip.add(TextFormatting.GRAY + "Ores: " + Arrays.toString(te.getOres()));
+
 		return currenttip;
 	}
 
@@ -155,9 +152,8 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			TileEntityOre tile = (TileEntityOre) getTileEntity(world, pos);
-			player.addChatMessage(new TextComponentString(
-					"Ores: " + Arrays.toString(tile.getOres())));
+			TileEntityOre tile = getTileEntity(world, pos);
+			player.addChatMessage(new TextComponentString("Ores: " + Arrays.toString(tile.getOres())));
 		}
 		return true;
 	}
