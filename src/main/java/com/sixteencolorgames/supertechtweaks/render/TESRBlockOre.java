@@ -144,7 +144,8 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 					this.bindTexture(layerTextures[i]);
 					Metals met = Metals.values()[metal];
 					Color color = Color.decode(met.getColor());
-					GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue());
+					GlStateManager.color(((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
+							((float) color.getBlue()) / 255);
 
 					vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 					addBlockVertecies(vertexBuffer);
