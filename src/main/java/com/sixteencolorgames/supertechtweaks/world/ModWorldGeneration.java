@@ -1,28 +1,33 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class ModWorldGeneration implements IWorldGenerator {
 
 	public ArrayList<WorldGeneratorBase> generators;
 
+	public ModWorldGeneration() {
+		generators = new ArrayList();
+	}
+
 	public ModWorldGeneration(ArrayList<WorldGeneratorBase> list) {
 		System.out.println("Creating world generator: " + list.size());
 		generators = list;
-		for(WorldGeneratorBase gen : generators){
+		for (WorldGeneratorBase gen : generators) {
 			System.out.print(gen.getName());
 		}
+	}
+
+	public void addGenerators(ArrayList<WorldGeneratorBase> list) {
+		generators.addAll(list);
 	}
 
 	@Override

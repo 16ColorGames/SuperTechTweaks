@@ -18,14 +18,15 @@ public class TileEntityOre extends TileEntity {
 	 * array of metals in this block. Uses Metals index
 	 */
 	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+	/**
+	 * unlocalized name for the base block
+	 */
+	private String base;
 
 	public boolean addMetal(Metals metal) {
 		for (int i = 0; i < 7; i++) {
 			if (metals[i] == Metals.NONE.ordinal()) {
 				metals[i] = metal.ordinal();
-				IBlockState state = this.getWorld().getBlockState(this.getPos());
-				state.withProperty(BlockOre.HARVEST, metal.getHarvest());
-				this.getWorld().setBlockState(pos, state);
 				return true;
 			}
 		}
@@ -33,7 +34,10 @@ public class TileEntityOre extends TileEntity {
 	}
 
 	public int[] getOres() {
-		return metals;
+		if (metals.length != 0) {
+			return metals;
+		}
+		return new int[]{0};
 	}
 
 	public void setMetal(int index, Metals metal) {
@@ -50,6 +54,14 @@ public class TileEntityOre extends TileEntity {
 	public void readFromNBT(NBTTagCompound compound) {
 		metals = compound.getIntArray("metals");
 		super.readFromNBT(compound);
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String original) {
+		base = original;
 	}
 
 }

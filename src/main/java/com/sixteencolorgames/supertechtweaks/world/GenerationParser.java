@@ -24,6 +24,7 @@ import net.minecraft.block.state.IBlockState;
  *
  */
 public class GenerationParser {
+
 	public static ArrayList<WorldGeneratorBase> parseScripts(File config) {
 		ArrayList<WorldGeneratorBase> generators = new ArrayList<>();
 
@@ -83,9 +84,6 @@ public class GenerationParser {
 
 	private static WorldGeneratorVein parseVein(JsonObject array) {
 		Map<Metals, Double> ores = parseOres(array.get("ore"));
-		for (Metals b : ores.keySet()) {
-			System.out.println(b.getName());
-		}
 		HashMap<String, Object> params = new HashMap();
 		if (array.has("properties") && array.get("properties").isJsonObject()) {
 			JsonObject props = array.get("properties").getAsJsonObject();

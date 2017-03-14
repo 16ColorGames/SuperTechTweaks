@@ -1,6 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
@@ -36,8 +37,13 @@ public class CommonProxy {
 			config.load();
 			config.save();
 		}
-		ModWorldGeneration generator = new ModWorldGeneration(
-				GenerationParser.parseScripts(new File(configFolder.getPath(), "ores.json")));
+		ModWorldGeneration generator = new ModWorldGeneration();
+		for (File gen : configFolder.listFiles()) {
+			try {
+				generator.addGenerators(GenerationParser.parseScripts(gen));
+			} catch (Exception ex) {
+			}
+		}
 		System.out.println("Generators Loaded");
 		ModBlocks.init();
 		ModItems.init();

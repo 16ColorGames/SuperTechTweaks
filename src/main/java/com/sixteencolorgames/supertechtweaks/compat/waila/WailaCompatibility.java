@@ -31,9 +31,7 @@ public class WailaCompatibility implements IWailaDataProvider {
             throw new RuntimeException("Please register this handler using the provided method.");
         }
         if (!loaded) {
-            registrar.registerHeadProvider(INSTANCE, BlockOre.class);
             registrar.registerBodyProvider(INSTANCE, BlockOre.class);
-            registrar.registerTailProvider(INSTANCE, BlockOre.class);
             loaded = true;
         }
     }
@@ -42,7 +40,7 @@ public class WailaCompatibility implements IWailaDataProvider {
         if (registered)
             return;
         registered = true;
-        FMLInterModComms.sendMessage("Waila", "register", "mcjty.modtut.compat.waila.WailaCompatibility.load");
+        FMLInterModComms.sendMessage("Waila", "register", "com.sixteencolorgames.supertechtweaks.compat.waila.WailaCompatibility.load");
     }
 
     @Override

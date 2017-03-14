@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -41,16 +42,11 @@ import scala.actors.threadpool.Arrays;
  * @author oa10712
  *
  */
-public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
-
-	public static final PropertyInteger HARVEST = PropertyInteger.create("harvest", 0, 15);
+public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
 
 	public BlockOre() {
 		super(Material.ROCK, "blockOre");
 		this.setHardness(3.0f);
-		for (int i = 0; i < 16; i++) {
-			this.setHarvestLevel("pickaxe", i, this.getDefaultState().withProperty(HARVEST, i));
-		}
 	}
 
 	/**
@@ -143,7 +139,7 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntityOre createTileEntity(World world, IBlockState state) {
 		TileEntityOre ore = new TileEntityOre();
 		return ore;
 	}
@@ -151,11 +147,9 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 			IWailaConfigHandler config) {
-		TileEntity te = accessor.getTileEntity();
-		if (te instanceof TileEntityOre) {
-			TileEntityOre dataTileEntity = (TileEntityOre) te;
-			currenttip.add(TextFormatting.GRAY + "Ores: " + Arrays.toString(dataTileEntity.getOres()));
-		}
+		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
+		currenttip.add(TextFormatting.GRAY + "Ores: " + Arrays.toString(te.getOres()));
+
 		return currenttip;
 	}
 
@@ -163,26 +157,15 @@ public class BlockOre extends BlockTileEntity implements WailaInfoProvider {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			TileEntityOre tile = (TileEntityOre) getTileEntity(world, pos);
-			player.addChatMessage(new TextComponentString(
-					"Ores: " + Arrays.toString(tile.getOres()) + " " + state.getValue(HARVEST)));
+			TileEntityOre tile = getTileEntity(world, pos);
+			player.addChatMessage(new TextComponentString("Ores: " + Arrays.toString(tile.getOres())));
 		}
 		return true;
 	}
-
+	
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(HARVEST, meta);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(HARVEST);
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { HARVEST });
+	public void registerItemModel(Item item) {
+		//void since we shouldn't have this in inventory
 	}
 
 	@SideOnly(Side.CLIENT)

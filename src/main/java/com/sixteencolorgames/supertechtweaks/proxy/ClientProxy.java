@@ -56,10 +56,7 @@ public class ClientProxy extends CommonProxy {
 		super.postInit(e);
 		MetalColor color = new MetalColor();
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
-		ModelLoader.setCustomStateMapper(
-			    ModBlocks.blockOre, (new StateMap.Builder()).ignore(BlockOre.HARVEST).build()
-			);
+		//Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
 	}
 
 	@Override

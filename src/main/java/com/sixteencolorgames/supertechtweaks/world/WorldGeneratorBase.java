@@ -55,10 +55,12 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 
 	public boolean generateOre(World world, BlockPos pos) {
 		if (Types.stone.contains(world.getBlockState(pos))) {
+			String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
 			world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
 			TileEntity entity = world.getTileEntity(pos);
 			if (entity instanceof TileEntityOre) {
 				TileEntityOre tile = (TileEntityOre) entity;
+				tile.setBase(base);
 				ores.forEach((k, v) -> {
 					if (world.rand.nextDouble() < v) {
 						tile.addMetal(k);
