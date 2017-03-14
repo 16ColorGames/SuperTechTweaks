@@ -1,9 +1,10 @@
-package com.sixteencolorgames.supertechtweaks.enums;
+package com.sixteencolorgames.supertechtweaks.render;
 
 import java.awt.Color;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.block.state.IBlockState;
