@@ -52,7 +52,7 @@ public class ClientProxy extends CommonProxy {
 		super.postInit(e);
 		MetalColor color = new MetalColor();
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
+		//Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
 	}
 
 	@Override

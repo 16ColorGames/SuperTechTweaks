@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -156,5 +157,10 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 			player.addChatMessage(new TextComponentString("Ores: " + Arrays.toString(tile.getOres())));
 		}
 		return true;
+	}
+	
+	@Override
+	public void registerItemModel(Item item) {
+		//void since we shouldn't have this in inventory
 	}
 }

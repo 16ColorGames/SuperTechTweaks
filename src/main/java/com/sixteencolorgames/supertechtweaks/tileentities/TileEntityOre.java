@@ -34,7 +34,10 @@ public class TileEntityOre extends TileEntity {
 	}
 
 	public int[] getOres() {
-		return metals;
+		if (metals.length != 0) {
+			return metals;
+		}
+		return new int[]{0};
 	}
 
 	public void setMetal(int index, Metals metal) {
