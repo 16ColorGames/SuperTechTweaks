@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
+import com.sixteencolorgames.supertechtweaks.enums.Metals;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,12 +15,21 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+import scala.actors.threadpool.Arrays;
 
 public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 
 	private static final ResourceLocation baseTexture = new ResourceLocation("minecraft:textures/blocks/stone.png");
+	private static final ResourceLocation[] layerTextures = new ResourceLocation[] {
+			new ResourceLocation("supertechtweaks:textures/blocks/ore1.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore2.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore3.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore4.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore5.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore6.png"),
+			new ResourceLocation("supertechtweaks:textures/blocks/ore7.png") };
 	private static final ResourceLocation layer1Texture = new ResourceLocation(
-			"supertechtweaksmod:textures/blocks/ore1.png");
+			"supertechtweaks:textures/blocks/ore1.png");
 
 	/**
 	 * render the tile entity - called every frame while the tileentity is in
@@ -72,7 +82,6 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 		// distance.
 		Vec3d playerEye = new Vec3d(0.0, 0.0, 0.0);
 
-
 		try {
 			// save the transformation matrix and the rendering attributes, so
 			// that we can restore them after rendering. This
@@ -105,7 +114,13 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 
 			Tessellator tessellator = Tessellator.getInstance();
 			VertexBuffer vertexBuffer = tessellator.getBuffer();
-			this.bindTexture(layer1Texture); // texture for the gem appearance
+			this.bindTexture(baseTexture); // texture for the gem appearance
+
+			// fix dark lighting issue
+			int li = tileEntity.getWorld().getCombinedLight(tileEntity.getPos(), 15728640);
+			int i1 = li % 65536;
+			int j1 = li / 65536;
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
 
 			// set the key rendering flags appropriately...
 			GL11.glDisable(GL11.GL_LIGHTING); // turn off "item" lighting (face
@@ -115,19 +130,27 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 											// blending
 			GL11.glDepthMask(true); // gem is hidden behind other objects
 
-			// set the rendering colour as the gem base colour
+			// set the rendering colour
 			float red = 1, green = 1, blue = 1;
-//			if (fullBrightnessColor != TileEntityMBE21.INVALID_COLOR) {
-//				red = (float) (fullBrightnessColor.getRed() / 255.0);
-//				green = (float) (fullBrightnessColor.getGreen() / 255.0);
-//				blue = (float) (fullBrightnessColor.getBlue() / 255.0);
-//			}
 			GlStateManager.color(red, green, blue); // change the rendering
 													// colour
 
 			vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			addBlockVertecies(vertexBuffer);
 			tessellator.draw();
+			for (int i = 0; i < 7; i++) {
+				int metal = tileEntity.getOres()[i];
+				if (metal != Metals.NONE.ordinal()) {
+					this.bindTexture(layerTextures[i]);
+					Metals met = Metals.values()[metal];
+					Color color = Color.decode(met.getColor());
+					GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue());
+
+					vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+					addBlockVertecies(vertexBuffer);
+					tessellator.draw();
+				}
+			}
 
 		} finally {
 			GL11.glPopAttrib();
@@ -136,17 +159,36 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 	}
 
 	private void addBlockVertecies(VertexBuffer vertexBuffer) {
-	    final double[][] vertexTable = {
-	            {1.000,0.000,0.000,1.000,1.000},          //1
-	            {1.000,1.000,0.000,1.000,0.000},
-	            {0.000,1.000,0.000,0.000,0.000},
-	            {0.000,0.000,0.000,0.000,1.000}
-	              };
+		final double[][] vertexTable = {
 
-	    for (double [] vertex : vertexTable) {
-	      vertexBuffer.pos(vertex[0], vertex[1], vertex[2])
-	                   .tex(vertex[3], vertex[4])
-	                   .endVertex();
-	    }
-	  }
+				{ 1.000, 0.000, 1.000, 1.000, 1.000 }, // 1
+				{ 1.000, 1.000, 1.000, 1.000, 0.000 }, { 0.000, 1.000, 1.000, 0.000, 0.000 },
+				{ 0.000, 0.000, 1.000, 0.000, 1.000 },
+
+				{ 0.000, 0.000, 0.000, 1.000, 1.000 }, // 2
+				{ 0.000, 1.000, 0.000, 1.000, 0.000 }, { 1.000, 1.000, 0.000, 0.000, 0.000 },
+				{ 1.000, 0.000, 0.000, 0.000, 1.000 },
+
+				{ 1.000, 0.000, 0.000, 1.000, 1.000 }, // 3
+				{ 1.000, 1.000, 0.000, 1.000, 0.000 }, { 1.000, 1.000, 1.000, 0.000, 0.000 },
+				{ 1.000, 0.000, 1.000, 0.000, 1.000 },
+
+				{ 0.000, 0.000, 1.000, 1.000, 1.000 }, // 4
+				{ 0.000, 1.000, 1.000, 1.000, 0.000 }, { 0.000, 1.000, 0.000, 0.000, 0.000 },
+				{ 0.000, 0.000, 0.000, 0.000, 1.000 },
+
+				{ 0.000, 0.000, 1.000, 1.000, 1.000 }, // 5
+				{ 0.000, 0.000, 0.000, 1.000, 0.000 }, { 1.000, 0.000, 0.000, 0.000, 0.000 },
+				{ 1.000, 0.000, 1.000, 0.000, 1.000 },
+
+				{ 0.000, 1.000, 0.000, 1.000, 1.000 }, // 6
+				{ 0.000, 1.000, 1.000, 1.000, 0.000 }, { 1.000, 1.000, 1.000, 0.000, 0.000 },
+				{ 1.000, 1.000, 0.000, 0.000, 1.000 }
+
+		};
+
+		for (double[] vertex : vertexTable) {
+			vertexBuffer.pos(vertex[0], vertex[1], vertex[2]).tex(vertex[3], vertex[4]).endVertex();
+		}
+	}
 }

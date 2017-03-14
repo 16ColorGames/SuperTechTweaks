@@ -148,24 +148,18 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 			IWailaConfigHandler config) {
 		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
-		currenttip.add(TextFormatting.GRAY + "Ores: " + Arrays.toString(te.getOres()));
+		for (int metal : te.getOres()) {
+			if (metal != Metals.NONE.ordinal()) {
+				currenttip.add(TextFormatting.GRAY + Metals.values()[metal].getName());
+			}
+		}
 
 		return currenttip;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			TileEntityOre tile = getTileEntity(world, pos);
-			player.addChatMessage(new TextComponentString("Ores: " + Arrays.toString(tile.getOres())));
-		}
-		return true;
-	}
-	
-	@Override
 	public void registerItemModel(Item item) {
-		//void since we shouldn't have this in inventory
+		// void since we shouldn't have this in inventory
 	}
 
 	@SideOnly(Side.CLIENT)
