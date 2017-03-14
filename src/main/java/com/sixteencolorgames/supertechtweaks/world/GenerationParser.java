@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -83,7 +83,7 @@ public class GenerationParser {
 	}
 
 	private static WorldGeneratorVein parseVein(JsonObject array) {
-		Map<Metals, Double> ores = parseOres(array.get("ore"));
+		Map<Ores, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
 		if (array.has("properties") && array.get("properties").isJsonObject()) {
 			JsonObject props = array.get("properties").getAsJsonObject();
@@ -100,24 +100,24 @@ public class GenerationParser {
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
 	}
 
-	private static Map<Metals, Double> parseOres(JsonElement oreElement) {
-		HashMap<Metals, Double> ores = new HashMap();
+	private static Map<Ores, Double> parseOres(JsonElement oreElement) {
+		HashMap<Ores, Double> ores = new HashMap();
 		if (oreElement.isJsonArray()) {
 			JsonArray array = oreElement.getAsJsonArray();
 			for (JsonElement element : array) {
 				if (element.isJsonPrimitive()) {
-					ores.put(Metals.valueOf(element.getAsString().toUpperCase()), 1.0);
+					ores.put(Ores.valueOf(element.getAsString().toUpperCase()), 1.0);
 				} else {
 					Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
-					ores.put((Metals) weightedOre[0], (Double) weightedOre[1]);
+					ores.put((Ores) weightedOre[0], (Double) weightedOre[1]);
 				}
 			}
 		} else {
 			if (oreElement.isJsonPrimitive()) {
-				ores.put(Metals.valueOf(oreElement.getAsString().toUpperCase()), 1.0);
+				ores.put(Ores.valueOf(oreElement.getAsString().toUpperCase()), 1.0);
 			} else {
 				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
-				ores.put((Metals) weightedOre[0], (Double) weightedOre[1]);
+				ores.put((Ores) weightedOre[0], (Double) weightedOre[1]);
 			}
 		}
 		ores.forEach((k, v) -> {
@@ -134,6 +134,6 @@ public class GenerationParser {
 			weight = 1.0;
 		}
 		String name = ore.get("ore").getAsString();
-		return new Object[] { Metals.valueOf(name.toUpperCase()), weight };
+		return new Object[] { Ores.valueOf(name.toUpperCase()), weight };
 	}
 }

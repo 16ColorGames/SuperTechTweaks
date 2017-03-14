@@ -3,14 +3,14 @@ package com.sixteencolorgames.supertechtweaks.world;
 import java.util.Map;
 import java.util.Random;
 
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGeneratorCluster extends WorldGeneratorBase {
 
-	public WorldGeneratorCluster(Map<Metals, Double> ores, int size, int min, int max, int chance,
+	public WorldGeneratorCluster(Map<Ores, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
 		super(ores, size, min, max, chance, params);
 	}

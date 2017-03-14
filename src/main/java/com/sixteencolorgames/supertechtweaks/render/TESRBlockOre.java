@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -140,9 +140,9 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			tessellator.draw();
 			for (int i = 0; i < 7; i++) {
 				int metal = tileEntity.getOres()[i];
-				if (metal != Metals.NONE.ordinal()) {
+				if (metal != Ores.NONE.ordinal()) {
 					this.bindTexture(layerTextures[i]);
-					Metals met = Metals.values()[metal];
+					Ores met = Ores.values()[metal];
 					Color color = Color.decode(met.getColor());
 					GlStateManager.color(((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
 							((float) color.getBlue()) / 255);

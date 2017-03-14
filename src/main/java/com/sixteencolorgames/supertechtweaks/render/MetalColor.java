@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.block.state.IBlockState;
@@ -43,7 +43,7 @@ public class MetalColor implements IItemColor, IBlockColor {
 				return Color.WHITE.getRGB();
 			case 1: {
 				int metadata = stack.getMetadata();
-				Metals metal = Metals.values()[metadata];
+				Ores metal = Ores.values()[metadata];
 				return Color.decode(metal.getColor()).getRGB();
 			}
 			default: {

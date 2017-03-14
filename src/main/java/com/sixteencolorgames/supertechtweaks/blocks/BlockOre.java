@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -60,7 +60,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	 *            The metal to add
 	 * @return True if the metal was successfully added
 	 */
-	public boolean addMetal(World worldIn, BlockPos pos, Metals metal) {
+	public boolean addMetal(World worldIn, BlockPos pos, Ores metal) {
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if (tileEntity instanceof TileEntityOre) {
 			TileEntityOre ore = (TileEntityOre) tileEntity;
@@ -102,18 +102,14 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 			if (tileEntity instanceof TileEntityOre) {
 				TileEntityOre ore = (TileEntityOre) tileEntity;
 				int[] ores = ore.getOres();
-				System.out.println("Ore Contents: " + Arrays.toString(ores));
 				for (int i = 0; i < 7; i++) {
-					if (ores[i] != Metals.NONE.ordinal()) {
-						if (Metals.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand())
-								.getItem().getHarvestLevel(null, "pickaxe")) {
+					if (ores[i] != Ores.NONE.ordinal()) {
+						if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand()).getItem()
+								.getHarvestLevel(null, "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
 									pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
-							ore.setMetal(i, Metals.NONE);
+							ore.setMetal(i, Ores.NONE);
 						} else {
-							System.out.println("Cannot mine, required: " + Metals.values()[ores[i]].getHarvest()
-									+ ", have: " + player.getHeldItem(player.getActiveHand()).getItem()
-											.getHarvestLevel(null, "pickaxe"));
 							metalLeft = true;
 						}
 					}
@@ -148,9 +144,22 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 			IWailaConfigHandler config) {
 		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
+		int main = accessor.getPlayer().getHeldItemMainhand().getItem().getHarvestLevel(null, "pickaxe");
+		int off = accessor.getPlayer().getHeldItemOffhand().getItem().getHarvestLevel(null, "pickaxe");
+		int harvest;
+		if (main > off) {
+			harvest = main;
+		} else {
+			harvest = off;
+		}
 		for (int metal : te.getOres()) {
-			if (metal != Metals.NONE.ordinal()) {
-				currenttip.add(TextFormatting.GRAY + Metals.values()[metal].getName());
+			if (metal != Ores.NONE.ordinal()) {
+				Ores ore = Ores.values()[metal];
+				TextFormatting color = TextFormatting.RED;
+				if (harvest >= ore.getHarvest()) {
+					color = TextFormatting.GREEN;
+				}
+				currenttip.add(color + Ores.values()[metal].getName());
 			}
 		}
 

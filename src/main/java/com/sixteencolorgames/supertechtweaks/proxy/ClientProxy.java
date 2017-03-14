@@ -4,7 +4,7 @@ import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.render.TESRBlockOre;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy {
 		super.preInit(e);
 		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
 				"inventory");
-		for (int i = 0; i < Metals.values().length; i++) {// set all of the
+		for (int i = 0; i < Ores.values().length; i++) {// set all of the
 															// chunks to use the
 															// same model;
 															// MetalColors

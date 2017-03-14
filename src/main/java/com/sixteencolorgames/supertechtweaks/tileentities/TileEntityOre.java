@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.annotation.Nullable;
 
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,9 +28,9 @@ public class TileEntityOre extends TileEntity {
 	 */
 	private String base;
 
-	public boolean addMetal(Metals metal) {
+	public boolean addMetal(Ores metal) {
 		for (int i = 0; i < 7; i++) {
-			if (metals[i] == Metals.NONE.ordinal()) {
+			if (metals[i] == Ores.NONE.ordinal()) {
 				metals[i] = metal.ordinal();
 				return true;
 			}
@@ -45,7 +45,7 @@ public class TileEntityOre extends TileEntity {
 		return new int[] { 0 };
 	}
 
-	public void setMetal(int index, Metals metal) {
+	public void setMetal(int index, Ores metal) {
 		metals[index] = metal.ordinal();
 	}
 

@@ -3,7 +3,7 @@ package com.sixteencolorgames.supertechtweaks.world;
 import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
-import com.sixteencolorgames.supertechtweaks.enums.Metals;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.block.state.IBlockState;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class WorldGeneratorBase extends WorldGenerator {
-	public Map<Metals, Double> ores;// List of metals in this generator
+	public Map<Ores, Double> ores;// List of metals in this generator
 	public int size;// Size of the generator. This means different things
 					// depending on the implementation
 	public Map<String, Object> params;// Other parameters specific to
@@ -23,7 +23,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 	public int chance;// Chance per chunk to generate an instance
 	private String name;// The identifying name for this generator
 
-	public WorldGeneratorBase(Map<Metals, Double> ores, int size, int min, int max, int chance,
+	public WorldGeneratorBase(Map<Ores, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
 		this.ores = ores;
 		this.size = size;
@@ -41,7 +41,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 		return name;
 	}
 
-	public Map<Metals, Double> getOres() {
+	public Map<Ores, Double> getOres() {
 		return ores;
 	}
 
