@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.world;
 
 import java.util.Map;
 
+import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -54,7 +55,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 	}
 
 	public boolean generateOre(World world, BlockPos pos) {
-		if (Types.stone.contains(world.getBlockState(pos))) {
+		if (Config.stone.contains(world.getBlockState(pos))) {
 			String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
 			world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
 			TileEntity entity = world.getTileEntity(pos);

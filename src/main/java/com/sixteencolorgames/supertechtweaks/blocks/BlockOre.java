@@ -3,10 +3,7 @@ package com.sixteencolorgames.supertechtweaks.blocks;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import com.sixteencolorgames.supertechtweaks.ModItems;
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -14,9 +11,6 @@ import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,15 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
 
 /**
  * The ore block for world generation. Can hold up to 7 ores.
@@ -144,14 +134,9 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 			IWailaConfigHandler config) {
 		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
-		int main = accessor.getPlayer().getHeldItemMainhand().getItem().getHarvestLevel(null, "pickaxe");
-		int off = accessor.getPlayer().getHeldItemOffhand().getItem().getHarvestLevel(null, "pickaxe");
-		int harvest;
-		if (main > off) {
-			harvest = main;
-		} else {
-			harvest = off;
-		}
+		EntityPlayer player = accessor.getPlayer();
+		int harvest = player.getHeldItemMainhand() != null
+				? player.getHeldItemMainhand().getItem().getHarvestLevel(null, "pickaxe") : -1;
 		for (int metal : te.getOres()) {
 			if (metal != Ores.NONE.ordinal()) {
 				Ores ore = Ores.values()[metal];

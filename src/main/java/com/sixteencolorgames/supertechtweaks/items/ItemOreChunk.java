@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Drops from ore blocks.
@@ -35,8 +36,9 @@ public class ItemOreChunk extends Item {
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		for (Ores metal : Ores.values()) {
-			ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + 1);
+			ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal());
 			subItems.add(subItemStack);
+			OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
 		}
 	}
 

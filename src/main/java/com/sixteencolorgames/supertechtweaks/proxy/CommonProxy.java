@@ -1,15 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
+import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
-import com.sixteencolorgames.supertechtweaks.world.Types;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
@@ -30,18 +29,17 @@ public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent e) {
 		MainCompatHandler.registerWaila();
-		new Types();
 		File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
-		if (!new File(configFolder.getPath(), "ores.json").exists()) {
-			config = new Configuration(new File(configFolder.getPath(), "ores.json"));
-			config.load();
-			config.save();
-		}
+		config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
+		Config.readConfig();
+
 		ModWorldGeneration generator = new ModWorldGeneration();
 		for (File gen : configFolder.listFiles()) {
-			try {
-				generator.addGenerators(GenerationParser.parseScripts(gen));
-			} catch (Exception ex) {
+			if (gen.getName().contains(".json")) {
+				try {
+					generator.addGenerators(GenerationParser.parseScripts(gen));
+				} catch (Exception ex) {
+				}
 			}
 		}
 		System.out.println("Generators Loaded");
@@ -56,7 +54,9 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent e) {
-
+		if (config.hasChanged()) {
+			config.save();
+		}
 	}
 
 	public void registerItemRenderer(Item item, int meta, String id) {
