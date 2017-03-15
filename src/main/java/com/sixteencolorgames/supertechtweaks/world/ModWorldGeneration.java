@@ -71,7 +71,7 @@ public class ModWorldGeneration implements IWorldGenerator {
 		}
 	}
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
+	@SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = false)
 	public void handleOreGenEvent(OreGenEvent.GenerateMinable event) {
 
 		if (!Config.removeVanilla) {

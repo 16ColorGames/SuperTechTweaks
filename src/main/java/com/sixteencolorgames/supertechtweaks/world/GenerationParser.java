@@ -73,6 +73,11 @@ public class GenerationParser {
 				vein.setName(key);
 				generators.add(vein);
 				break;
+			case "plate":
+				WorldGeneratorBase plate = parsePlate(entry);
+				plate.setName(key);
+				generators.add(plate);
+				break;
 			default:
 				System.err.println("Unrecognized generator type: " + generatorType);
 				break;
@@ -80,6 +85,13 @@ public class GenerationParser {
 
 		}
 		return generators;
+	}
+
+	private static WorldGeneratorBase parsePlate(JsonObject array) {
+		Map<Ores, Double> ores = parseOres(array.get("ore"));
+		HashMap<String, Object> params = new HashMap();
+		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
+				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
 	}
 
 	private static WorldGeneratorVein parseVein(JsonObject array) {

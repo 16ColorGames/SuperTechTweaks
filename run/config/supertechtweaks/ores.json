@@ -2,7 +2,7 @@
 {
     "iron": {
         "generator": "vein",
-        "ore": [{"ore": "iron", "weight": 0.7}, {"ore": "copper", "weight": 0.7}],
+        "ore": "iron",
 		"size": 4,
         "chance": 50,
         "minHeight": 32,
@@ -10,5 +10,13 @@
 		"properties": {
 			"branchLength": 5
 		}
+    },
+    "galena": {
+        "generator": "plate",
+        "ore": [{"ore": "silver", "weight": 0.7}, {"ore": "lead", "weight": 0.7}],
+		"size": 10,
+        "chance": 40,
+        "minHeight": 32,
+        "maxHeight": 48
     }
 }
