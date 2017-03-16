@@ -41,6 +41,7 @@ public enum Ores implements IStringSerializable {
 	CHROMIUM("Chromium", "0x18391e", 2), 
 	ALUMINUM("Aluminum", "0xe0d9cd", 2),
 	SILVER("Silver", "0xb5b5bd", 2), 
+	TELLURIUM("Tellurium", "0xb5b5bd", 2), 
 	LAPIS("Lapis", "0x000094", 2){
 		@Override
 		public ItemStack getDrops(){
@@ -54,6 +55,15 @@ public enum Ores implements IStringSerializable {
 		@Override
 		public ItemStack getDrops(){
 			return new ItemStack(Items.REDSTONE, 4, 0);
+		}
+	},  
+	SULFUR("Sulfur", "0xedff21", 3){
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("dustSulfur")) {
+				return OreDictionary.getOres("dustSulfur").get(0);
+			}
+			else return super.getDrops();
 		}
 	}, 
 	NICKEL("Nickel", "0xccd3d8", 3), 
@@ -108,7 +118,7 @@ public enum Ores implements IStringSerializable {
 			else return super.getDrops();
 		}
 	}, 
-	CHARGED_CERTUS("Certus", "0xeadadf", 5), 
+	CHARGED_CERTUS("Certus_Charged", "0xeadadf", 5), 
 	ARDITE("Ardite", "0xff7b00", 6), 
 	URANIUM("Uranium", "0x329832", 6), 
 	PLATINUM("Platinum", "0xb8b7b2", 6), 

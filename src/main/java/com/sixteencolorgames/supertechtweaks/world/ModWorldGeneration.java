@@ -28,11 +28,10 @@ public class ModWorldGeneration implements IWorldGenerator {
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.DIAMOND);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.DIRT);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.GOLD);
-		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.GRAVEL);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.IRON);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.LAPIS);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.REDSTONE);
-		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.QUARTZ);
+	//	vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.QUARTZ);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.EMERALD);
 	}
 

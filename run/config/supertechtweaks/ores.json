@@ -1,11 +1,19 @@
 # Configuration file
 {
-    "iron": {
+    "cuprite": {
         "generator": "vein",
-        "ore": "iron",
+        "ore": "copper",
 		"size": 75,
         "chance": 10,
         "minHeight": 32,
+        "maxHeight": 64
+    },
+    "Bauxite": {
+        "generator": "vein",
+        "ore": "aluminum",
+		"size": 75,
+        "chance": 30,
+        "minHeight": 50,
         "maxHeight": 64
     },
     "galena": {
@@ -23,6 +31,94 @@
         "chance": 10,
         "minHeight": 4,
         "maxHeight": 16,
+		"properties": {
+			"clusterVariance": 3
+		}
+    },
+    "Chalcopyrite": {
+        "generator": "cluster",
+        "ore": [{"ore": "copper", "weight": 0.75}, {"ore": "iron", "weight": 0.75}, {"ore": "sulfur", "weight": 1.0}],
+		"size": 15,
+        "chance": 5,
+        "minHeight": 20,
+        "maxHeight": 40,
+		"properties": {
+			"clusterVariance": 5
+		}
+    },
+    "Sphalerite": {
+        "generator": "cluster",
+        "ore": [{"ore": "zinc", "weight": 0.75}, {"ore": "iron", "weight": 0.2}, {"ore": "sulfur", "weight": 1.0}],
+		"size": 15,
+        "chance": 5,
+        "minHeight": 25,
+        "maxHeight": 40,
+		"properties": {
+			"clusterVariance": 5
+		}
+    },
+    "Osmiridium": {
+        "generator": "cluster",
+        "ore": [{"ore": "osmium", "weight": 0.75}, {"ore": "iridium", "weight": 0.25}, {"ore": "platinum", "weight": 0.1}],
+		"size": 15,
+        "chance": 15,
+        "minHeight": 25,
+        "maxHeight": 40,
+		"properties": {
+			"clusterVariance": 5
+		}
+    },
+    "Calaverite": {
+        "generator": "cluster",
+        "ore": [{"ore": "gold", "weight": 0.9}, {"ore": "tellurium", "weight": 0.7}, {"ore": "silver", "weight": .1}],
+		"size": 15,
+        "chance": 5,
+        "minHeight": 10,
+        "maxHeight": 30,
+		"properties": {
+			"clusterVariance": 5
+		}
+    },
+    "Lapis": {
+        "generator": "cluster",
+        "ore": [{"ore": "lapis", "weight": 1.0}],
+		"size": 5,
+        "chance": 4,
+        "minHeight": 4,
+        "maxHeight": 12,
+		"properties": {
+			"clusterVariance": 2
+		}
+    },
+    "Certus": {
+        "generator": "cluster",
+        "ore": [{"ore": "certus", "weight": 1.0}],
+		"size": 5,
+        "chance": 4,
+        "minHeight": 20,
+        "maxHeight": 50,
+		"properties": {
+			"clusterVariance": 2
+		}
+    },
+    "Cassiterite": {
+        "generator": "cluster",
+        "ore": [{"ore": "tin", "weight": 1.0}],
+		"size": 5,
+        "chance": 2,
+        "minHeight": 40,
+        "maxHeight": 50,
+		"properties": {
+			"clusterVariance": 2
+		}
+    },
+    "Redstone": {
+        "generator": "cluster",
+        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.3}],
+		"size": 7,
+        "chance": 2,
+        "minHeight": 4,
+        "maxHeight": 12,
 		"properties": {
 			"clusterVariance": 3
 		}
