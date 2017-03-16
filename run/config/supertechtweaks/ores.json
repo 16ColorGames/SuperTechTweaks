@@ -3,7 +3,7 @@
     "iron": {
         "generator": "vein",
         "ore": "iron",
-		"size": 20,
+		"size": 75,
         "chance": 10,
         "minHeight": 32,
         "maxHeight": 64

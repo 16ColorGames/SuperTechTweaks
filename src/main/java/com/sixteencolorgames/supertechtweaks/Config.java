@@ -19,8 +19,7 @@ public class Config {
 	public static boolean removeVanilla;
 
 	// Call this from CommonProxy.preInit(). It will create our config if it
-	// doesn't
-	// exist yet and read the values if it does exist.
+	// doesn't exist yet and read the values if it does exist.
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
 		try {
@@ -48,10 +47,10 @@ public class Config {
 		for (String type : types) {// Adds the read in stone types to the
 									// 'stone' block type. used for generation
 			String[] split = type.split(":");
-			if (split.length == 3) {
+			if (split.length == 3) {//This one is called for items such as "minecraft:stone:4", which is a specific type of stone
 				stone.add(
 						Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
-			} else {
+			} else {//This one is called for items without metadata, such as "minecraft:dirt"
 				stone.add(Block.getBlockFromName(type).getDefaultState());
 			}
 		}

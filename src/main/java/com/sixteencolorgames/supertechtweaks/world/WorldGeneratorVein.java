@@ -11,7 +11,9 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class WorldGeneratorVein extends WorldGeneratorBase {
-private double scale = 1.5;
+	
+	private double scale = 1.5;
+
 	public WorldGeneratorVein(Map<Ores, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
 		super(ores, size, min, max, chance, params);

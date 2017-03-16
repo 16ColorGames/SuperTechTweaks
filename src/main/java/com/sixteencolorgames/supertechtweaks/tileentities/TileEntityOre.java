@@ -20,7 +20,7 @@ import net.minecraft.tileentity.TileEntity;
  */
 public class TileEntityOre extends TileEntity {
 	/**
-	 * array of metals in this block. Uses Metals index
+	 * array of metals in this block. Uses Ores index
 	 */
 	private int[] metals = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 	/**

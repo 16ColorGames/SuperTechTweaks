@@ -28,8 +28,6 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			new ResourceLocation("supertechtweaks:textures/blocks/ore5.png"),
 			new ResourceLocation("supertechtweaks:textures/blocks/ore6.png"),
 			new ResourceLocation("supertechtweaks:textures/blocks/ore7.png") };
-	private static final ResourceLocation layer1Texture = new ResourceLocation(
-			"supertechtweaks:textures/blocks/ore1.png");
 
 	/**
 	 * render the tile entity - called every frame while the tileentity is in
@@ -61,27 +59,6 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			return; // should never happen
 		TileEntityOre tileEntityOre = tileEntity;
 
-		// the gem changes its appearance and animation as the player
-		// approaches.
-		// When the player is a long distance away, the gem is dark, resting in
-		// the hopper, and does not rotate.
-		// As the player approaches closer than 16 blocks, the gem first starts
-		// to glow brighter and to spin anti-clockwise
-		// When the player gets closer than 4 blocks, the gem is at maximum
-		// speed and brightness, and starts to levitate above the pedestal
-		// Once the player gets closer than 2 blocks, the gem reaches maximum
-		// height.
-
-		// the appearance and animation of the gem is hence made up of several
-		// parts:
-		// 1) the colour of the gem, which is contained in the tileEntity
-		// 2) the brightness of the gem, which depends on player distance
-		// 3) the distance that the gem rises above the pedestal, which depends
-		// on player distance
-		// 4) the speed at which the gem is spinning, which depends on player
-		// distance.
-		Vec3d playerEye = new Vec3d(0.0, 0.0, 0.0);
-
 		try {
 			// save the transformation matrix and the rendering attributes, so
 			// that we can restore them after rendering. This
@@ -93,7 +70,7 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			GL11.glPushMatrix();
 			GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 
-			// First we need to set up the translation so that we render our gem
+			// First we need to set up the translation so that we render our ore
 			// with the bottom point at 0,0,0
 			// when the renderTileEntityAt method is called, the tessellator is
 			// set up so that drawing a dot at [0,0,0] corresponds to the
@@ -103,18 +80,12 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 			// difference between the
 			// two points, i.e. by the [relativeX, relativeY, relativeZ] passed
 			// to the method. If you then draw a cube from [0,0,0] to [1,1,1],
-			// it will
-			// render exactly over the top of the TileEntity's block.
-			// In this example, the zero point of our model needs to be in the
-			// middle of the block, not at the [x,y,z] of the block, so we need
-			// to
-			// add an extra offset as well, i.e. [gemCentreOffsetX,
-			// gemCentreOffsetY, gemCentreOffsetZ]
+			// it will render exactly over the top of the TileEntity's block.
 			GlStateManager.translate(relativeX, relativeY, relativeZ);
 
 			Tessellator tessellator = Tessellator.getInstance();
 			VertexBuffer vertexBuffer = tessellator.getBuffer();
-			this.bindTexture(baseTexture); // texture for the gem appearance
+			this.bindTexture(baseTexture); // texture for the stone appearance
 
 			// fix dark lighting issue
 			int li = tileEntity.getWorld().getCombinedLight(tileEntity.getPos(), 15728640);
@@ -128,24 +99,24 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 												// direction it is facing)
 			GL11.glDisable(GL11.GL_BLEND); // turn off "alpha" transparency
 											// blending
-			GL11.glDepthMask(true); // gem is hidden behind other objects
+			GL11.glDepthMask(true); // ore is hidden behind other objects
 
 			// set the rendering colour
 			float red = 1, green = 1, blue = 1;
 			GlStateManager.color(red, green, blue); // change the rendering
 													// colour
 
-			vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);//set the system to draw quads, not triangles
 			addBlockVertecies(vertexBuffer);
 			tessellator.draw();
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 7; i++) {//for each of the ores inside the block
 				int metal = tileEntity.getOres()[i];
 				if (metal != Ores.NONE.ordinal()) {
-					this.bindTexture(layerTextures[i]);
+					this.bindTexture(layerTextures[i]);//set the ore layer texture
 					Ores met = Ores.values()[metal];
-					Color color = Color.decode(met.getColor());
+					Color color = Color.decode(met.getColor());//decode the color from the Ores enum
 					GlStateManager.color(((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
-							((float) color.getBlue()) / 255);
+							((float) color.getBlue()) / 255);//set the render color
 
 					vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 					addBlockVertecies(vertexBuffer);
@@ -167,23 +138,28 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 				{ 0.000, 0.000, 1.000, 0.000, 1.000 },
 
 				{ 0.000, 0.000, 0.000, 1.000, 1.000 }, // 2
-				{ 0.000, 1.000, 0.000, 1.000, 0.000 }, { 1.000, 1.000, 0.000, 0.000, 0.000 },
+				{ 0.000, 1.000, 0.000, 1.000, 0.000 },
+				{ 1.000, 1.000, 0.000, 0.000, 0.000 },
 				{ 1.000, 0.000, 0.000, 0.000, 1.000 },
 
 				{ 1.000, 0.000, 0.000, 1.000, 1.000 }, // 3
-				{ 1.000, 1.000, 0.000, 1.000, 0.000 }, { 1.000, 1.000, 1.000, 0.000, 0.000 },
+				{ 1.000, 1.000, 0.000, 1.000, 0.000 },
+				{ 1.000, 1.000, 1.000, 0.000, 0.000 },
 				{ 1.000, 0.000, 1.000, 0.000, 1.000 },
 
 				{ 0.000, 0.000, 1.000, 1.000, 1.000 }, // 4
-				{ 0.000, 1.000, 1.000, 1.000, 0.000 }, { 0.000, 1.000, 0.000, 0.000, 0.000 },
+				{ 0.000, 1.000, 1.000, 1.000, 0.000 },
+				{ 0.000, 1.000, 0.000, 0.000, 0.000 },
 				{ 0.000, 0.000, 0.000, 0.000, 1.000 },
 
 				{ 0.000, 0.000, 1.000, 1.000, 1.000 }, // 5
-				{ 0.000, 0.000, 0.000, 1.000, 0.000 }, { 1.000, 0.000, 0.000, 0.000, 0.000 },
+				{ 0.000, 0.000, 0.000, 1.000, 0.000 },
+				{ 1.000, 0.000, 0.000, 0.000, 0.000 },
 				{ 1.000, 0.000, 1.000, 0.000, 1.000 },
 
 				{ 0.000, 1.000, 0.000, 1.000, 1.000 }, // 6
-				{ 0.000, 1.000, 1.000, 1.000, 0.000 }, { 1.000, 1.000, 1.000, 0.000, 0.000 },
+				{ 0.000, 1.000, 1.000, 1.000, 0.000 },
+				{ 1.000, 1.000, 1.000, 0.000, 0.000 },
 				{ 1.000, 1.000, 0.000, 0.000, 1.000 }
 
 		};

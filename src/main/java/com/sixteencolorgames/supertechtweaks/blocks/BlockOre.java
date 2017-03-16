@@ -61,7 +61,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 
 	/**
 	 * Ensures that this block does not drop any items, this is now handled in
-	 * breakBlock.
+	 * removedByPlayer.
 	 * 
 	 * @param meta
 	 * @param random
@@ -86,6 +86,10 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	@Override
 	public boolean removedByPlayer(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player,
 			boolean willHarvest) {
+		if(player.isCreative()){//If the player is in creative...
+			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
+			return true;
+		}
 		if (!worldIn.isRemote) {
 			boolean metalLeft = false;
 			TileEntity tileEntity = worldIn.getTileEntity(pos);
@@ -97,26 +101,21 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 						if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand()).getItem()
 								.getHarvestLevel(null, "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
-									pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops()));
-							ore.setMetal(i, Ores.NONE);
+									pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops()));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
+							ore.setMetal(i, Ores.NONE);//We dropped the ore, so remove it from the block
 						} else {
 							metalLeft = true;
 						}
 					}
 				}
-				// handle dropping of metal chunks
 			}
 			willHarvest = metalLeft;
-			if (!metalLeft) {
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+			if (!metalLeft) {//When we have removel all of the ore from the block...
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
 			}
 			return !metalLeft;
 		}
 		return true;
-	}
-
-	public void initModel() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -154,11 +153,6 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 	@Override
 	public void registerItemModel(Item item) {
 		// void since we shouldn't have this in inventory
-	}
-
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.SOLID;
 	}
 
 	@Override
