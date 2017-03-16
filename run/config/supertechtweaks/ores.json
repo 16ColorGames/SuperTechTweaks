@@ -3,13 +3,10 @@
     "iron": {
         "generator": "vein",
         "ore": "iron",
-		"size": 4,
-        "chance": 50,
+		"size": 20,
+        "chance": 10,
         "minHeight": 32,
-        "maxHeight": 64,
-		"properties": {
-			"branchLength": 5
-		}
+        "maxHeight": 64
     },
     "galena": {
         "generator": "plate",
@@ -25,6 +22,9 @@
 		"size": 10,
         "chance": 10,
         "minHeight": 4,
-        "maxHeight": 16
+        "maxHeight": 16,
+		"properties": {
+			"clusterVariance": 3
+		}
     }
 }

@@ -90,13 +90,6 @@ public class GenerationParser {
 	private static WorldGeneratorBase parseCluster(JsonObject array) {
 		Map<Ores, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
-		return new WorldGeneratorCluster(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
-				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
-	}
-
-	private static WorldGeneratorBase parsePlate(JsonObject array) {
-		Map<Ores, Double> ores = parseOres(array.get("ore"));
-		HashMap<String, Object> params = new HashMap();
 		if (array.has("properties") && array.get("properties").isJsonObject()) {
 			JsonObject props = array.get("properties").getAsJsonObject();
 			if (props.has("clusterVariance") && props.get("clusterVariance").isJsonPrimitive()) {
@@ -108,6 +101,13 @@ public class GenerationParser {
 		} else {
 			params.put("clusterVariance", 0);
 		}
+		return new WorldGeneratorCluster(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
+				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
+	}
+
+	private static WorldGeneratorBase parsePlate(JsonObject array) {
+		Map<Ores, Double> ores = parseOres(array.get("ore"));
+		HashMap<String, Object> params = new HashMap();
 		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
 	}
