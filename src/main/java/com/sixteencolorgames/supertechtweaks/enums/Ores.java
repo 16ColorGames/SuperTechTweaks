@@ -5,6 +5,7 @@ import com.sixteencolorgames.supertechtweaks.ModItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Enumeration of metal types used in this mod.
@@ -28,11 +29,24 @@ public enum Ores implements IStringSerializable {
 	},  
 	MONAZIT("Monazit", "0x82c59c", 1), 
 	IRON("Iron", "0xd3ad90", 2), 
-	APATITE("Apatite", "0xc3b89c", 2), 
+	APATITE("Apatite", "0xc3b89c", 2) {
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("gemApatite")) {
+				return OreDictionary.getOres("gemApatite").get(0);
+			}
+			else return super.getDrops();
+		}
+	},   
 	CHROMIUM("Chromium", "0x18391e", 2), 
 	ALUMINUM("Aluminum", "0xe0d9cd", 2),
 	SILVER("Silver", "0xb5b5bd", 2), 
-	LAPIS("Lapis", "0x000094", 2), 
+	LAPIS("Lapis", "0x000094", 2){
+		@Override
+		public ItemStack getDrops(){
+			return new ItemStack(Items.DYE, 5, 4);
+		}
+	},  
 	TIN("Tin", "0x928a98", 3), 
 	GOLD("Gold", "0xcccc33", 3), 
 	LEAD("Lead", "0x474c4d", 3), 
@@ -45,7 +59,7 @@ public enum Ores implements IStringSerializable {
 	NICKEL("Nickel", "0xccd3d8", 3), 
 	OSMIUM("Osmium", "0x9090a3", 3), 
 	COLD_IRON("Cold Iron", "0x5f6c81", 3), 
-	DIAMOND("Diamond", "0x006381", 4){
+	DIAMOND("Diamond", "0xb9f2ff", 4){
 		@Override
 		public ItemStack getDrops(){
 			return new ItemStack(Items.DIAMOND, 1, 0);
@@ -56,12 +70,44 @@ public enum Ores implements IStringSerializable {
 		public ItemStack getDrops(){
 			return new ItemStack(Items.EMERALD, 1, 0);
 		}
+	},
+	RUBY("Ruby", "0x9b111e", 4) {
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("gemRuby")) {
+				return OreDictionary.getOres("gemRuby").get(0);
+			}
+			else return super.getDrops();
+		}
+	}, 
+	SAPPHIRE("Sapphire", "0x297bc1", 4) {
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("gemSapphire")) {
+				return OreDictionary.getOres("gemSapphire").get(0);
+			}
+			else return super.getDrops();
+		}
 	},  
-	RUBY("Ruby", "0x9b111e", 4), 
-	SAPPHIRE("Sapphire", "0x297bc1", 4), 
-	AMETHYST("Amethyst", "0x642552", 4), 
+	AMETHYST("Amethyst", "0x642552", 4) {
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("gemAmethyst")) {
+				return OreDictionary.getOres("gemAmethyst").get(0);
+			}
+			else return super.getDrops();
+		}
+	},  
 	MANGANESE("Manganese", "0x242d36", 4), 
-	CERTUS("Certus", "0xe6d7df", 5), 
+	CERTUS("Certus", "0xe6d7df", 5) {
+		@Override
+		public ItemStack getDrops() {
+			if (OreDictionary.doesOreNameExist("crystalCertusQuartz")) {
+				return OreDictionary.getOres("crystalCertusQuartz").get(0);
+			}
+			else return super.getDrops();
+		}
+	}, 
 	CHARGED_CERTUS("Certus", "0xeadadf", 5), 
 	ARDITE("Ardite", "0xff7b00", 6), 
 	URANIUM("Uranium", "0x329832", 6), 
