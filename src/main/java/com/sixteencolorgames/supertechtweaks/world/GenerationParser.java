@@ -63,11 +63,11 @@ public class GenerationParser {
 			}
 			String generatorType = entry.get("generator").getAsString();
 			switch (generatorType) {
-			// case "cluster":
-			// WorldGeneratorGeneric cluster = parseCluster(entry);
-			// cluster.setName(key);
-			// generators.add(cluster);
-			// break;
+			case "cluster":
+				WorldGeneratorBase cluster = parseCluster(entry);
+				cluster.setName(key);
+				generators.add(cluster);
+				break;
 			case "vein":
 				WorldGeneratorBase vein = parseVein(entry);
 				vein.setName(key);
@@ -87,9 +87,27 @@ public class GenerationParser {
 		return generators;
 	}
 
+	private static WorldGeneratorBase parseCluster(JsonObject array) {
+		Map<Ores, Double> ores = parseOres(array.get("ore"));
+		HashMap<String, Object> params = new HashMap();
+		return new WorldGeneratorCluster(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
+				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
+	}
+
 	private static WorldGeneratorBase parsePlate(JsonObject array) {
 		Map<Ores, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
+		if (array.has("properties") && array.get("properties").isJsonObject()) {
+			JsonObject props = array.get("properties").getAsJsonObject();
+			if (props.has("clusterVariance") && props.get("clusterVariance").isJsonPrimitive()) {
+				params.put("clusterVariance", props.get("clusterVariance").getAsInt());
+			} else {
+				System.out.println("Invalid/missing entry for clusterVariance, setting to 0");
+				params.put("clusterVariance", 0);
+			}
+		} else {
+			params.put("clusterVariance", 0);
+		}
 		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
 	}

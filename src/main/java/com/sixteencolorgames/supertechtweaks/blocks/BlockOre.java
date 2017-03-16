@@ -97,7 +97,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 						if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand()).getItem()
 								.getHarvestLevel(null, "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
-									pos.getZ() + 0.5, new ItemStack(ModItems.itemOreChunk, 1, ores[i])));
+									pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops()));
 							ore.setMetal(i, Ores.NONE);
 						} else {
 							metalLeft = true;
