@@ -48,7 +48,7 @@ public enum Ores implements IStringSerializable {
 			return new ItemStack(Items.DYE, 5, 4);
 		}
 	},  
-	TIN("Tin", "0x928a98", 3), 
+	TIN("Tin", "0x726a78", 3), 
 	GOLD("Gold", "0xcccc33", 3), 
 	LEAD("Lead", "0x474c4d", 3), 
 	REDSTONE("Redstone", "0xd43c2c", 3){

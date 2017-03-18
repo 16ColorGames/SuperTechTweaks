@@ -98,8 +98,8 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 				int[] ores = ore.getOres();
 				for (int i = 0; i < 7; i++) {
 					if (ores[i] != Ores.NONE.ordinal()) {
-						if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItem(player.getActiveHand()).getItem()
-								.getHarvestLevel(null, "pickaxe")) {
+						if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItemMainhand().getItem()
+								.getHarvestLevel(player.getHeldItemMainhand(), "pickaxe")) {
 							worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
 									pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops()));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
 							ore.setMetal(i, Ores.NONE);//We dropped the ore, so remove it from the block
@@ -135,7 +135,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
 		TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
 		EntityPlayer player = accessor.getPlayer();
 		int harvest = player.getHeldItemMainhand() != null
-				? player.getHeldItemMainhand().getItem().getHarvestLevel(null, "pickaxe") : -1;
+				? player.getHeldItemMainhand().getItem().getHarvestLevel(player.getHeldItemMainhand(), "pickaxe") : -1;
 		for (int metal : te.getOres()) {
 			if (metal != Ores.NONE.ordinal()) {
 				Ores ore = Ores.values()[metal];
