@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class WorldGeneratorVein extends WorldGeneratorBase {
-	
+
 	private double scale = 1.5;
 
 	public WorldGeneratorVein(Map<Ores, Double> ores, int size, int min, int max, int chance,
@@ -40,17 +40,12 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 			for (BlockPos adj : this.facing(check)) {
 				super.generateOre(world, adj);
 			}
-			if (rand.nextDouble() > .95) {
-				dir = new Vec3d((rand.nextDouble() - .5) * 2, (rand.nextDouble() - .5) * 2,
-						(rand.nextDouble() - .5) * 2).normalize().scale(scale);
-			}
 			while (pos.yCoord + dir.yCoord > this.maxY) {
-				dir = new Vec3d((rand.nextDouble() - .5) * 2, (rand.nextDouble() - .5) * 2,
-						(rand.nextDouble() - .5) * 2).normalize().scale(scale);
+				dir = new Vec3d((rand.nextDouble() - 1.0), (rand.nextDouble() - 1.0), (rand.nextDouble() - 1.0))
+						.normalize().scale(scale);
 			}
 			while (pos.yCoord + dir.yCoord < this.minY) {
-				dir = new Vec3d((rand.nextDouble() - .5) * 2, (rand.nextDouble() - .5) * 2,
-						(rand.nextDouble() - .5) * 2).normalize().scale(scale);
+				dir = new Vec3d((rand.nextDouble()), (rand.nextDouble()), (rand.nextDouble())).normalize().scale(scale);
 			}
 			pos = pos.add(dir);
 		}
