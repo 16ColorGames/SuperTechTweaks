@@ -122,7 +122,7 @@ public enum Ores implements IStringSerializable {
 	ARDITE("Ardite", "0xff7b00", 6), 
 	URANIUM("Uranium", "0x329832", 6), 
 	PLATINUM("Platinum", "0xb8b7b2", 6), 
-	YELLORITE("Yellorite", "0xffce00", 6), 
+	YELLORIUM("Yellorium", "0xffce00", 6), 
 	DRACONIUM("Draconium", "0xd2a8d4", 6), 
 	COBALT("Cobalt", "0x0071b6", 7), 
 	IRIDIUM("Iridium", "0xe0e2dd", 7), 
