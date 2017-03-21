@@ -12,7 +12,32 @@ import net.minecraft.world.World;
 
 public class WorldGeneratorVein extends WorldGeneratorBase {
 
-	private double scale = 1.5;
+	private static final double scale = 1.3;
+	private static final Vec3d[] dirs = new Vec3d[] { 
+			new Vec3d(+0.0000, +0.0000, +1.0000).scale(scale),
+			new Vec3d(+0.0000, +0.0000, -1.0000).scale(scale),
+			new Vec3d(+1.0000, +0.0000, +0.0000).scale(scale),
+			new Vec3d(-1.0000, +0.0000, +0.0000).scale(scale),
+			new Vec3d(+0.7071, +0.0000, +0.7071).scale(scale),
+			new Vec3d(-0.7071, +0.0000, +0.7071).scale(scale),
+			new Vec3d(+0.7071, +0.0000, -0.7071).scale(scale),
+			new Vec3d(-0.7071, +0.0000, -0.7071).scale(scale),
+			new Vec3d(+0.0000, +0.7071, +0.7071).scale(scale),
+			new Vec3d(+0.0000, +0.7071, -0.7071).scale(scale),
+			new Vec3d(+0.7071, +0.7071, +0.0000).scale(scale),
+			new Vec3d(-0.7071, +0.7071, +0.0000).scale(scale),
+			new Vec3d(+0.5773, +0.5773, +0.5773).scale(scale),
+			new Vec3d(-0.5773, +0.5773, +0.5773).scale(scale),
+			new Vec3d(+0.5773, +0.5773, -0.5773).scale(scale),
+			new Vec3d(-0.5773, +0.5773, -0.5773).scale(scale),
+			new Vec3d(+0.0000, -0.7071, +0.7071).scale(scale),
+			new Vec3d(+0.0000, -0.7071, -0.7071).scale(scale),
+			new Vec3d(+0.7071, -0.7071, +0.0000).scale(scale),
+			new Vec3d(-0.7071, -0.7071, +0.0000).scale(scale),
+			new Vec3d(+0.5773, -0.5773, +0.5773).scale(scale),
+			new Vec3d(-0.5773, -0.5773, +0.5773).scale(scale),
+			new Vec3d(+0.5773, -0.5773, -0.5773).scale(scale),
+			new Vec3d(-0.5773, -0.5773, -0.5773).scale(scale) };
 
 	public WorldGeneratorVein(Map<Ores, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
@@ -33,19 +58,17 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 		int height = rand.nextInt(maxY - minY) + minY;
 		Vec3d pos = new Vec3d(position.getX(), position.getY() + height, position.getZ());
 		// wander
-		Vec3d dir = new Vec3d((rand.nextDouble() - .5) * 2, (rand.nextDouble() - .5) * 2, (rand.nextDouble() - .5) * 2)
-				.normalize().scale(scale);
+		Vec3d dir = dirs[rand.nextInt(dirs.length)];
 		for (int i = 0; i < size; i++) {
 			BlockPos check = new BlockPos(pos);
 			for (BlockPos adj : this.facing(check)) {
 				super.generateOre(world, adj);
 			}
 			while (pos.yCoord + dir.yCoord > this.maxY) {
-				dir = new Vec3d((rand.nextDouble() - 1.0), (rand.nextDouble() - 1.0), (rand.nextDouble() - 1.0))
-						.normalize().scale(scale);
+				dir = dirs[rand.nextInt(dirs.length)];
 			}
 			while (pos.yCoord + dir.yCoord < this.minY) {
-				dir = new Vec3d((rand.nextDouble()), (rand.nextDouble()), (rand.nextDouble())).normalize().scale(scale);
+				dir = dirs[rand.nextInt(dirs.length)];
 			}
 			pos = pos.add(dir);
 		}
