@@ -6,16 +6,19 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Proxy functions common to both the client and server side
@@ -56,6 +59,12 @@ public class CommonProxy {
 	public void postInit(FMLPostInitializationEvent e) {
 		if (config.hasChanged()) {
 			config.save();
+		}
+		for (Ores ore : Ores.values()) {
+			if (OreDictionary.doesOreNameExist("ingot" + ore.getName())) {
+				GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()),
+						OreDictionary.getOres("ingot" + ore.getName()).get(0), 1.0f);
+			}
 		}
 	}
 

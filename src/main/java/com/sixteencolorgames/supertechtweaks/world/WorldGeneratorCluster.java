@@ -19,7 +19,9 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 
 	public boolean generateCluster(World worldIn, Random rand, BlockPos position) {
 		int height = rand.nextInt(maxY - minY) + minY;
-		int numBlocks = size + rand.nextInt((Integer) params.getOrDefault("clusterVariance", 0));
+		int variance = ((int) params.getOrDefault("clusterVariance", 1) > 0)
+				? (int) params.getOrDefault("clusterVariance", 1) : 1;
+		int numBlocks = size + rand.nextInt(variance);
 		for (int i = 0; i < numBlocks; i++) {
 			BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
 			super.generateOre(worldIn, newPos);
@@ -29,7 +31,7 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		if (rand.nextInt(chance - 1) == 0) {
+		if (rand.nextInt(chance) == 0) {
 			return generateCluster(worldIn, rand, position);
 		}
 		return true;

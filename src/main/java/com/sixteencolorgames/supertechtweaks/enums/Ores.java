@@ -8,7 +8,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
- * Enumeration of metal types used in this mod.
+ * Enumeration of ore types used in this mod.
  * 
  * @author oa10712
  *

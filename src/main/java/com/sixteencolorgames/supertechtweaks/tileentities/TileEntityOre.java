@@ -26,7 +26,7 @@ public class TileEntityOre extends TileEntity {
 	/**
 	 * unlocalized name for the base block
 	 */
-	private String base;
+	private String base = "";
 
 	public boolean addMetal(Ores metal) {
 		for (int i = 0; i < 7; i++) {

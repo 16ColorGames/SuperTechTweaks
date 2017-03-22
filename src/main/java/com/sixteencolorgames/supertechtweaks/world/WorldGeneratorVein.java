@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public class WorldGeneratorVein extends WorldGeneratorBase {
 
-	private static final double scale = 1.3;
+	private static final double scale = 1.3726;//e log(2)
 	private static final Vec3d[] dirs = new Vec3d[] { 
 			new Vec3d(+0.0000, +0.0000, +1.0000).scale(scale),
 			new Vec3d(+0.0000, +0.0000, -1.0000).scale(scale),
@@ -22,22 +22,22 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 			new Vec3d(-0.7071, +0.0000, +0.7071).scale(scale),
 			new Vec3d(+0.7071, +0.0000, -0.7071).scale(scale),
 			new Vec3d(-0.7071, +0.0000, -0.7071).scale(scale),
-			new Vec3d(+0.0000, +0.7071, +0.7071).scale(scale),
-			new Vec3d(+0.0000, +0.7071, -0.7071).scale(scale),
-			new Vec3d(+0.7071, +0.7071, +0.0000).scale(scale),
-			new Vec3d(-0.7071, +0.7071, +0.0000).scale(scale),
-			new Vec3d(+0.5773, +0.5773, +0.5773).scale(scale),
-			new Vec3d(-0.5773, +0.5773, +0.5773).scale(scale),
-			new Vec3d(+0.5773, +0.5773, -0.5773).scale(scale),
-			new Vec3d(-0.5773, +0.5773, -0.5773).scale(scale),
-			new Vec3d(+0.0000, -0.7071, +0.7071).scale(scale),
-			new Vec3d(+0.0000, -0.7071, -0.7071).scale(scale),
-			new Vec3d(+0.7071, -0.7071, +0.0000).scale(scale),
-			new Vec3d(-0.7071, -0.7071, +0.0000).scale(scale),
-			new Vec3d(+0.5773, -0.5773, +0.5773).scale(scale),
-			new Vec3d(-0.5773, -0.5773, +0.5773).scale(scale),
-			new Vec3d(+0.5773, -0.5773, -0.5773).scale(scale),
-			new Vec3d(-0.5773, -0.5773, -0.5773).scale(scale) };
+			new Vec3d(+0.0000, +0.4472, +0.8944).scale(scale),
+			new Vec3d(+0.0000, +0.4472, -0.8944).scale(scale),
+			new Vec3d(+0.8944, +0.4472, +0.0000).scale(scale),
+			new Vec3d(-0.8944, +0.7071, +0.0000).scale(scale),
+			new Vec3d(+0.6666, +0.3333, +0.6666).scale(scale),
+			new Vec3d(-0.6666, +0.3333, +0.6666).scale(scale),
+			new Vec3d(+0.6666, +0.3333, -0.6666).scale(scale),
+			new Vec3d(-0.6666, +0.3333, -0.6666).scale(scale),
+			new Vec3d(+0.0000, -0.4472, +0.8944).scale(scale),
+			new Vec3d(+0.0000, -0.4472, -0.8944).scale(scale),
+			new Vec3d(+0.8944, -0.4472, +0.0000).scale(scale),
+			new Vec3d(-0.8944, -0.4472, +0.0000).scale(scale),
+			new Vec3d(+0.6666, -0.3333, +0.6666).scale(scale),
+			new Vec3d(-0.6666, -0.3333, +0.6666).scale(scale),
+			new Vec3d(+0.6666, -0.3333, -0.6666).scale(scale),
+			new Vec3d(-0.6666, -0.3333, -0.6666).scale(scale) };
 
 	public WorldGeneratorVein(Map<Ores, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {

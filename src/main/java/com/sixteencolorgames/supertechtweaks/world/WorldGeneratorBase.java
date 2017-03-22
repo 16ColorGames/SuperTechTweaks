@@ -14,7 +14,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class WorldGeneratorBase extends WorldGenerator {
-	public Map<Ores, Double> ores;// List of metals in this generator
+	public Map<Ores, Double> ores;// List of metals in this generator along with
+									// their chance to generate per block
 	public int size;// Size of the generator. This means different things
 					// depending on the implementation
 	public Map<String, Object> params;// Other parameters specific to
