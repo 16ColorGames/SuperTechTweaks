@@ -63,20 +63,18 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
 			if (entity instanceof TileEntityOre) {
 				TileEntityOre tile = (TileEntityOre) entity;
 				tile.setBase(base);
+			}
+		}
+		world.getMinecraftServer().addScheduledTask(() -> {
+			if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
+				TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
 				ores.forEach((k, v) -> {
 					if (world.rand.nextDouble() < v) {
 						tile.addMetal(k);
 					}
 				});
 			}
-		} else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
-			TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
-			ores.forEach((k, v) -> {
-				if (world.rand.nextDouble() < v) {
-					tile.addMetal(k);
-				}
-			});
-		}
+		});
 		return true;
 	}
 

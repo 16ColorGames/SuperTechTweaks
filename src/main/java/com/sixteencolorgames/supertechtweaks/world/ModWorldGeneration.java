@@ -66,11 +66,8 @@ public class ModWorldGeneration implements IWorldGenerator {
 			IChunkProvider chunkProvider) {
 		for (WorldGeneratorBase gen : generators) {
 			BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
-			gen.generate(world, random, pos);
-			world.getMinecraftServer().addScheduledTask(new Runnable() {
-				public void run() {
-					gen.generate(world, random, pos);
-				}
+			world.getMinecraftServer().addScheduledTask(() -> {
+				gen.generate(world, random, pos);
 			});
 		}
 	}

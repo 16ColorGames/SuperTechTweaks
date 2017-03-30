@@ -24,6 +24,7 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 		int numBlocks = size + rand.nextInt(variance);
 		for (int i = 0; i < numBlocks; i++) {
 			BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
+			
 			super.generateOre(worldIn, newPos);
 		}
 		return true;

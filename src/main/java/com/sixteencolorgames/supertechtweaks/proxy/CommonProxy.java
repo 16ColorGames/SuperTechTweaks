@@ -19,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 
 /**
  * Proxy functions common to both the client and server side
@@ -32,6 +34,7 @@ public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent e) {
 		MainCompatHandler.registerWaila();
+		MainCompatHandler.registerTiCon();
 		File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
 		config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
 		Config.readConfig();
@@ -50,6 +53,7 @@ public class CommonProxy {
 		ModItems.init();
 		GameRegistry.registerTileEntity(TileEntityOre.class, e.getModMetadata().modId + "TileEntityOre");
 		GameRegistry.registerWorldGenerator(generator, 3);
+
 	}
 
 	public void init(FMLInitializationEvent e) {
@@ -61,10 +65,14 @@ public class CommonProxy {
 			config.save();
 		}
 		for (Ores ore : Ores.values()) {
-			if (OreDictionary.doesOreNameExist("ingot" + ore.getName())) {
+			String oreName = "ingot" + ore.getName();
+			if (OreDictionary.doesOreNameExist(oreName) && !OreDictionary.getOres(oreName).isEmpty()) {
 				GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()),
-						OreDictionary.getOres("ingot" + ore.getName()).get(0), 1.0f);
+						OreDictionary.getOres(oreName).get(0), 1.0f);
 			}
+		}
+		for (Material mat : TinkerRegistry.getAllMaterials()) {
+			System.out.println(mat.identifier + ": " + mat.getStats("head").getLocalizedInfo());
 		}
 	}
 
