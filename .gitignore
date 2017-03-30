@@ -22,3 +22,4 @@ eclipse
 saves
 crash-reports
 logs
+/.nb-gradle/
