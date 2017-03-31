@@ -72,12 +72,6 @@ public class CommonProxy {
                         OreDictionary.getOres(oreName).get(0), 1.0f);
             }
         }
-        for (Material mat : TinkerRegistry.getAllMaterials()) {
-            try {
-                System.out.println(mat.identifier + ": " + ((HeadMaterialStats) mat.getStats("head")).harvestLevel);
-            } catch (Exception ex) {
-            }
-        }
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {

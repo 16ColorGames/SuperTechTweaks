@@ -37,7 +37,7 @@ public class ItemOreChunk extends Item {
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		for (Ores metal : Ores.values()) {
 			ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal());
-			subItems.add(subItemStack);
+			//subItems.add(subItemStack);
 			OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
 		}
 	}

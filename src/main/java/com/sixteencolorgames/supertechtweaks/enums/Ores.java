@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.oredict.OreDictionary;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
 
 /**
  * Enumeration of ore types used in this mod.
@@ -14,12 +15,13 @@ import net.minecraftforge.oredict.OreDictionary;
  *
  */
 public enum Ores implements IStringSerializable {
+
     NONE("none", "0x000000", 0),
     ANTIMONY("Antimony", "0xFADA5E", 0),
     BISMUTH("Bismuth", "0xed7d92", 0),
     CADMIUM("Cadmium", "0xed872d", 0),
     MERCURY("Mercury", "0x751f27", 0),
-    COPPER("Copper", "0xb4713d", 1),
+    COPPER("Copper", "0xb4713d", 1, _2_copper),
     ZINC("Zinc", "0xbac4c8", 1),
     COAL("Coal", "0x060607", 1) {
         @Override
@@ -28,7 +30,7 @@ public enum Ores implements IStringSerializable {
         }
     },
     MONAZIT("Monazit", "0x82c59c", 1),
-    IRON("Iron", "0xd3ad90", 2),
+    IRON("Iron", "0xd3ad90", 2, _3_iron),
     APATITE("Apatite", "0xc3b89c", 2) {
         @Override
         public ItemStack getDrops() {
@@ -41,7 +43,7 @@ public enum Ores implements IStringSerializable {
     },
     CHROMIUM("Chromium", "0x18391e", 2),
     ALUMINUM("Aluminum", "0xe0d9cd", 2),
-    SILVER("Silver", "0xb5b5bd", 2),
+    SILVER("Silver", "0xb5b5bd", 2, _1_flint),
     TELLURIUM("Tellurium", "0xb5b5bd", 2),
     LAPIS("Lapis", "0x000094", 2) {
         @Override
@@ -51,7 +53,7 @@ public enum Ores implements IStringSerializable {
     },
     TIN("Tin", "0x726a78", 3),
     GOLD("Gold", "0xcccc33", 3),
-    LEAD("Lead", "0x474c4d", 3),
+    LEAD("Lead", "0x474c4d", 3, _1_flint),
     REDSTONE("Redstone", "0xd43c2c", 3) {
         @Override
         public ItemStack getDrops() {
@@ -124,14 +126,41 @@ public enum Ores implements IStringSerializable {
         }
     },
     CHARGED_CERTUS("Certus_Charged", "0xeadadf", 5),
-    ARDITE("Ardite", "0xff7b00", 6),
+    ARDITE("Ardite", "0xff7b00", 6, _7_ardite),
     URANIUM("Uranium", "0x329832", 6),
     PLATINUM("Platinum", "0xb8b7b2", 6),
     YELLORIUM("Yellorium", "0xffce00", 6),
     DRACONIUM("Draconium", "0xd2a8d4", 6),
-    COBALT("Cobalt", "0x0071b6", 7),
+    COBALT("Cobalt", "0x0071b6", 7, _8_cobalt),
     IRIDIUM("Iridium", "0xe0e2dd", 7),
-    TITANIUM("Titanium", "0x323230", 7);
+    TITANIUM("Titanium", "0x323230", 7),
+    
+    STONE("Stone", "0x000000", -1, _0_stone),
+    BASALT("Basalt", "0x000000", -1, _0_stone),
+    PAPER("Paper", "0x000000", -1, _0_stone),
+    SPONGE("Sponge", "0x000000", -1, _0_stone),
+    FIREWOOD("Firewood", "0x000000", -1, _0_stone),
+    SLIME("Slime", "0x000000", -1, _0_stone),
+    BLUESLIME("BlueSlime", "0x000000", -1, _0_stone),
+    MAGMASLIME("MagmaSlime", "0x000000", -1, _0_stone),
+    TREATEDWOOD("TreatedWood", "0x000000", -1, _0_stone),
+    CACTUS("Cactus", "0x000000", -1, _0_stone),
+    NETHERRACK("Netherrack", "0x000000", -1, _0_stone),
+    WOOD("Wood", "0x000000", -1, _0_stone),
+    BONE("Bone", "0x000000", -1, _1_flint),
+    FLINT("Flint", "0x000000", 0, _1_flint),
+    PRISMARINE("Prismarine", "0x000000", -1, _1_flint),
+    ELECTRUM("Electrum", "0x928729", 2, _1_flint),
+    XU_DEMONIC_METAL("Xu_demonic_metal", "0x000000", -1, _1_flint),
+    BRASS("Brass", "0xE4AD5B", 2, _2_copper),
+    CONSTANTAN("Constantan", "0xE0A050", 3, _3_iron),
+    ENDSTONE("Endstone", "0xDCDEA4", 1, _3_iron),
+    BRONZE("Bronze", "0xE69E2F", 4, _4_bronze),
+    STEEL("Steel", "0xdfdfdf", 5, _5_diamond),
+    PIGIRON("PigIron", "0xff9999", 5, _5_diamond),
+    OBSIDIAN("Obsidian", "0x0c0f04", 6, _6_obsidian),
+    MANYULLYN("Manyullyn", "0x0c0f04", 9, _9_manyullym),
+    ;
 
     /**
      * The name of the metal
@@ -145,11 +174,26 @@ public enum Ores implements IStringSerializable {
      * The harvest level of this metal.
      */
     private int harvest;
+    /**
+     * Level that a tool made of this can mine
+     */
+    private int mine;
 
+    /**
+     *
+     * @param name
+     * @param color
+     * @param harvest
+     */
     Ores(String name, String color, int harvest) {
+        this(name, color, harvest, -1);
+    }
+
+    Ores(String name, String color, int harvest, int mine) {
         this.name = name;
         this.color = color;
         this.harvest = harvest;
+        this.mine = mine;
     }
 
     public String getColor() {
@@ -163,6 +207,10 @@ public enum Ores implements IStringSerializable {
 
     public int getHarvest() {
         return harvest;
+    }
+
+    public int getMine() {
+        return mine;
     }
 
     public ItemStack getDrops() {
