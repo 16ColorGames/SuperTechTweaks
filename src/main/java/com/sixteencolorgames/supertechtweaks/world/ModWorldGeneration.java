@@ -64,12 +64,12 @@ public class ModWorldGeneration implements IWorldGenerator {
 
 	private void generateOverworld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		for (WorldGeneratorBase gen : generators) {
-			BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
-			world.getMinecraftServer().addScheduledTask(() -> {
-				gen.generate(world, random, pos);
-			});
-		}
+            generators.forEach((WorldGeneratorBase gen) -> {
+                BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
+                world.getMinecraftServer().addScheduledTask(() -> {
+                    gen.generate(world, random, pos);
+                });
+            });
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = false)

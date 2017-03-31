@@ -1,18 +1,32 @@
 # Configuration file
 {
     "cuprite": {
-        "generator": "vein",
+        "generator": "cluster",
         "ore": "copper",
-		"size": 75,
-        "chance": 10,
+		"size": 30,
+        "chance": 4,
         "minHeight": 32,
-        "maxHeight": 64
+        "maxHeight": 70,
+		"properties": {
+			"perChunk": 5
+		}
+    },
+    "hematite": {
+        "generator": "cluster",
+        "ore": "iron",
+		"size": 30,
+        "chance": 4,
+        "minHeight": 32,
+        "maxHeight": 100,
+		"properties": {
+			"perChunk": 5
+		}
     },
     "Bauxite": {
-        "generator": "vein",
+        "generator": "cluster",
         "ore": "aluminum",
-		"size": 75,
-        "chance": 30,
+		"size": 30,
+        "chance": 15,
         "minHeight": 50,
         "maxHeight": 64
     },
@@ -20,15 +34,27 @@
         "generator": "plate",
         "ore": [{"ore": "silver", "weight": 0.7}, {"ore": "lead", "weight": 0.7}],
 		"size": 10,
-        "chance": 40,
+        "chance": 30,
         "minHeight": 32,
         "maxHeight": 48
+    },
+    "coal": {
+        "generator": "cluster",
+        "ore": [{"ore": "coal", "weight": 1.0}],
+		"size": 20,
+        "chance": 1,
+        "minHeight": 20,
+        "maxHeight": 120,
+		"properties": {
+			"clusterVariance": 10,
+			"perChunk": 5
+		}
     },
     "diamond": {
         "generator": "cluster",
         "ore": [{"ore": "coal", "weight": 1.0}, {"ore": "diamond", "weight": 0.1}],
 		"size": 10,
-        "chance": 10,
+        "chance": 1,
         "minHeight": 4,
         "maxHeight": 16,
 		"properties": {
@@ -43,7 +69,8 @@
         "minHeight": 20,
         "maxHeight": 40,
 		"properties": {
-			"clusterVariance": 5
+			"clusterVariance": 5,
+			"perChunk": 5
 		}
     },
     "Sphalerite": {
@@ -79,6 +106,17 @@
 			"clusterVariance": 5
 		}
     },
+    "Electrum": {
+        "generator": "cluster",
+        "ore": [{"ore": "gold", "weight": 0.7}, {"ore": "electrum", "weight": 0.2}, {"ore": "silver", "weight": .7}],
+		"size": 15,
+        "chance": 5,
+        "minHeight": 10,
+        "maxHeight": 40,
+		"properties": {
+			"clusterVariance": 5
+		}
+    },
     "Lapis": {
         "generator": "cluster",
         "ore": [{"ore": "lapis", "weight": 1.0}],
@@ -104,8 +142,8 @@
     "Cassiterite": {
         "generator": "cluster",
         "ore": [{"ore": "tin", "weight": 1.0}],
-		"size": 5,
-        "chance": 2,
+		"size": 10,
+        "chance": 1,
         "minHeight": 40,
         "maxHeight": 50,
 		"properties": {
@@ -114,9 +152,9 @@
     },
     "Redstone": {
         "generator": "cluster",
-        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.3}],
+        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.15}],
 		"size": 7,
-        "chance": 2,
+        "chance": 1,
         "minHeight": 4,
         "maxHeight": 12,
 		"properties": {
