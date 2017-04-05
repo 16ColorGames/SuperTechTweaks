@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.oredict.OreDictionary;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
+import net.minecraft.init.Blocks;
 
 /**
  * Enumeration of ore types used in this mod.
@@ -148,7 +149,12 @@ public enum Ores implements IStringSerializable {
     NETHERRACK("Netherrack", "0x000000", -1, _0_stone),
     WOOD("Wood", "0x000000", -1, _0_stone),
     BONE("Bone", "0x000000", -1, _1_flint),
-    FLINT("Flint", "0x000000", 0, _1_flint),
+    FLINT("Flint", "0x000000", 0, _1_flint) {
+        @Override
+        public ItemStack getDrops() {
+            return new ItemStack(Items.FLINT, 1, 0);
+        }
+    },
     PRISMARINE("Prismarine", "0x000000", -1, _1_flint),
     ELECTRUM("Electrum", "0x928729", 2, _1_flint),
     XU_DEMONIC_METAL("Xu_demonic_metal", "0x000000", -1, _1_flint),
@@ -158,8 +164,14 @@ public enum Ores implements IStringSerializable {
     BRONZE("Bronze", "0xE69E2F", 4, _4_bronze),
     STEEL("Steel", "0xdfdfdf", 5, _5_diamond),
     PIGIRON("PigIron", "0xff9999", 5, _5_diamond),
-    OBSIDIAN("Obsidian", "0x0c0f04", 6, _6_obsidian),
+    OBSIDIAN("Obsidian", "0x0c0f04", 6, _6_obsidian) {
+        @Override
+        public ItemStack getDrops() {
+            return new ItemStack(Blocks.OBSIDIAN, 1, 0);
+        }
+    },
     MANYULLYN("Manyullyn", "0x0c0f04", 9, _9_manyullym),
+    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),
     ;
 
     /**

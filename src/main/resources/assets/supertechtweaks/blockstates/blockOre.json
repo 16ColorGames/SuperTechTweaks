@@ -1,20 +1,22 @@
 {
     "forge_marker": 1,
     "defaults": {
-		"model": "supertechtweaks:blockOre"
+        "model": "supertechtweaks:blockOre"
     },
     "variants": {
         "normal": [{ 
-            "textures": {
-                "layer0": "blocks/stone",
-                "layer1": "supertechtweaks:blocks/ore1"
-            }
-        }],
+                "textures": {
+                    "layer0": "blocks/stone",
+                    "layer1": "supertechtweaks:blocks/ore1",
+                    "particle": "blocks/stone"
+                }
+            }],
         "inventory": [{ 
-            "textures": {
-                "layer0": "blocks/stone",
-                "layer1": "supertechtweaks:blocks/ore1"
-            }
-        }]
+                "textures": {
+                    "layer0": "blocks/stone",
+                    "layer1": "supertechtweaks:blocks/ore1",
+                    "particle": "blocks/stone"
+                }
+            }]
     }
 }
