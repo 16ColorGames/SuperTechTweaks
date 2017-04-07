@@ -1,13 +1,20 @@
-package com.sixteencolorgames.supertechtweaks;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.sixteencolorgames.supertechtweaks.compat.ticon;
 
-import com.sixteencolorgames.supertechtweaks.enums.HarvestLevels;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 
-public class EventLogic {
+/**
+ *
+ * @author oa10712
+ */
+public class TiConCompatability {
 
     @SubscribeEvent
     public void onStatRegister(MaterialEvent.StatRegisterEvent<HeadMaterialStats> statRegisterEvent) {

@@ -2,20 +2,16 @@ package com.sixteencolorgames.supertechtweaks.render;
 
 import java.awt.Color;
 
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
-import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import scala.actors.threadpool.Arrays;
 
 public class MetalColor implements IItemColor, IBlockColor {
 

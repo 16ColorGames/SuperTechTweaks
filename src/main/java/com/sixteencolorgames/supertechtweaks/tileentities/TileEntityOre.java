@@ -11,6 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Tile entity for ore block. Stores the actual data for it.
@@ -28,6 +30,12 @@ public class TileEntityOre extends TileEntity {
      * unlocalized name for the base block
      */
     private String base = "";
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public double getMaxRenderDistanceSquared() {
+        return 256.0D;
+    }
 
     public boolean addMetal(Ores metal) {
         for (int i = 0; i < 7; i++) {

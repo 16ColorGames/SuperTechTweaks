@@ -14,9 +14,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-
 /**
  * Parses through the config file
  *

@@ -135,7 +135,6 @@ public enum Ores implements IStringSerializable {
     COBALT("Cobalt", "0x0071b6", 7, _8_cobalt),
     IRIDIUM("Iridium", "0xe0e2dd", 7),
     TITANIUM("Titanium", "0x323230", 7),
-    
     STONE("Stone", "0x000000", -1, _0_stone),
     BASALT("Basalt", "0x000000", -1, _0_stone),
     PAPER("Paper", "0x000000", -1, _0_stone),
@@ -171,8 +170,7 @@ public enum Ores implements IStringSerializable {
         }
     },
     MANYULLYN("Manyullyn", "0x0c0f04", 9, _9_manyullym),
-    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),
-    ;
+    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),;
 
     /**
      * The name of the metal
