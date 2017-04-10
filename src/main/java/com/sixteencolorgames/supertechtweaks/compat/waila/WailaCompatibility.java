@@ -20,8 +20,6 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 public class WailaCompatibility implements IWailaDataProvider {
     public static final WailaCompatibility INSTANCE = new WailaCompatibility();
 
-    private WailaCompatibility() {}
-
     private static boolean registered;
     private static boolean loaded;
 

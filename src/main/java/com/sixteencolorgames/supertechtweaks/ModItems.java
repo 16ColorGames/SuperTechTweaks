@@ -36,9 +36,7 @@ public class ModItems {
      * Performs tasks to do with blocks on mod startup
      */
     public static void init() {
-        itemOreChunk = (ItemOreChunk) (new ItemOreChunk().setUnlocalizedName("itemOreChunk"));
-        itemOreChunk.setRegistryName("itemOreChunk");
-        GameRegistry.register(itemOreChunk);
+        itemOreChunk = register(new ItemOreChunk());
     }
 
 }

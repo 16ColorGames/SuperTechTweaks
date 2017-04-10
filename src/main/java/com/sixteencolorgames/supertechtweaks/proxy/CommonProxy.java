@@ -5,6 +5,7 @@ import java.io.File;
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.Recipies;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -33,6 +34,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
+        MainCompatHandler.registerMekanism();
         File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
         config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
         Config.readConfig();
@@ -62,13 +64,7 @@ public class CommonProxy {
         if (config.hasChanged()) {
             config.save();
         }
-        for (Ores ore : Ores.values()) {
-            String oreName = "ingot" + ore.getName();
-            if (OreDictionary.doesOreNameExist(oreName) && !OreDictionary.getOres(oreName).isEmpty()) {
-                GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()),
-                        OreDictionary.getOres(oreName).get(0), 1.0f);
-            }
-        }
+        Recipies.addRecipies();
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {

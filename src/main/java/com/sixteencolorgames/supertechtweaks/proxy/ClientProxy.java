@@ -6,11 +6,15 @@ import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.render.TESRBlockOre;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -55,7 +59,11 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta,
-                new ModelResourceLocation(SuperTechTweaksMod.MODID + ":" + id, "inventory"));
+        List<ItemStack> subItems = new ArrayList();
+        item.getSubItems(item, CreativeTabs.MISC, subItems);
+        subItems.forEach((item2) -> {
+            ModelLoader.setCustomModelResourceLocation(item, item2.getMetadata(),
+                    new ModelResourceLocation(SuperTechTweaksMod.MODID + ":" + id, "inventory"));
+        });
     }
 }

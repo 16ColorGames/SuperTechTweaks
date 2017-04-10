@@ -22,7 +22,7 @@ public enum Ores implements IStringSerializable {
     BISMUTH("Bismuth", "0xed7d92", 0),
     CADMIUM("Cadmium", "0xed872d", 0),
     MERCURY("Mercury", "0x751f27", 0),
-    COPPER("Copper", "0xb4713d", 1, _2_copper),
+    COPPER("Copper", "0xb4713d", 1, _2_copper, "molten_iron"),
     ZINC("Zinc", "0xbac4c8", 1),
     COAL("Coal", "0x060607", 1) {
         @Override
@@ -163,7 +163,7 @@ public enum Ores implements IStringSerializable {
     BRONZE("Bronze", "0xE69E2F", 4, _4_bronze),
     STEEL("Steel", "0xdfdfdf", 5, _5_diamond),
     PIGIRON("PigIron", "0xff9999", 5, _5_diamond),
-    OBSIDIAN("Obsidian", "0x0c0f04", 6, _6_obsidian) {
+    OBSIDIAN("Obsidian", "0x0c0f04", 3, _3_iron) {
         @Override
         public ItemStack getDrops() {
             return new ItemStack(Blocks.OBSIDIAN, 1, 0);
@@ -188,6 +188,7 @@ public enum Ores implements IStringSerializable {
      * Level that a tool made of this can mine
      */
     private int mine;
+    private String liquid = null;
 
     /**
      *
@@ -204,6 +205,14 @@ public enum Ores implements IStringSerializable {
         this.color = color;
         this.harvest = harvest;
         this.mine = mine;
+    }
+
+    Ores(String name, String color, int harvest, int mine, String liquid) {
+        this.name = name;
+        this.color = color;
+        this.harvest = harvest;
+        this.mine = mine;
+        this.liquid = liquid;
     }
 
     public String getColor() {
@@ -225,5 +234,9 @@ public enum Ores implements IStringSerializable {
 
     public ItemStack getDrops() {
         return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal());
+    }
+
+    public String getLiquid() {
+        return liquid;
     }
 }

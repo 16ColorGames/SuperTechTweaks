@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.compat;
 
+import com.sixteencolorgames.supertechtweaks.compat.mekanism.MekanismCompat;
 import com.sixteencolorgames.supertechtweaks.compat.ticon.TiConCompatability;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaCompatibility;
 
@@ -23,5 +24,10 @@ public class MainCompatHandler {
     public static void registerTiCon() {
         TiConCompatability logic = new TiConCompatability();
         MinecraftForge.EVENT_BUS.register(logic);
+        TiConCompatability.registerMelting();
+    }
+    
+    public static void registerMekanism(){
+        MekanismCompat.registerRecipes();
     }
 }

@@ -137,7 +137,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 if (harvest >= ore.getHarvest()) {
                     color = TextFormatting.GREEN;
                 }
-                currenttip.add(color + Ores.values()[metal].getName());
+                currenttip.add(color + Ores.values()[metal].getName() + "(" + ore.getHarvest() + ")");
             }
         }
 

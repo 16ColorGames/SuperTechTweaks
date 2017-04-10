@@ -6,7 +6,12 @@
 package com.sixteencolorgames.supertechtweaks.compat.ticon;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 
@@ -31,6 +36,21 @@ public class TiConCompatability {
                 HeadMaterialStats newStats = new HeadMaterialStats(oldStats.durability, oldStats.miningspeed,
                         oldStats.attack, newHarvestLevel);
                 statRegisterEvent.overrideResult(newStats);
+            }
+        }
+    }
+
+    public static void registerMelting() {
+        for (Ores ore : Ores.values()) {
+            try {
+                Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
+                if (fluid != null) {
+                    System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getUnlocalizedName());
+                    TinkerRegistry.registerMelting(new ItemStack(new ItemOreChunk(), 1, ore.ordinal()), fluid, 288);
+                    
+                }
+            } catch (Exception ex) {
+                System.out.println("Failed to add melting.");
             }
         }
     }
