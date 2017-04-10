@@ -43,17 +43,13 @@ public class ItemOreChunk extends ItemBase {
         for (Ores metal : Ores.values()) {
             ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal());
             subItems.add(subItemStack);
-           // OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
-        }
-        for (Ores metal : Ores.values()) {
-            ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + NETHER);
+            // OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + NETHER);
             subItems.add(subItemStack);
-           // OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
-        }
-        for (Ores metal : Ores.values()) {
-            ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + END);
+            // OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + END);
             subItems.add(subItemStack);
-           // OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
+            // OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
         }
     }
 

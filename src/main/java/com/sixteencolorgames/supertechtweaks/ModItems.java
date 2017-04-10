@@ -1,10 +1,15 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
+import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Holds and registers items used by the mod
@@ -37,6 +42,14 @@ public class ModItems {
      */
     public static void init() {
         itemOreChunk = register(new ItemOreChunk());
+        for (Ores metal : Ores.values()) {
+            ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
+            OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + NETHER);
+            OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
+            OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
+        }
     }
 
 }
