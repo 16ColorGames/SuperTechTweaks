@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
@@ -8,13 +9,17 @@ import com.sixteencolorgames.supertechtweaks.render.TESRBlockOre;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -54,6 +59,7 @@ public class ClientProxy extends CommonProxy {
         super.postInit(e);
         MetalColor color = new MetalColor();
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemMaterialObject);
         //Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
     }
 

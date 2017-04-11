@@ -5,8 +5,9 @@
  */
 package com.sixteencolorgames.supertechtweaks.compat.ticon;
 
+import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.GEAR;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -40,13 +41,13 @@ public class TiConCompatability {
         }
     }
 
-    public static void registerMelting() {
+    public static void registerMelting() {//Overrides for melting
         for (Ores ore : Ores.values()) {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 if (fluid != null) {
                     System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getUnlocalizedName());
-                    TinkerRegistry.registerMelting(new ItemStack(new ItemOreChunk(), 1, ore.ordinal()), fluid, 288);
+                    TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+GEAR), fluid, 208);
                     
                 }
             } catch (Exception ex) {

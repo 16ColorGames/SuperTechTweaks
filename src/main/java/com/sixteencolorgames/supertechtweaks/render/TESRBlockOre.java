@@ -109,7 +109,6 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
                     Color color = Color.decode(met.getColor());//decode the color from the Ores enum
                     GlStateManager.color(((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
                             ((float) color.getBlue()) / 255);//set the render color
-
                     vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
                     addBlockVertecies(vertexBuffer);
                     tessellator.draw();

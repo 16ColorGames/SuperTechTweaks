@@ -127,7 +127,7 @@ public enum Ores implements IStringSerializable {
         }
     },
     CHARGED_CERTUS("Certus_Charged", "0xeadadf", 5),
-    ARDITE("Ardite", "0xff7b00", 6, _7_ardite),
+    ARDITE("Ardite", "0xd94925", 6, _7_ardite),
     URANIUM("Uranium", "0x329832", 6),
     PLATINUM("Platinum", "0xb8b7b2", 6),
     YELLORIUM("Yellorium", "0xffce00", 6),
@@ -162,15 +162,15 @@ public enum Ores implements IStringSerializable {
     ENDSTONE("Endstone", "0xDCDEA4", 1, _3_iron),
     BRONZE("Bronze", "0xE69E2F", 4, _4_bronze),
     STEEL("Steel", "0xdfdfdf", 5, _5_diamond),
-    PIGIRON("PigIron", "0xff9999", 5, _5_diamond),
+    PIGIRON("Pigiron", "0xff9999", 5, _5_diamond),
     OBSIDIAN("Obsidian", "0x0c0f04", 3, _3_iron) {
         @Override
         public ItemStack getDrops() {
             return new ItemStack(Blocks.OBSIDIAN, 1, 0);
         }
     },
-    MANYULLYN("Manyullyn", "0x0c0f04", 9, _9_manyullym),
-    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),;
+    MANYULLYN("Manyullyn", "0xBA55D3", 9, _9_manyullym),
+    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian);
 
     /**
      * The name of the metal

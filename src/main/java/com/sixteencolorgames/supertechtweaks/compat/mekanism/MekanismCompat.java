@@ -5,8 +5,8 @@
  */
 package com.sixteencolorgames.supertechtweaks.compat.mekanism;
 
+import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -23,7 +23,7 @@ public class MekanismCompat {
             try {
                 System.out.println("Attempting to register enrichment: "+ore.getName());
                 NBTTagCompound recipeTag = new NBTTagCompound();
-                recipeTag.setTag("itemInput", new ItemStack(new ItemOreChunk(), 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
+                recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
 
                 recipeTag.setTag("itemOutput", OreDictionary.getOres("dust" + ore.getName()).get(0).writeToNBT(new NBTTagCompound()));
                 FMLInterModComms.sendMessage("Mekanism", "EnrichmentChamberRecipe", recipeTag);

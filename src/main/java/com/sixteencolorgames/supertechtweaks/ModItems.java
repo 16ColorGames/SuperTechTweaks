@@ -2,12 +2,15 @@ package com.sixteencolorgames.supertechtweaks;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.items.ItemBase;
+import com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
-import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
-import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
+import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -20,6 +23,20 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModItems {
 
     public static ItemOreChunk itemOreChunk;
+    public static ItemMaterialObject itemMaterialObject;
+
+    static ModelResourceLocation chunkLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
+            "inventory");
+    static ModelResourceLocation ingotLocation = new ModelResourceLocation("supertechtweaks:itemIngot",
+            "inventory");
+    static ModelResourceLocation dustLocation = new ModelResourceLocation("supertechtweaks:itemDust",
+            "inventory");
+    static ModelResourceLocation gearLocation = new ModelResourceLocation("supertechtweaks:itemGear",
+            "inventory");
+    static ModelResourceLocation nuggetLocation = new ModelResourceLocation("supertechtweaks:itemNugget",
+            "inventory");
+    static ModelResourceLocation plateLocation = new ModelResourceLocation("supertechtweaks:itemPlate",
+            "inventory");
 
     /**
      * Registers an item and its model with forge
@@ -45,10 +62,32 @@ public class ModItems {
         for (Ores metal : Ores.values()) {
             ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
             OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
             subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + NETHER);
             OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
             subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
             OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);
+        }
+
+        itemMaterialObject = register(new ItemMaterialObject());
+        for (Ores metal : Ores.values()) {
+            ItemStack subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT);
+            OreDictionary.registerOre("ingot" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + INGOT, ingotLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DUST);
+            OreDictionary.registerOre("dust" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DUST, dustLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + GEAR);
+            OreDictionary.registerOre("gear" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + GEAR, gearLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + NUGGET);
+            OreDictionary.registerOre("nugget" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + NUGGET, nuggetLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + PLATE);
+            OreDictionary.registerOre("plate" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
         }
     }
 

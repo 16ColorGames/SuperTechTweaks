@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.render;
 
+import com.sixteencolorgames.supertechtweaks.ModItems;
 import java.awt.Color;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
@@ -35,7 +36,8 @@ public class MetalColor implements IItemColor, IBlockColor {
         // we want layer 0 (the bottle glass) to be unaffected (return white as
         // the multiplier)
         // layer 1 will change colour depending on the contents.
-        {
+
+        if (stack.getItem() == ModItems.itemOreChunk) {
             switch (tintIndex) {
                 case 0:
                     if (stack.getMetadata() < NETHER) {
@@ -46,20 +48,30 @@ public class MetalColor implements IItemColor, IBlockColor {
                         return Color.WHITE.getRGB();
                     }
 
-                case 1: {
+                case 1:
                     int metadata = stack.getMetadata();
-                    if (metadata >= END) {
-                        metadata -= END;
-                    } else if (metadata >= NETHER) {
-                        metadata -= NETHER;
+                    while (metadata >= 1000) {
+                        metadata -= 1000;
                     }
                     Ores metal = Ores.values()[metadata];
                     return Color.decode(metal.getColor()).getRGB();
-                }
-                default: {
+
+                default:
                     // oops! should never get here.
                     return Color.BLACK.getRGB();
-                }
+
+            }
+        } else {
+            switch (tintIndex) {
+                case 0:
+                    int metadata = stack.getMetadata();
+                    while (metadata >= 1000) {
+                        metadata -= 1000;
+                    }
+                    Ores metal = Ores.values()[metadata];
+                    return Color.decode(metal.getColor()).getRGB();
+                default:
+                    return Color.BLACK.getRGB();
             }
         }
     }
@@ -82,8 +94,11 @@ public class MetalColor implements IItemColor, IBlockColor {
                     case 6:
                     case 7:
                     case 8:
-                    // return Color.decode(Metals.values()[ores[tintIndex -
-                    // 1]].getColor()).getRGB();
+                        if (ores[tintIndex - 1] != Ores.NONE.ordinal()) {
+                            return Color.decode(Ores.values()[ores[tintIndex - 1]].getColor()).getRGB();
+                        }else{
+                            return new Color(0,0,0,0).getRGB();
+                        }
                 }
             }
         }
