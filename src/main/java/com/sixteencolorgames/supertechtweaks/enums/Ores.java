@@ -135,20 +135,20 @@ public enum Ores implements IStringSerializable {
     COBALT("Cobalt", "0x0071b6", 7, _8_cobalt),
     IRIDIUM("Iridium", "0xe0e2dd", 7),
     TITANIUM("Titanium", "0x323230", 7),
-    STONE("Stone", "0x000000", -1, _0_stone),
-    BASALT("Basalt", "0x000000", -1, _0_stone),
-    PAPER("Paper", "0x000000", -1, _0_stone),
-    SPONGE("Sponge", "0x000000", -1, _0_stone),
+    STONE("Stone", "0x8B8D7A", -1, _0_stone),
+    BASALT("Basalt", "0x202A29", -1, _0_stone),
+    PAPER("Paper", "0xF0EEE1", -1, _0_stone),
+    SPONGE("Sponge", "0xD8C060", -1, _0_stone),
     FIREWOOD("Firewood", "0x000000", -1, _0_stone),
     SLIME("Slime", "0x000000", -1, _0_stone),
     BLUESLIME("BlueSlime", "0x000000", -1, _0_stone),
     MAGMASLIME("MagmaSlime", "0x000000", -1, _0_stone),
     TREATEDWOOD("TreatedWood", "0x000000", -1, _0_stone),
-    CACTUS("Cactus", "0x000000", -1, _0_stone),
-    NETHERRACK("Netherrack", "0x000000", -1, _0_stone),
+    CACTUS("Cactus", "0x64F566", -1, _0_stone),
+    NETHERRACK("Netherrack", "0x800000", -1, _0_stone),
     WOOD("Wood", "0x000000", -1, _0_stone),
-    BONE("Bone", "0x000000", -1, _1_flint),
-    FLINT("Flint", "0x000000", 0, _1_flint) {
+    BONE("Bone", "0xFFF9ED", -1, _1_flint),
+    FLINT("Flint", "0x6E6460", 0, _1_flint) {
         @Override
         public ItemStack getDrops() {
             return new ItemStack(Items.FLINT, 1, 0);

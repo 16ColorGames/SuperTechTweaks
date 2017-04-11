@@ -37,6 +37,16 @@ public class ModItems {
             "inventory");
     static ModelResourceLocation plateLocation = new ModelResourceLocation("supertechtweaks:itemPlate",
             "inventory");
+    static ModelResourceLocation rodLocation = new ModelResourceLocation("supertechtweaks:itemRod",
+            "inventory");
+    static ModelResourceLocation clumpLocation = new ModelResourceLocation("supertechtweaks:itemClump",
+            "inventory");
+    static ModelResourceLocation shardLocation = new ModelResourceLocation("supertechtweaks:itemShard",
+            "inventory");
+    static ModelResourceLocation crystalLocation = new ModelResourceLocation("supertechtweaks:itemCrystal",
+            "inventory");
+    static ModelResourceLocation wireLocation = new ModelResourceLocation("supertechtweaks:itemWire",
+            "inventory");
 
     /**
      * Registers an item and its model with forge
@@ -88,6 +98,22 @@ public class ModItems {
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + PLATE);
             OreDictionary.registerOre("plate" + metal.getName(), subItemStack);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + ROD);
+            OreDictionary.registerOre("rod" + metal.getName(), subItemStack);
+            OreDictionary.registerOre("stick" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + ROD, rodLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CLUMP);
+            OreDictionary.registerOre("clump" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CLUMP, clumpLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CRYSTAL);
+            OreDictionary.registerOre("crystal" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CRYSTAL, crystalLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + SHARD);
+            OreDictionary.registerOre("shard" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + WIRE);
+            OreDictionary.registerOre("wire" + metal.getName(), subItemStack);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
         }
     }
 

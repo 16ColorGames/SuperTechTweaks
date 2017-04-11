@@ -24,6 +24,11 @@ public class ItemMaterialObject extends ItemBase {
     public static final int GEAR = 2000;
     public static final int NUGGET = 3000;
     public static final int PLATE = 4000;
+    public static final int ROD = 5000;
+    public static final int CLUMP = 6000;
+    public static final int CRYSTAL = 7000;
+    public static final int SHARD = 8000;
+    public static final int WIRE = 9000;
 
     public ItemMaterialObject() {
         super("itemMaterialObject");
@@ -53,12 +58,37 @@ public class ItemMaterialObject extends ItemBase {
             subItems.add(subItemStack);
             subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + PLATE);
             subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + ROD);
+            subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + CLUMP);
+            subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + CRYSTAL);
+            subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + SHARD);
+            subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + WIRE);
+            subItems.add(subItemStack);
         }
     }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
+        if (metadata >= WIRE) {
+            return super.getUnlocalizedName() + ".wire" + Ores.values()[metadata - SHARD];
+        }
+        if (metadata >= SHARD) {
+            return super.getUnlocalizedName() + ".shard" + Ores.values()[metadata - SHARD];
+        }
+        if (metadata >= CRYSTAL) {
+            return super.getUnlocalizedName() + ".crystal" + Ores.values()[metadata - CRYSTAL];
+        }
+        if (metadata >= CLUMP) {
+            return super.getUnlocalizedName() + ".clump" + Ores.values()[metadata - CLUMP];
+        }
+        if (metadata >= ROD) {
+            return super.getUnlocalizedName() + ".rod" + Ores.values()[metadata - ROD];
+        }
         if (metadata >= PLATE) {
             return super.getUnlocalizedName() + ".plate" + Ores.values()[metadata - PLATE];
         }
