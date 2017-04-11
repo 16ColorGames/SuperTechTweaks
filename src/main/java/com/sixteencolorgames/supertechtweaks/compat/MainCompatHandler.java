@@ -28,6 +28,6 @@ public class MainCompatHandler {
     }
     
     public static void registerMekanism(){
-        //MekanismCompat.registerRecipes();
+        MekanismCompat.registerRecipes();
     }
 }

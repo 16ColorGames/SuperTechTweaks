@@ -1,30 +1,30 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
+import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
+import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.render.TESRBlockOre;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Proxy for clients only.
@@ -36,13 +36,47 @@ public class ClientProxy extends CommonProxy {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
+    static ModelResourceLocation chunkLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
+            "inventory");
+    static ModelResourceLocation ingotLocation = new ModelResourceLocation("supertechtweaks:itemIngot",
+            "inventory");
+    static ModelResourceLocation dustLocation = new ModelResourceLocation("supertechtweaks:itemDust",
+            "inventory");
+    static ModelResourceLocation gearLocation = new ModelResourceLocation("supertechtweaks:itemGear",
+            "inventory");
+    static ModelResourceLocation nuggetLocation = new ModelResourceLocation("supertechtweaks:itemNugget",
+            "inventory");
+    static ModelResourceLocation plateLocation = new ModelResourceLocation("supertechtweaks:itemPlate",
+            "inventory");
+    static ModelResourceLocation rodLocation = new ModelResourceLocation("supertechtweaks:itemRod",
+            "inventory");
+    static ModelResourceLocation clumpLocation = new ModelResourceLocation("supertechtweaks:itemClump",
+            "inventory");
+    static ModelResourceLocation shardLocation = new ModelResourceLocation("supertechtweaks:itemShard",
+            "inventory");
+    static ModelResourceLocation crystalLocation = new ModelResourceLocation("supertechtweaks:itemCrystal",
+            "inventory");
+    static ModelResourceLocation wireLocation = new ModelResourceLocation("supertechtweaks:itemWire",
+            "inventory");
+
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-        ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
-                "inventory");
-        for (int i = 0; i < Ores.values().length; i++) {// set all of the chunks to use the same model; MetalColors handles the color differences
-            ModelLoader.setCustomModelResourceLocation(ModItems.itemOreChunk, i, itemModelResourceLocation);
+        for (Ores metal : Ores.values()) {
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
+            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + INGOT, ingotLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DUST, dustLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + GEAR, gearLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + NUGGET, nuggetLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + ROD, rodLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CLUMP, clumpLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CRYSTAL, crystalLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
         }
     }
 

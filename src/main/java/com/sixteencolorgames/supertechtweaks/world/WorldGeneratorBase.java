@@ -57,21 +57,21 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
     }
 
     public boolean generateOre(World world, BlockPos pos) {
-        if (Config.stone.contains(world.getBlockState(pos))) {
-            String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
-            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-            TileEntity entity = world.getTileEntity(pos);
-            if (entity instanceof TileEntityOre) {
-                TileEntityOre tile = (TileEntityOre) entity;
-                tile.setBase(base);
-            }
-        }
         world.getMinecraftServer().addScheduledTask(() -> {
+            if (Config.stone.contains(world.getBlockState(pos))) {
+                String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
+                world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+                TileEntity entity = world.getTileEntity(pos);
+                if (entity instanceof TileEntityOre) {
+                    TileEntityOre tile = (TileEntityOre) entity;
+                    tile.setBase(base);
+                }
+            }
             if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
                 TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
                 ores.forEach((Ores k, Double v) -> {
                     if (world.rand.nextDouble() < v) {
-                       tile.addMetal(k);
+                        tile.addMetal(k);
                     }
                 });
             }

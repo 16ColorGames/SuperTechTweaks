@@ -7,10 +7,10 @@ package com.sixteencolorgames.supertechtweaks.compat.mekanism;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  *
@@ -20,16 +20,42 @@ public class MekanismCompat {
 
     public static void registerRecipes() {
         for (Ores ore : Ores.values()) {
-            try {
-                System.out.println("Attempting to register enrichment: "+ore.getName());
-                NBTTagCompound recipeTag = new NBTTagCompound();
-                recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
+            System.out.println("Attempting to register enrichment: " + ore.getName());
+            NBTTagCompound recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + DUST).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "EnrichmentChamberRecipe", recipeTag);
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DIRTY).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "EnrichmentChamberRecipe", recipeTag);
 
-                recipeTag.setTag("itemOutput", OreDictionary.getOres("dust" + ore.getName()).get(0).writeToNBT(new NBTTagCompound()));
-                FMLInterModComms.sendMessage("Mekanism", "EnrichmentChamberRecipe", recipeTag);
-            } catch (Exception ex) {
-                System.out.println("Register failed. No dust?");
-            }
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + CLUMP).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DIRTY).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "CrusherRecipe", recipeTag);
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "CrusherRecipe", recipeTag);
+
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + SHARD).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + CLUMP).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "PurificationChamberRecipe", recipeTag);
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 3, ore.ordinal() + CLUMP).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "PurificationChamberRecipe", recipeTag);
+
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + CRYSTAL).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + SHARD).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", recipeTag);
+            recipeTag = new NBTTagCompound();
+            recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));
+            recipeTag.setTag("itemOutput", new ItemStack(ModItems.itemMaterialObject, 4, ore.ordinal() + SHARD).writeToNBT(new NBTTagCompound()));
+            FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", recipeTag);
         }
     }
 }
