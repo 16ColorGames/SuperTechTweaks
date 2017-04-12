@@ -116,7 +116,8 @@ public enum Ores implements IStringSerializable {
             }
         }
     },
-    MANGANESE("Manganese", "0x242d36", 4), CERTUS("Certus", "0xe6d7df", 5) {
+    MANGANESE("Manganese", "0x242d36", 4),
+    CERTUS("Certus", "0xe6d7df", 5) {
         @Override
         public ItemStack getDrops() {
             if (OreDictionary.doesOreNameExist("crystalCertusQuartz")) {
@@ -170,7 +171,13 @@ public enum Ores implements IStringSerializable {
         }
     },
     MANYULLYN("Manyullyn", "0xBA55D3", 9, _9_manyullym),
-    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian);
+    MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),
+    NETHER_QUARTZ("NetherQuartz", "0xdddddd", 1) {
+        @Override
+        public ItemStack getDrops() {
+            return new ItemStack(Items.QUARTZ, 1, 0);
+        }
+    };
 
     /**
      * The name of the metal

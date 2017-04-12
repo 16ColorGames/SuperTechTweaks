@@ -29,7 +29,7 @@ public class TileEntityOre extends TileEntity {
     /**
      * unlocalized name for the base block
      */
-    private String base = "";
+    private int base = 0;
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -58,11 +58,11 @@ public class TileEntityOre extends TileEntity {
         metals[index] = metal.ordinal();
     }
 
-    public String getBase() {
+    public int getBase() {
         return base;
     }
 
-    public void setBase(String original) {
+    public void setBase(int original) {
         base = original;
     }
 

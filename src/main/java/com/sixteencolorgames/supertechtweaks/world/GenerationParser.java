@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import java.util.function.Consumer;
 
 /**
  * Parses through the config file
@@ -56,16 +57,49 @@ public class GenerationParser {
                 case "cluster":
                     WorldGeneratorBase cluster = parseCluster(entry);
                     cluster.setName(key);
+                    try {
+                        entry.get("dimensions").getAsJsonArray().forEach((JsonElement t) -> {
+                            if (t.isJsonPrimitive()) {
+                                cluster.addDim(t.getAsInt());
+                            } else {
+                                cluster.addDim(0);
+                            }
+                        });
+                    } catch (Exception ex) {
+                        cluster.addDim(0);
+                    }
                     generators.add(cluster);
                     break;
                 case "vein":
                     WorldGeneratorBase vein = parseVein(entry);
                     vein.setName(key);
+                    try {
+                        entry.get("dimensions").getAsJsonArray().forEach((JsonElement t) -> {
+                            if (t.isJsonPrimitive()) {
+                                vein.addDim(t.getAsInt());
+                            } else {
+                                vein.addDim(0);
+                            }
+                        });
+                    } catch (Exception ex) {
+                        vein.addDim(0);
+                    }
                     generators.add(vein);
                     break;
                 case "plate":
                     WorldGeneratorBase plate = parsePlate(entry);
                     plate.setName(key);
+                    try {
+                        entry.get("dimensions").getAsJsonArray().forEach((JsonElement t) -> {
+                            if (t.isJsonPrimitive()) {
+                                plate.addDim(t.getAsInt());
+                            } else {
+                                plate.addDim(0);
+                            }
+                        });
+                    } catch (Exception ex) {
+                        plate.addDim(0);
+                    }
                     generators.add(plate);
                     break;
                 default:

@@ -16,6 +16,7 @@ public class Config {
     // This values below you can access elsewhere in your mod:
     public static ArrayList<IBlockState> stone;
     public static ArrayList<IBlockState> nether;
+    public static ArrayList<IBlockState> end;
     public static boolean removeVanilla;
 
     // Call this from CommonProxy.preInit(). It will create our config if it
@@ -48,8 +49,7 @@ public class Config {
             // 'stone' block type. used for generation
             String[] split = type.split(":");
             if (split.length == 3) {//This one is called for items such as "minecraft:stone:4", which is a specific type of stone
-                stone.add(
-                        Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
+                stone.add(Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
             } else {//This one is called for items without metadata, such as "minecraft:dirt"
                 stone.add(Block.getBlockFromName(type).getDefaultState());
             }
@@ -62,10 +62,22 @@ public class Config {
             // 'nether' block type. used for generation
             String[] split = type.split(":");
             if (split.length == 3) {
-                nether.add(
-                        Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
+                nether.add(Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
             } else {
                 nether.add(Block.getBlockFromName(type).getDefaultState());
+            }
+        }
+
+        String[] endTypes = cfg.getStringList("end types", CATEGORY_GENERAL,
+                new String[]{"minecraft:end_stone"}, "possible types of block to replace for ender veins");
+        end = new ArrayList();
+        for (String type : endTypes) {// Adds the read in nether types to the
+            // 'nether' block type. used for generation
+            String[] split = type.split(":");
+            if (split.length == 3) {
+                end.add(Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
+            } else {
+                end.add(Block.getBlockFromName(type).getDefaultState());
             }
         }
     }

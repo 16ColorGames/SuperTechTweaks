@@ -17,7 +17,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 
-    private static final ResourceLocation baseTexture = new ResourceLocation("minecraft:textures/blocks/stone.png");
+    private static final ResourceLocation[] baseTextures = new ResourceLocation[]{
+        new ResourceLocation("minecraft:textures/blocks/stone.png"),
+        new ResourceLocation("minecraft:textures/blocks/netherrack.png"),
+        new ResourceLocation("minecraft:textures/blocks/end_stone.png")};
     private static final ResourceLocation[] layerTextures = new ResourceLocation[]{
         new ResourceLocation("supertechtweaks:textures/blocks/ore1.png"),
         new ResourceLocation("supertechtweaks:textures/blocks/ore2.png"),
@@ -77,7 +80,18 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
 
             Tessellator tessellator = Tessellator.getInstance();
             VertexBuffer vertexBuffer = tessellator.getBuffer();
-            this.bindTexture(baseTexture); // texture for the stone appearance
+            switch (tileEntityOre.getBase()) {
+                case -1:
+                    this.bindTexture(baseTextures[1]);
+                    break;
+                case 0:
+                    this.bindTexture(baseTextures[0]);
+                    break;
+                case 1:
+                    this.bindTexture(baseTextures[2]);
+                    break;
+            }
+
 
             // fix dark lighting issue
             int li = tileEntity.getWorld().getCombinedLight(tileEntity.getPos(), 15728640);

@@ -2,11 +2,11 @@
 {
     "cuprite": {
         "generator": "cluster",
-        "ore": "copper",
-		"size": 30,
-        "chance": 4,
+        "ore": [{"ore": "copper", "weight": 1.0}, {"ore": "osmium", "weight": 0.01}],
+		"size": 15,
+        "chance": 1,
         "minHeight": 32,
-        "maxHeight": 70,
+        "maxHeight": 80,
 		"properties": {
 			"perChunk": 5
 		}
@@ -14,10 +14,10 @@
     "hematite": {
         "generator": "cluster",
         "ore": "iron",
-		"size": 30,
+		"size": 60,
         "chance": 4,
         "minHeight": 32,
-        "maxHeight": 100,
+        "maxHeight": 128,
 		"properties": {
 			"perChunk": 5
 		}
@@ -44,10 +44,10 @@
 		"size": 20,
         "chance": 1,
         "minHeight": 20,
-        "maxHeight": 120,
+        "maxHeight": 200,
 		"properties": {
 			"clusterVariance": 10,
-			"perChunk": 5
+			"perChunk": 8
 		}
     },
     "diamond": {
@@ -58,7 +58,8 @@
         "minHeight": 4,
         "maxHeight": 16,
 		"properties": {
-			"clusterVariance": 3
+			"clusterVariance": 3,
+			"perChunk": 2
 		}
     },
     "Chalcopyrite": {
@@ -88,7 +89,7 @@
         "generator": "cluster",
         "ore": [{"ore": "osmium", "weight": 0.75}, {"ore": "iridium", "weight": 0.25}, {"ore": "platinum", "weight": 0.1}],
 		"size": 15,
-        "chance": 15,
+        "chance": 5,
         "minHeight": 25,
         "maxHeight": 40,
 		"properties": {
@@ -152,13 +153,61 @@
     },
     "Redstone": {
         "generator": "cluster",
-        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.15}],
+        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.15}, {"ore": "osmium", "weight": 0.01}],
 		"size": 7,
         "chance": 1,
         "minHeight": 4,
         "maxHeight": 12,
 		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 2
+		}
+    },
+    "Village": {
+        "generator": "cluster",
+        "ore": [{"ore": "emerald", "weight": 1.0}, {"ore": "pigiron", "weight": 0.15}, {"ore": "pigiron", "weight": 0.15}],
+		"size": 7,
+        "chance": 20,
+        "minHeight": 12,
+        "maxHeight": 30,
+		"properties": {
 			"clusterVariance": 3
 		}
+    },
+    "Draconic": {
+        "generator": "cluster",
+        "ore": [{"ore": "draconium", "weight": 1.0}, {"ore": "obsidian", "weight": 0.15}],
+		"size": 7,
+        "chance": 10,
+        "minHeight": 14,
+        "maxHeight": 20,
+		"properties": {
+			"clusterVariance": 3
+		}
+    },
+    "Other": {
+        "generator": "cluster",
+        "ore": [{"ore": "yellorium", "weight": 1.0}, {"ore": "mithril", "weight": 0.3}],
+		"size": 7,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 30,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 2
+		}
+    },
+    "Nether Quartz": {
+        "generator": "cluster",
+        "ore": [{"ore": "nether_quartz", "weight": 1.0}],
+		"size": 7,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 30,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 7
+		},
+		"dimensions":[-1]
     }
 }
