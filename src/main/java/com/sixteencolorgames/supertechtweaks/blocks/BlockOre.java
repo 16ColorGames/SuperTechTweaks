@@ -29,7 +29,7 @@ import net.minecraft.world.World;
  *
  */
 public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
-
+    
     public BlockOre() {
         super(Material.ROCK, "blockOre");
         this.setHardness(3.0f);
@@ -111,22 +111,23 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
         }
         return true;
     }
-
+    
     @Override
     public Class getTileEntityClass() {
         return TileEntityOre.class;
     }
-
+    
     @Override
     public TileEntityOre createTileEntity(World world, IBlockState state) {
         TileEntityOre ore = new TileEntityOre();
         return ore;
     }
-
+    
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
         TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
+        currenttip.add("Base: " + te.getBase());
         EntityPlayer player = accessor.getPlayer();
         int harvest = player.getHeldItemMainhand() != null
                 ? player.getHeldItemMainhand().getItem().getHarvestLevel(player.getHeldItemMainhand(), "pickaxe") : -1;
@@ -140,15 +141,15 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 currenttip.add(color + Ores.values()[metal].getName() + "(" + ore.getHarvest() + ")");
             }
         }
-
+        
         return currenttip;
     }
-
+    
     @Override
     public void registerItemModel(Item item) {
         // void since we shouldn't have this in inventory
     }
-
+    
     @Override
     public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
         return EnumBlockRenderType.MODEL;

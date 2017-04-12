@@ -1,12 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.tileentities;
 
-import java.awt.Color;
-
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -29,7 +26,7 @@ public class TileEntityOre extends TileEntity {
     /**
      * unlocalized name for the base block
      */
-    private int base = 0;
+    private byte base = 0;
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -58,11 +55,11 @@ public class TileEntityOre extends TileEntity {
         metals[index] = metal.ordinal();
     }
 
-    public int getBase() {
+    public byte getBase() {
         return base;
     }
 
-    public void setBase(int original) {
+    public void setBase(byte original) {
         base = original;
     }
 
@@ -74,10 +71,6 @@ public class TileEntityOre extends TileEntity {
     // TileEntity updates
     // getUpdateTag() and handleUpdateTag() are used by vanilla to collate
     // together into a single chunk update packet
-    // In this case, we need it for the gem colour. There's no need to save the
-    // gem angular position because
-    // the player will never notice the difference and the client<-->server
-    // synchronisation lag will make it
     // inaccurate anyway
     @Override
     @Nullable
@@ -90,9 +83,9 @@ public class TileEntityOre extends TileEntity {
         readFromNBT(pkt.getNbtCompound());
     }
 
-    /*
-	 * Creates a tag containing the TileEntity information, used by vanilla to
-	 * transmit from server to client
+    /**
+     * Creates a tag containing the TileEntity information, used by vanilla to
+     * transmit from server to client
      */
     @Override
     public NBTTagCompound getUpdateTag() {
@@ -101,19 +94,20 @@ public class TileEntityOre extends TileEntity {
         return nbtTagCompound;
     }
 
-    /*
-	 * Populates this TileEntity with information from the tag, used by vanilla
-	 * to transmit from server to client
+    /**
+     * Populates this TileEntity with information from the tag, used by vanilla
+     * to transmit from server to client
      */
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
         this.readFromNBT(tag);
     }
 
-    // This is where you save any data that you don't want to lose when the tile
-    // entity unloads
-    // In this case, we only need to store the gem colour. For examples with
-    // other types of data, see MBE20
+    /**
+     * This is where you save any data that you don't want to lose when the tile
+     * entity unloads In this case, we only need to store the gem colour. For
+     * examples with other types of data, see MBE20
+     */
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
         super.writeToNBT(parentNBTTagCompound); // The super call is required to
@@ -125,12 +119,7 @@ public class TileEntityOre extends TileEntity {
     // This is where you load the data that you saved in writeToNBT
     @Override
     public void readFromNBT(NBTTagCompound parentNBTTagCompound) {
-        super.readFromNBT(parentNBTTagCompound); // The super call is required
-        // to load the tiles
-        // location
-
-        // important rule: never trust the data you read from NBT, make sure it
-        // can't cause a crash
+        super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location important rule: never trust the data you read from NBT, make sure it can't cause a crash
         final int NBT_INT_ARR_ID = 11; // see NBTBase.createNewByType()
         int[] readMetals = metals;
         if (parentNBTTagCompound.hasKey("ores", NBT_INT_ARR_ID)) { // check if the key exists and is an Int array. You can omit this if a default value of 0 is ok.

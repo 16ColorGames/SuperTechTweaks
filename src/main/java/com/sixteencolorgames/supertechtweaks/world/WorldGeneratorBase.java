@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public abstract class WorldGeneratorBase extends WorldGenerator {
-    
+
     public Map<Ores, Double> ores;// List of metals in this generator along with
     // their chance to generate per block
     public int size;// Size of the generator. This means different things
@@ -28,7 +28,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
     public int chance;// Chance per chunk to generate an instance
     private String name;// The identifying name for this generator
     public ArrayList<Integer> dims;
-    
+
     public WorldGeneratorBase(Map<Ores, Double> ores, int size, int min, int max, int chance,
             Map<String, Object> params) {
         this.ores = ores;
@@ -39,7 +39,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
         this.params = params;
         dims = new ArrayList();
     }
-    
+
     public void setName(String n) {
         name = n;
     }
@@ -47,26 +47,27 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
     public void addDim(int i) {
         dims.add(i);
     }
-    public List getDims(){
+
+    public List getDims() {
         return dims;
     }
 
     public String getName() {
         return name;
     }
-    
+
     public Map<Ores, Double> getOres() {
         return ores;
     }
-    
+
     public int getSize() {
         return size;
     }
-    
+
     public Map<String, Object> getParams() {
         return params;
     }
-    
+
     public boolean generateOre(World world, BlockPos pos) {
         world.getMinecraftServer().addScheduledTask(() -> {
             if (Config.stone.contains(world.getBlockState(pos))) {
@@ -75,7 +76,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
                 TileEntity entity = world.getTileEntity(pos);
                 if (entity instanceof TileEntityOre) {
                     TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase(0);
+                    tile.setBase((byte) 0);
                 }
             } else if (Config.nether.contains(world.getBlockState(pos))) {
                 String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
@@ -83,7 +84,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
                 TileEntity entity = world.getTileEntity(pos);
                 if (entity instanceof TileEntityOre) {
                     TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase(-1);
+                    tile.setBase((byte) -1);
                 }
             } else if (Config.end.contains(world.getBlockState(pos))) {
                 String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
@@ -91,7 +92,7 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
                 TileEntity entity = world.getTileEntity(pos);
                 if (entity instanceof TileEntityOre) {
                     TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase(1);
+                    tile.setBase((byte) 1);
                 }
             }
             if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
@@ -105,11 +106,11 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
         });
         return true;
     }
-    
+
     public static boolean generateBlock(World world, BlockPos pos, IBlockState b) {
         return world.setBlockState(pos, b, 3);
     }
-    
+
     public BlockPos[] facing(BlockPos center) {
         BlockPos[] ret = new BlockPos[7];
         ret[0] = center;

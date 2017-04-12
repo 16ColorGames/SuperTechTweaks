@@ -199,14 +199,14 @@
     },
     "Nether Quartz": {
         "generator": "cluster",
-        "ore": [{"ore": "nether_quartz", "weight": 1.0}],
+        "ore": [{"ore": "nether_quartz", "weight": 1.0}, {"ore": "certus", "weight": 0.2}],
 		"size": 7,
         "chance": 1,
         "minHeight": 10,
-        "maxHeight": 30,
+        "maxHeight": 255,
 		"properties": {
 			"clusterVariance": 3,
-			"perChunk": 7
+			"perChunk": 20
 		},
 		"dimensions":[-1]
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.Config;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.util.math.BlockPos;
@@ -20,9 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ModWorldGeneration implements IWorldGenerator {
 
-    public ArrayList<WorldGeneratorBase> generators;
-    public ArrayList<WorldGeneratorBase> nethers;
-    public ArrayList<WorldGeneratorBase> ends;
+    public HashMap<Integer, ArrayList<WorldGeneratorBase>> generators;
     private static final ArrayList<EventType> vanillaOreGeneration = new ArrayList<EventType>();
 
     static {
@@ -38,9 +37,7 @@ public class ModWorldGeneration implements IWorldGenerator {
     }
 
     public ModWorldGeneration() {
-        generators = new ArrayList();
-        nethers = new ArrayList();
-        ends = new ArrayList();
+        generators = new HashMap();
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.ORE_GEN_BUS.register(this);
@@ -48,74 +45,31 @@ public class ModWorldGeneration implements IWorldGenerator {
 
     public ModWorldGeneration(ArrayList<WorldGeneratorBase> list) {
         System.out.println("Creating world generator: " + list.size());
-        generators = list;
-        generators.forEach((gen) -> {
-            System.out.print(gen.getName());
-        });
     }
 
     public void addGenerators(ArrayList<WorldGeneratorBase> list) {
         list.forEach((WorldGeneratorBase t) -> {
-            List dims = t.getDims();
-            if (dims.contains(-1)) {
-                nethers.add(t);
-            }
-            if (dims.contains(0)) {
-                generators.add(t);
-            }
-            if (dims.contains(1)) {
-                ends.add(t);
-            }
+            List<Integer> dims = t.getDims();
+            dims.forEach((Integer d) -> {
+                ArrayList lis = generators.getOrDefault(d, new ArrayList<>());
+                lis.add(t);
+                generators.put(d, lis);
+            });
         });
     }
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
             IChunkProvider chunkProvider) {
-        switch (world.provider.getDimension()) {
-            case 0:
-                // the overworld
-                generateOverworld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                break;
-            case -1:
-                //the nether
-                generateNether(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                break;
-            case 1:
-                //the end
-                generateEnd(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                break;
-            default:
-                break;
-        }
+        generateList(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
     }
 
-    private void generateOverworld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
+    private void generateList(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
             IChunkProvider chunkProvider) {
-        generators.forEach((WorldGeneratorBase gen) -> {
+        generators.getOrDefault(world.provider.getDimension(), new ArrayList<>()).forEach((WorldGeneratorBase wg) -> {
             BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
             world.getMinecraftServer().addScheduledTask(() -> {
-                gen.generate(world, random, pos);
-            });
-        });
-    }
-
-    private void generateEnd(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-            IChunkProvider chunkProvider) {
-        ends.forEach((WorldGeneratorBase gen) -> {
-            BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
-            world.getMinecraftServer().addScheduledTask(() -> {
-                gen.generate(world, random, pos);
-            });
-        });
-    }
-
-    private void generateNether(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-            IChunkProvider chunkProvider) {
-        nethers.forEach((WorldGeneratorBase gen) -> {
-            BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
-            world.getMinecraftServer().addScheduledTask(() -> {
-                gen.generate(world, random, pos);
+                wg.generate(world, random, pos);
             });
         });
     }
