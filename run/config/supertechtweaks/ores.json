@@ -246,5 +246,29 @@
 			"clusterVariance": 10,
 			"perChunk": 16
 		}
+    },
+    "Nether Ardite": {
+        "generator": "cluster",
+        "ore": [{"ore": "ardite", "weight": 1.0}],
+		"size": 5,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 255,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 16
+		}
+    },
+    "Nether Cobalt": {
+        "generator": "cluster",
+        "ore": [{"ore": "cobalt", "weight": 1.0}],
+		"size": 5,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 255,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 16
+		}
     }
 }

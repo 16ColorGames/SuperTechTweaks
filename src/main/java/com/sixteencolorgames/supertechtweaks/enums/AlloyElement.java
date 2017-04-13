@@ -5,7 +5,6 @@
  */
 package com.sixteencolorgames.supertechtweaks.enums;
 
-
 public class AlloyElement {
 
     private final Ores ore;
@@ -15,5 +14,13 @@ public class AlloyElement {
     public AlloyElement(Ores ore, int amount) {
         this.ore = ore;
         this.amount = amount;
+    }
+
+    public Ores getOre() {
+        return ore;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

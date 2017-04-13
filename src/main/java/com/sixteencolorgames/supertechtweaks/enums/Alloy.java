@@ -25,4 +25,14 @@ public class Alloy {
         inputs = Arrays.asList(input);
     }
 
+    public static ArrayList<Alloy> alloysContain(Ores ore) {
+        ArrayList<Alloy> ret = new ArrayList<>();
+        alloys.forEach((alloy) -> {
+            alloy.inputs.stream().filter((element) -> (element.getOre() == ore)).forEachOrdered((_item) -> {
+                ret.add(alloy);
+            });
+        });
+        return ret;
+    }
+
 }
