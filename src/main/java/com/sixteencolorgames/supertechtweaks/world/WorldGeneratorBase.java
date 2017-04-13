@@ -8,14 +8,18 @@ import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.fml.common.IWorldGenerator;
 
-public abstract class WorldGeneratorBase extends WorldGenerator {
+public abstract class WorldGeneratorBase implements IWorldGenerator {
 
     public Map<Ores, Double> ores;// List of metals in this generator along with
     // their chance to generate per block
@@ -122,4 +126,14 @@ public abstract class WorldGeneratorBase extends WorldGenerator {
         ret[6] = center.west();
         return ret;
     }
+
+    @Override
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+        if (dims.contains(world.provider.getDimension())) {
+            BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
+            generate(world, random, pos);
+        }
+    }
+
+    abstract boolean generate(World world, Random random, BlockPos pos);
 }

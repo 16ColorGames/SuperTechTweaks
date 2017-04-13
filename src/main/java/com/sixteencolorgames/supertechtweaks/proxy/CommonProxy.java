@@ -29,6 +29,7 @@ import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
 import com.sixteencolorgames.supertechtweaks.world.SingleGenerator;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,7 +65,7 @@ public class CommonProxy {
 //                    generator.addGenerators(GenerationParser.parseScripts(gen));
                     ArrayList<WorldGeneratorBase> parsed = GenerationParser.parseScripts(gen);
                     parsed.forEach((WorldGeneratorBase base) -> {
-                        GameRegistry.registerWorldGenerator(new SingleGenerator(base), 3);
+                        GameRegistry.registerWorldGenerator(new SingleGenerator(base), 3 + base.params.hashCode()+base.hashCode());
                     });
                 } catch (Exception ex) {
                 }
