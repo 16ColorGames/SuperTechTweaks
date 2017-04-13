@@ -22,7 +22,7 @@ public enum Ores implements IStringSerializable {
     BISMUTH("Bismuth", "0xed7d92", 0),
     CADMIUM("Cadmium", "0xed872d", 0),
     MERCURY("Mercury", "0x751f27", 0),
-    COPPER("Copper", "0xb4713d", 1, _2_copper, "molten_iron"),
+    COPPER("Copper", "0xb4713d", 1, _2_copper),
     ZINC("Zinc", "0xbac4c8", 1),
     COAL("Coal", "0x060607", 1) {
         @Override
@@ -137,7 +137,7 @@ public enum Ores implements IStringSerializable {
     IRIDIUM("Iridium", "0xe0e2dd", 7),
     TITANIUM("Titanium", "0x323230", 7),
     STONE("Stone", "0x8B8D7A", -1, _0_stone),
-    BASALT("Basalt", "0x202A29", -1, _0_stone),
+    BASALT("Basalt", "0x202A29", 2, _0_stone),
     PAPER("Paper", "0xF0EEE1", -1, _0_stone),
     SPONGE("Sponge", "0xD8C060", -1, _0_stone),
     FIREWOOD("Firewood", "0x000000", -1, _0_stone),
@@ -177,7 +177,46 @@ public enum Ores implements IStringSerializable {
         public ItemStack getDrops() {
             return new ItemStack(Items.QUARTZ, 1, 0);
         }
-    };
+    },
+    ADAMANTINE("Adamantine", "0xb30000", 8, 9),
+    TERRAX("Terrax", "0x000000", 3, 4),
+    KARMESINE("Karmesine", "0x000000", 4),
+    OVIUM("Ovium", "0x000000", 4),
+    JAUXUM("Jauxum", "0x000000", 4),
+    AURORIUM("Aurorium", "0x000000", 4, 4),
+    TIBERIUM("Tiberium", "0x000000", 2, 3),
+    DILITHIUM("Dilithium", "0x000000", 2),
+    FRACTUM("Fractum", "0x000000", 2, 2),
+    TRIBERIUM("Triberium", "0x000000", 3, 3),
+    ABYSSUM("Abyssum", "0x000000", 4),
+    TRITONITE("Tritonite", "0x000000", 4, 4),
+    VIOLIUM("Violium", "0x000000", 4, 4),
+    ASTRIUM("Astrium", "0x000000", 4, 4),
+    NIHILITE("Nihilite", "0x000000", 6, 6),
+    VIBRANIUM("Vibranium", "0x000000", 7, 7),
+    SOLARIUM("SOLARIUM", "0x000000", 7, 7),
+    VALYRIUM("Valyrium", "0x000000", 6, 6),
+    URU("Uru", "0x000000", 6, 6),
+    ADAMANT("Adamant", "0x000000", 7, 7),
+    NUCLEUM("Nucleum", "0x000000", 6, 6),
+    IOX("Iox", "0x000000", 10),
+    SEISMUM("Seismum", "0x000000", 4, 4),
+    IMPEROMITE("Imperomite", "0x000000", 5, 5),
+    EEZO("Eezo", "0x000000", 4, 4),
+    DURANITE("Duranite", "0x000000", 5, 5),
+    PROMETHIUM("Promethium", "0x000000", 5, 5),
+    IGNITZ("Ignitz", "0x000000", 4, 4),
+    PROXII("Proxii", "0x000000", 5, 5),
+    OSRAM("Osram", "0x000000", 4),
+    PALLADIUM("Palladium", "0x000000", 5, 5),
+    YRDEEN("Yrdeen", "0x000000", 4, 4),
+    NIOB("Niob", "0x000000", 4, 4),
+    OBSIDIORITE("Obsidiorite", "0x000000", 4, 4),
+    LUMIX("Lumix", "0x000000", 4, 4),
+    DYONITE("Dyonite", "0x000000", 5, 5),
+    ALUMINUMBRASS("Alubrass", "0x000000", 1),
+    NITRONITE("Nitronite", "0x00000", 4),
+    MAGMA("Magma", "0x000000", -1);
 
     /**
      * The name of the metal
@@ -212,14 +251,6 @@ public enum Ores implements IStringSerializable {
         this.color = color;
         this.harvest = harvest;
         this.mine = mine;
-    }
-
-    Ores(String name, String color, int harvest, int mine, String liquid) {
-        this.name = name;
-        this.color = color;
-        this.harvest = harvest;
-        this.mine = mine;
-        this.liquid = liquid;
     }
 
     public String getColor() {

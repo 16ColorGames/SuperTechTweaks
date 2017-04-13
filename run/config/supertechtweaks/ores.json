@@ -197,6 +197,31 @@
 			"perChunk": 2
 		}
     },
+    "Nether Radioactive": {
+        "generator": "cluster",
+        "ore": [{"ore": "yellorium", "weight": 1.0}, {"ore": "mithril", "weight": 0.3}],
+		"size": 7,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 255,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 5
+		},
+		"dimensions":[-1]
+    },
+    "Nether Draconic": {
+        "generator": "cluster",
+        "ore": [{"ore": "draconium", "weight": 1.0}, {"ore": "obsidian", "weight": 0.15}],
+		"size": 7,
+        "chance": 1,
+        "minHeight": 1,
+        "maxHeight": 250,
+		"properties": {
+			"clusterVariance": 3
+		},
+		"dimensions":[-1]
+    },
     "Nether Quartz": {
         "generator": "cluster",
         "ore": [{"ore": "nether_quartz", "weight": 1.0}, {"ore": "certus", "weight": 0.2}],
@@ -209,5 +234,17 @@
 			"perChunk": 20
 		},
 		"dimensions":[-1]
+    },
+    "Nether Coal": {
+        "generator": "cluster",
+        "ore": [{"ore": "coal", "weight": 1.0}],
+		"size": 20,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 255,
+		"properties": {
+			"clusterVariance": 10,
+			"perChunk": 16
+		}
     }
 }
