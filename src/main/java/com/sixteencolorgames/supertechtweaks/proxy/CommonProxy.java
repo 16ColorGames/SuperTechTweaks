@@ -26,6 +26,9 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
+import com.sixteencolorgames.supertechtweaks.world.SingleGenerator;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
+import java.util.ArrayList;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -58,7 +61,11 @@ public class CommonProxy {
         for (File gen : configFolder.listFiles()) {
             if (gen.getName().contains(".json")) {
                 try {
-                    generator.addGenerators(GenerationParser.parseScripts(gen));
+//                    generator.addGenerators(GenerationParser.parseScripts(gen));
+                    ArrayList<WorldGeneratorBase> parsed = GenerationParser.parseScripts(gen);
+                    parsed.forEach((WorldGeneratorBase base) -> {
+                        GameRegistry.registerWorldGenerator(new SingleGenerator(base), 3);
+                    });
                 } catch (Exception ex) {
                 }
             }
@@ -67,7 +74,7 @@ public class CommonProxy {
         ModBlocks.init();
         ModItems.init();
         GameRegistry.registerTileEntity(TileEntityOre.class, e.getModMetadata().modId + "TileEntityOre");
-        GameRegistry.registerWorldGenerator(generator, 3);
+        //GameRegistry.registerWorldGenerator(generator, 3);
         for (Ores metal : Ores.values()) {
             ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
             OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
@@ -75,8 +82,7 @@ public class CommonProxy {
             OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
             subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
             OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
-            
-            
+
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT);
             OreDictionary.registerOre("ingot" + metal.getName(), subItemStack);
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DUST);

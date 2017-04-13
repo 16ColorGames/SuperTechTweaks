@@ -14,17 +14,20 @@ import scala.actors.threadpool.Arrays;
  * @author oa10712
  */
 public class Alloy {
-
+    
     public static ArrayList<Alloy> alloys = new ArrayList();
-
+    
     AlloyElement result;
     List<AlloyElement> inputs;
-
+    
     public Alloy(AlloyElement end, AlloyElement... input) {
         result = end;
-        inputs = Arrays.asList(input);
+        inputs = new ArrayList();
+        for (AlloyElement element : input) {
+            inputs.add(element);
+        }
     }
-
+    
     public static ArrayList<Alloy> alloysContain(Ores ore) {
         ArrayList<Alloy> ret = new ArrayList<>();
         alloys.forEach((alloy) -> {
@@ -34,5 +37,13 @@ public class Alloy {
         });
         return ret;
     }
-
+    
+    public AlloyElement getResult() {
+        return result;
+    }
+    
+    public List<AlloyElement> getInputs() {
+        return inputs;
+    }
+    
 }

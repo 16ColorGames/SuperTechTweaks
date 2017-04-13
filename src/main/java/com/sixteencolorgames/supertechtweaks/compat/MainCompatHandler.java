@@ -24,7 +24,7 @@ public class MainCompatHandler {
     public static void registerTiCon() {
         TiConCompatability logic = new TiConCompatability();
         MinecraftForge.EVENT_BUS.register(logic);
-        //TiConCompatability.registerMelting();
+        TiConCompatability.registerMelting();
     }
     
     public static void registerMekanism(){
