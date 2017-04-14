@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public abstract class WorldGeneratorBase implements IWorldGenerator {
@@ -130,7 +129,11 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (dims.contains(world.provider.getDimension())) {
-            BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16).add(random.nextInt(16), 0, random.nextInt(16));
+            int calc = ores.hashCode();
+            for (int i = 0; i < calc; i++) {
+                random.nextInt();
+            }
+            BlockPos pos = new BlockPos(chunkX * 16 + random.nextDouble() * 16, 0, chunkZ * 16 + random.nextDouble() * 16);
             generate(world, random, pos);
         }
     }

@@ -55,7 +55,7 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
         int height = rand.nextInt(maxY - minY) + minY;
         Vec3d pos = new Vec3d(position.getX(), position.getY() + height, position.getZ());
         Vec3d dir = DIRS[rand.nextInt(DIRS.length)];
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size * (int) params.getOrDefault("branchLength", 5); i++) {
             BlockPos check = new BlockPos(pos);
             for (BlockPos adj : this.facing(check)) {
                 super.generateOre(world, adj);

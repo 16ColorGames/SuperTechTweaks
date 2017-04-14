@@ -14,13 +14,14 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 /**
  *
  * @author oa10712
  */
 public class Recipies {
-
+    
     public static void addRecipies() {
         for (Ores ore : Ores.values()) {
             GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt ore to ingot
@@ -34,11 +35,14 @@ public class Recipies {
                     "xxx", "xxx", "xxx", 'x', "nugget" + ore.getName()));//Craft nuggets into an ingot
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + ROD),
                     "x", "x", 'x', "ingot" + ore.getName()));//Craft nuggets into an ingot
+            
             GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
+            ShapelessOreRecipe wireRecipe = new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + WIRE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), "craftingToolWireCutter"); //Craft ingots into nuggets
+            GameRegistry.addRecipe(wireRecipe);
         }
         registerAlloys();
     }
-
+    
     private static void registerAlloys() {
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ELECTRUM, 2), new AlloyElement(Ores.SILVER, 1), new AlloyElement(Ores.GOLD, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ALUMINUMBRASS, 4), new AlloyElement(Ores.COPPER, 1), new AlloyElement(Ores.ALUMINUM, 3)));
@@ -74,5 +78,5 @@ public class Recipies {
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.DYONITE, 3), new AlloyElement(Ores.TRIBERIUM, 3), new AlloyElement(Ores.FRACTUM, 1), new AlloyElement(Ores.OSRAM, 1), new AlloyElement(Ores.SEISMUM, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.IOX, 1), new AlloyElement(Ores.EEZO, 2), new AlloyElement(Ores.ABYSSUM, 2), new AlloyElement(Ores.OSRAM, 2), new AlloyElement(Ores.OBSIDIORITE, 9)));
     }
-
+    
 }

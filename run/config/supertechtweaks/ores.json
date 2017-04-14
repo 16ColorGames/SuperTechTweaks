@@ -1,14 +1,14 @@
 # Configuration file
 {
     "cuprite": {
-        "generator": "cluster",
+        "generator": "vein",
         "ore": [{"ore": "copper", "weight": 1.0}, {"ore": "osmium", "weight": 0.01}],
-		"size": 15,
-        "chance": 1,
+		"size": 4,
+        "chance": 15,
         "minHeight": 32,
         "maxHeight": 80,
 		"properties": {
-			"perChunk": 5
+			"branchLength": 5
 		}
     },
     "hematite": {
@@ -201,6 +201,17 @@
 			"clusterVariance": 2
 		}
     },
+    "Ovium": {
+        "generator": "cluster",
+        "ore": [{"ore": "ovium", "weight": 1.0}],
+		"size": 9,
+        "chance": 1,
+        "minHeight": 10,
+        "maxHeight": 64,
+		"properties": {
+			"clusterVariance": 2
+		}
+    },
     "Osram": {
         "generator": "cluster",
         "ore": [{"ore": "osram", "weight": 1.0}],
@@ -317,17 +328,6 @@
         "chance": 1,
         "minHeight": 0,
         "maxHeight": 128,
-		"properties": {
-			"clusterVariance": 2
-		}
-    },
-    "Ovium": {
-        "generator": "cluster",
-        "ore": [{"ore": "ovium", "weight": 1.0}],
-		"size": 9,
-        "chance": 1,
-        "minHeight": 10,
-        "maxHeight": 64,
 		"properties": {
 			"clusterVariance": 2
 		}

@@ -29,11 +29,7 @@ public class TileEntityOre extends TileEntity {
      */
     private byte base = 0;
     
-    @SideOnly(Side.CLIENT)
-    @Override
-    public double getMaxRenderDistanceSquared() {
-        return 256.0D;
-    }
+ 
     
     public boolean addMetal(Ores metal) {
         for (int i = 0; i < 7; i++) {

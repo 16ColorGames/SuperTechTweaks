@@ -32,6 +32,8 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
+
+        position.add(worldIn.rand.nextInt(16), 0, worldIn.rand.nextInt(16));
         if (chance == 1 || rand.nextInt(chance) == 0) {
             if ((int) params.getOrDefault("perChunk", 1) <= 1) {
                 return generateCluster(worldIn, rand, position.add(rand.nextInt(16), 0, rand.nextInt(16)));
