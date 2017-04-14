@@ -129,11 +129,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (dims.contains(world.provider.getDimension())) {
-            int calc = ores.hashCode();
-            for (int i = 0; i < calc; i++) {
-                random.nextInt();
-            }
-            BlockPos pos = new BlockPos(chunkX * 16 + random.nextDouble() * 16, 0, chunkZ * 16 + random.nextDouble() * 16);
+            BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
             generate(world, random, pos);
         }
     }
