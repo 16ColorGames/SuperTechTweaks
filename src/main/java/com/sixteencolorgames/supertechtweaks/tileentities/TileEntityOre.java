@@ -3,7 +3,6 @@ package com.sixteencolorgames.supertechtweaks.tileentities;
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import net.minecraft.nbt.NBTBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -28,9 +27,7 @@ public class TileEntityOre extends TileEntity {
      * unlocalized name for the base block
      */
     private byte base = 0;
-    
- 
-    
+
     public boolean addMetal(Ores metal) {
         for (int i = 0; i < 7; i++) {
             if (metals[i] == Ores.NONE.ordinal()) {
@@ -40,24 +37,30 @@ public class TileEntityOre extends TileEntity {
         }
         return false;
     }
-    
+
     public int[] getOres() {
         if (metals.length != 0) {
             return metals;
         }
         return new int[]{0};
     }
-    
+
     public void setMetal(int index, Ores metal) {
         metals[index] = metal.ordinal();
     }
-    
+
     public byte getBase() {
         return base;
     }
-    
+
     public void setBase(byte original) {
         base = original;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public double getMaxRenderDistanceSquared() {
+        return 256.0D;
     }
 
     // When the world loads from disk, the server needs to send the TileEntity
@@ -74,7 +77,7 @@ public class TileEntityOre extends TileEntity {
     public SPacketUpdateTileEntity getUpdatePacket() {
         return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
     }
-    
+
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         readFromNBT(pkt.getNbtCompound());
@@ -128,5 +131,5 @@ public class TileEntityOre extends TileEntity {
         }
         metals = readMetals;
     }
-    
+
 }

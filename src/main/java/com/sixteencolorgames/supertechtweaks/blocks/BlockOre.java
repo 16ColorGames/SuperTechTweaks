@@ -6,21 +6,26 @@ import java.util.Random;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
+import java.util.ArrayList;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * The ore block for world generation. Can hold up to 7 ores.
@@ -29,7 +34,7 @@ import net.minecraft.world.World;
  *
  */
 public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
-    
+
     public BlockOre() {
         super(Material.ROCK, "blockOre");
         this.setHardness(3.0f);
@@ -67,6 +72,38 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
     }
 
     /**
+     * This returns a complete list of items dropped from this block.
+     *
+     * @param world The current world
+     * @param pos Block position in world
+     * @param state Current state
+     * @param fortune Breakers fortune level
+     * @return A ArrayList containing all items this block drops
+     */
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+
+        List<ItemStack> ret = new ArrayList<>();
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof TileEntityOre) {
+            TileEntityOre ore = (TileEntityOre) tileEntity;
+            int[] ores = ore.getOres();
+            Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+            for (int i = 0; i < 7; i++) {
+                if (ores[i] != Ores.NONE.ordinal()) {
+                    ret.add(Ores.values()[ores[i]].getDrops(ore.getBase()));
+                    for (int j = 0; j < fortune; j++) {
+                        if (rand.nextDouble() > .5) {
+                            ret.add(Ores.values()[ores[i]].getDrops(ore.getBase()));
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Method called after the player mines a block. Causes oreChunks to spawn
      * that match the contained ores.
      *
@@ -89,12 +126,26 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
             if (tileEntity instanceof TileEntityOre) {
                 TileEntityOre ore = (TileEntityOre) tileEntity;
                 int[] ores = ore.getOres();
+                int tagCount = player.getHeldItemMainhand().getEnchantmentTagList().tagCount();
+                int fortune = 0;
+                for (int i = 0; i < tagCount; i++) {
+                    NBTTagCompound compound = (NBTTagCompound) player.getHeldItemMainhand().getEnchantmentTagList().get(i);
+                    if (compound.getShort("id") == 35) {//if the enchantment is Fortune
+                        fortune = compound.getShort("lvl");
+                    }
+                }
                 for (int i = 0; i < 7; i++) {
                     if (ores[i] != Ores.NONE.ordinal()) {
                         if (Ores.values()[ores[i]].getHarvest() <= player.getHeldItemMainhand().getItem()
                                 .getHarvestLevel(player.getHeldItemMainhand(), "pickaxe")) {
                             worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
-                                    pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops()));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
+                                    pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
+                            for (int j = 0; j < fortune; j++) {
+                                if (RANDOM.nextBoolean()) {//50/50 chance of an extra drop
+                                    worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
+                                            pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
+                                }
+                            }
                             ore.setMetal(i, Ores.NONE);//We dropped the ore, so remove it from the block
                         } else {
                             metalLeft = true;
@@ -111,18 +162,18 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
         }
         return true;
     }
-    
+
     @Override
     public Class getTileEntityClass() {
         return TileEntityOre.class;
     }
-    
+
     @Override
     public TileEntityOre createTileEntity(World world, IBlockState state) {
         TileEntityOre ore = new TileEntityOre();
         return ore;
     }
-    
+
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
@@ -141,15 +192,15 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 currenttip.add(color + Ores.values()[metal].getName() + "(" + ore.getHarvest() + ")");
             }
         }
-        
+
         return currenttip;
     }
-    
+
     @Override
     public void registerItemModel(Item item) {
         // void since we shouldn't have this in inventory
     }
-    
+
     @Override
     public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
         return EnumBlockRenderType.MODEL;

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -72,46 +71,22 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     }
 
     public boolean generateOre(World world, BlockPos pos) {
-        world.getMinecraftServer().addScheduledTask(() -> {
-            if (Config.stone.contains(world.getBlockState(pos))) {
-                String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
-                world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-                TileEntity entity = world.getTileEntity(pos);
-                if (entity instanceof TileEntityOre) {
-                    TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase((byte) 0);
+        if (Config.stone.contains(world.getBlockState(pos))) {
+            updateState(world, pos, (byte) 0);
+        } else if (Config.nether.contains(world.getBlockState(pos))) {
+            updateState(world, pos, (byte) -1);
+        } else if (Config.end.contains(world.getBlockState(pos))) {
+            updateState(world, pos, (byte) 1);
+        }
+        if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
+            TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
+            ores.forEach((Ores k, Double v) -> {
+                if (world.rand.nextDouble() < v) {
+                    tile.addMetal(k);
                 }
-            } else if (Config.nether.contains(world.getBlockState(pos))) {
-                String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
-                world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-                TileEntity entity = world.getTileEntity(pos);
-                if (entity instanceof TileEntityOre) {
-                    TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase((byte) -1);
-                }
-            } else if (Config.end.contains(world.getBlockState(pos))) {
-                String base = world.getBlockState(pos).getBlock().getUnlocalizedName();
-                world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-                TileEntity entity = world.getTileEntity(pos);
-                if (entity instanceof TileEntityOre) {
-                    TileEntityOre tile = (TileEntityOre) entity;
-                    tile.setBase((byte) 1);
-                }
-            }
-            if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
-                TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
-                ores.forEach((Ores k, Double v) -> {
-                    if (world.rand.nextDouble() < v) {
-                        tile.addMetal(k);
-                    }
-                });
-            }
-        });
+            });
+        }
         return true;
-    }
-
-    public static boolean generateBlock(World world, BlockPos pos, IBlockState b) {
-        return world.setBlockState(pos, b, 3);
     }
 
     public BlockPos[] facing(BlockPos center) {
@@ -135,4 +110,14 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     }
 
     abstract boolean generate(World world, Random random, BlockPos pos);
+
+    private void updateState(World world, BlockPos pos, byte b) {
+        
+        world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+        TileEntity entity = world.getTileEntity(pos);
+        if (entity instanceof TileEntityOre) {
+            TileEntityOre tile = (TileEntityOre) entity;
+            tile.setBase(b);
+        }
+    }
 }

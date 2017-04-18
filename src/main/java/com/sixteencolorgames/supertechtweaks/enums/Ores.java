@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.oredict.OreDictionary;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
+import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import net.minecraft.init.Blocks;
 
 /**
@@ -26,7 +27,7 @@ public enum Ores implements IStringSerializable {
     ZINC("Zinc", "0xbac4c8", 1),
     COAL("Coal", "0x060607", 1) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.COAL, 1, 0);
         }
     },
@@ -34,11 +35,11 @@ public enum Ores implements IStringSerializable {
     IRON("Iron", "0xd3ad90", 2, _3_iron),
     APATITE("Apatite", "0xc3b89c", 2) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("gemApatite")) {
                 return OreDictionary.getOres("gemApatite").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
@@ -48,7 +49,7 @@ public enum Ores implements IStringSerializable {
     TELLURIUM("Tellurium", "0xb5b5bd", 2),
     LAPIS("Lapis", "0x000094", 2) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.DYE, 5, 4);
         }
     },
@@ -57,17 +58,17 @@ public enum Ores implements IStringSerializable {
     LEAD("Lead", "0x474c4d", 3, _1_flint),
     REDSTONE("Redstone", "0xd43c2c", 3) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.REDSTONE, 4, 0);
         }
     },
     SULFUR("Sulfur", "0xedff21", 3) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("dustSulfur")) {
                 return OreDictionary.getOres("dustSulfur").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
@@ -76,54 +77,54 @@ public enum Ores implements IStringSerializable {
     COLD_IRON("Cold Iron", "0x5f6c81", 3),
     DIAMOND("Diamond", "0xb9f2ff", 4) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.DIAMOND, 1, 0);
         }
     },
     EMERALD("Emerald", "0x318957", 4) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.EMERALD, 1, 0);
         }
     },
     RUBY("Ruby", "0x9b111e", 4) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("gemRuby")) {
                 return OreDictionary.getOres("gemRuby").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
     SAPPHIRE("Sapphire", "0x297bc1", 4) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("gemSapphire")) {
                 return OreDictionary.getOres("gemSapphire").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
     AMETHYST("Amethyst", "0x642552", 4) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("gemAmethyst")) {
                 return OreDictionary.getOres("gemAmethyst").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
     MANGANESE("Manganese", "0x242d36", 4),
     CERTUS("Certus", "0xe6d7df", 5) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("crystalCertusQuartz")) {
                 return OreDictionary.getOres("crystalCertusQuartz").get(0);
             } else {
-                return super.getDrops();
+                return super.getDrops(base);
             }
         }
     },
@@ -151,7 +152,7 @@ public enum Ores implements IStringSerializable {
     BONE("Bone", "0xFFF9ED", -1, _1_flint),
     FLINT("Flint", "0x6E6460", 0, _1_flint) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.FLINT, 1, 0);
         }
     },
@@ -166,7 +167,7 @@ public enum Ores implements IStringSerializable {
     PIGIRON("Pigiron", "0xff9999", 5, _5_diamond),
     OBSIDIAN("Obsidian", "0x0c0f04", 3, _3_iron) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Blocks.OBSIDIAN, 1, 0);
         }
     },
@@ -174,7 +175,7 @@ public enum Ores implements IStringSerializable {
     MITHRIL("Mithril", "0xAEBBDB", 5, _6_obsidian),
     NETHER_QUARTZ("NetherQuartz", "0xdddddd", 1) {
         @Override
-        public ItemStack getDrops() {
+        public ItemStack getDrops(byte base) {
             return new ItemStack(Items.QUARTZ, 1, 0);
         }
     },
@@ -184,7 +185,7 @@ public enum Ores implements IStringSerializable {
     OVIUM("Ovium", "0x000000", 4),
     JAUXUM("Jauxum", "0x000000", 4),
     AURORIUM("Aurorium", "0x000000", 4, 4),
-    TIBERIUM("Tiberium", "0x000000", 2, 3),
+    TIBERIUM("Tiberium", "0xD4FF00", 2, 3),
     DILITHIUM("Dilithium", "0x000000", 2),
     FRACTUM("Fractum", "0x000000", 2, 2),
     TRIBERIUM("Triberium", "0x000000", 3, 3),
@@ -202,7 +203,7 @@ public enum Ores implements IStringSerializable {
     IOX("Iox", "0x000000", 10),
     SEISMUM("Seismum", "0x000000", 4, 4),
     IMPEROMITE("Imperomite", "0x000000", 5, 5),
-    EEZO("Eezo", "0x000000", 4, 4),
+    EEZO("Eezo", "0x38596A", 4, 4),
     DURANITE("Duranite", "0x000000", 5, 5),
     PROMETHIUM("Promethium", "0x000000", 5, 5),
     IGNITZ("Ignitz", "0x000000", 4, 4),
@@ -216,7 +217,8 @@ public enum Ores implements IStringSerializable {
     DYONITE("Dyonite", "0x000000", 5, 5),
     ALUMINUMBRASS("Alubrass", "0x000000", 1),
     NITRONITE("Nitronite", "0x00000", 4),
-    MAGMA("Magma", "0x000000", -1);
+    MAGMA("Magma", "0x000000", -1),
+    RESONATING("Resonating", "0xFF4500", 2);
 
     /**
      * The name of the metal
@@ -270,11 +272,18 @@ public enum Ores implements IStringSerializable {
         return mine;
     }
 
-    public ItemStack getDrops() {
-        return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal());
-    }
-
     public String getLiquid() {
         return liquid;
+    }
+
+    public ItemStack getDrops(byte base) {
+        switch (base) {//Switch based on base block
+            case -1://NetherRack and similar
+                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal() + ItemOreChunk.NETHER);
+            case 1://Endstone and similar
+                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal() + ItemOreChunk.END);
+            default://Stone and unspecified
+                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal());
+        }
     }
 }
