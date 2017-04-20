@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
@@ -56,6 +57,8 @@ public class ClientProxy extends CommonProxy {
     static ModelResourceLocation crystalLocation = new ModelResourceLocation("supertechtweaks:itemCrystal",
             "inventory");
     static ModelResourceLocation wireLocation = new ModelResourceLocation("supertechtweaks:itemWire",
+            "inventory");
+    static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:itemBlock",
             "inventory");
 
     @Override

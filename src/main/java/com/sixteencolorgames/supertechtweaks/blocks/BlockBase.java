@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 public class BlockBase extends Block implements ItemModelProvider {
 
     protected String name;
+    private Item itemBlock;
 
     public BlockBase(Material material, String name) {
         super(material);
@@ -40,4 +41,11 @@ public class BlockBase extends Block implements ItemModelProvider {
         return this;
     }
 
+    public Item getItemBlock() {
+        return itemBlock;
+    }
+
+    public void setItemBlock(Item itemBlock) {
+        this.itemBlock = itemBlock;
+    }
 }
