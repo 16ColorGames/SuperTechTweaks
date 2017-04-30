@@ -93,7 +93,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 if (ores[i] != Ores.NONE.ordinal()) {
                     ret.add(Ores.values()[ores[i]].getDrops(ore.getBase()));
                     for (int j = 0; j < fortune; j++) {
-                        if (rand.nextDouble() > .5) {
+                        if (rand.nextDouble() < .25) {
                             ret.add(Ores.values()[ores[i]].getDrops(ore.getBase()));
                         }
                     }
@@ -116,11 +116,11 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
     @Override
     public boolean removedByPlayer(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player,
             boolean willHarvest) {
-        if (player.isCreative()) {//If the player is in creative...
-            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
-            return true;
-        }
         if (!worldIn.isRemote) {
+            if (player.isCreative()) {//If the player is in creative...
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
+                return true;
+            }
             boolean metalLeft = false;
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEntityOre) {
@@ -141,7 +141,7 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                             worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
                                     pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
                             for (int j = 0; j < fortune; j++) {
-                                if (RANDOM.nextBoolean()) {//50/50 chance of an extra drop
+                                if (RANDOM.nextDouble() < .25) {//25% chance of an extra drop
                                     worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
                                             pos.getZ() + 0.5, Ores.values()[ores[i]].getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
                                 }

@@ -218,7 +218,17 @@ public enum Ores implements IStringSerializable {
     ALUMINUMBRASS("Alubrass", "0x000000", 1),
     NITRONITE("Nitronite", "0x00000", 4),
     MAGMA("Magma", "0x000000", -1),
-    RESONATING("Resonating", "0xFF4500", 2);
+    RESONATING("Resonating", "0xFF4500", 2),
+    BLACK_QUARTZ("Black Quartz", "x1A1A1A", 2) {
+        @Override
+        public ItemStack getDrops(byte base) {
+            if (OreDictionary.doesOreNameExist("gemQuartzBlack")) {
+                return OreDictionary.getOres("gemQuartzBlack").get(0);
+            } else {
+                return super.getDrops(base);
+            }
+        }
+    },;
 
     /**
      * The name of the metal
