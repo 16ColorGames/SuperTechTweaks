@@ -38,6 +38,10 @@ repositories {
         name "Mobius Repo"
         url "http://mobiusstrip.eu/maven"
     }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
 }
 
 dependencies {
@@ -62,7 +66,10 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     deobfCompile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4"
-
+	
+    deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.1.4.+"
+    deobfCompile "slimeknights:TConstruct:1.10.2-2.6.3.500"
+    
 }
 
 processResources

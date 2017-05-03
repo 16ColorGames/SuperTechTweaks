@@ -8,14 +8,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = SuperTechTweaksMod.modId, name = SuperTechTweaksMod.name, version = SuperTechTweaksMod.version, acceptedMinecraftVersions = "[1.10.2]")
+@Mod(modid = SuperTechTweaksMod.MODID, name = SuperTechTweaksMod.MODNAME, version = SuperTechTweaksMod.VERSION, acceptedMinecraftVersions = "[1.10.2]")
 public class SuperTechTweaksMod {
 
-	public static final String modId = "supertechtweaks";
-	public static final String name = "Super Tech Tweaks";
-	public static final String version = "1.0.0";
+	public static final String MODID = "supertechtweaks";
+	public static final String MODNAME = "Super Tech Tweaks";
+	public static final String VERSION = "1.0.0";
 
-	@Mod.Instance(modId)
+	@Mod.Instance(MODID)
 	public static SuperTechTweaksMod instance;
 
 	/**
@@ -27,18 +27,18 @@ public class SuperTechTweaksMod {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		System.out.println(name + " is loading!");
-		this.proxy.preInit(event);
+		System.out.println(MODNAME + " is loading!");
+		SuperTechTweaksMod.proxy.preInit(event);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		this.proxy.init(event);
+		SuperTechTweaksMod.proxy.init(event);
 	}
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		this.proxy.postInit(event);
+		SuperTechTweaksMod.proxy.postInit(event);
 	}
 
 }
