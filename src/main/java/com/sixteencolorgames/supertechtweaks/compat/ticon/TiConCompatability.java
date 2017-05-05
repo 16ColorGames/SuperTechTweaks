@@ -7,16 +7,19 @@ package com.sixteencolorgames.supertechtweaks.compat.ticon;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Alloy;
+import com.sixteencolorgames.supertechtweaks.enums.AlloyElement;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.ROD;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
+import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
-import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 
 /**
  *
@@ -47,10 +50,15 @@ public class TiConCompatability {
         for (Ores ore : Ores.values()) {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
-                if (fluid != null) {
-                    System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getUnlocalizedName());
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + ROD), fluid, 144);
-                }
+                System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getName());
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + WIRE), fluid, 72);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + GEAR), fluid, 576);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + NUGGET), fluid, 16);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), fluid, 288);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + ItemOreChunk.NETHER), fluid, 576);
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }
@@ -59,10 +67,19 @@ public class TiConCompatability {
 
     public static void registerAlloys() {
         Alloy.alloys.forEach((Alloy t) -> {
-            TinkerRegistry.getAlloys().forEach((AlloyRecipe t1) -> {
-              
-            });
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            try {
+                Fluid out = FluidRegistry.getFluid(t.getResult().getOre().getName().toLowerCase());
+                System.out.println("Registering alloy with ticon:" + t.getResult().getOre().getName());
+                System.out.println("Result: " + out.getName() + ", Amount: " + t.getResult().getAmount());
+                ArrayList<FluidStack> inputs = new ArrayList();
+                for (AlloyElement e : t.getInputs()) {
+                    FluidStack in = new FluidStack(FluidRegistry.getFluid(e.getOre().getName().toLowerCase()), e.getAmount());
+                    inputs.add(in);
+                    System.out.println("In: " + in.getLocalizedName() + ", Amount: " + in.amount);
+                }
+                TinkerRegistry.registerAlloy(new FluidStack(out, t.getResult().getAmount()), inputs.toArray(new FluidStack[1]));
+            } catch (Exception ex) {
+            }
         });
     }
 }

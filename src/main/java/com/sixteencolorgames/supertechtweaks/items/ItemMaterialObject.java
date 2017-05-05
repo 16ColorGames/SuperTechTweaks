@@ -30,6 +30,7 @@ public class ItemMaterialObject extends ItemBase {
     public static final int SHARD = 8000;
     public static final int WIRE = 9000;
     public static final int DIRTY = 10000;
+    public static final int SPRING = 11000;
 
     public ItemMaterialObject() {
         super("itemMaterialObject");
@@ -71,12 +72,17 @@ public class ItemMaterialObject extends ItemBase {
             subItems.add(subItemStack);
             subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + DIRTY);
             subItems.add(subItemStack);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + SPRING);
+            subItems.add(subItemStack);
         }
     }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
+        if (metadata >= SPRING) {
+            return super.getUnlocalizedName() + ".spring" + Ores.values()[metadata - SPRING];
+        }
         if (metadata >= DIRTY) {
             return super.getUnlocalizedName() + ".dustDirty" + Ores.values()[metadata - DIRTY];
         }

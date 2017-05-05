@@ -4,23 +4,14 @@ import java.io.File;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
+import com.sixteencolorgames.supertechtweaks.ModFluids;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.Recipies;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.CLUMP;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.CRYSTAL;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.DIRTY;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.DUST;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.GEAR;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.INGOT;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.NUGGET;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.PLATE;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.ROD;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.SHARD;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.WIRE;
+import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
@@ -60,16 +51,16 @@ public class CommonProxy {
         for (File gen : configFolder.listFiles()) {
             if (gen.getName().contains(".json")) {
                 try {
-//                    generator.addGenerators(GenerationParser.parseScripts(gen));
                     ArrayList<WorldGeneratorBase> parsed = GenerationParser.parseScripts(gen);
                     parsed.forEach((WorldGeneratorBase base) -> {
-                        GameRegistry.registerWorldGenerator(base, 3 + base.params.hashCode()+base.hashCode());
+                        GameRegistry.registerWorldGenerator(base, 3 + base.params.hashCode() + base.hashCode());
                     });
                 } catch (Exception ex) {
                 }
             }
         }
         System.out.println("Generators Loaded");
+        ModFluids.mainRegistry();
         ModBlocks.init();
         ModItems.init();
         GameRegistry.registerTileEntity(TileEntityOre.class, e.getModMetadata().modId + "TileEntityOre");
@@ -106,6 +97,8 @@ public class CommonProxy {
             OreDictionary.registerOre("cable" + metal.getName(), subItemStack);
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DIRTY);
             OreDictionary.registerOre("dustDirty" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + SPRING);
+            OreDictionary.registerOre("spring" + metal.getName(), subItemStack);
         }
 
     }

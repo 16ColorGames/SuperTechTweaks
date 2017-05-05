@@ -7,19 +7,20 @@ package com.sixteencolorgames.supertechtweaks.enums;
 
 import java.util.ArrayList;
 import java.util.List;
-import scala.actors.threadpool.Arrays;
 
 /**
  *
  * @author oa10712
  */
 public class Alloy {
-    
+
     public static ArrayList<Alloy> alloys = new ArrayList();
-    
+    public static int ENERGY_DUST = 1600;
+    public static int ENERGY_INGOT = 2400;
+
     AlloyElement result;
     List<AlloyElement> inputs;
-    
+
     public Alloy(AlloyElement end, AlloyElement... input) {
         result = end;
         inputs = new ArrayList();
@@ -27,7 +28,7 @@ public class Alloy {
             inputs.add(element);
         }
     }
-    
+
     public static ArrayList<Alloy> alloysContain(Ores ore) {
         ArrayList<Alloy> ret = new ArrayList<>();
         alloys.forEach((alloy) -> {
@@ -37,13 +38,19 @@ public class Alloy {
         });
         return ret;
     }
-    
+
     public AlloyElement getResult() {
         return result;
     }
-    
+
     public List<AlloyElement> getInputs() {
         return inputs;
     }
-    
+
+    public int getInCount() {
+        int ret = 0;
+        ret = this.getInputs().stream().map((ae) -> ae.getAmount()).reduce(ret, Integer::sum);
+        return ret;
+    }
+
 }

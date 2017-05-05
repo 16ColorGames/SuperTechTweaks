@@ -215,11 +215,11 @@ public enum Ores implements IStringSerializable {
     OBSIDIORITE("Obsidiorite", "0x000000", 4, 4),
     LUMIX("Lumix", "0x000000", 4, 4),
     DYONITE("Dyonite", "0x000000", 6, 6),
-    ALUMINUMBRASS("Alubrass", "0x000000", 1),
+    ALUMINUMBRASS("Alubrass", "0xCAA585", 1),
     NITRONITE("Nitronite", "0x00000", 4),
     MAGMA("Magma", "0x000000", -1),
     RESONATING("Resonating", "0xFF4500", 2),
-    BLACK_QUARTZ("Black Quartz", "x1A1A1A", 2) {
+    BLACK_QUARTZ("Black Quartz", "0x1A1A1A", 2) {
         @Override
         public ItemStack getDrops(byte base) {
             if (OreDictionary.doesOreNameExist("gemQuartzBlack")) {
@@ -228,7 +228,9 @@ public enum Ores implements IStringSerializable {
                 return super.getDrops(base);
             }
         }
-    },;
+    },
+    INVAR("Invar", "0xD0C0B3", 3),
+    NICHROME("Nichrome", "0x858F80", 3),;
 
     /**
      * The name of the metal

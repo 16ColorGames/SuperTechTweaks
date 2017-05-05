@@ -11,7 +11,6 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Holds and registers blocks used by the mod
@@ -78,7 +77,7 @@ public class ModBlocks {
      * @param block the block to register
      * @return the block registered
      */
-    private static <T extends Block> T register(T block) {
+    public static <T extends Block> T register(T block) {
         ItemBlock itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         return register(block, itemBlock);

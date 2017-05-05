@@ -35,12 +35,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
+    public static MetalColor color = new MetalColor();
 
     static ModelResourceLocation chunkLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
             "inventory");
     static ModelResourceLocation ingotLocation = new ModelResourceLocation("supertechtweaks:itemIngot",
             "inventory");
     static ModelResourceLocation dustLocation = new ModelResourceLocation("supertechtweaks:itemDust",
+            "inventory");
+    static ModelResourceLocation springLocation = new ModelResourceLocation("supertechtweaks:itemSpring",
             "inventory");
     static ModelResourceLocation gearLocation = new ModelResourceLocation("supertechtweaks:itemGear",
             "inventory");
@@ -79,6 +82,7 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SPRING, springLocation);
         }
     }
 
@@ -93,7 +97,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
-        MetalColor color = new MetalColor();
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemMaterialObject);
         //Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
