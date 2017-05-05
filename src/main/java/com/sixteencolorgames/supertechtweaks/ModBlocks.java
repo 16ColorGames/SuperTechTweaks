@@ -4,7 +4,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockBase;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockTileEntity;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.items.ItemModelProvider;
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModBlocks {
     
     public static BlockOre blockOre;
-    public static HashMap<Ores, BlockMaterial> blockMaterial;
+    public static HashMap<Material, BlockMaterial> blockMaterial;
 
     /**
      * Tasks to perform when the mod is started. should only be called once

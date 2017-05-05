@@ -6,7 +6,7 @@
 package com.sixteencolorgames.supertechtweaks.compat.mekanism;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 public class MekanismCompat {
 
     public static void registerRecipes() {
-        for (Ores ore : Ores.values()) {
+        for (Material ore : Material.materials) {
             System.out.println("Attempting to register enrichment: " + ore.getName());
             NBTTagCompound recipeTag = new NBTTagCompound();
             recipeTag.setTag("itemInput", new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()).writeToNBT(new NBTTagCompound()));

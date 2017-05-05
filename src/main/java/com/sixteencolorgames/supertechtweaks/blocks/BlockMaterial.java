@@ -5,15 +5,14 @@
  */
 package com.sixteencolorgames.supertechtweaks.blocks;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import net.minecraft.block.material.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 public class BlockMaterial extends BlockBase {
 
-    private final Ores material;
+    private final Material material;
 
-    public BlockMaterial(Ores material) {
-        super(Material.IRON, "block" + material.getName());
+    public BlockMaterial(Material material) {
+        super(net.minecraft.block.material.Material.IRON, "block" + material.getName());
         this.material = material;
     }
 

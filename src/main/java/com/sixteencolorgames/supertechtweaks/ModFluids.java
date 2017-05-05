@@ -5,7 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.awt.Color;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -29,14 +29,15 @@ import net.minecraftforge.fluids.IFluidBlock;
 public class ModFluids {
 
     public static void mainRegistry() {
-        for (Ores ore : Ores.values()) {
+        Material.materials.forEach((ore) -> {
             createFluid(ore.getName().toLowerCase(), false,
                     fluid -> fluid.setLuminosity(10).setDensity(800).setViscosity(300),
-                    fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.PURPLE)), ore);
-        }
+                    fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.PURPLE)),
+                    ore);
+        });
     }
 
-    private static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon, Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory, Ores ore) {
+    private static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon, Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory, Material ore) {
         System.out.println("Creating Fluid: " + name);
         final String texturePrefix = SuperTechTweaksMod.MODID + ":" + "blocks/fluid_";
 

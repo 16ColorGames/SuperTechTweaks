@@ -1,11 +1,10 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
@@ -67,7 +66,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-        for (Ores metal : Ores.values()) {
+        for (Material metal : Material.materials) {
             ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
             ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
             ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);

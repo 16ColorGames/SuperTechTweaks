@@ -1,9 +1,8 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.Map;
 import java.util.Random;
-
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
  */
 public class WorldGeneratorPlate extends WorldGeneratorBase {
 
-    public WorldGeneratorPlate(Map<Ores, Double> ores, int size, int min, int max, int chance,
+    public WorldGeneratorPlate(Map<Material, Double> ores, int size, int min, int max, int chance,
             Map<String, Object> params) {
         super(ores, size, min, max, chance, params);
     }

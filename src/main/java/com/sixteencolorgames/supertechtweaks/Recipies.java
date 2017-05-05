@@ -8,7 +8,7 @@ package com.sixteencolorgames.supertechtweaks;
 import com.sixteencolorgames.supertechtweaks.compat.ticon.TiConCompatability;
 import com.sixteencolorgames.supertechtweaks.enums.Alloy;
 import com.sixteencolorgames.supertechtweaks.enums.AlloyElement;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
@@ -26,7 +26,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class Recipies {
 
     public static void addRecipies() {
-        for (Ores ore : Ores.values()) {//Iterate through each material and create recipies for each
+        for (Material ore : Material.materials) {//Iterate through each material and create recipies for each
             GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt ore to ingot
             GameRegistry.addSmelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt dust to ingot
             GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + NETHER), new ItemStack(ModItems.itemOreChunk, 2, ore.ordinal()), 0);//Smelt nether to regular
@@ -47,18 +47,18 @@ public class Recipies {
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), "craftingToolForgeHammer")); //Craft ingot into plate
 
         }
-        addAlloys();
+        //addAlloys();
         registerAlloys();
 
         TiConCompatability.registerMelting();
     }
 
-    private static void addAlloys() {
+    /*private static void addAlloys() {
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ELECTRUM, 2), new AlloyElement(Ores.SILVER, 1), new AlloyElement(Ores.GOLD, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ALUMINUMBRASS, 4), new AlloyElement(Ores.COPPER, 1), new AlloyElement(Ores.ALUMINUM, 3)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRASS, 3), new AlloyElement(Ores.COPPER, 2), new AlloyElement(Ores.ZINC, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRONZE, 4), new AlloyElement(Ores.COPPER, 3), new AlloyElement(Ores.TIN, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.CONSTANTAN, 2), new AlloyElement(Ores.COPPER, 1), new AlloyElement(Ores.NICKEL, 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ALUMINUMBRASS, 4), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Ores.ALUMINUM, 3)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRASS, 3), new AlloyElement(Material.getMaterial("Copper"), 2), new AlloyElement(Ores.ZINC, 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRONZE, 4), new AlloyElement(Material.getMaterial("Copper"), 3), new AlloyElement(Ores.TIN, 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.CONSTANTAN, 2), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Ores.NICKEL, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.TRIBERIUM, 1), new AlloyElement(Ores.TIBERIUM, 5), new AlloyElement(Ores.BASALT, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NITRONITE, 1), new AlloyElement(Ores.MAGMA, 6), new AlloyElement(Ores.OSRAM, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.MANYULLYN, 1), new AlloyElement(Ores.COBALT, 1), new AlloyElement(Ores.ARDITE, 1)));
@@ -87,7 +87,7 @@ public class Recipies {
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.DYONITE, 3), new AlloyElement(Ores.TIBERIUM, 12), new AlloyElement(Ores.FRACTUM, 1), new AlloyElement(Ores.SEISMUM, 1), new AlloyElement(Ores.OSRAM, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.DYONITE, 3), new AlloyElement(Ores.TRIBERIUM, 3), new AlloyElement(Ores.FRACTUM, 1), new AlloyElement(Ores.OSRAM, 1), new AlloyElement(Ores.SEISMUM, 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Ores.IOX, 1), new AlloyElement(Ores.EEZO, 2), new AlloyElement(Ores.ABYSSUM, 2), new AlloyElement(Ores.OSRAM, 2), new AlloyElement(Ores.OBSIDIORITE, 9)));
-    }
+    }*/
 
     private static void registerAlloys() {
         TiConCompatability.registerAlloys();

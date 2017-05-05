@@ -10,10 +10,13 @@ import java.util.Map.Entry;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
-import java.util.function.Consumer;
+import com.google.gson.JsonSyntaxException;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Parses through the config file
@@ -30,7 +33,7 @@ public class GenerationParser {
         JsonObject genList = null;
         try {
             genList = (JsonObject) parser.parse(new InputStreamReader(new FileInputStream(config), "utf8"));
-        } catch (Throwable t) {
+        } catch (JsonIOException | JsonSyntaxException | FileNotFoundException | UnsupportedEncodingException t) {
             System.err.println("Critical error reading from a world generation file: " + config
                     + " > Please be sure the file is correct!");
         }
@@ -112,7 +115,7 @@ public class GenerationParser {
     }
 
     private static WorldGeneratorBase parseCluster(JsonObject array) {
-        Map<Ores, Double> ores = parseOres(array.get("ore"));
+        Map<Material, Double> ores = parseOres(array.get("ore"));
         HashMap<String, Object> params = new HashMap();
         if (array.has("properties") && array.get("properties").isJsonObject()) {
             JsonObject props = array.get("properties").getAsJsonObject();
@@ -137,14 +140,14 @@ public class GenerationParser {
     }
 
     private static WorldGeneratorBase parsePlate(JsonObject array) {
-        Map<Ores, Double> ores = parseOres(array.get("ore"));
+        Map<Material, Double> ores = parseOres(array.get("ore"));
         HashMap<String, Object> params = new HashMap();
         return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
                 array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
     }
 
     private static WorldGeneratorVein parseVein(JsonObject array) {
-        Map<Ores, Double> ores = parseOres(array.get("ore"));
+        Map<Material, Double> ores = parseOres(array.get("ore"));
         HashMap<String, Object> params = new HashMap();
         if (array.has("properties") && array.get("properties").isJsonObject()) {
             JsonObject props = array.get("properties").getAsJsonObject();
@@ -161,24 +164,30 @@ public class GenerationParser {
                 array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
     }
 
-    private static Map<Ores, Double> parseOres(JsonElement oreElement) {
-        HashMap<Ores, Double> ores = new HashMap();
+    private static Map<Material, Double> parseOres(JsonElement oreElement) {
+        System.out.println("Parsing ores.");
+        HashMap<Material, Double> ores = new HashMap();
         if (oreElement.isJsonArray()) {
+            System.out.println("Parsing as array.");
             JsonArray array = oreElement.getAsJsonArray();
             for (JsonElement element : array) {
                 if (element.isJsonPrimitive()) {
-                    ores.put(Ores.valueOf(element.getAsString().toUpperCase()), 1.0);
+                    System.out.println("  Ore Found: " + oreElement.getAsString());
+                    ores.put(Material.getMaterial(element.getAsString()), 1.0);
                 } else {
+                    System.out.println("  Weighted Ore Found:");
                     Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
-                    ores.put((Ores) weightedOre[0], (Double) weightedOre[1]);
+                    ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
                 }
             }
         } else {
+            System.out.println("Parsing as primative.");
             if (oreElement.isJsonPrimitive()) {
-                ores.put(Ores.valueOf(oreElement.getAsString().toUpperCase()), 1.0);
+                System.out.println("  Ore Found: " + oreElement.getAsString());
+                ores.put(Material.getMaterial(oreElement.getAsString()), 1.0);
             } else {
                 Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
-                ores.put((Ores) weightedOre[0], (Double) weightedOre[1]);
+                ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
             }
         }
         ores.forEach((k, v) -> {
@@ -188,6 +197,7 @@ public class GenerationParser {
     }
 
     private static Object[] getWeightedOre(JsonObject ore) {
+        System.out.println("    Parsing weighted ore: ");
         double weight;
         if (ore.has("weight")) {
             weight = ore.get("weight").getAsDouble();
@@ -195,6 +205,7 @@ public class GenerationParser {
             weight = 1.0;
         }
         String name = ore.get("ore").getAsString();
-        return new Object[]{Ores.valueOf(name.toUpperCase()), weight};
+        System.out.println("      " + name + " weight: " + weight);
+        return new Object[]{Material.getMaterial(name), weight};
     }
 }

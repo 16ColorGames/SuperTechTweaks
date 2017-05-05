@@ -1,8 +1,8 @@
 package com.sixteencolorgames.supertechtweaks.tileentities;
 
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import javax.annotation.Nullable;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -28,9 +28,9 @@ public class TileEntityOre extends TileEntity {
      */
     private byte base = 0;
 
-    public boolean addMetal(Ores metal) {
+    public boolean addMetal(Material metal) {
         for (int i = 0; i < 7; i++) {
-            if (metals[i] == Ores.NONE.ordinal()) {
+            if (metals[i] == 0) {
                 metals[i] = metal.ordinal();
                 return true;
             }
@@ -45,7 +45,7 @@ public class TileEntityOre extends TileEntity {
         return new int[]{0};
     }
 
-    public void setMetal(int index, Ores metal) {
+    public void setMetal(int index, Material metal) {
         metals[index] = metal.ordinal();
     }
 

@@ -2,7 +2,7 @@
 {
     "cuprite": {
         "generator": "vein",
-        "ore": [{"ore": "copper", "weight": 1.0}, {"ore": "osmium", "weight": 0.01}],
+        "ore": [{"ore": "Copper", "weight": 1.0}, {"ore": "Osmium", "weight": 0.01}, {"ore": "Cadmium", "weight": .01}],
 		"size": 4,
         "chance": 10,
         "minHeight": 32,
@@ -12,19 +12,19 @@
 		}
     },
     "hematite": {
-        "generator": "cluster",
-        "ore": "iron",
-		"size": 10,
-        "chance": 1,
+        "generator": "vein",
+        "ore": "Iron",
+		"size": 5,
+        "chance": 15,
         "minHeight": 32,
         "maxHeight": 128,
 		"properties": {
-			"perChunk": 3
+			"branchLength": 5
 		}
     },
     "Bauxite": {
         "generator": "cluster",
-        "ore": "aluminum",
+        "ore": "Aluminum",
 		"size": 30,
         "chance": 15,
         "minHeight": 50,
@@ -32,15 +32,15 @@
     },
     "galena": {
         "generator": "plate",
-        "ore": [{"ore": "silver", "weight": 0.7}, {"ore": "lead", "weight": 0.7}],
+        "ore": [{"ore": "Silver", "weight": 0.7}, {"ore": "Lead", "weight": 0.7}],
 		"size": 10,
-        "chance": 30,
+        "chance": 10,
         "minHeight": 32,
         "maxHeight": 48
     },
     "coal": {
         "generator": "cluster",
-        "ore": [{"ore": "coal", "weight": 1.0}],
+        "ore": [{"ore": "Coal", "weight": 1.0}],
 		"size": 20,
         "chance": 1,
         "minHeight": 20,
@@ -52,7 +52,7 @@
     },
     "diamond": {
         "generator": "cluster",
-        "ore": [{"ore": "coal", "weight": 1.0}, {"ore": "diamond", "weight": 0.1}],
+        "ore": [{"ore": "Coal", "weight": 1.0}, {"ore": "Diamond", "weight": 0.1}],
 		"size": 10,
         "chance": 1,
         "minHeight": 4,
@@ -64,7 +64,7 @@
     },
     "Chalcopyrite": {
         "generator": "cluster",
-        "ore": [{"ore": "copper", "weight": 0.75}, {"ore": "iron", "weight": 0.75}, {"ore": "sulfur", "weight": 1.0}],
+        "ore": [{"ore": "Copper", "weight": 0.75}, {"ore": "Iron", "weight": 0.75}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": .01}],
 		"size": 15,
         "chance": 5,
         "minHeight": 20,
@@ -76,7 +76,7 @@
     },
     "Sphalerite": {
         "generator": "cluster",
-        "ore": [{"ore": "zinc", "weight": 0.75}, {"ore": "iron", "weight": 0.2}, {"ore": "sulfur", "weight": 1.0}],
+        "ore": [{"ore": "Zinc", "weight": 0.75}, {"ore": "Iron", "weight": 0.2}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": .01}],
 		"size": 15,
         "chance": 5,
         "minHeight": 25,
@@ -87,9 +87,9 @@
     },
     "Osmiridium": {
         "generator": "cluster",
-        "ore": [{"ore": "osmium", "weight": 0.75}, {"ore": "iridium", "weight": 0.25}, {"ore": "platinum", "weight": 0.1}],
+        "ore": [{"ore": "Osmium", "weight": 0.75}, {"ore": "Iridium", "weight": 0.25}, {"ore": "Platinum", "weight": 0.1}],
 		"size": 15,
-        "chance": 5,
+        "chance": 1,
         "minHeight": 25,
         "maxHeight": 40,
 		"properties": {
@@ -98,7 +98,7 @@
     },
     "Calaverite": {
         "generator": "cluster",
-        "ore": [{"ore": "gold", "weight": 0.9}, {"ore": "tellurium", "weight": 0.7}, {"ore": "silver", "weight": .1}],
+        "ore": [{"ore": "Gold", "weight": 0.9}, {"ore": "Tellurium", "weight": 0.7}, {"ore": "Silver", "weight": .1}],
 		"size": 15,
         "chance": 5,
         "minHeight": 10,
@@ -109,7 +109,7 @@
     },
     "Electrum": {
         "generator": "cluster",
-        "ore": [{"ore": "gold", "weight": 0.7}, {"ore": "electrum", "weight": 0.2}, {"ore": "silver", "weight": .7}],
+        "ore": [{"ore": "Gold", "weight": 0.7}, {"ore": "Electrum", "weight": 0.2}, {"ore": "Silver", "weight": .7}],
 		"size": 15,
         "chance": 5,
         "minHeight": 10,
@@ -120,9 +120,9 @@
     },
     "Lapis": {
         "generator": "cluster",
-        "ore": [{"ore": "lapis", "weight": 1.0}],
+        "ore": [{"ore": "Lapis", "weight": 1.0}],
 		"size": 5,
-        "chance": 4,
+        "chance": 1,
         "minHeight": 4,
         "maxHeight": 12,
 		"properties": {
@@ -131,7 +131,7 @@
     },
     "Certus": {
         "generator": "cluster",
-        "ore": [{"ore": "certus", "weight": 1.0}],
+        "ore": [{"ore": "Certus", "weight": 1.0}],
 		"size": 5,
         "chance": 4,
         "minHeight": 20,
@@ -142,7 +142,7 @@
     },
     "Cassiterite": {
         "generator": "cluster",
-        "ore": [{"ore": "tin", "weight": 1.0}],
+        "ore": [{"ore": "Tin", "weight": 1.0}],
 		"size": 10,
         "chance": 1,
         "minHeight": 40,
@@ -153,7 +153,7 @@
     },
     "Tiberium": {
         "generator": "cluster",
-        "ore": [{"ore": "tiberium", "weight": 1.0}],
+        "ore": [{"ore": "Tiberium", "weight": 1.0}],
 		"size": 10,
         "chance": 1,
         "minHeight": 32,
@@ -166,7 +166,7 @@
     },
     "Promethium": {
         "generator": "cluster",
-        "ore": [{"ore": "promethium", "weight": 1.0}],
+        "ore": [{"ore": "Promethium", "weight": 1.0}],
 		"size": 14,
         "chance": 1,
         "minHeight": 0,
@@ -179,7 +179,7 @@
     },
     "Valyrium": {
         "generator": "cluster",
-        "ore": [{"ore": "valyrium", "weight": 1.0}],
+        "ore": [{"ore": "Valyrium", "weight": 1.0}],
 		"size": 10,
         "chance": 1,
         "minHeight": 0,
@@ -192,18 +192,19 @@
     },
     "Dilithium": {
         "generator": "cluster",
-        "ore": [{"ore": "dilithium", "weight": 1.0}],
+        "ore": [{"ore": "Dilithium", "weight": 1.0}],
 		"size": 12,
         "chance": 1,
         "minHeight": 0,
         "maxHeight": 120,
 		"properties": {
-			"clusterVariance": 2
+			"clusterVariance": 2,
+			"perChunk": 5
 		}
     },
     "Osram": {
         "generator": "cluster",
-        "ore": [{"ore": "osram", "weight": 1.0}],
+        "ore": [{"ore": "Osram", "weight": 1.0}],
 		"size": 3,
         "chance": 1,
         "minHeight": 0,
@@ -216,7 +217,7 @@
     },
     "Eezo": {
         "generator": "cluster",
-        "ore": [{"ore": "eezo", "weight": 1.0}],
+        "ore": [{"ore": "Eezo", "weight": 1.0}],
 		"size": 5,
         "chance": 1,
         "minHeight": 0,
@@ -227,7 +228,7 @@
     },
     "Duranite": {
         "generator": "cluster",
-        "ore": [{"ore": "duranite", "weight": 1.0}],
+        "ore": [{"ore": "Duranite", "weight": 1.0}],
 		"size": 3,
         "chance": 1,
         "minHeight": 40,
@@ -238,7 +239,7 @@
     },
     "Basalt": {
         "generator": "cluster",
-        "ore": [{"ore": "basalt", "weight": 1.0}],
+        "ore": [{"ore": "Basalt", "weight": 1.0}],
 		"size": 7,
         "chance": 1,
         "minHeight": 0,
@@ -249,7 +250,7 @@
     },
     "Abyssum": {
         "generator": "cluster",
-        "ore": [{"ore": "abyssum", "weight": 1.0}],
+        "ore": [{"ore": "Abyssum", "weight": 1.0}],
 		"size": 4,
         "chance": 1,
         "minHeight": 4,
@@ -262,7 +263,7 @@
     },
     "Palladium": {
         "generator": "cluster",
-        "ore": [{"ore": "palladium", "weight": 1.0}],
+        "ore": [{"ore": "Palladium", "weight": 1.0}],
 		"size": 10,
         "chance": 1,
         "minHeight": 48,
@@ -275,7 +276,7 @@
     },
     "Aurorum": {
         "generator": "cluster",
-        "ore": [{"ore": "aurorium", "weight": 1.0}],
+        "ore": [{"ore": "Aurorium", "weight": 1.0}],
 		"size": 10,
         "chance": 1,
         "minHeight": 32,
@@ -288,7 +289,7 @@
     },
     "Uru": {
         "generator": "cluster",
-        "ore": [{"ore": "uru", "weight": 1.0}],
+        "ore": [{"ore": "Uru", "weight": 1.0}],
 		"size": 3,
         "chance": 1,
         "minHeight": 0,
@@ -301,7 +302,7 @@
     },
     "Karmesine": {
         "generator": "cluster",
-        "ore": [{"ore": "karmesine", "weight": 1.0}],
+        "ore": [{"ore": "Karmesine", "weight": 1.0}],
 		"size": 9,
         "chance": 1,
         "minHeight": 0,
@@ -312,7 +313,7 @@
     },
     "Vibranium": {
         "generator": "cluster",
-        "ore": [{"ore": "vibranium", "weight": 1.0}],
+        "ore": [{"ore": "Vibranium", "weight": 1.0}],
 		"size": 9,
         "chance": 1,
         "minHeight": 0,
@@ -323,7 +324,7 @@
     },
     "Ovium": {
         "generator": "cluster",
-        "ore": [{"ore": "ovium", "weight": 1.0}],
+        "ore": [{"ore": "Ovium", "weight": 1.0}],
 		"size": 9,
         "chance": 1,
         "minHeight": 10,
@@ -334,7 +335,7 @@
     },
     "Jauxum": {
         "generator": "cluster",
-        "ore": [{"ore": "jauxum", "weight": 1.0}],
+        "ore": [{"ore": "Jauxum", "weight": 1.0}],
 		"size": 9,
         "chance": 1,
         "minHeight": 0,
@@ -345,7 +346,7 @@
     },
     "Redstone": {
         "generator": "cluster",
-        "ore": [{"ore": "redstone", "weight": 1.0}, {"ore": "nickel", "weight": 0.15}, {"ore": "osmium", "weight": 0.01}],
+        "ore": [{"ore": "Redstone", "weight": 1.0}, {"ore": "Nickel", "weight": 0.15}, {"ore": Oosmium", "weight": 0.01}],
 		"size": 7,
         "chance": 1,
         "minHeight": 4,
@@ -355,9 +356,21 @@
 			"perChunk": 2
 		}
     },
+    "Quartz": {
+        "generator": "cluster",
+        "ore": [{"ore": "BlackQuartz", "weight": 1.0}, {"ore": "Certus", "weight": 0.15}, {"ore": "Charged_Certus", "weight": 0.05}}],
+		"size": 7,
+        "chance": 1,
+        "minHeight": 4,
+        "maxHeight": 50,
+		"properties": {
+			"clusterVariance": 3,
+			"perChunk": 15
+		}
+    },
     "Village": {
         "generator": "cluster",
-        "ore": [{"ore": "emerald", "weight": 1.0}, {"ore": "pigiron", "weight": 0.15}, {"ore": "pigiron", "weight": 0.15}],
+        "ore": [{"ore": "Emerald", "weight": 1.0}, {"ore": "Pigiron", "weight": 0.15}],
 		"size": 7,
         "chance": 20,
         "minHeight": 12,
@@ -368,7 +381,7 @@
     },
     "Draconic": {
         "generator": "cluster",
-        "ore": [{"ore": "draconium", "weight": 1.0}, {"ore": "obsidian", "weight": 0.15}],
+        "ore": [{"ore": "Draconium", "weight": 1.0}, {"ore": "Obsidian", "weight": 0.15}],
 		"size": 7,
         "chance": 10,
         "minHeight": 14,
@@ -379,20 +392,20 @@
     },
     "Ender Draconic": {
         "generator": "cluster",
-        "ore": [{"ore": "draconium", "weight": 1.0}],
+        "ore": [{"ore": "Draconium", "weight": 1.0}],
 		"size": 3,
-        "chance": 10,
+        "chance": 1,
         "minHeight": 0,
         "maxHeight": 255,
 		"properties": {
 			"clusterVariance": 2,
-			"perChunk": 50
+			"perChunk": 22
 		},
 		"dimensions":[1]
     },
     "Other": {
         "generator": "cluster",
-        "ore": [{"ore": "yellorium", "weight": 1.0}, {"ore": "mithril", "weight": 0.3}],
+        "ore": [{"ore": "Yellorium", "weight": 1.0}, {"ore": "Mithril", "weight": 0.3}],
 		"size": 7,
         "chance": 1,
         "minHeight": 10,
@@ -404,7 +417,7 @@
     },
     "Nether Radioactive": {
         "generator": "cluster",
-        "ore": [{"ore": "yellorium", "weight": 1.0}, {"ore": "mithril", "weight": 0.3}],
+        "ore": [{"ore": "Yellorium", "weight": 1.0}, {"ore": "Mithril", "weight": 0.3}],
 		"size": 7,
         "chance": 1,
         "minHeight": 10,
@@ -417,7 +430,7 @@
     },
     "Nether Draconic": {
         "generator": "cluster",
-        "ore": [{"ore": "draconium", "weight": 1.0}, {"ore": "obsidian", "weight": 0.15}],
+        "ore": [{"ore": "Draconium", "weight": 1.0}, {"ore": "Obsidian", "weight": 0.15}],
 		"size": 7,
         "chance": 1,
         "minHeight": 1,
@@ -429,7 +442,7 @@
     },
     "Nether Quartz": {
         "generator": "cluster",
-        "ore": [{"ore": "nether_quartz", "weight": 1.0}, {"ore": "certus", "weight": 0.2}],
+        "ore": [{"ore": "Nether_Quartz", "weight": 1.0}, {"ore": "Certus", "weight": 0.2}],
 		"size": 7,
         "chance": 1,
         "minHeight": 10,
@@ -442,7 +455,7 @@
     },
     "Nether Coal": {
         "generator": "cluster",
-        "ore": [{"ore": "coal", "weight": 1.0}],
+        "ore": [{"ore": "Coal", "weight": 1.0}],
 		"size": 20,
         "chance": 1,
         "minHeight": 10,
@@ -455,7 +468,7 @@
     },
     "Nether Ardite": {
         "generator": "cluster",
-        "ore": [{"ore": "ardite", "weight": 1.0}],
+        "ore": [{"ore": "Ardite", "weight": 1.0}],
 		"size": 5,
         "chance": 1,
         "minHeight": 10,
@@ -468,7 +481,7 @@
     },
     "Nether Cobalt": {
         "generator": "cluster",
-        "ore": [{"ore": "cobalt", "weight": 1.0}],
+        "ore": [{"ore": "Cobalt", "weight": 1.0}],
 		"size": 5,
         "chance": 1,
         "minHeight": 10,

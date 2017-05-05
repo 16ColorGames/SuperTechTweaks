@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public abstract class WorldGeneratorBase implements IWorldGenerator {
 
-    public Map<Ores, Double> ores;// List of metals in this generator along with
+    public Map<Material, Double> ores;// List of metals in this generator along with
     // their chance to generate per block
     public int size;// Size of the generator. This means different things
     // depending on the implementation
@@ -31,7 +31,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     private String name;// The identifying name for this generator
     public ArrayList<Integer> dims;
 
-    public WorldGeneratorBase(Map<Ores, Double> ores, int size, int min, int max, int chance,
+    public WorldGeneratorBase(Map<Material, Double> ores, int size, int min, int max, int chance,
             Map<String, Object> params) {
         this.ores = ores;
         this.size = size;
@@ -58,7 +58,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
         return name;
     }
 
-    public Map<Ores, Double> getOres() {
+    public Map<Material, Double> getOres() {
         return ores;
     }
 
@@ -80,7 +80,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
         }
         if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
             TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
-            ores.forEach((Ores k, Double v) -> {
+            ores.forEach((Material k, Double v) -> {
                 if (world.rand.nextDouble() < v) {
                     tile.addMetal(k);
                 }
@@ -112,7 +112,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     abstract boolean generate(World world, Random random, BlockPos pos);
 
     private void updateState(World world, BlockPos pos, byte b) {
-        
+
         world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof TileEntityOre) {

@@ -6,6 +6,7 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,12 +25,10 @@ public class Alloy {
     public Alloy(AlloyElement end, AlloyElement... input) {
         result = end;
         inputs = new ArrayList();
-        for (AlloyElement element : input) {
-            inputs.add(element);
-        }
+        inputs.addAll(Arrays.asList(input));
     }
 
-    public static ArrayList<Alloy> alloysContain(Ores ore) {
+    public static ArrayList<Alloy> alloysContain(Material ore) {
         ArrayList<Alloy> ret = new ArrayList<>();
         alloys.forEach((alloy) -> {
             alloy.inputs.stream().filter((element) -> (element.getOre() == ore)).forEachOrdered((_item) -> {

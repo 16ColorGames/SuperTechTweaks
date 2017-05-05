@@ -1,8 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.items;
 
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.List;
-
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -39,7 +38,7 @@ public class ItemOreChunk extends ItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (Ores metal : Ores.values()) {
+        for (Material metal : Material.materials) {
             ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal());
             subItems.add(subItemStack);
             // OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
@@ -56,11 +55,11 @@ public class ItemOreChunk extends ItemBase {
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
         if (metadata < NETHER) {
-            return super.getUnlocalizedName() + "." + Ores.values()[metadata];
+            return super.getUnlocalizedName() + "." + Material.materials.get(metadata);
         } else if (metadata < END) {
-            return super.getUnlocalizedName() + ".nether" + Ores.values()[metadata - NETHER];
+            return super.getUnlocalizedName() + ".nether" + Material.materials.get(metadata - NETHER);
         } else {
-            return super.getUnlocalizedName() + ".end" + Ores.values()[metadata - END];
+            return super.getUnlocalizedName() + ".end" + Material.materials.get(metadata - END);
         }
     }
 }

@@ -8,7 +8,7 @@ package com.sixteencolorgames.supertechtweaks.compat.ticon;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.enums.Alloy;
 import com.sixteencolorgames.supertechtweaks.enums.AlloyElement;
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class TiConCompatability {
                     : statRegisterEvent.stats;
             int newHarvestLevel = -1;
             try {
-                newHarvestLevel = Ores.valueOf(statRegisterEvent.material.identifier.toUpperCase()).getMine();
+                newHarvestLevel = Material.getMaterial(statRegisterEvent.material.identifier).getMine();
             } catch (Exception ex) {
             }
             System.out.println("Changing level: " + statRegisterEvent.material.identifier + " from " + oldStats.harvestLevel + " to " + newHarvestLevel);
@@ -47,7 +47,7 @@ public class TiConCompatability {
     }
 
     public static void registerMelting() {//Overrides for melting
-        for (Ores ore : Ores.values()) {
+        for (Material ore : Material.materials) {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getName());

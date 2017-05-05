@@ -5,7 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.items;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -49,7 +49,7 @@ public class ItemMaterialObject extends ItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (Ores metal : Ores.values()) {
+        for (Material metal : Material.materials) {
             ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + INGOT);
             subItems.add(subItemStack);
             subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + DUST);
@@ -81,40 +81,41 @@ public class ItemMaterialObject extends ItemBase {
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
         if (metadata >= FOIL) {
-            return super.getUnlocalizedName() + ".foil" + Ores.values()[metadata - FOIL];
+
+            return super.getUnlocalizedName() + ".foil" + Material.materials.get(metadata - FOIL);
         }
         if (metadata >= DIRTY) {
-            return super.getUnlocalizedName() + ".dustDirty" + Ores.values()[metadata - DIRTY];
+            return super.getUnlocalizedName() + ".dustDirty" + Material.materials.get(metadata - DIRTY);
         }
         if (metadata >= WIRE) {
-            return super.getUnlocalizedName() + ".wire" + Ores.values()[metadata - WIRE];
+            return super.getUnlocalizedName() + ".wire" + Material.materials.get(metadata - WIRE);
         }
         if (metadata >= SHARD) {
-            return super.getUnlocalizedName() + ".shard" + Ores.values()[metadata - SHARD];
+            return super.getUnlocalizedName() + ".shard" + Material.materials.get(metadata - SHARD);
         }
         if (metadata >= CRYSTAL) {
-            return super.getUnlocalizedName() + ".crystal" + Ores.values()[metadata - CRYSTAL];
+            return super.getUnlocalizedName() + ".crystal" + Material.materials.get(metadata - CRYSTAL);
         }
         if (metadata >= CLUMP) {
-            return super.getUnlocalizedName() + ".clump" + Ores.values()[metadata - CLUMP];
+            return super.getUnlocalizedName() + ".clump" + Material.materials.get(metadata - CLUMP);
         }
         if (metadata >= ROD) {
-            return super.getUnlocalizedName() + ".rod" + Ores.values()[metadata - ROD];
+            return super.getUnlocalizedName() + ".rod" + Material.materials.get(metadata - ROD);
         }
         if (metadata >= PLATE) {
-            return super.getUnlocalizedName() + ".plate" + Ores.values()[metadata - PLATE];
+            return super.getUnlocalizedName() + ".plate" + Material.materials.get(metadata - PLATE);
         }
         if (metadata >= NUGGET) {
-            return super.getUnlocalizedName() + ".nugget" + Ores.values()[metadata - NUGGET];
+            return super.getUnlocalizedName() + ".nugget" + Material.materials.get(metadata - NUGGET);
         }
         if (metadata >= GEAR) {
-            return super.getUnlocalizedName() + ".gear" + Ores.values()[metadata - GEAR];
+            return super.getUnlocalizedName() + ".gear" + Material.materials.get(metadata - GEAR);
         }
         if (metadata >= DUST) {
-            return super.getUnlocalizedName() + ".dust" + Ores.values()[metadata - DUST];
+            return super.getUnlocalizedName() + ".dust" + Material.materials.get(metadata - DUST);
         }
         if (metadata >= INGOT) {
-            return super.getUnlocalizedName() + ".ingot" + Ores.values()[metadata - INGOT];
+            return super.getUnlocalizedName() + ".ingot" + Material.materials.get(metadata - INGOT);
         }
         return super.getUnlocalizedName() + ".ERROR_" + metadata;//We somehow got a material outside of the preset types
     }

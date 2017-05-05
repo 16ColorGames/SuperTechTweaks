@@ -1,9 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.Map;
 import java.util.Random;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +38,7 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
         new Vec3d(+0.6666, -0.3333, -0.6666).scale(SCALE),
         new Vec3d(-0.6666, -0.3333, -0.6666).scale(SCALE)};
 
-    public WorldGeneratorVein(Map<Ores, Double> ores, int size, int min, int max, int chance,
+    public WorldGeneratorVein(Map<Material, Double> ores, int size, int min, int max, int chance,
             Map<String, Object> params) {
         super(ores, size, min, max, chance, params);
     }

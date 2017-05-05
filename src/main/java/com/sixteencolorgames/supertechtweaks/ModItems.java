@@ -1,18 +1,11 @@
 package com.sixteencolorgames.supertechtweaks;
 
-import com.sixteencolorgames.supertechtweaks.enums.Ores;
 import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject;
-import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
-import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Holds and registers items used by the mod
