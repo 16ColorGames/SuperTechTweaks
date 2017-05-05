@@ -97,8 +97,8 @@ public class CommonProxy {
             OreDictionary.registerOre("cable" + metal.getName(), subItemStack);
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DIRTY);
             OreDictionary.registerOre("dustDirty" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + SPRING);
-            OreDictionary.registerOre("spring" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + FOIL);
+            OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
         }
 
     }

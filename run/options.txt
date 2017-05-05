@@ -92,7 +92,6 @@ key_key.jei.showRecipe:19
 key_key.jei.showUses:22
 key_key.jei.recipeBack:14
 key_key.jei.toggleCheatMode:0
-key_key.cofh.multimode:47
 soundCategory_master:0.0
 soundCategory_music:1.0
 soundCategory_record:1.0

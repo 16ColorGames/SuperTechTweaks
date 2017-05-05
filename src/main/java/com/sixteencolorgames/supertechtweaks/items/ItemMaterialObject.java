@@ -30,7 +30,7 @@ public class ItemMaterialObject extends ItemBase {
     public static final int SHARD = 8000;
     public static final int WIRE = 9000;
     public static final int DIRTY = 10000;
-    public static final int SPRING = 11000;
+    public static final int FOIL = 11000;
 
     public ItemMaterialObject() {
         super("itemMaterialObject");
@@ -50,7 +50,7 @@ public class ItemMaterialObject extends ItemBase {
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (Ores metal : Ores.values()) {
-            ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal());
+            ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + INGOT);
             subItems.add(subItemStack);
             subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + DUST);
             subItems.add(subItemStack);
@@ -72,7 +72,7 @@ public class ItemMaterialObject extends ItemBase {
             subItems.add(subItemStack);
             subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + DIRTY);
             subItems.add(subItemStack);
-            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + SPRING);
+            subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + FOIL);
             subItems.add(subItemStack);
         }
     }
@@ -80,8 +80,8 @@ public class ItemMaterialObject extends ItemBase {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
-        if (metadata >= SPRING) {
-            return super.getUnlocalizedName() + ".spring" + Ores.values()[metadata - SPRING];
+        if (metadata >= FOIL) {
+            return super.getUnlocalizedName() + ".foil" + Ores.values()[metadata - FOIL];
         }
         if (metadata >= DIRTY) {
             return super.getUnlocalizedName() + ".dustDirty" + Ores.values()[metadata - DIRTY];
@@ -113,7 +113,10 @@ public class ItemMaterialObject extends ItemBase {
         if (metadata >= DUST) {
             return super.getUnlocalizedName() + ".dust" + Ores.values()[metadata - DUST];
         }
-        return super.getUnlocalizedName() + ".ingot" + Ores.values()[metadata];
+        if (metadata >= INGOT) {
+            return super.getUnlocalizedName() + ".ingot" + Ores.values()[metadata - INGOT];
+        }
+        return super.getUnlocalizedName() + ".ERROR_" + metadata;//We somehow got a material outside of the preset types
     }
 
 }

@@ -43,7 +43,7 @@ public class ClientProxy extends CommonProxy {
             "inventory");
     static ModelResourceLocation dustLocation = new ModelResourceLocation("supertechtweaks:itemDust",
             "inventory");
-    static ModelResourceLocation springLocation = new ModelResourceLocation("supertechtweaks:itemSpring",
+    static ModelResourceLocation foilLocation = new ModelResourceLocation("supertechtweaks:itemFoil",
             "inventory");
     static ModelResourceLocation gearLocation = new ModelResourceLocation("supertechtweaks:itemGear",
             "inventory");
@@ -82,7 +82,7 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SPRING, springLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
         }
     }
 
