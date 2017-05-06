@@ -7,6 +7,7 @@ package com.sixteencolorgames.supertechtweaks.enums;
 
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import java.awt.Color;
 import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 
@@ -34,7 +35,7 @@ public class Material {
     /**
      * The RGB code for the color of this metal.
      */
-    private String color;
+    private int color;
     /**
      * The harvest level of this metal.
      */
@@ -43,6 +44,8 @@ public class Material {
      * Level that a tool made of this can mine
      */
     private int mine;
+
+    private int ordinal;
 
     /**
      *
@@ -56,13 +59,14 @@ public class Material {
 
     public Material(String name, String color, int harvest, int mine) {
         this.name = name;
-        this.color = color;
+        this.color = Color.decode(color).getRGB();
         this.harvest = harvest;
         this.mine = mine;
+        this.ordinal = materials.size();
         materials.add(this);
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -90,6 +94,6 @@ public class Material {
     }
 
     public int ordinal() {
-        return materials.indexOf(this);
+        return ordinal;
     }
 }

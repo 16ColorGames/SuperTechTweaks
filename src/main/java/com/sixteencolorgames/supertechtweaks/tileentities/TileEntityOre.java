@@ -3,7 +3,6 @@ package com.sixteencolorgames.supertechtweaks.tileentities;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import javax.annotation.Nullable;
 
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -57,6 +56,11 @@ public class TileEntityOre extends TileEntity {
         base = original;
     }
 
+    /**
+     * Only render the ore when the player is within 16 blocks
+     *
+     * @return
+     */
     @SideOnly(Side.CLIENT)
     @Override
     public double getMaxRenderDistanceSquared() {
@@ -86,6 +90,8 @@ public class TileEntityOre extends TileEntity {
     /**
      * Creates a tag containing the TileEntity information, used by vanilla to
      * transmit from server to client
+     *
+     * @return
      */
     @Override
     public NBTTagCompound getUpdateTag() {
@@ -107,6 +113,9 @@ public class TileEntityOre extends TileEntity {
      * This is where you save any data that you don't want to lose when the tile
      * entity unloads In this case, we only need to store the gem colour. For
      * examples with other types of data, see MBE20
+     *
+     * @param parentNBTTagCompound
+     * @return
      */
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
@@ -131,5 +140,4 @@ public class TileEntityOre extends TileEntity {
         }
         metals = readMetals;
     }
-
 }

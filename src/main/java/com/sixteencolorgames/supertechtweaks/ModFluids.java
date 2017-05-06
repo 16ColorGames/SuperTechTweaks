@@ -47,7 +47,7 @@ public class ModFluids {
         Fluid fluid = new Fluid(name, still, flowing) {
             @Override
             public int getColor() {
-                return Color.decode(ore.getColor()).getRGB();
+                return ore.getColor();
             }
         };
         final boolean useOwnFluid = FluidRegistry.registerFluid(fluid);

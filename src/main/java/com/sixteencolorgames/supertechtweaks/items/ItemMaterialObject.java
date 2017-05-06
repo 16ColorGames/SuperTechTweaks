@@ -82,40 +82,40 @@ public class ItemMaterialObject extends ItemBase {
         int metadata = stack.getMetadata();
         if (metadata >= FOIL) {
 
-            return super.getUnlocalizedName() + ".foil" + Material.materials.get(metadata - FOIL);
+            return super.getUnlocalizedName() + ".foil" + Material.materials.get(metadata - FOIL).getName();
         }
         if (metadata >= DIRTY) {
-            return super.getUnlocalizedName() + ".dustDirty" + Material.materials.get(metadata - DIRTY);
+            return super.getUnlocalizedName() + ".dustDirty" + Material.materials.get(metadata - DIRTY).getName();
         }
         if (metadata >= WIRE) {
-            return super.getUnlocalizedName() + ".wire" + Material.materials.get(metadata - WIRE);
+            return super.getUnlocalizedName() + ".wire" + Material.materials.get(metadata - WIRE).getName();
         }
         if (metadata >= SHARD) {
-            return super.getUnlocalizedName() + ".shard" + Material.materials.get(metadata - SHARD);
+            return super.getUnlocalizedName() + ".shard" + Material.materials.get(metadata - SHARD).getName();
         }
         if (metadata >= CRYSTAL) {
-            return super.getUnlocalizedName() + ".crystal" + Material.materials.get(metadata - CRYSTAL);
+            return super.getUnlocalizedName() + ".crystal" + Material.materials.get(metadata - CRYSTAL).getName();
         }
         if (metadata >= CLUMP) {
-            return super.getUnlocalizedName() + ".clump" + Material.materials.get(metadata - CLUMP);
+            return super.getUnlocalizedName() + ".clump" + Material.materials.get(metadata - CLUMP).getName();
         }
         if (metadata >= ROD) {
-            return super.getUnlocalizedName() + ".rod" + Material.materials.get(metadata - ROD);
+            return super.getUnlocalizedName() + ".rod" + Material.materials.get(metadata - ROD).getName();
         }
         if (metadata >= PLATE) {
-            return super.getUnlocalizedName() + ".plate" + Material.materials.get(metadata - PLATE);
+            return super.getUnlocalizedName() + ".plate" + Material.materials.get(metadata - PLATE).getName();
         }
         if (metadata >= NUGGET) {
-            return super.getUnlocalizedName() + ".nugget" + Material.materials.get(metadata - NUGGET);
+            return super.getUnlocalizedName() + ".nugget" + Material.materials.get(metadata - NUGGET).getName();
         }
         if (metadata >= GEAR) {
-            return super.getUnlocalizedName() + ".gear" + Material.materials.get(metadata - GEAR);
+            return super.getUnlocalizedName() + ".gear" + Material.materials.get(metadata - GEAR).getName();
         }
         if (metadata >= DUST) {
-            return super.getUnlocalizedName() + ".dust" + Material.materials.get(metadata - DUST);
+            return super.getUnlocalizedName() + ".dust" + Material.materials.get(metadata - DUST).getName();
         }
         if (metadata >= INGOT) {
-            return super.getUnlocalizedName() + ".ingot" + Material.materials.get(metadata - INGOT);
+            return super.getUnlocalizedName() + ".ingot" + Material.materials.get(metadata - INGOT).getName();
         }
         return super.getUnlocalizedName() + ".ERROR_" + metadata;//We somehow got a material outside of the preset types
     }

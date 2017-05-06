@@ -1,7 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.render;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
-import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
@@ -16,7 +15,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
 public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
-    
+
     private static final ResourceLocation[] baseTextures = new ResourceLocation[]{
         new ResourceLocation("minecraft:textures/blocks/stone.png"),
         new ResourceLocation("minecraft:textures/blocks/netherrack.png"),
@@ -53,7 +52,7 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
             return; // should never happen
         }
         TileEntityOre tileEntityOre = tileEntity;
-        
+
         try {
             // save the transformation matrix and the rendering attributes, so
             // that we can restore them after rendering. This
@@ -77,7 +76,7 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
             // to the method. If you then draw a cube from [0,0,0] to [1,1,1],
             // it will render exactly over the top of the TileEntity's block.
             GlStateManager.translate(relativeX, relativeY, relativeZ);
-            
+
             Tessellator tessellator = Tessellator.getInstance();
             VertexBuffer vertexBuffer = tessellator.getBuffer();
             switch (tileEntityOre.getBase()) {
@@ -119,21 +118,21 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
                 if (metal != 0) {
                     this.bindTexture(layerTextures[i]);//set the ore layer texture
                     Material met = Material.materials.get(metal);
-                    Color color = Color.decode(met.getColor());//decode the color from the Ores enum
-                    GlStateManager.color(((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
-                            ((float) color.getBlue()) / 255);//set the render color
+                    int color = met.getColor();//decode the color from the Ores enum
+                    GlStateManager.color(((float) ((color >> 16) & 0xFF)) / 255, ((float) ((color >> 8) & 0xFF)) / 255,
+                            ((float) (color & 0xFF)) / 255);//set the render color
                     vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
                     addBlockVertecies(vertexBuffer);
                     tessellator.draw();
                 }
             }
-            
+
         } finally {
             GL11.glPopAttrib();
             GL11.glPopMatrix();
         }
     }
-    
+
     private void addBlockVertecies(VertexBuffer vertexBuffer) {
         final double[][] vertexTable = {
             {1.000, 0.000, 1.000, 1.000, 1.000}, // 1
@@ -161,7 +160,7 @@ public class TESRBlockOre extends TileEntitySpecialRenderer<TileEntityOre> {
             {1.000, 1.000, 1.000, 0.000, 0.000},
             {1.000, 1.000, 0.000, 0.000, 1.000}
         };
-        
+
         for (double[] vertex : vertexTable) {
             vertexBuffer.pos(vertex[0], vertex[1], vertex[2]).tex(vertex[3], vertex[4]).endVertex();
         }

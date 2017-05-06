@@ -172,11 +172,7 @@ public class CommonProxy {
         new Material("Sulfur", "0xedff21", 3) {
             @Override
             public ItemStack getDrops(byte base) {
-                if (OreDictionary.doesOreNameExist("dustSulfur")) {
-                    return OreDictionary.getOres("dustSulfur").get(0);
-                } else {
-                    return super.getDrops(base);
-                }
+                return new ItemStack(ModItems.itemMaterialObject, 1, Material.getMaterial("Sulfur").ordinal() + DUST);
             }
         };
         new Material("Nickel", "0xccd3d8", 3);
@@ -322,7 +318,7 @@ public class CommonProxy {
         new Material("Obsidiorite", "0x000000", 4, 4);
         new Material("Lumix", "0x000000", 4, 4);
         new Material("Dyonite", "0x000000", 6, 6);
-        new Material("Alubrass", "0xCAA585", 1);
+        new Material("AluBrass", "0xCAA585", 1);
         new Material("Nitronite", "0x00000", 4);
         new Material("Magma", "0x000000", -1);
         new Material("Resonating", "0xFF4500", 2);

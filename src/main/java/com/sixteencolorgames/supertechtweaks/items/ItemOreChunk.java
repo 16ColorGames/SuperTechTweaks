@@ -55,11 +55,11 @@ public class ItemOreChunk extends ItemBase {
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
         if (metadata < NETHER) {
-            return super.getUnlocalizedName() + "." + Material.materials.get(metadata);
+            return super.getUnlocalizedName() + "." + Material.materials.get(metadata).getName();
         } else if (metadata < END) {
-            return super.getUnlocalizedName() + ".nether" + Material.materials.get(metadata - NETHER);
+            return super.getUnlocalizedName() + ".nether" + Material.materials.get(metadata - NETHER).getName();
         } else {
-            return super.getUnlocalizedName() + ".end" + Material.materials.get(metadata - END);
+            return super.getUnlocalizedName() + ".end" + Material.materials.get(metadata - END).getName();
         }
     }
 }

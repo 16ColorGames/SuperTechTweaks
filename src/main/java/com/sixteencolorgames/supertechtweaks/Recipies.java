@@ -53,41 +53,41 @@ public class Recipies {
         TiConCompatability.registerMelting();
     }
 
-    /*private static void addAlloys() {
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ELECTRUM, 2), new AlloyElement(Ores.SILVER, 1), new AlloyElement(Ores.GOLD, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ALUMINUMBRASS, 4), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Ores.ALUMINUM, 3)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRASS, 3), new AlloyElement(Material.getMaterial("Copper"), 2), new AlloyElement(Ores.ZINC, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.BRONZE, 4), new AlloyElement(Material.getMaterial("Copper"), 3), new AlloyElement(Ores.TIN, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.CONSTANTAN, 2), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Ores.NICKEL, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.TRIBERIUM, 1), new AlloyElement(Ores.TIBERIUM, 5), new AlloyElement(Ores.BASALT, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NITRONITE, 1), new AlloyElement(Ores.MAGMA, 6), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.MANYULLYN, 1), new AlloyElement(Ores.COBALT, 1), new AlloyElement(Ores.ARDITE, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.VIOLIUM, 2), new AlloyElement(Ores.ARDITE, 2), new AlloyElement(Ores.AURORIUM, 3)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.TRIBERIUM, 1), new AlloyElement(Ores.TIBERIUM, 5), new AlloyElement(Ores.DILITHIUM, 2)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.TRITONITE, 2), new AlloyElement(Ores.COBALT, 3), new AlloyElement(Ores.TERRAX, 2)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ASTRIUM, 2), new AlloyElement(Ores.TERRAX, 3), new AlloyElement(Ores.AURORIUM, 2)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.LUMIX, 1), new AlloyElement(Ores.PALLADIUM, 1), new AlloyElement(Ores.TERRAX, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.OBSIDIORITE, 1), new AlloyElement(Ores.OBSIDIAN, 1), new AlloyElement(Ores.PALLADIUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NIHILITE, 1), new AlloyElement(Ores.VIBRANIUM, 1), new AlloyElement(Ores.SOLARIUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NUCLEUM, 3), new AlloyElement(Ores.IMPEROMITE, 3), new AlloyElement(Ores.EEZO, 1), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NUCLEUM, 3), new AlloyElement(Ores.NIOB, 3), new AlloyElement(Ores.ABYSSUM, 1), new AlloyElement(Ores.EEZO, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NUCLEUM, 3), new AlloyElement(Ores.PROXII, 3), new AlloyElement(Ores.ABYSSUM, 1), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.YRDEEN, 3), new AlloyElement(Ores.URU, 3), new AlloyElement(Ores.VALYRIUM, 3), new AlloyElement(Ores.ABYSSUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.YRDEEN, 3), new AlloyElement(Ores.URU, 3), new AlloyElement(Ores.VALYRIUM, 3), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.YRDEEN, 3), new AlloyElement(Ores.URU, 3), new AlloyElement(Ores.VALYRIUM, 3), new AlloyElement(Ores.EEZO, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.NIOB, 3), new AlloyElement(Ores.PALLADIUM, 3), new AlloyElement(Ores.DURANITE, 1), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.TERRAX, 2), new AlloyElement(Ores.KARMESINE, 1), new AlloyElement(Ores.OVIUM, 1), new AlloyElement(Ores.JAUXUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.SOLARIUM, 2), new AlloyElement(Ores.VALYRIUM, 2), new AlloyElement(Ores.URU, 2), new AlloyElement(Ores.NUCLEUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.ADAMANT, 3), new AlloyElement(Ores.IOX, 3), new AlloyElement(Ores.VIBRANIUM, 1), new AlloyElement(Ores.SOLARIUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.SEISMUM, 4), new AlloyElement(Ores.OBSIDIAN, 4), new AlloyElement(Ores.TRIBERIUM, 2), new AlloyElement(Ores.EEZO, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.IMPEROMITE, 2), new AlloyElement(Ores.DURANITE, 3), new AlloyElement(Ores.PROMETHIUM, 1), new AlloyElement(Ores.ABYSSUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.IGNITZ, 2), new AlloyElement(Ores.ARDITE, 2), new AlloyElement(Ores.TERRAX, 2), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.PROXII, 3), new AlloyElement(Ores.PROMETHIUM, 3), new AlloyElement(Ores.PALLADIUM, 3), new AlloyElement(Ores.EEZO, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.FRACTUM, 2), new AlloyElement(Ores.ABYSSUM, 1), new AlloyElement(Ores.TRIBERIUM, 3), new AlloyElement(Ores.OBSIDIAN, 3)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.DYONITE, 3), new AlloyElement(Ores.TIBERIUM, 12), new AlloyElement(Ores.FRACTUM, 1), new AlloyElement(Ores.SEISMUM, 1), new AlloyElement(Ores.OSRAM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.DYONITE, 3), new AlloyElement(Ores.TRIBERIUM, 3), new AlloyElement(Ores.FRACTUM, 1), new AlloyElement(Ores.OSRAM, 1), new AlloyElement(Ores.SEISMUM, 1)));
-        Alloy.alloys.add(new Alloy(new AlloyElement(Ores.IOX, 1), new AlloyElement(Ores.EEZO, 2), new AlloyElement(Ores.ABYSSUM, 2), new AlloyElement(Ores.OSRAM, 2), new AlloyElement(Ores.OBSIDIORITE, 9)));
-    }*/
+    private static void addAlloys() {
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Electrum"), 2), new AlloyElement(Material.getMaterial("Silver"), 1), new AlloyElement(Material.getMaterial("Gold"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("AluBrass"), 4), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Material.getMaterial("Aluminum"), 3)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Brass"), 3), new AlloyElement(Material.getMaterial("Copper"), 2), new AlloyElement(Material.getMaterial("Zinc"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Bronze"), 4), new AlloyElement(Material.getMaterial("Copper"), 3), new AlloyElement(Material.getMaterial("Tin"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Constantan"), 2), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Material.getMaterial("Nickel"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Triberium"), 1), new AlloyElement(Material.getMaterial("Tiberium"), 5), new AlloyElement(Material.getMaterial("Basalt"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nitronite"), 1), new AlloyElement(Material.getMaterial("Magma"), 6), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Manyullyn"), 1), new AlloyElement(Material.getMaterial("Cobalt"), 1), new AlloyElement(Material.getMaterial("Ardite"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Violium"), 2), new AlloyElement(Material.getMaterial("Ardite"), 2), new AlloyElement(Material.getMaterial("Aurorium"), 3)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Triberium"), 1), new AlloyElement(Material.getMaterial("Tiberium"), 5), new AlloyElement(Material.getMaterial("Dilithium"), 2)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Tritonite"), 2), new AlloyElement(Material.getMaterial("Cobalt"), 3), new AlloyElement(Material.getMaterial("Terrax"), 2)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Astrium"), 2), new AlloyElement(Material.getMaterial("Terrax"), 3), new AlloyElement(Material.getMaterial("Aurorium"), 2)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Lumix"), 1), new AlloyElement(Material.getMaterial("Palladium"), 1), new AlloyElement(Material.getMaterial("Terrax"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Obsidiorite"), 1), new AlloyElement(Material.getMaterial("Obsidian"), 1), new AlloyElement(Material.getMaterial("Palladium"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nihilite"), 1), new AlloyElement(Material.getMaterial("Vibranium"), 1), new AlloyElement(Material.getMaterial("Solarium"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nucleum"), 3), new AlloyElement(Material.getMaterial("Imperomite"), 3), new AlloyElement(Material.getMaterial("Eezo"), 1), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nucleum"), 3), new AlloyElement(Material.getMaterial("Niob"), 3), new AlloyElement(Material.getMaterial("Abyssum"), 1), new AlloyElement(Material.getMaterial("Eezo"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nucleum"), 3), new AlloyElement(Material.getMaterial("Proxii"), 3), new AlloyElement(Material.getMaterial("Abyssum"), 1), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Yrdeen"), 3), new AlloyElement(Material.getMaterial("Uru"), 3), new AlloyElement(Material.getMaterial("Valyrium"), 3), new AlloyElement(Material.getMaterial("Abyssum"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Yrdeen"), 3), new AlloyElement(Material.getMaterial("Uru"), 3), new AlloyElement(Material.getMaterial("Valyrium"), 3), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Yrdeen"), 3), new AlloyElement(Material.getMaterial("Uru"), 3), new AlloyElement(Material.getMaterial("Valyrium"), 3), new AlloyElement(Material.getMaterial("Eezo"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Niob"), 3), new AlloyElement(Material.getMaterial("Palladium"), 3), new AlloyElement(Material.getMaterial("Duranite"), 1), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Terrax"), 2), new AlloyElement(Material.getMaterial("Karmesine"), 1), new AlloyElement(Material.getMaterial("Ovium"), 1), new AlloyElement(Material.getMaterial("Jauxum"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Solarium"), 2), new AlloyElement(Material.getMaterial("Valyrium"), 2), new AlloyElement(Material.getMaterial("Uru"), 2), new AlloyElement(Material.getMaterial("Nucleum"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Adamant"), 3), new AlloyElement(Material.getMaterial("Iox"), 3), new AlloyElement(Material.getMaterial("Vibranium"), 1), new AlloyElement(Material.getMaterial("Solarium"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Seismum"), 4), new AlloyElement(Material.getMaterial("Obsidian"), 4), new AlloyElement(Material.getMaterial("Triberium"), 2), new AlloyElement(Material.getMaterial("Eezo"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Imperomite"), 2), new AlloyElement(Material.getMaterial("Duranite"), 3), new AlloyElement(Material.getMaterial("Promethium"), 1), new AlloyElement(Material.getMaterial("Abyssum"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Ignitz"), 2), new AlloyElement(Material.getMaterial("Ardite"), 2), new AlloyElement(Material.getMaterial("Terrax"), 2), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Proxii"), 3), new AlloyElement(Material.getMaterial("Promethium"), 3), new AlloyElement(Material.getMaterial("Palladium"), 3), new AlloyElement(Material.getMaterial("Eezo"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Fractum"), 2), new AlloyElement(Material.getMaterial("Abyssum"), 1), new AlloyElement(Material.getMaterial("Triberium"), 3), new AlloyElement(Material.getMaterial("Obsidian"), 3)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Dyonite"), 3), new AlloyElement(Material.getMaterial("Tiberium"), 12), new AlloyElement(Material.getMaterial("Fractum"), 1), new AlloyElement(Material.getMaterial("Seismum"), 1), new AlloyElement(Material.getMaterial("Osram"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Dyonite"), 3), new AlloyElement(Material.getMaterial("Triberium"), 3), new AlloyElement(Material.getMaterial("Fractum"), 1), new AlloyElement(Material.getMaterial("Osram"), 1), new AlloyElement(Material.getMaterial("Seismum"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Iox"), 1), new AlloyElement(Material.getMaterial("Eezo"), 2), new AlloyElement(Material.getMaterial("Abyssum"), 2), new AlloyElement(Material.getMaterial("Osram"), 2), new AlloyElement(Material.getMaterial("Obsidiorite"), 9)));
+    }
 
     private static void registerAlloys() {
         TiConCompatability.registerAlloys();

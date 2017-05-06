@@ -124,7 +124,8 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
             if (tileEntity instanceof TileEntityOre) {
                 TileEntityOre ore = (TileEntityOre) tileEntity;
                 int[] ores = ore.getOres();
-                int tagCount = player.getHeldItemMainhand().getEnchantmentTagList().tagCount();
+                int tagCount;
+                tagCount = player.getHeldItemMainhand().getEnchantmentTagList() != null ? player.getHeldItemMainhand().getEnchantmentTagList().tagCount() : 0;
                 int fortune = 0;
                 for (int i = 0; i < tagCount; i++) {
                     NBTTagCompound compound = (NBTTagCompound) player.getHeldItemMainhand().getEnchantmentTagList().get(i);

@@ -1,8 +1,7 @@
-# Configuration file
 {
     "cuprite": {
         "generator": "vein",
-        "ore": [{"ore": "Copper", "weight": 1.0}, {"ore": "Osmium", "weight": 0.01}, {"ore": "Cadmium", "weight": .01}],
+        "ore": [{"ore": "Copper", "weight": 1.0}, {"ore": "Osmium", "weight": 0.01}, {"ore": "Cadmium", "weight": 0.01}],
 		"size": 4,
         "chance": 10,
         "minHeight": 32,
@@ -64,7 +63,7 @@
     },
     "Chalcopyrite": {
         "generator": "cluster",
-        "ore": [{"ore": "Copper", "weight": 0.75}, {"ore": "Iron", "weight": 0.75}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": .01}],
+        "ore": [{"ore": "Copper", "weight": 0.75}, {"ore": "Iron", "weight": 0.75}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": 0.01}],
 		"size": 15,
         "chance": 5,
         "minHeight": 20,
@@ -76,7 +75,7 @@
     },
     "Sphalerite": {
         "generator": "cluster",
-        "ore": [{"ore": "Zinc", "weight": 0.75}, {"ore": "Iron", "weight": 0.2}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": .01}],
+        "ore": [{"ore": "Zinc", "weight": 0.75}, {"ore": "Iron", "weight": 0.2}, {"ore": "Sulfur", "weight": 1.0}, {"ore": "Cadmium", "weight": 0.01}],
 		"size": 15,
         "chance": 5,
         "minHeight": 25,
@@ -98,7 +97,7 @@
     },
     "Calaverite": {
         "generator": "cluster",
-        "ore": [{"ore": "Gold", "weight": 0.9}, {"ore": "Tellurium", "weight": 0.7}, {"ore": "Silver", "weight": .1}],
+        "ore": [{"ore": "Gold", "weight": 0.9}, {"ore": "Tellurium", "weight": 0.7}, {"ore": "Silver", "weight": 0.1}],
 		"size": 15,
         "chance": 5,
         "minHeight": 10,
@@ -109,7 +108,7 @@
     },
     "Electrum": {
         "generator": "cluster",
-        "ore": [{"ore": "Gold", "weight": 0.7}, {"ore": "Electrum", "weight": 0.2}, {"ore": "Silver", "weight": .7}],
+        "ore": [{"ore": "Gold", "weight": 0.7}, {"ore": "Electrum", "weight": 0.2}, {"ore": "Silver", "weight": 0.7}],
 		"size": 15,
         "chance": 5,
         "minHeight": 10,
@@ -346,7 +345,7 @@
     },
     "Redstone": {
         "generator": "cluster",
-        "ore": [{"ore": "Redstone", "weight": 1.0}, {"ore": "Nickel", "weight": 0.15}, {"ore": Oosmium", "weight": 0.01}],
+        "ore": [{"ore": "Redstone", "weight": 1.0}, {"ore": "Nickel", "weight": 0.15}, {"ore": "Osmium", "weight": 0.01}],
 		"size": 7,
         "chance": 1,
         "minHeight": 4,
@@ -358,7 +357,7 @@
     },
     "Quartz": {
         "generator": "cluster",
-        "ore": [{"ore": "BlackQuartz", "weight": 1.0}, {"ore": "Certus", "weight": 0.15}, {"ore": "Charged_Certus", "weight": 0.05}}],
+        "ore": [{"ore": "BlackQuartz", "weight": 1.0}, {"ore": "Certus", "weight": 0.15}, {"ore": "Charged_Certus", "weight": 0.05}],
 		"size": 7,
         "chance": 1,
         "minHeight": 4,

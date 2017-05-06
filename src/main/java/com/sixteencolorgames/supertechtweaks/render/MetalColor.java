@@ -54,7 +54,7 @@ public class MetalColor implements IItemColor, IBlockColor {
                         metadata -= 1000;
                     }
                     Material metal = Material.materials.get(metadata);
-                    return Color.decode(metal.getColor()).getRGB();
+                    return metal.getColor();
                 
                 default:
                     // oops! should never get here.
@@ -69,7 +69,7 @@ public class MetalColor implements IItemColor, IBlockColor {
                         metadata -= 1000;
                     }
                     Material metal = Material.materials.get(metadata);
-                    return Color.decode(metal.getColor()).getRGB();
+                    return metal.getColor();
                 default:
                     return Color.BLACK.getRGB();
             }
@@ -95,7 +95,7 @@ public class MetalColor implements IItemColor, IBlockColor {
                     case 7:
                     case 8:
                         if (ores[tintIndex - 1] != 0) {
-                            return Color.decode(Material.materials.get(ores[tintIndex - 1]).getColor()).getRGB();
+                            return Material.materials.get(ores[tintIndex - 1]).getColor();
                         } else {
                             return new Color(0, 0, 0, 0).getRGB();
                         }
