@@ -1,4 +1,1469 @@
-tile.blockOre.name=Super Tech Ore Block
-item.itemOreChunk.COPPER.name=Copper Ore Chunk
-item.itemOreChunk.IRON.name=Iron Ore Chunk
-item.itemOreChunk.ALUMINUM.name=Aluminum Ore Chunk
+//ANTIMONY
+item.itemMaterialObject.ingotANTIMONY.name = Antimony Ingot
+item.itemMaterialObject.dustANTIMONY.name = Antimony Dust
+item.itemMaterialObject.gearANTIMONY.name = Antimony Gear
+item.itemMaterialObject.nuggetANTIMONY.name = Antimony Nugget
+item.itemMaterialObject.plateANTIMONY.name = Antimony Plate
+item.itemMaterialObject.rodANTIMONY.name = Antimony Rod
+item.itemMaterialObject.clumpANTIMONY.name = Antimony Clump
+item.itemMaterialObject.crystalANTIMONY.name = Antimony Crystal
+item.itemMaterialObject.shardANTIMONY.name = Antimony Shard
+item.itemMaterialObject.wireANTIMONY.name = Antimony Wire
+item.itemMaterialObject.dustDirtyANTIMONY.name = Antimony Dirty Dust
+item.itemMaterialObject.foilANTIMONY.name = Antimony Foil
+
+//BISMUTH
+item.itemMaterialObject.ingotBISMUTH.name = Bismuth Ingot
+item.itemMaterialObject.dustBISMUTH.name = Bismuth Dust
+item.itemMaterialObject.gearBISMUTH.name = Bismuth Gear
+item.itemMaterialObject.nuggetBISMUTH.name = Bismuth Nugget
+item.itemMaterialObject.plateBISMUTH.name = Bismuth Plate
+item.itemMaterialObject.rodBISMUTH.name = Bismuth Rod
+item.itemMaterialObject.clumpBISMUTH.name = Bismuth Clump
+item.itemMaterialObject.crystalBISMUTH.name = Bismuth Crystal
+item.itemMaterialObject.shardBISMUTH.name = Bismuth Shard
+item.itemMaterialObject.wireBISMUTH.name = Bismuth Wire
+item.itemMaterialObject.dustDirtyBISMUTH.name = Bismuth Dirty Dust
+item.itemMaterialObject.foilBISMUTH.name = Bismuth Foil
+
+//CADMIUM
+item.itemMaterialObject.ingotCADMIUM.name = Cadmium Ingot
+item.itemMaterialObject.dustCADMIUM.name = Cadmium Dust
+item.itemMaterialObject.gearCADMIUM.name = Cadmium Gear
+item.itemMaterialObject.nuggetCADMIUM.name = Cadmium Nugget
+item.itemMaterialObject.plateCADMIUM.name = Cadmium Plate
+item.itemMaterialObject.rodCADMIUM.name = Cadmium Rod
+item.itemMaterialObject.clumpCADMIUM.name = Cadmium Clump
+item.itemMaterialObject.crystalCADMIUM.name = Cadmium Crystal
+item.itemMaterialObject.shardCADMIUM.name = Cadmium Shard
+item.itemMaterialObject.wireCADMIUM.name = Cadmium Wire
+item.itemMaterialObject.dustDirtyCADMIUM.name = Cadmium Dirty Dust
+item.itemMaterialObject.foilCADMIUM.name = Cadmium Foil
+
+//MERCURY
+item.itemMaterialObject.ingotMERCURY.name = Mercury Ingot
+item.itemMaterialObject.dustMERCURY.name = Mercury Dust
+item.itemMaterialObject.gearMERCURY.name = Mercury Gear
+item.itemMaterialObject.nuggetMERCURY.name = Mercury Nugget
+item.itemMaterialObject.plateMERCURY.name = Mercury Plate
+item.itemMaterialObject.rodMERCURY.name = Mercury Rod
+item.itemMaterialObject.clumpMERCURY.name = Mercury Clump
+item.itemMaterialObject.crystalMERCURY.name = Mercury Crystal
+item.itemMaterialObject.shardMERCURY.name = Mercury Shard
+item.itemMaterialObject.wireMERCURY.name = Mercury Wire
+item.itemMaterialObject.dustDirtyMERCURY.name = Mercury Dirty Dust
+item.itemMaterialObject.foilMERCURY.name = Mercury Foil
+
+//COPPER
+item.itemMaterialObject.ingotCOPPER.name = Copper Ingot
+item.itemMaterialObject.dustCOPPER.name = Copper Dust
+item.itemMaterialObject.gearCOPPER.name = Copper Gear
+item.itemMaterialObject.nuggetCOPPER.name = Copper Nugget
+item.itemMaterialObject.plateCOPPER.name = Copper Plate
+item.itemMaterialObject.rodCOPPER.name = Copper Rod
+item.itemMaterialObject.clumpCOPPER.name = Copper Clump
+item.itemMaterialObject.crystalCOPPER.name = Copper Crystal
+item.itemMaterialObject.shardCOPPER.name = Copper Shard
+item.itemMaterialObject.wireCOPPER.name = Copper Wire
+item.itemMaterialObject.dustDirtyCOPPER.name = Copper Dirty Dust
+item.itemMaterialObject.foilCOPPER.name = Copper Foil
+
+//ZINC
+item.itemMaterialObject.ingotZINC.name = Zinc Ingot
+item.itemMaterialObject.dustZINC.name = Zinc Dust
+item.itemMaterialObject.gearZINC.name = Zinc Gear
+item.itemMaterialObject.nuggetZINC.name = Zinc Nugget
+item.itemMaterialObject.plateZINC.name = Zinc Plate
+item.itemMaterialObject.rodZINC.name = Zinc Rod
+item.itemMaterialObject.clumpZINC.name = Zinc Clump
+item.itemMaterialObject.crystalZINC.name = Zinc Crystal
+item.itemMaterialObject.shardZINC.name = Zinc Shard
+item.itemMaterialObject.wireZINC.name = Zinc Wire
+item.itemMaterialObject.dustDirtyZINC.name = Zinc Dirty Dust
+item.itemMaterialObject.foilZINC.name = Zinc Foil
+
+//MONAZIT
+item.itemMaterialObject.ingotMONAZIT.name = Monazit Ingot
+item.itemMaterialObject.dustMONAZIT.name = Monazit Dust
+item.itemMaterialObject.gearMONAZIT.name = Monazit Gear
+item.itemMaterialObject.nuggetMONAZIT.name = Monazit Nugget
+item.itemMaterialObject.plateMONAZIT.name = Monazit Plate
+item.itemMaterialObject.rodMONAZIT.name = Monazit Rod
+item.itemMaterialObject.clumpMONAZIT.name = Monazit Clump
+item.itemMaterialObject.crystalMONAZIT.name = Monazit Crystal
+item.itemMaterialObject.shardMONAZIT.name = Monazit Shard
+item.itemMaterialObject.wireMONAZIT.name = Monazit Wire
+item.itemMaterialObject.dustDirtyMONAZIT.name = Monazit Dirty Dust
+item.itemMaterialObject.foilMONAZIT.name = Monazit Foil
+
+//CHROMIUM
+item.itemMaterialObject.ingotCHROMIUM.name = Chromium Ingot
+item.itemMaterialObject.dustCHROMIUM.name = Chromium Dust
+item.itemMaterialObject.gearCHROMIUM.name = Chromium Gear
+item.itemMaterialObject.nuggetCHROMIUM.name = Chromium Nugget
+item.itemMaterialObject.plateCHROMIUM.name = Chromium Plate
+item.itemMaterialObject.rodCHROMIUM.name = Chromium Rod
+item.itemMaterialObject.clumpCHROMIUM.name = Chromium Clump
+item.itemMaterialObject.crystalCHROMIUM.name = Chromium Crystal
+item.itemMaterialObject.shardCHROMIUM.name = Chromium Shard
+item.itemMaterialObject.wireCHROMIUM.name = Chromium Wire
+item.itemMaterialObject.dustDirtyCADMIUM.name = Chromium Dirty Dust
+item.itemMaterialObject.foilCHROMIUM.name = Chromium Foil
+
+//APATITE
+item.itemMaterialObject.ingotAPATITE.name = Apatite Ingot
+item.itemMaterialObject.dustAPATITE.name = Apatite Dust
+item.itemMaterialObject.gearAPATITE.name = Apatite Gear
+item.itemMaterialObject.nuggetAPATITE.name = Apatite Nugget
+item.itemMaterialObject.plateAPATITE.name = Apatite Plate
+item.itemMaterialObject.rodAPATITE.name = Apatite Rod
+item.itemMaterialObject.clumpAPATITE.name = Apatite Clump
+item.itemMaterialObject.crystalAPATITE.name = Apatite Crystal
+item.itemMaterialObject.shardAPATITE.name = Apatite Shard
+item.itemMaterialObject.wireAPATITE.name = Apatite Wire
+item.itemMaterialObject.dustDirtyAPATITE.name = Apatite Dirty Dust
+item.itemMaterialObject.foilAPATITE.name = Apatite Foil
+
+//ALUMINUM
+item.itemMaterialObject.ingotALUMINUM.name = Aluminum Ingot
+item.itemMaterialObject.dustALUMINUM.name = Aluminum Dust
+item.itemMaterialObject.gearALUMINUM.name = Aluminum Gear
+item.itemMaterialObject.nuggetALUMINUM.name = Aluminum Nugget
+item.itemMaterialObject.plateALUMINUM.name = Aluminum Plate
+item.itemMaterialObject.rodALUMINUM.name = Aluminum Rod
+item.itemMaterialObject.clumpALUMINUM.name = Aluminum Clump
+item.itemMaterialObject.crystalALUMINUM.name = Aluminum Crystal
+item.itemMaterialObject.shard.name = Aluminum Shard
+item.itemMaterialObject.wireALUMINUM.name = Aluminum Wire
+item.itemMaterialObject.dustDirtyALUMINUM.name = Aluminum Dirty Dust
+item.itemMaterialObject.foilALUMINUM.name = Aluminum Foil
+
+//COAL
+item.itemMaterialObject.ingotCOAL.name = Coal Ingot
+item.itemMaterialObject.dustCOAL.name = Coal Dust
+item.itemMaterialObject.gearCOAL.name = Coal Gear
+item.itemMaterialObject.nuggetCOAL.name = Coal Nugget
+item.itemMaterialObject.plateCOAL.name = Coal Plate
+item.itemMaterialObject.rodCOAL.name = Coal Rod
+item.itemMaterialObject.clumpCOAL.name = Coal Clump
+item.itemMaterialObject.crystalCOAL.name = Coal Crystal
+item.itemMaterialObject.shardCOAL.name = Coal Shard
+item.itemMaterialObject.wireCOAL.name = Coal Wire
+item.itemMaterialObject.dustDirtyCOAL.name = Coal Dirty Dust
+item.itemMaterialObject.foilCOAL.name = Coal Foil
+
+//SILVER
+item.itemMaterialObject.ingotSILVER.name = Silver Ingot
+item.itemMaterialObject.dustSILVER.name = Silver Dust
+item.itemMaterialObject.gearSILVER.name = Silver Gear
+item.itemMaterialObject.nuggetSILVER.name = Silver Nugget
+item.itemMaterialObject.plateSILVER.name = Silver Plate
+item.itemMaterialObject.rodSILVER.name = Silver Rod
+item.itemMaterialObject.clumpSILVER.name = Silver Clump
+item.itemMaterialObject.crystalSILVER.name = Silver Crystal
+item.itemMaterialObject.shardSILVER.name = Silver Shard
+item.itemMaterialObject.wireSILVER.name = Silver Wire
+item.itemMaterialObject.dustDirtySILVER.name = Silver Dirty Dust
+item.itemMaterialObject.foilSILVER.name = Silver Foil
+
+//TELLURIUM
+item.itemMaterialObject.ingotTELLURIUM.name = Tellurim Ingot
+item.itemMaterialObject.dustTELLURIUM.name = Tellurim Dust
+item.itemMaterialObject.gearTELLURIUM.name = Tellurim Gear
+item.itemMaterialObject.nuggetTELLURIUM.name = Tellurim Nugget
+item.itemMaterialObject.plateTELLURIUM.name = Tellurim Plate
+item.itemMaterialObject.rodTELLURIUM.name = Tellurim Rod
+item.itemMaterialObject.clumpTELLURIUM.name = Tellurim Clump
+item.itemMaterialObject.crystalTELLURIUM.name = Tellurim Crystal
+item.itemMaterialObject.shardTELLURIUM.name = Tellurim Shard
+item.itemMaterialObject.wireTELLURIUM.name = Tellurim Wire
+item.itemMaterialObject.dustDirtyTELLURIUM.name = Tellurim Dirty Dust
+item.itemMaterialObject.foilTELLURIUM.name = Tellurim Foil
+
+//LAPIS
+item.itemMaterialObject.ingotLAPIS.name = Lapis Ingot
+item.itemMaterialObject.dustLAPIS.name = Lapis Dust
+item.itemMaterialObject.gearLAPIS.name = Lapis Gear
+item.itemMaterialObject.nuggetLAPIS.name = Lapis Nugget
+item.itemMaterialObject.plateLAPIS.name = Lapis Plate
+item.itemMaterialObject.rodLAPIS.name = Lapis Rod
+item.itemMaterialObject.clumpLAPIS.name = Lapis Clump
+item.itemMaterialObject.crystalLAPIS.name = Lapis Crystal
+item.itemMaterialObject.shardLAPIS.name = Lapis Shard
+item.itemMaterialObject.wireLAPIS.name = Lapis Wire
+item.itemMaterialObject.dustDirtyLAPIS.name = Lapis Dirty Dust
+item.itemMaterialObject.foilLAPIS.name = Lapis Foil
+
+//TIN
+item.itemMaterialObject.ingotTIN.name = Tin Ingot
+item.itemMaterialObject.dustTIN.name = Tin Dust
+item.itemMaterialObject.gearTIN.name = Tin Gear
+item.itemMaterialObject.nuggetTIN.name = Tin Nugget
+item.itemMaterialObject.plateTIN.name = Tin Plate
+item.itemMaterialObject.rodTIN.name = Tin Rod
+item.itemMaterialObject.clumpTIN.name = Tin Clump
+item.itemMaterialObject.crystalTIN.name = Tin Crystal
+item.itemMaterialObject.shardTIN.name = Tin Shard
+item.itemMaterialObject.wireTIN.name = Tin Wire
+item.itemMaterialObject.dustDirtyTIN.name = Tin Dirty Dust
+item.itemMaterialObject.foilTIN.name = Tin Foil
+
+//GOLD
+item.itemMaterialObject.ingotGOLD.name = Gold Ingot
+item.itemMaterialObject.dustGOLD.name = Gold Dust
+item.itemMaterialObject.gearGOLD.name = Gold Gear
+item.itemMaterialObject.nuggetGOLD.name = Gold Nugget
+item.itemMaterialObject.plateGOLD.name = Gold Plate
+item.itemMaterialObject.rodGOLD.name = Gold Rod
+item.itemMaterialObject.clumpGOLD.name = Gold Clump
+item.itemMaterialObject.crystalGOLD.name = Gold Crystal
+item.itemMaterialObject.shardGOLD.name = Gold Shard
+item.itemMaterialObject.wireGOLD.name = Gold Wire
+item.itemMaterialObject.dustDirtyGOLD.name = Gold Dirty Dust
+item.itemMaterialObject.foilGOLD.name = Gold Foil
+
+//LEAD
+item.itemMaterialObject.ingotLEAD.name = Lead Ingot
+item.itemMaterialObject.dustLEAD.name = Lead Dust
+item.itemMaterialObject.gearLEAD.name = Lead Gear
+item.itemMaterialObject.nuggetLEAD.name = Lead Nugget
+item.itemMaterialObject.plateLEAD.name = Lead Plate
+item.itemMaterialObject.rodLEAD.name = Lead Rod
+item.itemMaterialObject.clumpLEAD.name = Lead Clump
+item.itemMaterialObject.crystalLEAD.name = Lead Crystal
+item.itemMaterialObject.shardLEAD.name = Lead Shard
+item.itemMaterialObject.wireLEAD.name = Lead Wire
+item.itemMaterialObject.dustDirtyLEAD.name = Lead Dirty Dust
+item.itemMaterialObject.foilLEAD.name = Lead Foil
+
+//REDSTONE
+item.itemMaterialObject.ingotREDSTONE.name = Redstone Ingot
+item.itemMaterialObject.dustREDSTONE.name = Redstone Dust
+item.itemMaterialObject.gearREDSTONE.name = Redstone Gear
+item.itemMaterialObject.nuggetREDSTONE.name = Redstone Nugget
+item.itemMaterialObject.plateREDSTONE.name = Redstone Plate
+item.itemMaterialObject.rodREDSTONE.name = Redstone Rod
+item.itemMaterialObject.clumpREDSTONE.name = Redstone Clump
+item.itemMaterialObject.crystalREDSTONE.name = Redstone Crystal
+item.itemMaterialObject.shardREDSTONE.name = Redstone Shard
+item.itemMaterialObject.wireREDSTONE.name = Redstone Wire
+item.itemMaterialObject.dustDirtyREDSTONE.name = Redstone Dirty Dust
+item.itemMaterialObject.foilREDSTONE.name = Redstone Foil
+
+//SULFUR
+item.itemMaterialObject.ingotSULFUR.name = Sulfur Ingot
+item.itemMaterialObject.dustSULFUR.name = Sulfur Dust
+item.itemMaterialObject.gearSULFUR.name = Sulfur Gear
+item.itemMaterialObject.nuggetSULFUR.name = Sulfur Nugget
+item.itemMaterialObject.plateSULFUR.name = Sulfur Plate
+item.itemMaterialObject.rodSULFUR.name = Sulfur Rod
+item.itemMaterialObject.clumpSULFUR.name = Sulfur Clump
+item.itemMaterialObject.crystalSULFUR.name = Sulfur Crystal
+item.itemMaterialObject.shardSULFUR.name = Sulfur Shard
+item.itemMaterialObject.wireSULFUR.name = Sulfur Wire
+item.itemMaterialObject.dustDirtySULFUR.name = Sulfur Dirty Dust
+item.itemMaterialObject.foilSULFUR.name = Sulfur Foil
+
+//NICKEL
+item.itemMaterialObject.ingotNICKEL.name = Nickel Ingot
+item.itemMaterialObject.dustNICKEL.name = Nickel Dust
+item.itemMaterialObject.gearNICKEL.name = Nickel Gear
+item.itemMaterialObject.nuggetNICKEL.name = Nickel Nugget
+item.itemMaterialObject.plateNICKEL.name = Nickel Plate
+item.itemMaterialObject.rodNICKEL.name = Nickel Rod
+item.itemMaterialObject.clumpNICKEL.name = Nickel Clump
+item.itemMaterialObject.crystalNICKEL.name = Nickel Crystal
+item.itemMaterialObject.shardNICKEL.name = Nickel Shard
+item.itemMaterialObject.wireNICKEL.name = Nickel Wire
+item.itemMaterialObject.dustDirtyNICKEL.name = Nickel Dirty Dust
+item.itemMaterialObject.foilNICKEL.name = Nickel Foil
+
+//OSMIUM
+item.itemMaterialObject.ingotOSMIUM.name = Osmium Ingot
+item.itemMaterialObject.dustOSMIUM.name = Osmium Dust
+item.itemMaterialObject.gearOSMIUM.name = Osmium Gear
+item.itemMaterialObject.nuggetOSMIUM.name = Osmium Nugget
+item.itemMaterialObject.plateOSMIUM.name = Osmium Plate
+item.itemMaterialObject.rodOSMIUM.name = Osmium Rod
+item.itemMaterialObject.clumpOSMIUM.name = Osmium Clump
+item.itemMaterialObject.crystalOSMIUM.name = Osmium Crystal
+item.itemMaterialObject.shardOSMIUM.name = Osmium Shard
+item.itemMaterialObject.wireOSMIUM.name = Osmium Wire
+item.itemMaterialObject.dustDirtyOSMIUM.name = Osmium Dirty Dust
+item.itemMaterialObject.foilOSMIUM.name = Osmium Foil
+
+//COLD_IRON
+item.itemMaterialObject.ingotCOLD_IRON.name = Cold Iron Ingot
+item.itemMaterialObject.dustCOLD_IRON.name = Cold Iron Dust
+item.itemMaterialObject.gearCOLD_IRON.name = Cold Iron Gear
+item.itemMaterialObject.nuggetCOLD_IRON.name = Cold Iron Nugget
+item.itemMaterialObject.plateCOLD_IRON.name = Cold Iron Plate
+item.itemMaterialObject.rodCOLD_IRON.name = Cold Iron Rod
+item.itemMaterialObject.clumpCOLD_IRON.name = Cold Iron Clump
+item.itemMaterialObject.crystalCOLD_IRON.name = Cold Iron Crystal
+item.itemMaterialObject.shardCOLD_IRON.name = Cold Iron Shard
+item.itemMaterialObject.wireCOLD_IRON.name = Cold Iron Wire
+item.itemMaterialObject.dustDirtyCOLD_IRON.name = Cold Iron Dirty Dust
+item.itemMaterialObject.foilCOLD_IRON.name = Cold Iron Foil
+
+//DIAMOND
+item.itemMaterialObject.ingotDIAMOND.name = Diamond Ingot
+item.itemMaterialObject.dustDIAMOND.name = Diamond Dust
+item.itemMaterialObject.gearDIAMOND.name = Diamond Gear
+item.itemMaterialObject.nuggetDIAMOND.name = Diamond Nugget
+item.itemMaterialObject.plateDIAMOND.name = Diamond Plate
+item.itemMaterialObject.rodDIAMOND.name = Diamond Rod
+item.itemMaterialObject.clumpDIAMOND.name = Diamond Clump
+item.itemMaterialObject.crystalDIAMOND.name = Diamond Crystal
+item.itemMaterialObject.shardDIAMOND.name = Diamond Shard
+item.itemMaterialObject.wireDIAMOND.name = Diamond Wire
+item.itemMaterialObject.dustDirtyDIAMOND.name = Diamond Dirty Dust
+item.itemMaterialObject.foilDIAMOND.name = Diamond Foil
+
+//EMERALD
+item.itemMaterialObject.ingotEMERALD.name = Emerald Ingot
+item.itemMaterialObject.dustEMERALD.name = Emerald Dust
+item.itemMaterialObject.gearEMERALD.name = Emerald Gear
+item.itemMaterialObject.nuggetEMERALD.name = Emerald Nugget
+item.itemMaterialObject.plateEMERALD.name = Emerald Plate
+item.itemMaterialObject.rodEMERALD.name = Emerald Rod
+item.itemMaterialObject.clumpEMERALD.name = Emerald Clump
+item.itemMaterialObject.crystalEMERALD.name = Emerald Crystal
+item.itemMaterialObject.shardEMERALD.name = Emerald Shard
+item.itemMaterialObject.wireEMERALD.name = Emerald Wire
+item.itemMaterialObject.dustDirtyEMERALD.name = Emerald Dirty Dust
+item.itemMaterialObject.foilEMERALD.name = Emerald Foil
+
+//RUBY
+item.itemMaterialObject.ingotRUBY.name = Ruby Ingot
+item.itemMaterialObject.dustRUBY.name = Ruby Dust
+item.itemMaterialObject.gearRUBY.name = Ruby Gear
+item.itemMaterialObject.nuggetRUBY.name = Ruby Nugget
+item.itemMaterialObject.plateRUBY.name = Ruby Plate
+item.itemMaterialObject.rodRUBY.name = Ruby Rod
+item.itemMaterialObject.clumpRUBY.name = Ruby Clump
+item.itemMaterialObject.crystalRUBY.name = Ruby Crystal
+item.itemMaterialObject.shardRUBY.name = Ruby Shard
+item.itemMaterialObject.wireRUBY.name = Ruby Wire
+item.itemMaterialObject.dustDirtyRUBY.name = Ruby Dirty Dust
+item.itemMaterialObject.foilRUBY.name = Ruby Foil
+
+//SAPPHIRE
+item.itemMaterialObject.ingotSAPPHIRE.name = Sapphire Ingot
+item.itemMaterialObject.dustSAPPHIRE.name = Sapphire Dust
+item.itemMaterialObject.gearSAPPHIRE.name = Sapphire Gear
+item.itemMaterialObject.nuggetSAPPHIRE.name = Sapphire Nugget
+item.itemMaterialObject.plateSAPPHIRE.name = Sapphire Plate
+item.itemMaterialObject.rodSAPPHIRE.name = Sapphire Rod
+item.itemMaterialObject.clumpSAPPHIRE.name = Sapphire Clump
+item.itemMaterialObject.crystalSAPPHIRE.name = Sapphire Crystal
+item.itemMaterialObject.shardSAPPHIRE.name = Sapphire Shard
+item.itemMaterialObject.wireSAPPHIRE.name = Sapphire Wire
+item.itemMaterialObject.dustDirtySAPPHIRE.name = Sapphire Dirty Dust
+item.itemMaterialObject.foilSAPPHIRE.name = Sapphire Foil
+
+//AMETHYST
+item.itemMaterialObject.ingotAMETHYST.name = Amethyst Ingot
+item.itemMaterialObject.dustAMETHYST.name = Amethyst Dust
+item.itemMaterialObject.gearAMETHYST.name = Amethyst Gear
+item.itemMaterialObject.nuggetAMETHYST.name = Amethyst Nugget
+item.itemMaterialObject.plateAMETHYST.name = Amethyst Plate
+item.itemMaterialObject.rodAMETHYST.name = Amethyst Rod
+item.itemMaterialObject.clumpAMETHYST.name = Amethyst Clump
+item.itemMaterialObject.crystalAMETHYST.name = Amethyst Crystal
+item.itemMaterialObject.shardAMETHYST.name = Amethyst Shard
+item.itemMaterialObject.wireAMETHYST.name = Amethyst Wire
+item.itemMaterialObject.dustDirtyAMETHYST.name = Amethyst Dirty Dust
+item.itemMaterialObject.foilAMETHYST.name = Amethyst Foil
+
+//MANGANESE
+item.itemMaterialObject.ingotMANGANESE.name = Manganese Ingot
+item.itemMaterialObject.dustMANGANESE.name = Manganese Dust
+item.itemMaterialObject.gearMANGANESE.name = Manganese Gear
+item.itemMaterialObject.nuggetMANGANESE.name = Manganese Nugget
+item.itemMaterialObject.plateMANGANESE.name = Manganese Plate
+item.itemMaterialObject.rodMANGANESE.name = Manganese Rod
+item.itemMaterialObject.clumpMANGANESE.name = Manganese Clump
+item.itemMaterialObject.crystalMANGANESE.name = Manganese Crystal
+item.itemMaterialObject.shardMANGANESE.name = Manganese Shard
+item.itemMaterialObject.wireMANGANESE.name = Manganese Wire
+item.itemMaterialObject.dustDirtyMANGANESE.name = Manganese Dirty Dust
+item.itemMaterialObject.foilMANGANESE.name = Manganese Foil
+
+//CERTUS
+item.itemMaterialObject.ingotCERTUS.name = Certus Ingot
+item.itemMaterialObject.dustCERTUS.name = Certus Dust
+item.itemMaterialObject.gearCERTUS.name = Certus Gear
+item.itemMaterialObject.nuggetCERTUS.name = Certus Nugget
+item.itemMaterialObject.plateCERTUS.name = Certus Plate
+item.itemMaterialObject.rodCERTUS.name = Certus Rod
+item.itemMaterialObject.clumpCERTUS.name = Certus Clump
+item.itemMaterialObject.crystalCERTUS.name = Certus Crystal
+item.itemMaterialObject.shardCERTUS.name = Certus Shard
+item.itemMaterialObject.wireCERTUS.name = Certus Wire
+item.itemMaterialObject.dustDirtyCERTUS.name = Certus Dirty Dust
+item.itemMaterialObject.foilCERTUS.name = Certus Foil
+
+//CHARGED_CERTUS
+item.itemMaterialObject.ingotCHARGED_CERTUS.name = Charged Certus Ingot
+item.itemMaterialObject.dustCHARGED_CERTUS.name = Charged Certus Dust
+item.itemMaterialObject.gearCHARGED_CERTUS.name = Charged Certus Gear
+item.itemMaterialObject.nuggetCHARGED_CERTUS.name = Charged Certus Nugget
+item.itemMaterialObject.plateCHARGED_CERTUS.name = Charged Certus Plate
+item.itemMaterialObject.rodCHARGED_CERTUS.name = Charged Certus Rod
+item.itemMaterialObject.clumpCHARGED_CERTUS.name = Charged Certus Clump
+item.itemMaterialObject.crystalCHARGED_CERTUS.name = Charged Certus Crystal
+item.itemMaterialObject.shardCHARGED_CERTUS.name = Charged Certus Shard
+item.itemMaterialObject.wireCHARGED_CERTUS.name = Charged Certus Wire
+item.itemMaterialObject.dustDirtyCHARGED_CERTUS.name = Charged Certus Dirty Dust
+item.itemMaterialObject.foilCHARGED_CERTUS.name = Charged Certus Foil
+
+//ARDITE
+item.itemMaterialObject.ingotARDITE.name = Ardite Ingot
+item.itemMaterialObject.dustARDITE.name = Ardite Dust
+item.itemMaterialObject.gearARDITE.name = Ardite Gear
+item.itemMaterialObject.nuggetARDITE.name = Ardite Nugget
+item.itemMaterialObject.plateARDITE.name = Ardite Plate
+item.itemMaterialObject.rodARDITE.name = Ardite Rod
+item.itemMaterialObject.clumpARDITE.name = Ardite Clump
+item.itemMaterialObject.crystalARDITE.name = Ardite Crystal
+item.itemMaterialObject.shardARDITE.name = Ardite Shard
+item.itemMaterialObject.wireARDITE.name = Ardite Wire
+item.itemMaterialObject.dustDirtyARDITE.name = Ardite Dirty Dust
+item.itemMaterialObject.foilARDITE.name = Ardite Foil
+
+//URANIUM
+item.itemMaterialObject.ingotURANIUM.name = Uranium Ingot
+item.itemMaterialObject.dustURANIUM.name = Uranium Dust
+item.itemMaterialObject.gearURANIUM.name = Uranium Gear
+item.itemMaterialObject.nuggetURANIUM.name = Uranium Nugget
+item.itemMaterialObject.plateURANIUM.name = Uranium Plate
+item.itemMaterialObject.rodURANIUM.name = Uranium Rod
+item.itemMaterialObject.clumpURANIUM.name = Uranium Clump
+item.itemMaterialObject.crystalURANIUM.name = Uranium Crystal
+item.itemMaterialObject.shardURANIUM.name = Uranium Shard
+item.itemMaterialObject.wireURANIUM.name = Uranium Wire
+item.itemMaterialObject.dustDirtyURANIUM.name = Uranium Dirty Dust
+item.itemMaterialObject.foilURANIUM.name = Uranium Foil
+
+//PLATINUM
+item.itemMaterialObject.ingotPLATINUM.name = Platinum Ingot
+item.itemMaterialObject.dustPLATINUM.name = Platinum Dust
+item.itemMaterialObject.gearPLATINUM.name = Platinum Gear
+item.itemMaterialObject.nuggetPLATINUM.name = Platinum Nugget
+item.itemMaterialObject.platePLATINUM.name = Platinum Plate
+item.itemMaterialObject.rodPLATINUM.name = Platinum Rod
+item.itemMaterialObject.clumpPLATINUM.name = Platinum Clump
+item.itemMaterialObject.crystalPLATINUM.name = Platinum Crystal
+item.itemMaterialObject.shardPLATINUM.name = Platinum Shard
+item.itemMaterialObject.wirePLATINUM.name = Platinum Wire
+item.itemMaterialObject.dustDirtyPLATINUM.name = Platinum Dirty Dust
+item.itemMaterialObject.foilPLATINUM.name = Platinum Foil
+
+//YELLORIUM
+item.itemMaterialObject.ingotYELLORIUM.name = Yellorium Ingot
+item.itemMaterialObject.dustYELLORIUM.name = Yellorium Dust
+item.itemMaterialObject.gearYELLORIUM.name = Yellorium Gear
+item.itemMaterialObject.nuggetYELLORIUM.name = Yellorium Nugget
+item.itemMaterialObject.plateYELLORIUM.name = Yellorium Plate
+item.itemMaterialObject.rodYELLORIUM.name = Yellorium Rod
+item.itemMaterialObject.clumpYELLORIUM.name = Yellorium Clump
+item.itemMaterialObject.crystalYELLORIUM.name = Yellorium Crystal
+item.itemMaterialObject.shardYELLORIUM.name = Yellorium Shard
+item.itemMaterialObject.wireYELLORIUM.name = Yellorium Wire
+item.itemMaterialObject.dustDirtyYELLORIUM.name = Yellorium Dirty Dust
+item.itemMaterialObject.foilYELLORIUM.name = Yellorium Foil
+
+//DRACONIUM
+item.itemMaterialObject.ingotDRACONIUM.name = Draconium Ingot
+item.itemMaterialObject.dustDRACONIUM.name = Draconium Dust
+item.itemMaterialObject.gearDRACONIUM.name = Draconium Gear
+item.itemMaterialObject.nuggetDRACONIUM.name = Draconium Nugget
+item.itemMaterialObject.plateDRACONIUM.name = Draconium Plate
+item.itemMaterialObject.rodDRACONIUM.name = Draconium Rod
+item.itemMaterialObject.clumpDRACONIUM.name = Draconium Clump
+item.itemMaterialObject.crystalDRACONIUM.name = Draconium Crystal
+item.itemMaterialObject.shardDRACONIUM.name = Draconium Shard
+item.itemMaterialObject.wireDRACONIUM.name = Draconium Wire
+item.itemMaterialObject.dustDirtyDRACONIUM.name = Draconium Dirty Dust
+item.itemMaterialObject.foilDRACONIUM.name = Draconium Foil
+
+//COBALT
+item.itemMaterialObject.ingotCOBALT.name = Cobalt Ingot
+item.itemMaterialObject.dustCOBALT.name = Cobalt Dust
+item.itemMaterialObject.gearCOBALT.name = Cobalt Gear
+item.itemMaterialObject.nuggetCOBALT.name = Cobalt Nugget
+item.itemMaterialObject.plateCOBALT.name = Cobalt Plate
+item.itemMaterialObject.rodCOBALT.name = Cobalt Rod
+item.itemMaterialObject.clumpCOBALT.name = Cobalt Clump
+item.itemMaterialObject.crystalCOBALT.name = Cobalt Crystal
+item.itemMaterialObject.shardCOBALT.name = Cobalt Shard
+item.itemMaterialObject.wireCOBALT.name = Cobalt Wire
+item.itemMaterialObject.dustDirtyCOBALT.name = Cobalt Dirty Dust
+item.itemMaterialObject.foilCOBALT.name = Cobalt Foil
+
+//IRIDIUM
+item.itemMaterialObject.ingotIRIDIUM.name = Iridium Ingot
+item.itemMaterialObject.dustIRIDIUM.name = Iridium Dust
+item.itemMaterialObject.gearIRIDIUM.name = Iridium Gear
+item.itemMaterialObject.nuggetIRIDIUM.name = Iridium Nugget
+item.itemMaterialObject.plateIRIDIUM.name = Iridium Plate
+item.itemMaterialObject.rodIRIDIUM.name = Iridium Rod
+item.itemMaterialObject.clumpIRIDIUM.name = Iridium Clump
+item.itemMaterialObject.crystalIRIDIUM.name = Iridium Crystal
+item.itemMaterialObject.shardIRIDIUM.name = Iridium Shard
+item.itemMaterialObject.wireIRIDIUM.name = Iridium Wire
+item.itemMaterialObject.dustDirtyIRIDIUM.name = Iridium Dirty Dust
+item.itemMaterialObject.foilIRIDIUM.name = Iridium Foil
+
+//TITANIUM
+item.itemMaterialObject.ingotTITANIUM.name = Titanium Ingot
+item.itemMaterialObject.dustTITANIUM.name = Titanium Dust
+item.itemMaterialObject.gearTITANIUM.name = Titanium Gear
+item.itemMaterialObject.nuggetTITANIUM.name = Titanium Nugget
+item.itemMaterialObject.plateTITANIUM.name = Titanium Plate
+item.itemMaterialObject.rodTITANIUM.name = Titanium Rod
+item.itemMaterialObject.clumpTITANIUM.name = Titanium Clump
+item.itemMaterialObject.crystalTITANIUM.name = Titanium Crystal
+item.itemMaterialObject.shardTITANIUM.name = Titanium Shard
+item.itemMaterialObject.wireTITANIUM.name = Titanium Wire
+item.itemMaterialObject.dustDirtyTITANIUM.name = Titanium Dirty Dust
+item.itemMaterialObject.foilTITANIUM.name = Titanium Foil
+
+//STONE
+item.itemMaterialObject.ingotSTONE.name = Stone Ingot
+item.itemMaterialObject.dustSTONE.name = Stone Dust
+item.itemMaterialObject.gearSTONE.name = Stone Gear
+item.itemMaterialObject.nuggetSTONE.name = Stone Nugget
+item.itemMaterialObject.plateSTONE.name = Stone Plate
+item.itemMaterialObject.rodSTONE.name = Stone Rod
+item.itemMaterialObject.clumpSTONE.name = Stone Clump
+item.itemMaterialObject.crystalSTONE.name = Stone Crystal
+item.itemMaterialObject.shardSTONE.name = Stone Shard
+item.itemMaterialObject.wireSTONE.name = Stone Wire
+item.itemMaterialObject.dustDirtySTONE.name = Stone Dirty Dust
+item.itemMaterialObject.foilSTONE.name = Stone Foil
+
+//BASALT
+item.itemMaterialObject.ingotBASALT.name = Basalt Ingot
+item.itemMaterialObject.dustBASALT.name = Basalt Dust
+item.itemMaterialObject.gearBASALT.name = Basalt Gear
+item.itemMaterialObject.nuggetBASALT.name = Basalt Nugget
+item.itemMaterialObject.plateBASALT.name = Basalt Plate
+item.itemMaterialObject.rodBASALT.name = Basalt Rod
+item.itemMaterialObject.clumpBASALT.name = Basalt Clump
+item.itemMaterialObject.crystalBASALT.name = Basalt Crystal
+item.itemMaterialObject.shardBASALT.name = Basalt Shard
+item.itemMaterialObject.wireBASALT.name = Basalt Wire
+item.itemMaterialObject.dustDirtyBASALT.name = Basalt Dirty Dust
+item.itemMaterialObject.foilBASALT.name = Basalt Foil
+
+//PAPER
+item.itemMaterialObject.ingotPAPER.name = Paper Ingot
+item.itemMaterialObject.dustPAPER.name = Paper Dust
+item.itemMaterialObject.gearPAPER.name = Paper Gear
+item.itemMaterialObject.nuggetPAPER.name = Paper Nugget
+item.itemMaterialObject.platePAPER.name = Paper Plate
+item.itemMaterialObject.rodPAPER.name = Paper Rod
+item.itemMaterialObject.clumpPAPER.name = Paper Clump
+item.itemMaterialObject.crystalPAPER.name = Paper Crystal
+item.itemMaterialObject.shardPAPER.name = Paper Shard
+item.itemMaterialObject.wirePAPER.name = Paper Wire
+item.itemMaterialObject.dustDirtyPAPER.name = Paper Dirty Dust
+item.itemMaterialObject.foilPAPER.name = Paper Foil
+
+//SPONGE
+item.itemMaterialObject.ingotSPONGE.name = Sponge Ingot
+item.itemMaterialObject.dustSPONGE.name = Sponge Dust
+item.itemMaterialObject.gearSPONGE.name = Sponge Gear
+item.itemMaterialObject.nuggetSPONGE.name = Sponge Nugget
+item.itemMaterialObject.plateSPONGE.name = Sponge Plate
+item.itemMaterialObject.rodSPONGE.name = Sponge Rod
+item.itemMaterialObject.clumpSPONGE.name = Sponge Clump
+item.itemMaterialObject.crystalSPONGE.name = Sponge Crystal
+item.itemMaterialObject.shardSPONGE.name = Sponge Shard
+item.itemMaterialObject.wireSPONGE.name = Sponge Wire
+item.itemMaterialObject.dustDirtySPONGE.name = Sponge Dirty Dust
+item.itemMaterialObject.foilSPONGE.name = Sponge Foil
+
+//FIREWOOD
+item.itemMaterialObject.ingotFIREWOOD.name = Firewood Ingot
+item.itemMaterialObject.dustFIREWOOD.name = Firewood Dust
+item.itemMaterialObject.gearFIREWOOD.name = Firewood Gear
+item.itemMaterialObject.nuggetFIREWOOD.name = Firewood Nugget
+item.itemMaterialObject.plateFIREWOOD.name = Firewood Plate
+item.itemMaterialObject.rodFIREWOOD.name = Firewood Rod
+item.itemMaterialObject.clumpFIREWOOD.name = Firewood Clump
+item.itemMaterialObject.crystalFIREWOOD.name = Firewood Crystal
+item.itemMaterialObject.shardFIREWOOD.name = Firewood Shard
+item.itemMaterialObject.wireFIREWOOD.name = Firewood Wire
+item.itemMaterialObject.dustDirtyFIREWOOD.name = Firewood Dirty Dust
+item.itemMaterialObject.foilFIREWOOD.name = Firewood Foil
+
+//SLIME
+item.itemMaterialObject.ingotSLIME.name = Slime Ingot
+item.itemMaterialObject.dustSLIME.name = Slime Dust
+item.itemMaterialObject.gearSLIME.name = Slime Gear
+item.itemMaterialObject.nuggetSLIME.name = Slime Nugget
+item.itemMaterialObject.plateSLIME.name = Slime Plate
+item.itemMaterialObject.rodSLIME.name = Slime Rod
+item.itemMaterialObject.clumpSLIME.name = Slime Clump
+item.itemMaterialObject.crystalSLIME.name = Slime Crystal
+item.itemMaterialObject.shardSLIME.name = Slime Shard
+item.itemMaterialObject.wireSLIME.name = Slime Wire
+item.itemMaterialObject.dustDirtySLIME.name = Slime Dirty Dust
+item.itemMaterialObject.foilSLIME.name = Slime Foil
+
+//BLUESLIME
+item.itemMaterialObject.ingotBLUESLIME.name = Blue Slime Ingot
+item.itemMaterialObject.dustBLUESLIME.name = Blue Slime Dust
+item.itemMaterialObject.gearBLUESLIME.name = Blue Slime Gear
+item.itemMaterialObject.nuggetBLUESLIME.name = Blue Slime Nugget
+item.itemMaterialObject.plateBLUESLIME.name = Blue Slime Plate
+item.itemMaterialObject.rodBLUESLIME.name = Blue Slime Rod
+item.itemMaterialObject.clumpBLUESLIME.name = Blue Slime Clump
+item.itemMaterialObject.crystalBLUESLIME.name = Blue Slime Crystal
+item.itemMaterialObject.shardBLUESLIME.name = Blue Slime Shard
+item.itemMaterialObject.wireBLUESLIME.name = Blue Slime Wire
+item.itemMaterialObject.dustDirtyBLUESLIME.name = Blue Slime Dirty Dust
+item.itemMaterialObject.foilBLUESLIME.name = Blue Slime Foil
+
+//MAGMASLIME
+item.itemMaterialObject.ingotMAGMASLIME.name = Magma Slime Ingot
+item.itemMaterialObject.dustMAGMASLIME.name = Magma Slime Dust
+item.itemMaterialObject.gearMAGMASLIME.name = Magma Slime Gear
+item.itemMaterialObject.nuggetMAGMASLIME.name = Magma Slime Nugget
+item.itemMaterialObject.plateMAGMASLIME.name = Magma Slime Plate
+item.itemMaterialObject.rodMAGMASLIME.name = Magma Slime Rod
+item.itemMaterialObject.clumpMAGMASLIME.name = Magma Slime Clump
+item.itemMaterialObject.crystalMAGMASLIME.name = Magma Slime Crystal
+item.itemMaterialObject.shardMAGMASLIME.name = Magma Slime Shard
+item.itemMaterialObject.wireMAGMASLIME.name = Magma Slime Wire
+item.itemMaterialObject.dustDirtyMAGMASLIME.name = Magma Slime Dirty Dust
+item.itemMaterialObject.foilMAGMASLIME.name = Magma Slime Foil
+
+//TREATEDWOOD
+item.itemMaterialObject.ingotTREATEDWOOD.name = Treated Wood Ingot
+item.itemMaterialObject.dustTREATEDWOOD.name = Treated Wood Dust
+item.itemMaterialObject.gearTREATEDWOOD.name = Treated Wood Gear
+item.itemMaterialObject.nuggetTREATEDWOOD.name = Treated Wood Nugget
+item.itemMaterialObject.plateTREATEDWOOD.name = Treated Wood Plate
+item.itemMaterialObject.rodTREATEDWOOD.name = Treated Wood Rod
+item.itemMaterialObject.clumpTREATEDWOOD.name = Treated Wood Clump
+item.itemMaterialObject.crystalTREATEDWOOD.name = Treated Wood Crystal
+item.itemMaterialObject.shardTREATEDWOOD.name = Treated Wood Shard
+item.itemMaterialObject.wireTREATEDWOOD.name = Treated Wood Wire
+item.itemMaterialObject.dustDirtyTREATEDWOOD.name = Treated Wood Dirty Dust
+item.itemMaterialObject.foilTREATEDWOOD.name = Treated Wood Foil
+
+//CACTUS
+item.itemMaterialObject.ingotCACTUS.name = Cactus Ingot
+item.itemMaterialObject.dustCACTUS.name = Cactus Dust
+item.itemMaterialObject.gearCACTUS.name = Cactus Gear
+item.itemMaterialObject.nuggetCACTUS.name = Cactus Nugget
+item.itemMaterialObject.plateCACTUS.name = Cactus Plate
+item.itemMaterialObject.rodCACTUS.name = Cactus Rod
+item.itemMaterialObject.clumpCACTUS.name = Cactus Clump
+item.itemMaterialObject.crystalCACTUS.name = Cactus Crystal
+item.itemMaterialObject.shardCACTUS.name = Cactus Shard
+item.itemMaterialObject.wireCACTUS.name = Cactus Wire
+item.itemMaterialObject.dustDirtyCACTUS.name = Cactus Dirty Dust
+item.itemMaterialObject.foilCACTUS.name = Cactus Foil
+
+//NETHERRACK
+item.itemMaterialObject.ingotNETHERRACK.name = Netherrack Ingot
+item.itemMaterialObject.dustNETHERRACK.name = Netherrack Dust
+item.itemMaterialObject.gearNETHERRACK.name = Netherrack Gear
+item.itemMaterialObject.nuggetNETHERRACK.name = Netherrack Nugget
+item.itemMaterialObject.plateNETHERRACK.name = Netherrack Plate
+item.itemMaterialObject.rodNETHERRACK.name = Netherrack Rod
+item.itemMaterialObject.clumpNETHERRACK.name = Netherrack Clump
+item.itemMaterialObject.crystalNETHERRACK.name = Netherrack Crystal
+item.itemMaterialObject.shardNETHERRACK.name = Netherrack Shard
+item.itemMaterialObject.wireNETHERRACK.name = Netherrack Wire
+item.itemMaterialObject.dustDirtyNETHERRACK.name = Netherrack Dirty Dust
+item.itemMaterialObject.foilNETHERRACK.name = Netherrack Foil
+
+//WOOD
+item.itemMaterialObject.ingotWOOD.name = Wood Ingot
+item.itemMaterialObject.dustWOOD.name = Wood Dust
+item.itemMaterialObject.gearWOOD.name = Wood Gear
+item.itemMaterialObject.nuggetWOOD.name = Wood Nugget
+item.itemMaterialObject.plateWOOD.name = Wood Plate
+item.itemMaterialObject.rodWOOD.name = Wood Rod
+item.itemMaterialObject.clumpWOOD.name = Wood Clump
+item.itemMaterialObject.crystalWOOD.name = Wood Crystal
+item.itemMaterialObject.shardWOOD.name = Wood Shard
+item.itemMaterialObject.wireWOOD.name = Wood Wire
+item.itemMaterialObject.dustDirtyWOOD.name = Wood Dirty Dust
+item.itemMaterialObject.foilWOOD.name = Wood Foil
+
+//BONE
+item.itemMaterialObject.ingotBONE.name = Bone Ingot
+item.itemMaterialObject.dustBONE.name = Bone Dust
+item.itemMaterialObject.gearBONE.name = Bone Gear
+item.itemMaterialObject.nuggetBONE.name = Bone Nugget
+item.itemMaterialObject.plateBONE.name = Bone Plate
+item.itemMaterialObject.rodBONE.name = Bone Rod
+item.itemMaterialObject.clumpBONE.name = Bone Clump
+item.itemMaterialObject.crystalBONE.name = Bone Crystal
+item.itemMaterialObject.shardBONE.name = Bone Shard
+item.itemMaterialObject.wireBONE.name = Bone Wire
+item.itemMaterialObject.dustDirtyBONE.name = Bone Dirty Dust
+item.itemMaterialObject.foilBONE.name = Bone Foil
+
+//FLINT
+item.itemMaterialObject.ingotFLINT.name = Flint Ingot
+item.itemMaterialObject.dustFLINT.name = Flint Dust
+item.itemMaterialObject.gearFLINT.name = Flint Gear
+item.itemMaterialObject.nuggetFLINT.name = Flint Nugget
+item.itemMaterialObject.plateFLINT.name = Flint Plate
+item.itemMaterialObject.rodFLINT.name = Flint Rod
+item.itemMaterialObject.clumpFLINT.name = Flint Clump
+item.itemMaterialObject.crystalFLINT.name = Flint Crystal
+item.itemMaterialObject.shardFLINT.name = Flint Shard
+item.itemMaterialObject.wireFLINT.name = Flint Wire
+item.itemMaterialObject.dustDirtyFLINT.name = Flint Dirty Dust
+item.itemMaterialObject.foilFLINT.name = Flint Foil
+
+//PRISMARINE
+item.itemMaterialObject.ingotPRISMARINE.name = Prismarine Ingot
+item.itemMaterialObject.dustPRISMARINE.name = Prismarine Dust
+item.itemMaterialObject.gearPRISMARINE.name = Prismarine Gear
+item.itemMaterialObject.nuggetPRISMARINE.name = Prismarine Nugget
+item.itemMaterialObject.platePRISMARINE.name = Prismarine Plate
+item.itemMaterialObject.rodPRISMARINE.name = Prismarine Rod
+item.itemMaterialObject.clumpPRISMARINE.name = Prismarine Clump
+item.itemMaterialObject.crystalPRISMARINE.name = Prismarine Crystal
+item.itemMaterialObject.shardPRISMARINE.name = Prismarine Shard
+item.itemMaterialObject.wirePRISMARINE.name = Prismarine Wire
+item.itemMaterialObject.dustDirtyPRISMARINE.name = Prismarine Dirty Dust
+item.itemMaterialObject.foilPRISMARINE.name = Prismarine Foil
+
+//ELECTRUM
+item.itemMaterialObject.ingotELECTRUM.name = Electrum Ingot
+item.itemMaterialObject.dustELECTRUM.name = Electrum Dust
+item.itemMaterialObject.gearELECTRUM.name = Electrum Gear
+item.itemMaterialObject.nuggetELECTRUM.name = Electrum Nugget
+item.itemMaterialObject.plateELECTRUM.name = Electrum Plate
+item.itemMaterialObject.rodELECTRUM.name = Electrum Rod
+item.itemMaterialObject.clumpELECTRUM.name = Electrum Clump
+item.itemMaterialObject.crystalELECTRUM.name = Electrum Crystal
+item.itemMaterialObject.shardELECTRUM.name = Electrum Shard
+item.itemMaterialObject.wireELECTRUM.name = Electrum Wire
+item.itemMaterialObject.dustDirtyELECTRUM.name = Electrum Dirty Dust
+item.itemMaterialObject.foilELECTRUM.name = Electrum Foil
+
+//XU_DEMONIC_METAL
+item.itemMaterialObject.ingotXU_DEMONIC_METAL.name = Demonic Ingot
+item.itemMaterialObject.dustXU_DEMONIC_METAL.name = Demonic Dust
+item.itemMaterialObject.gearXU_DEMONIC_METAL.name = Demonic Gear
+item.itemMaterialObject.nuggetXU_DEMONIC_METAL.name = Demonic Nugget
+item.itemMaterialObject.plateXU_DEMONIC_METAL.name = Demonic Plate
+item.itemMaterialObject.rodXU_DEMONIC_METAL.name = Demonic Rod
+item.itemMaterialObject.clumpXU_DEMONIC_METAL.name = Demonic Clump
+item.itemMaterialObject.crystalXU_DEMONIC_METAL.name = Demonic Crystal
+item.itemMaterialObject.shardXU_DEMONIC_METAL.name = Demonic Shard
+item.itemMaterialObject.wireXU_DEMONIC_METAL.name = Demonic Wire
+item.itemMaterialObject.dustDirtyXU_DEMONIC_METAL.name = Demonic Dirty Dust
+item.itemMaterialObject.foilXU_DEMONIC_METAL.name = Demonic Foil
+
+//BRASS
+item.itemMaterialObject.ingotBRASS.name = Brass Ingot
+item.itemMaterialObject.dustBRASS.name = Brass Dust
+item.itemMaterialObject.gearBRASS.name = Brass Gear
+item.itemMaterialObject.nuggetBRASS.name = Brass Nugget
+item.itemMaterialObject.plateBRASS.name = Brass Plate
+item.itemMaterialObject.rodBRASS.name = Brass Rod
+item.itemMaterialObject.clumpBRASS.name = Brass Clump
+item.itemMaterialObject.crystalBRASS.name = Brass Crystal
+item.itemMaterialObject.shardBRASS.name = Brass Shard
+item.itemMaterialObject.wireBRASS.name = Brass Wire
+item.itemMaterialObject.dustDirtyBRASS.name = Brass Dirty Dust
+item.itemMaterialObject.foilBRASS.name = Brass Foil
+
+//CONSTANTAN
+item.itemMaterialObject.ingotCONSTANTAN.name = Constantan Ingot
+item.itemMaterialObject.dustCONSTANTAN.name = Constantan Dust
+item.itemMaterialObject.gearCONSTANTAN.name = Constantan Gear
+item.itemMaterialObject.nuggetCONSTANTAN.name = Constantan Nugget
+item.itemMaterialObject.plateCONSTANTAN.name = Constantan Plate
+item.itemMaterialObject.rodCONSTANTAN.name = Constantan Rod
+item.itemMaterialObject.clumpCONSTANTAN.name = Constantan Clump
+item.itemMaterialObject.crystalCONSTANTAN.name = Constantan Crystal
+item.itemMaterialObject.shardCONSTANTAN.name = Constantan Shard
+item.itemMaterialObject.wireCONSTANTAN.name = Constantan Wire
+item.itemMaterialObject.dustDirtyCONSTANTAN.name = Constantan Dirty Dust
+item.itemMaterialObject.foilCONSTANTAN.name = Constantan Foil
+
+//ENDSTONE
+item.itemMaterialObject.ingotENDSTONE.name = Endstone Ingot
+item.itemMaterialObject.dustENDSTONE.name = Endstone Dust
+item.itemMaterialObject.gearENDSTONE.name = Endstone Gear
+item.itemMaterialObject.nuggetENDSTONE.name = Endstone Nugget
+item.itemMaterialObject.plateENDSTONE.name = Endstone Plate
+item.itemMaterialObject.rodENDSTONE.name = Endstone Rod
+item.itemMaterialObject.clumpENDSTONE.name = Endstone Clump
+item.itemMaterialObject.crystalENDSTONE.name = Endstone Crystal
+item.itemMaterialObject.shardENDSTONE.name = Endstone Shard
+item.itemMaterialObject.wireENDSTONE.name = Endstone Wire
+item.itemMaterialObject.dustDirtyENDSTONE.name = Endstone Dirty Dust
+item.itemMaterialObject.foilENDSTONE.name = Endstone Foil
+
+//BRONZE
+item.itemMaterialObject.ingotBRONZE.name = Bronze Ingot
+item.itemMaterialObject.dustBRONZE.name = Bronze Dust
+item.itemMaterialObject.gearBRONZE.name = Bronze Gear
+item.itemMaterialObject.nuggetBRONZE.name = Bronze Nugget
+item.itemMaterialObject.plateBRONZE.name = Bronze Plate
+item.itemMaterialObject.rodBRONZE.name = Bronze Rod
+item.itemMaterialObject.clumpBRONZE.name = Bronze Clump
+item.itemMaterialObject.crystalBRONZE.name = Bronze Crystal
+item.itemMaterialObject.shardBRONZE.name = Bronze Shard
+item.itemMaterialObject.wireBRONZE.name = Bronze Wire
+item.itemMaterialObject.dustDirtyBRONZE.name = Bronze Dirty Dust
+item.itemMaterialObject.foilBRONZE.name = Bronze Foil
+
+//STEEL
+item.itemMaterialObject.ingotSTEEL.name = Steel Ingot
+item.itemMaterialObject.dustSTEEL.name = Steel Dust
+item.itemMaterialObject.gearSTEEL.name = Steel Gear
+item.itemMaterialObject.nuggetSTEEL.name = Steel Nugget
+item.itemMaterialObject.plateSTEEL.name = Steel Plate
+item.itemMaterialObject.rodSTEEL.name = Steel Rod
+item.itemMaterialObject.clumpSTEEL.name = Steel Clump
+item.itemMaterialObject.crystalSTEEL.name = Steel Crystal
+item.itemMaterialObject.shardSTEEL.name = Steel Shard
+item.itemMaterialObject.wireSTEEL.name = Steel Wire
+item.itemMaterialObject.dustDirtySTEEL.name = Steel Dirty Dust
+item.itemMaterialObject.foilSTEEL.name = Steel Foil
+
+//PIGIRON
+item.itemMaterialObject.ingotPIGIRON.name = Pig Iron Ingot
+item.itemMaterialObject.dustPIGIRON.name = Pig Iron Dust
+item.itemMaterialObject.gearPIGIRON.name = Pig Iron Gear
+item.itemMaterialObject.nuggetPIGIRON.name = Pig Iron Nugget
+item.itemMaterialObject.platePIGIRON.name = Pig Iron Plate
+item.itemMaterialObject.rodPIGIRON.name = Pig Iron Rod
+item.itemMaterialObject.clumpPIGIRON.name = Pig Iron Clump
+item.itemMaterialObject.crystalPIGIRON.name = Pig Iron Crystal
+item.itemMaterialObject.shardPIGIRON.name = Pig Iron Shard
+item.itemMaterialObject.wirePIGIRON.name = Pig Iron Wire
+item.itemMaterialObject.dustDirtyPIGIRON.name = Pig Iron Dirty Dust
+item.itemMaterialObject.foilPIGIRON.name = Pig Iron Foil
+
+//OBSIDIAN
+item.itemMaterialObject.ingotOBSIDIAN.name = Obsidian Ingot
+item.itemMaterialObject.dustOBSIDIAN.name = Obsidian Dust
+item.itemMaterialObject.gearOBSIDIAN.name = Obsidian Gear
+item.itemMaterialObject.nuggetOBSIDIAN.name = Obsidian Nugget
+item.itemMaterialObject.plateOBSIDIAN.name = Obsidian Plate
+item.itemMaterialObject.rodOBSIDIAN.name = Obsidian Rod
+item.itemMaterialObject.clumpOBSIDIAN.name = Obsidian Clump
+item.itemMaterialObject.crystalOBSIDIAN.name = Obsidian Crystal
+item.itemMaterialObject.shardOBSIDIAN.name = Obsidian Shard
+item.itemMaterialObject.wireOBSIDIAN.name = Obsidian Wire
+item.itemMaterialObject.dustDirtyOBSIDIAN.name = Obsidian Dirty Dust
+item.itemMaterialObject.foilOBSIDIAN.name = Obsidian Foil
+
+//MANYULLYN
+item.itemMaterialObject.ingotMANYULLYN.name = Manyullyn Ingot
+item.itemMaterialObject.dustMANYULLYN.name = Manyullyn Dust
+item.itemMaterialObject.gearMANYULLYN.name = Manyullyn Gear
+item.itemMaterialObject.nuggetMANYULLYN.name = Manyullyn Nugget
+item.itemMaterialObject.plateMANYULLYN.name = Manyullyn Plate
+item.itemMaterialObject.rodMANYULLYN.name = Manyullyn Rod
+item.itemMaterialObject.clumpMANYULLYN.name = Manyullyn Clump
+item.itemMaterialObject.crystalMANYULLYN.name = Manyullyn Crystal
+item.itemMaterialObject.shardMANYULLYN.name = Manyullyn Shard
+item.itemMaterialObject.wireMANYULLYN.name = Manyullyn Wire
+item.itemMaterialObject.dustDirtyMANYULLYN.name = Manyullyn Dirty Dust
+item.itemMaterialObject.foilMANYULLYN.name = Manyullyn Foil
+
+//MITHRIL
+item.itemMaterialObject.ingotMITHRIL.name = Mithril Ingot
+item.itemMaterialObject.dustMITHRIL.name = Mithril Dust
+item.itemMaterialObject.gearMITHRIL.name = Mithril Gear
+item.itemMaterialObject.nuggetMITHRIL.name = Mithril Nugget
+item.itemMaterialObject.plateMITHRIL.name = Mithril Plate
+item.itemMaterialObject.rodMITHRIL.name = Mithril Rod
+item.itemMaterialObject.clumpMITHRIL.name = Mithril Clump
+item.itemMaterialObject.crystalMITHRIL.name = Mithril Crystal
+item.itemMaterialObject.shardMITHRIL.name = Mithril Shard
+item.itemMaterialObject.wireMITHRIL.name = Mithril Wire
+item.itemMaterialObject.dustDirtyMITHRIL.name = Mithril Dirty Dust
+item.itemMaterialObject.foilMITHRIL.name = Mithril Foil
+
+//NETHER_QUARTZ
+item.itemMaterialObject.ingotNETHER_QUARTZ.name = Nether Quartz Ingot
+item.itemMaterialObject.dustNETHER_QUARTZ.name = Nether Quartz Dust
+item.itemMaterialObject.gearNETHER_QUARTZ.name = Nether Quartz Gear
+item.itemMaterialObject.nuggetNETHER_QUARTZ.name = Nether Quartz Nugget
+item.itemMaterialObject.plateNETHER_QUARTZ.name = Nether Quartz Plate
+item.itemMaterialObject.rodNETHER_QUARTZ.name = Nether Quartz Rod
+item.itemMaterialObject.clumpNETHER_QUARTZ.name = Nether Quartz Clump
+item.itemMaterialObject.crystalNETHER_QUARTZ.name = Nether Quartz Crystal
+item.itemMaterialObject.shardNETHER_QUARTZ.name = Nether Quartz Shard
+item.itemMaterialObject.wireNETHER_QUARTZ.name = Nether Quartz Wire
+item.itemMaterialObject.dustDirtyNETHER_QUARTZ.name = Nether Quartz Dirty Dust
+item.itemMaterialObject.foilNETHER_QUARTZ.name = Nether Quartz Foil
+
+//ADAMANTINE
+item.itemMaterialObject.ingotADAMANTINE.name = Adamantine Ingot
+item.itemMaterialObject.dustADAMANTINE.name = Adamantine Dust
+item.itemMaterialObject.gearADAMANTINE.name = Adamantine Gear
+item.itemMaterialObject.nuggetADAMANTINE.name = Adamantine Nugget
+item.itemMaterialObject.plateADAMANTINE.name = Adamantine Plate
+item.itemMaterialObject.rodADAMANTINE.name = Adamantine Rod
+item.itemMaterialObject.clumpADAMANTINE.name = Adamantine Clump
+item.itemMaterialObject.crystalADAMANTINE.name = Adamantine Crystal
+item.itemMaterialObject.shardADAMANTINE.name = Adamantine Shard
+item.itemMaterialObject.wireADAMANTINE.name = Adamantine Wire
+item.itemMaterialObject.dustDirtyADAMANTINE.name = Adamantine Dirty Dust
+item.itemMaterialObject.foilADAMANTINE.name = Adamantine Foil
+
+//TERRAX
+item.itemMaterialObject.ingotTERRAX.name = Terrax Ingot
+item.itemMaterialObject.dustTERRAX.name = Terrax Dust
+item.itemMaterialObject.gearTERRAX.name = Terrax Gear
+item.itemMaterialObject.nuggetTERRAX.name = Terrax Nugget
+item.itemMaterialObject.plateTERRAX.name = Terrax Plate
+item.itemMaterialObject.rodTERRAX.name = Terrax Rod
+item.itemMaterialObject.clumpTERRAX.name = Terrax Clump
+item.itemMaterialObject.crystalTERRAX.name = Terrax Crystal
+item.itemMaterialObject.shardTERRAX.name = Terrax Shard
+item.itemMaterialObject.wireTERRAX.name = Terrax Wire
+item.itemMaterialObject.dustDirtyTERRAX.name = Terrax Dirty Dust
+item.itemMaterialObject.foilTERRAX.name = Terrax Foil
+
+//KARMESINE
+item.itemMaterialObject.ingotKARMESINE.name = Karmesine Ingot
+item.itemMaterialObject.dustKARMESINE.name = Karmesine Dust
+item.itemMaterialObject.gearKARMESINE.name = Karmesine Gear
+item.itemMaterialObject.nuggetKARMESINE.name = Karmesine Nugget
+item.itemMaterialObject.plateKARMESINE.name = Karmesine Plate
+item.itemMaterialObject.rodKARMESINE.name = Karmesine Rod
+item.itemMaterialObject.clumpKARMESINE.name = Karmesine Clump
+item.itemMaterialObject.crystalKARMESINE.name = Karmesine Crystal
+item.itemMaterialObject.shardKARMESINE.name = Karmesine Shard
+item.itemMaterialObject.wireKARMESINE.name = Karmesine Wire
+item.itemMaterialObject.dustDirtyKARMESINE.name = Karmesine Dirty Dust
+item.itemMaterialObject.foilKARMESINE.name = Karmesine Foil
+
+//OVIUM
+item.itemMaterialObject.ingotOVIUM.name = Ovium Ingot
+item.itemMaterialObject.dustOVIUM.name = Ovium Dust
+item.itemMaterialObject.gearOVIUM.name = Ovium Gear
+item.itemMaterialObject.nuggetOVIUM.name = Ovium Nugget
+item.itemMaterialObject.plateOVIUM.name = Ovium Plate
+item.itemMaterialObject.rodOVIUM.name = Ovium Rod
+item.itemMaterialObject.clumpOVIUM.name = Ovium Clump
+item.itemMaterialObject.crystalOVIUM.name = Ovium Crystal
+item.itemMaterialObject.shardOVIUM.name = Ovium Shard
+item.itemMaterialObject.wireOVIUM.name = Ovium Wire
+item.itemMaterialObject.dustDirtyOVIUM.name = Ovium Dirty Dust
+item.itemMaterialObject.foilOVIUM.name = Ovium Foil
+
+//JAUXUM
+item.itemMaterialObject.ingotJAUXUM.name = Jauxum Ingot
+item.itemMaterialObject.dustJAUXUM.name = Jauxum Dust
+item.itemMaterialObject.gearJAUXUM.name = Jauxum Gear
+item.itemMaterialObject.nuggetJAUXUM.name = Jauxum Nugget
+item.itemMaterialObject.plateJAUXUM.name = Jauxum Plate
+item.itemMaterialObject.rodJAUXUM.name = Jauxum Rod
+item.itemMaterialObject.clumpJAUXUM.name = Jauxum Clump
+item.itemMaterialObject.crystalJAUXUM.name = Jauxum Crystal
+item.itemMaterialObject.shardJAUXUM.name = Jauxum Shard
+item.itemMaterialObject.wireJAUXUM.name = Jauxum Wire
+item.itemMaterialObject.dustDirtyJAUXUM.name = Jauxum Dirty Dust
+item.itemMaterialObject.foilJAUXUM.name = Jauxum Foil
+
+//AURORIUM
+item.itemMaterialObject.ingotAURORIUM.name = Aurorium Ingot
+item.itemMaterialObject.dustAURORIUM.name = Aurorium Dust
+item.itemMaterialObject.gearAURORIUM.name = Aurorium Gear
+item.itemMaterialObject.nuggetAURORIUM.name = Aurorium Nugget
+item.itemMaterialObject.plateAURORIUM.name = Aurorium Plate
+item.itemMaterialObject.rodAURORIUM.name = Aurorium Rod
+item.itemMaterialObject.clumpAURORIUM.name = Aurorium Clump
+item.itemMaterialObject.crystalAURORIUM.name = Aurorium Crystal
+item.itemMaterialObject.shardAURORIUM.name = Aurorium Shard
+item.itemMaterialObject.wireAURORIUM.name = Aurorium Wire
+item.itemMaterialObject.dustDirtyAURORIUM.name = Aurorium Dirty Dust
+item.itemMaterialObject.foilAURORIUM.name = Aurorium Foil
+
+//TIBERIUM
+item.itemMaterialObject.ingotTIBERIUM.name = Tiberium Ingot
+item.itemMaterialObject.dustTIBERIUM.name = Tiberium Dust
+item.itemMaterialObject.gearTIBERIUM.name = Tiberium Gear
+item.itemMaterialObject.nuggetTIBERIUM.name = Tiberium Nugget
+item.itemMaterialObject.plateTIBERIUM.name = Tiberium Plate
+item.itemMaterialObject.rodTIBERIUM.name = Tiberium Rod
+item.itemMaterialObject.clumpTIBERIUM.name = Tiberium Clump
+item.itemMaterialObject.crystalTIBERIUM.name = Tiberium Crystal
+item.itemMaterialObject.shardTIBERIUM.name = Tiberium Shard
+item.itemMaterialObject.wireTIBERIUM.name = Tiberium Wire
+item.itemMaterialObject.dustDirtyTIBERIUM.name = Tiberium Dirty Dust
+item.itemMaterialObject.foilTIBERIUM.name = Tiberium Foil
+
+//DILITHIUM
+item.itemMaterialObject.ingotDILITHIUM.name = Dilithium Ingot
+item.itemMaterialObject.dustDILITHIUM.name = Dilithium Dust
+item.itemMaterialObject.gearDILITHIUM.name = Dilithium Gear
+item.itemMaterialObject.nuggetDILITHIUM.name = Dilithium Nugget
+item.itemMaterialObject.plateDILITHIUM.name = Dilithium Plate
+item.itemMaterialObject.rodDILITHIUM.name = Dilithium Rod
+item.itemMaterialObject.clumpDILITHIUM.name = Dilithium Clump
+item.itemMaterialObject.crystalDILITHIUM.name = Dilithium Crystal
+item.itemMaterialObject.shardDILITHIUM.name = Dilithium Shard
+item.itemMaterialObject.wireDILITHIUM.name = Dilithium Wire
+item.itemMaterialObject.dustDirtyDILITHIUM.name = Dilithium Dirty Dust
+item.itemMaterialObject.foilDILITHIUM.name = Dilithium Foil
+
+//FRACTUM
+item.itemMaterialObject.ingotFRACTUM.name = Fractum Ingot
+item.itemMaterialObject.dustFRACTUM.name = Fractum Dust
+item.itemMaterialObject.gearFRACTUM.name = Fractum Gear
+item.itemMaterialObject.nuggetFRACTUM.name = Fractum Nugget
+item.itemMaterialObject.plateFRACTUM.name = Fractum Plate
+item.itemMaterialObject.rodFRACTUM.name = Fractum Rod
+item.itemMaterialObject.clumpFRACTUM.name = Fractum Clump
+item.itemMaterialObject.crystalFRACTUM.name = Fractum Crystal
+item.itemMaterialObject.shardFRACTUM.name = Fractum Shard
+item.itemMaterialObject.wireFRACTUM.name = Fractum Wire
+item.itemMaterialObject.dustDirtyFRACTUM.name = Fractum Dirty Dust
+item.itemMaterialObject.foilFRACTUM.name = Fractum Foil
+
+//TRIBERIUM
+item.itemMaterialObject.ingotTRIBERIUM.name = Triberium Ingot
+item.itemMaterialObject.dustTRIBERIUM.name = Triberium Dust
+item.itemMaterialObject.gearTRIBERIUM.name = Triberium Gear
+item.itemMaterialObject.nuggetTRIBERIUM.name = Triberium Nugget
+item.itemMaterialObject.plateTRIBERIUM.name = Triberium Plate
+item.itemMaterialObject.rodTRIBERIUM.name = Triberium Rod
+item.itemMaterialObject.clumpTRIBERIUM.name = Triberium Clump
+item.itemMaterialObject.crystalTRIBERIUM.name = Triberium Crystal
+item.itemMaterialObject.shardTRIBERIUM.name = Triberium Shard
+item.itemMaterialObject.wireTRIBERIUM.name = Triberium Wire
+item.itemMaterialObject.dustDirtyTRIBERIUM.name = Triberium Dirty Dust
+item.itemMaterialObject.foilTRIBERIUM.name = Triberium Foil
+
+//ABYSSUM
+item.itemMaterialObject.ingotABYSSUM.name = Abyssum Ingot
+item.itemMaterialObject.dustABYSSUM.name = Abyssum Dust
+item.itemMaterialObject.gearABYSSUM.name = Abyssum Gear
+item.itemMaterialObject.nuggetABYSSUM.name = Abyssum Nugget
+item.itemMaterialObject.plateABYSSUM.name = Abyssum Plate
+item.itemMaterialObject.rodABYSSUM.name = Abyssum Rod
+item.itemMaterialObject.clumpABYSSUM.name = Abyssum Clump
+item.itemMaterialObject.crystalABYSSUM.name = Abyssum Crystal
+item.itemMaterialObject.shardABYSSUM.name = Abyssum Shard
+item.itemMaterialObject.wireABYSSUM.name = Abyssum Wire
+item.itemMaterialObject.dustDirtyABYSSUM.name = Abyssum Dirty Dust
+item.itemMaterialObject.foilABYSSUM.name = Abyssum Foil
+
+//TRITONITE
+item.itemMaterialObject.ingotTRITONITE.name = Tritonite Ingot
+item.itemMaterialObject.dustTRITONITE.name = Tritonite Dust
+item.itemMaterialObject.gearTRITONITE.name = Tritonite Gear
+item.itemMaterialObject.nuggetTRITONITE.name = Tritonite Nugget
+item.itemMaterialObject.plateTRITONITE.name = Tritonite Plate
+item.itemMaterialObject.rodTRITONITE.name = Tritonite Rod
+item.itemMaterialObject.clumpTRITONITE.name = Tritonite Clump
+item.itemMaterialObject.crystalTRITONITE.name = Tritonite Crystal
+item.itemMaterialObject.shardTRITONITE.name = Tritonite Shard
+item.itemMaterialObject.wireTRITONITE.name = Tritonite Wire
+item.itemMaterialObject.dustDirtyTRITONITE.name = Tritonite Dirty Dust
+item.itemMaterialObject.foilTRITONITE.name = Tritonite Foil
+
+//VIOLIUM
+item.itemMaterialObject.ingotVIOLIUM.name = Violium Ingot
+item.itemMaterialObject.dustVIOLIUM.name = Violium Dust
+item.itemMaterialObject.gearVIOLIUM.name = Violium Gear
+item.itemMaterialObject.nuggetVIOLIUM.name = Violium Nugget
+item.itemMaterialObject.plateVIOLIUM.name = Violium Plate
+item.itemMaterialObject.rodVIOLIUM.name = Violium Rod
+item.itemMaterialObject.clumpVIOLIUM.name = Violium Clump
+item.itemMaterialObject.crystalVIOLIUM.name = Violium Crystal
+item.itemMaterialObject.shardVIOLIUM.name = Violium Shard
+item.itemMaterialObject.wireVIOLIUM.name = Violium Wire
+item.itemMaterialObject.dustDirtyVIOLIUM.name = Violium Dirty Dust
+item.itemMaterialObject.foilVIOLIUM.name = Violium Foil
+
+//ASTRIUM
+item.itemMaterialObject.ingotASTRIUM.name = Astrium Ingot
+item.itemMaterialObject.dustASTRIUM.name = Astrium Dust
+item.itemMaterialObject.gearASTRIUM.name = Astrium Gear
+item.itemMaterialObject.nuggetASTRIUM.name = Astrium Nugget
+item.itemMaterialObject.plateASTRIUM.name = Astrium Plate
+item.itemMaterialObject.rodASTRIUM.name = Astrium Rod
+item.itemMaterialObject.clumpASTRIUM.name = Astrium Clump
+item.itemMaterialObject.crystalASTRIUM.name = Astrium Crystal
+item.itemMaterialObject.shardASTRIUM.name = Astrium Shard
+item.itemMaterialObject.wireASTRIUM.name = Astrium Wire
+item.itemMaterialObject.dustDirtyASTRIUM.name = Astrium Dirty Dust
+item.itemMaterialObject.foilASTRIUM.name = Astrium Foil
+
+//NIHILITE
+item.itemMaterialObject.ingotNIHILITE.name = Nihilite Ingot
+item.itemMaterialObject.dustNIHILITE.name = Nihilite Dust
+item.itemMaterialObject.gearNIHILITE.name = Nihilite Gear
+item.itemMaterialObject.nuggetNIHILITE.name = Nihilite Nugget
+item.itemMaterialObject.plateNIHILITE.name = Nihilite Plate
+item.itemMaterialObject.rodNIHILITE.name = Nihilite Rod
+item.itemMaterialObject.clumpNIHILITE.name = Nihilite Clump
+item.itemMaterialObject.crystalNIHILITE.name = Nihilite Crystal
+item.itemMaterialObject.shardNIHILITE.name = Nihilite Shard
+item.itemMaterialObject.wireNIHILITE.name = Nihilite Wire
+item.itemMaterialObject.dustDirtyNIHILITE.name = Nihilite Dirty Dust
+item.itemMaterialObject.foilNIHILITE.name = Nihilite Foil
+
+//VIBRANIUM
+item.itemMaterialObject.ingotVIBRANIUM.name = Vibranium Ingot
+item.itemMaterialObject.dustVIBRANIUM.name = Vibranium Dust
+item.itemMaterialObject.gearVIBRANIUM.name = Vibranium Gear
+item.itemMaterialObject.nuggetVIBRANIUM.name = Vibranium Nugget
+item.itemMaterialObject.plateVIBRANIUM.name = Vibranium Plate
+item.itemMaterialObject.rodVIBRANIUM.name = Vibranium Rod
+item.itemMaterialObject.clumpVIBRANIUM.name = Vibranium Clump
+item.itemMaterialObject.crystalVIBRANIUM.name = Vibranium Crystal
+item.itemMaterialObject.shardVIBRANIUM.name = Vibranium Shard
+item.itemMaterialObject.wireVIBRANIUM.name = Vibranium Wire
+item.itemMaterialObject.dustDirtyVIBRANIUM.name = Vibranium Dirty Dust
+item.itemMaterialObject.foilVIBRANIUM.name = Vibranium Foil
+
+//SOLARIUM
+item.itemMaterialObject.ingotSOLARIUM.name = Solarium Ingot
+item.itemMaterialObject.dustSOLARIUM.name = Solarium Dust
+item.itemMaterialObject.gearSOLARIUM.name = Solarium Gear
+item.itemMaterialObject.nuggetSOLARIUM.name = Solarium Nugget
+item.itemMaterialObject.plateSOLARIUM.name = Solarium Plate
+item.itemMaterialObject.rodSOLARIUM.name = Solarium Rod
+item.itemMaterialObject.clumpSOLARIUM.name = Solarium Clump
+item.itemMaterialObject.crystalSOLARIUM.name = Solarium Crystal
+item.itemMaterialObject.shardSOLARIUM.name = Solarium Shard
+item.itemMaterialObject.wireSOLARIUM.name = Solarium Wire
+item.itemMaterialObject.dustDirtySOLARIUM.name = Solarium Dirty Dust
+item.itemMaterialObject.foilSOLARIUM.name = Solarium Foil
+
+//VALYRIUM
+item.itemMaterialObject.ingotVALYRIUM.name = Valyrium Ingot
+item.itemMaterialObject.dustVALYRIUM.name = Valyrium Dust
+item.itemMaterialObject.gearVALYRIUM.name = Valyrium Gear
+item.itemMaterialObject.nuggetVALYRIUM.name = Valyrium Nugget
+item.itemMaterialObject.plateVALYRIUM.name = Valyrium Plate
+item.itemMaterialObject.rodVALYRIUM.name = Valyrium Rod
+item.itemMaterialObject.clumpVALYRIUM.name = Valyrium Clump
+item.itemMaterialObject.crystalVALYRIUM.name = Valyrium Crystal
+item.itemMaterialObject.shardVALYRIUM.name = Valyrium Shard
+item.itemMaterialObject.wireVALYRIUM.name = Valyrium Wire
+item.itemMaterialObject.dustDirtyVALYRIUM.name = Valyrium Dirty Dust
+item.itemMaterialObject.foilVALYRIUM.name = Valyrium Foil
+
+//URU
+item.itemMaterialObject.ingotURU.name = Uru Ingot
+item.itemMaterialObject.dustURU.name = Uru Dust
+item.itemMaterialObject.gearURU.name = Uru Gear
+item.itemMaterialObject.nuggetURU.name = Uru Nugget
+item.itemMaterialObject.plateURU.name = Uru Plate
+item.itemMaterialObject.rodURU.name = Uru Rod
+item.itemMaterialObject.clumpURU.name = Uru Clump
+item.itemMaterialObject.crystalURU.name = Uru Crystal
+item.itemMaterialObject.shardURU.name = Uru Shard
+item.itemMaterialObject.wireURU.name = Uru Wire
+item.itemMaterialObject.dustDirtyURU.name = Uru Dirty Dust
+item.itemMaterialObject.foilURU.name = Uru Foil
+
+//ADAMANT
+item.itemMaterialObject.ingotADAMANT.name = Adamant Ingot
+item.itemMaterialObject.dustADAMANT.name = Adamant Dust
+item.itemMaterialObject.gearADAMANT.name = Adamant Gear
+item.itemMaterialObject.nuggetADAMANT.name = Adamant Nugget
+item.itemMaterialObject.plateADAMANT.name = Adamant Plate
+item.itemMaterialObject.rodADAMANT.name = Adamant Rod
+item.itemMaterialObject.clumpADAMANT.name = Adamant Clump
+item.itemMaterialObject.crystalADAMANT.name = Adamant Crystal
+item.itemMaterialObject.shardADAMANT.name = Adamant Shard
+item.itemMaterialObject.wireADAMANT.name = Adamant Wire
+item.itemMaterialObject.dustDirtyADAMANT.name = Adamant Dirty Dust
+item.itemMaterialObject.foilADAMANT.name = Adamant Foil
+
+//NUCLEUM
+item.itemMaterialObject.ingotNUCLEUM.name = Nucleum Ingot
+item.itemMaterialObject.dustNUCLEUM.name = Nucleum Dust
+item.itemMaterialObject.gearNUCLEUM.name = Nucleum Gear
+item.itemMaterialObject.nuggetNUCLEUM.name = Nucleum Nugget
+item.itemMaterialObject.plateNUCLEUM.name = Nucleum Plate
+item.itemMaterialObject.rodNUCLEUM.name = Nucleum Rod
+item.itemMaterialObject.clumpNUCLEUM.name = Nucleum Clump
+item.itemMaterialObject.crystalNUCLEUM.name = Nucleum Crystal
+item.itemMaterialObject.shardNUCLEUM.name = Nucleum Shard
+item.itemMaterialObject.wireNUCLEUM.name = Nucleum Wire
+item.itemMaterialObject.dustDirtyNUCLEUM.name = Nucleum Dirty Dust
+item.itemMaterialObject.foilNUCLEUM.name = Nucleum Foil
+
+//IOX
+item.itemMaterialObject.ingotIOX.name = IOX Ingot
+item.itemMaterialObject.dustIOX.name = IOX Dust
+item.itemMaterialObject.gearIOX.name = IOX Gear
+item.itemMaterialObject.nuggetIOX.name = IOX Nugget
+item.itemMaterialObject.plateIOX.name = IOX Plate
+item.itemMaterialObject.rodIOX.name = IOX Rod
+item.itemMaterialObject.clumpIOX.name = IOX Clump
+item.itemMaterialObject.crystalIOX.name = IOX Crystal
+item.itemMaterialObject.shardIOX.name = IOX Shard
+item.itemMaterialObject.wireIOX.name = IOX Wire
+item.itemMaterialObject.dustDirtyIOX.name = IOX Dirty Dust
+item.itemMaterialObject.foilIOX.name = IOX Foil
+
+//SEISMUM
+item.itemMaterialObject.ingotSEISMUM.name = Seisum Ingot
+item.itemMaterialObject.dustSEISMUM.name = Seisum Dust
+item.itemMaterialObject.gearSEISMUM.name = Seisum Gear
+item.itemMaterialObject.nuggetSEISMUM.name = Seisum Nugget
+item.itemMaterialObject.plateSEISMUM.name = Seisum Plate
+item.itemMaterialObject.rodSEISMUM.name = Seisum Rod
+item.itemMaterialObject.clumpSEISMUM.name = Seisum Clump
+item.itemMaterialObject.crystalSEISMUM.name = Seisum Crystal
+item.itemMaterialObject.shardSEISMUM.name = Seisum Shard
+item.itemMaterialObject.wireSEISMUM.name = Seisum Wire
+item.itemMaterialObject.dustDirtySEISMUM.name = Seisum Dirty Dust
+item.itemMaterialObject.foilSEISMUM.name = Seisum Foil
+
+//IMPEROMITE
+item.itemMaterialObject.ingotIMPEROMITE.name = Imperomite Ingot
+item.itemMaterialObject.dustIMPEROMITE.name = Imperomite Dust
+item.itemMaterialObject.gearIMPEROMITE.name = Imperomite Gear
+item.itemMaterialObject.nuggetIMPEROMITE.name = Imperomite Nugget
+item.itemMaterialObject.plateIMPEROMITE.name = Imperomite Plate
+item.itemMaterialObject.rodIMPEROMITE.name = Imperomite Rod
+item.itemMaterialObject.clumpIMPEROMITE.name = Imperomite Clump
+item.itemMaterialObject.crystalIMPEROMITE.name = Imperomite Crystal
+item.itemMaterialObject.shardIMPEROMITE.name = Imperomite Shard
+item.itemMaterialObject.wireIMPEROMITE.name = Imperomite Wire
+item.itemMaterialObject.dustDirtyIMPEROMITE.name = Imperomite Dirty Dust
+item.itemMaterialObject.foilIMPEROMITE.name = Imperomite Foil
+
+//EEZO
+item.itemMaterialObject.ingotEEZO.name = Eezo Ingot
+item.itemMaterialObject.dustEEZO.name = Eezo Dust
+item.itemMaterialObject.gearEEZO.name = Eezo Gear
+item.itemMaterialObject.nuggetEEZO.name = Eezo Nugget
+item.itemMaterialObject.plateEEZO.name = Eezo Plate
+item.itemMaterialObject.rodEEZO.name = Eezo Rod
+item.itemMaterialObject.clumpEEZO.name = Eezo Clump
+item.itemMaterialObject.crystalEEZO.name = Eezo Crystal
+item.itemMaterialObject.shardEEZO.name = Eezo Shard
+item.itemMaterialObject.wireEEZO.name = Eezo Wire
+item.itemMaterialObject.dustDirtyEEZO.name = Eezo Dirty Dust
+item.itemMaterialObject.foilEEZO.name = Eezo Foil
+
+//DURANITE
+item.itemMaterialObject.ingotDURANITE.name = Duranite Ingot
+item.itemMaterialObject.dustDURANITE.name = Duranite Dust
+item.itemMaterialObject.gearDURANITE.name = Duranite Gear
+item.itemMaterialObject.nuggetDURANITE.name = Duranite Nugget
+item.itemMaterialObject.plateDURANITE.name = Duranite Plate
+item.itemMaterialObject.rodDURANITE.name = Duranite Rod
+item.itemMaterialObject.clumpDURANITE.name = Duranite Clump
+item.itemMaterialObject.crystalDURANITE.name = Duranite Crystal
+item.itemMaterialObject.shardDURANITE.name = Duranite Shard
+item.itemMaterialObject.wireDURANITE.name = Duranite Wire
+item.itemMaterialObject.dustDirtyDURANITE.name = Duranite Dirty Dust
+item.itemMaterialObject.foilDURANITE.name = Duranite Foil
+
+//PROMETHIUM
+item.itemMaterialObject.ingotPROMETHIUM.name = Promethium Ingot
+item.itemMaterialObject.dustPROMETHIUM.name = Promethium Dust
+item.itemMaterialObject.gearPROMETHIUM.name = Promethium Gear
+item.itemMaterialObject.nuggetPROMETHIUM.name = Promethium Nugget
+item.itemMaterialObject.platePROMETHIUM.name = Promethium Plate
+item.itemMaterialObject.rodPROMETHIUM.name = Promethium Rod
+item.itemMaterialObject.clumpPROMETHIUM.name = Promethium Clump
+item.itemMaterialObject.crystalPROMETHIUM.name = Promethium Crystal
+item.itemMaterialObject.shardPROMETHIUM.name = Promethium Shard
+item.itemMaterialObject.wirePROMETHIUM.name = Promethium Wire
+item.itemMaterialObject.dustDirtyPROMETHIUM.name = Promethium Dirty Dust
+item.itemMaterialObject.foilPROMETHIUM.name = Promethium Foil
+
+//IGNITZ
+item.itemMaterialObject.ingotIGNITZ.name = Ignitz Ingot
+item.itemMaterialObject.dustIGNITZ.name = Ignitz Dust
+item.itemMaterialObject.gearIGNITZ.name = Ignitz Gear
+item.itemMaterialObject.nuggetIGNITZ.name = Ignitz Nugget
+item.itemMaterialObject.plateIGNITZ.name = Ignitz Plate
+item.itemMaterialObject.rodIGNITZ.name = Ignitz Rod
+item.itemMaterialObject.clumpIGNITZ.name = Ignitz Clump
+item.itemMaterialObject.crystalIGNITZ.name = Ignitz Crystal
+item.itemMaterialObject.shardIGNITZ.name = Ignitz Shard
+item.itemMaterialObject.wireIGNITZ.name = Ignitz Wire
+item.itemMaterialObject.dustDirtyIGNITZ.name = Ignitz Dirty Dust
+item.itemMaterialObject.foilIGNITZ.name = Ignitz Foil
+
+//PROXII
+item.itemMaterialObject.ingotPROXII.name = Proxii Ingot
+item.itemMaterialObject.dustPROXII.name = Proxii Dust
+item.itemMaterialObject.gearPROXII.name = Proxii Gear
+item.itemMaterialObject.nuggetPROXII.name = Proxii Nugget
+item.itemMaterialObject.platePROXII.name = Proxii Plate
+item.itemMaterialObject.rodPROXII.name = Proxii Rod
+item.itemMaterialObject.clumpPROXII.name = Proxii Clump
+item.itemMaterialObject.crystalPROXII.name = Proxii Crystal
+item.itemMaterialObject.shardPROXII.name = Proxii Shard
+item.itemMaterialObject.wirePROXII.name = Proxii Wire
+item.itemMaterialObject.dustDirtyPROXII.name = Proxii Dirty Dust
+item.itemMaterialObject.foilPROXII.name = Proxii Foil
+
+//OSRAM
+item.itemMaterialObject.ingotOSRAM.name = Osram Ingot
+item.itemMaterialObject.dustOSRAM.name = Osram Dust
+item.itemMaterialObject.gearOSRAM.name = Osram Gear
+item.itemMaterialObject.nuggetOSRAM.name = Osram Nugget
+item.itemMaterialObject.plateOSRAM.name = Osram Plate
+item.itemMaterialObject.rodOSRAM.name = Osram Rod
+item.itemMaterialObject.clumpOSRAM.name = Osram Clump
+item.itemMaterialObject.crystalOSRAM.name = Osram Crystal
+item.itemMaterialObject.shardOSRAM.name = Osram Shard
+item.itemMaterialObject.wireOSRAM.name = Osram Wire
+item.itemMaterialObject.dustDirtyOSRAM.name = Osram Dirty Dust
+item.itemMaterialObject.foilOSRAM.name = Osram Foil
+
+//PALLADIUM
+item.itemMaterialObject.ingotPALLADIUM.name = Palladium Ingot
+item.itemMaterialObject.dustPALLADIUM.name = Palladium Dust
+item.itemMaterialObject.gearPALLADIUM.name = Palladium Gear
+item.itemMaterialObject.nuggetPALLADIUM.name = Palladium Nugget
+item.itemMaterialObject.platePALLADIUM.name = Palladium Plate
+item.itemMaterialObject.rodPALLADIUM.name = Palladium Rod
+item.itemMaterialObject.clumpPALLADIUM.name = Palladium Clump
+item.itemMaterialObject.crystalPALLADIUM.name = Palladium Crystal
+item.itemMaterialObject.shardPALLADIUM.name = Palladium Shard
+item.itemMaterialObject.wirePALLADIUM.name = Palladium Wire
+item.itemMaterialObject.dustDirtyPALLADIUM.name = Palladium Dirty Dust
+item.itemMaterialObject.foilPALLADIUM.name = Palladium Foil
+
+//YRDEEN
+item.itemMaterialObject.ingotYRDEEN.name = Yrdeen Ingot
+item.itemMaterialObject.dustYRDEEN.name = Yrdeen Dust
+item.itemMaterialObject.gearYRDEEN.name = Yrdeen Gear
+item.itemMaterialObject.nuggetYRDEEN.name = Yrdeen Nugget
+item.itemMaterialObject.plateYRDEEN.name = Yrdeen Plate
+item.itemMaterialObject.rodYRDEEN.name = Yrdeen Rod
+item.itemMaterialObject.clumpYRDEEN.name = Yrdeen Clump
+item.itemMaterialObject.crystalYRDEEN.name = Yrdeen Crystal
+item.itemMaterialObject.shardYRDEEN.name = Yrdeen Shard
+item.itemMaterialObject.wireYRDEEN.name = Yrdeen Wire
+item.itemMaterialObject.dustDirtyYRDEEN.name = Yrdeen Dirty Dust
+item.itemMaterialObject.foilYRDEEN.name = Yrdeen Foil
+
+//NIOB
+item.itemMaterialObject.ingotNIOB.name = NIOB Ingot
+item.itemMaterialObject.dustNIOB.name = NIOB Dust
+item.itemMaterialObject.gearNIOB.name = NIOB Gear
+item.itemMaterialObject.nuggetNIOB.name = NIOB Nugget
+item.itemMaterialObject.plateNIOB.name = NIOB Plate
+item.itemMaterialObject.rodNIOB.name = NIOB Rod
+item.itemMaterialObject.clumpNIOB.name = NIOB Clump
+item.itemMaterialObject.crystalNIOB.name = NIOB Crystal
+item.itemMaterialObject.shardNIOB.name = NIOB Shard
+item.itemMaterialObject.wireNIOB.name = NIOB Wire
+item.itemMaterialObject.dustDirtyNIOB.name = NIOB Dirty Dust
+item.itemMaterialObject.foilNIOB.name = NIOB Foil
+
+//OBSIDIORITE
+item.itemMaterialObject.ingotOBSIDIORITE.name = Obsidiorite Ingot
+item.itemMaterialObject.dustOBSIDIORITE.name = Obsidiorite Dust
+item.itemMaterialObject.gearOBSIDIORITE.name = Obsidiorite Gear
+item.itemMaterialObject.nuggetOBSIDIORITE.name = Obsidiorite Nugget
+item.itemMaterialObject.plateOBSIDIORITE.name = Obsidiorite Plate
+item.itemMaterialObject.rodOBSIDIORITE.name = Obsidiorite Rod
+item.itemMaterialObject.clumpOBSIDIORITE.name = Obsidiorite Clump
+item.itemMaterialObject.crystalOBSIDIORITE.name = Obsidiorite Crystal
+item.itemMaterialObject.shardOBSIDIORITE.name = Obsidiorite Shard
+item.itemMaterialObject.wireOBSIDIORITE.name = Obsidiorite Wire
+item.itemMaterialObject.dustDirtyOBSIDIORITE.name = Obsidiorite Dirty Dust
+item.itemMaterialObject.foilOBSIDIORITE.name = Obsidiorite Foil
+
+//LUMIX
+item.itemMaterialObject.ingotLUMIX.name = Lumix Ingot
+item.itemMaterialObject.dustLUMIX.name = Lumix Dust
+item.itemMaterialObject.gearLUMIX.name = Lumix Gear
+item.itemMaterialObject.nuggetLUMIX.name = Lumix Nugget
+item.itemMaterialObject.plateLUMIX.name = Lumix Plate
+item.itemMaterialObject.rodLUMIX.name = Lumix Rod
+item.itemMaterialObject.clumpLUMIX.name = Lumix Clump
+item.itemMaterialObject.crystalLUMIX.name = Lumix Crystal
+item.itemMaterialObject.shardLUMIX.name = Lumix Shard
+item.itemMaterialObject.wireLUMIX.name = Lumix Wire
+item.itemMaterialObject.dustDirtyLUMIX.name = Lumix Dirty Dust
+item.itemMaterialObject.foilLUMIX.name = Lumix Foil
+
+//DYONITE
+item.itemMaterialObject.ingotDYONITE.name = Dyonite Ingot
+item.itemMaterialObject.dustDYONITE.name = Dyonite Dust
+item.itemMaterialObject.gearDYONITE.name = Dyonite Gear
+item.itemMaterialObject.nuggetDYONITE.name = Dyonite Nugget
+item.itemMaterialObject.plateDYONITE.name = Dyonite Plate
+item.itemMaterialObject.rodDYONITE.name = Dyonite Rod
+item.itemMaterialObject.clumpDYONITE.name = Dyonite Clump
+item.itemMaterialObject.crystalDYONITE.name = Dyonite Crystal
+item.itemMaterialObject.shardDYONITE.name = Dyonite Shard
+item.itemMaterialObject.wireDYONITE.name = Dyonite Wire
+item.itemMaterialObject.dustDirtyDYONITE.name = Dyonite Dirty Dust
+item.itemMaterialObject.foilDYONITE.name = Dyonite Foil
+
+//ALUMINUMBRASS
+item.itemMaterialObject.ingotALUMINUMBRASS.name = Aluminum Brass Ingot
+item.itemMaterialObject.dustALUMINUMBRASS.name = Aluminum Brass Dust
+item.itemMaterialObject.gearALUMINUMBRASS.name = Aluminum Brass Gear
+item.itemMaterialObject.nuggetALUMINUMBRASS.name = Aluminum Brass Nugget
+item.itemMaterialObject.plateALUMINUMBRASS.name = Aluminum Brass Plate
+item.itemMaterialObject.rodALUMINUMBRASS.name = Aluminum Brass Rod
+item.itemMaterialObject.clumpALUMINUMBRASS.name = Aluminum Brass Clump
+item.itemMaterialObject.crystalALUMINUMBRASS.name = Aluminum Brass Crystal
+item.itemMaterialObject.shardALUMINUMBRASS.name = Aluminum Brass Shard
+item.itemMaterialObject.wireALUMINUMBRASS.name = Aluminum Brass Wire
+item.itemMaterialObject.dustDirtyALUMINUMBRASS.name = Aluminum Brass Dirty Dust
+item.itemMaterialObject.foilALUMINUMBRASS.name = Aluminum Brass Foil
+
+//NITRONITE
+item.itemMaterialObject.ingotNITRONITE.name = Nitronite Ingot
+item.itemMaterialObject.dustNITRONITE.name = Nitronite Dust
+item.itemMaterialObject.gearNITRONITE.name = Nitronite Gear
+item.itemMaterialObject.nuggetNITRONITE.name = Nitronite Nugget
+item.itemMaterialObject.plateNITRONITE.name = Nitronite Plate
+item.itemMaterialObject.rodNITRONITE.name = Nitronite Rod
+item.itemMaterialObject.clumpNITRONITE.name = Nitronite Clump
+item.itemMaterialObject.crystalNITRONITE.name = Nitronite Crystal
+item.itemMaterialObject.shardNITRONITE.name = Nitronite Shard
+item.itemMaterialObject.wireNITRONITE.name = Nitronite Wire
+item.itemMaterialObject.dustDirtyNITRONITE.name = Nitronite Dirty Dust
+item.itemMaterialObject.foilNITRONITE.name = Nitronite Foil
+
+//MAGMA
+item.itemMaterialObject.ingotMAGMA.name = Magma Ingot
+item.itemMaterialObject.dustMAGMA.name = Magma Dust
+item.itemMaterialObject.gearMAGMA.name = Magma Gear
+item.itemMaterialObject.nuggetMAGMA.name = Magma Nugget
+item.itemMaterialObject.plateMAGMA.name = Magma Plate
+item.itemMaterialObject.rodMAGMA.name = Magma Rod
+item.itemMaterialObject.clumpMAGMA.name = Magma Clump
+item.itemMaterialObject.crystalMAGMA.name = Magma Crystal
+item.itemMaterialObject.shardMAGMA.name = Magma Shard
+item.itemMaterialObject.wireMAGMA.name = Magma Wire
+item.itemMaterialObject.dustDirtyMAGMA.name = Magma Dirty Dust
+item.itemMaterialObject.foilMAGMA.name = Magma Foil
+
+//RESONATING
+item.itemMaterialObject.ingotRESONATING.name = Resonating Ingot
+item.itemMaterialObject.dustRESONATING.name = Resonating Dust
+item.itemMaterialObject.gearRESONATING.name = Resonating Gear
+item.itemMaterialObject.nuggetRESONATING.name = Resonating Nugget
+item.itemMaterialObject.plateRESONATING.name = Resonating Plate
+item.itemMaterialObject.rodRESONATING.name = Resonating Rod
+item.itemMaterialObject.clumpRESONATING.name = Resonating Clump
+item.itemMaterialObject.crystalRESONATING.name = Resonating Crystal
+item.itemMaterialObject.shardRESONATING.name = Resonating Shard
+item.itemMaterialObject.wireRESONATING.name = Resonating Wire
+item.itemMaterialObject.dustDirtyRESONATING.name = Resonating Dirty Dust
+item.itemMaterialObject.foilRESONATING.name = Resonating Foil
