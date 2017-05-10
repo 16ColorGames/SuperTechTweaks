@@ -28,6 +28,10 @@ public class Material {
         return materials.get(0);
     }
 
+    public static Material getMaterial(int index) {
+        return materials.get(index);
+    }
+
     /**
      * The oreDict name of the metal
      */

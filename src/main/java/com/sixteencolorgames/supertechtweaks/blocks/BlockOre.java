@@ -1,16 +1,23 @@
 package com.sixteencolorgames.supertechtweaks.blocks;
 
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyByte;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyInt;
 import java.util.List;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.render.OreBakedModel;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,10 +26,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * The ore block for world generation. Can hold up to 7 ores.
@@ -32,8 +46,11 @@ import net.minecraft.world.World;
  */
 public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
 
+    public static final PropertyByte BASE = new PropertyByte("base");
+    public static final PropertyInt ORE1 = new PropertyInt("ore1");
+
     public BlockOre() {
-        super(net.minecraft.block.material.Material.ROCK, "blockOre");
+        super(net.minecraft.block.material.Material.ROCK, "superore");
         this.setHardness(3.0f);
     }
 
@@ -204,5 +221,41 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
     @Override
     public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
         return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        IProperty[] listedProperties = new IProperty[0]; // no listed properties
+        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{BASE, ORE1};
+        return new ExtendedBlockState(this, listedProperties, unlistedProperties);
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+        Byte base = ((TileEntityOre) world.getTileEntity(pos)).getBase();
+        int[] ores = ((TileEntityOre) world.getTileEntity(pos)).getOres();
+
+        return extendedBlockState
+                .withProperty(BASE, base)
+                .withProperty(ORE1,  ores[0]);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        // To make sure that our baked model model is chosen for all states we use this custom state mapper:
+        StateMapperBase ignoreState = new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState iBlockState) {
+                return OreBakedModel.BAKED_MODEL;
+            }
+        };
+        ModelLoader.setCustomStateMapper(this, ignoreState);
     }
 }
