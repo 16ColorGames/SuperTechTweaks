@@ -5,7 +5,10 @@
  */
 package com.sixteencolorgames.supertechtweaks;
 
+import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockBase;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.items.ItemModelProvider;
 import java.awt.Color;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -15,18 +18,23 @@ import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  *
  * @author oa10712
  */
 public class ModFluids {
+
+    static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid",
+            "inventory");
 
     public static void mainRegistry() {
         Material.materials.forEach((ore) -> {
@@ -54,7 +62,8 @@ public class ModFluids {
 
         if (useOwnFluid) {
             fluidPropertyApplier.accept(fluid);
-            registerFluidBlock(blockFactory.apply(fluid));
+            registerBucket(fluid);
+            //registerFluidBlock(blockFactory.apply(fluid));
         } else {
             fluid = FluidRegistry.getFluid(name);
         }
@@ -63,7 +72,7 @@ public class ModFluids {
     }
 
     private static <T extends Block & IFluidBlock> T registerFluidBlock(T block) {
-        block.setRegistryName(block.getFluid().getName());
+        block.setRegistryName("fluid" + block.getFluid().getName());
         block.setUnlocalizedName(SuperTechTweaksMod.MODID + ":" + block.getFluid().getUnlocalizedName());
 
         ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
@@ -72,8 +81,11 @@ public class ModFluids {
                 return new ModelResourceLocation("supertechtweaks:fluid", "fluid");
             }
         });
-        ModBlocks.register(block);
-
+        ItemBlock itemBlock = new ItemBlock(block);
+        itemBlock.setRegistryName(block.getRegistryName());
+        GameRegistry.register(block);
+        GameRegistry.register(itemBlock);
+        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, fluidLocation);
         return block;
     }
 

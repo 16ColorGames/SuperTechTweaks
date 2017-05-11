@@ -11,6 +11,8 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Holds and registers blocks used by the mod
@@ -19,7 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  *
  */
 public class ModBlocks {
-    
+
     public static BlockOre blockOre;
     public static HashMap<Material, BlockMaterial> blockMaterial;
 
@@ -49,7 +51,7 @@ public class ModBlocks {
         GameRegistry.register(block);
         if (itemBlock != null) {
             GameRegistry.register(itemBlock);
-            
+
             if (block instanceof ItemModelProvider) {
                 ((ItemModelProvider) block).registerItemModel(itemBlock);
             }
@@ -62,12 +64,12 @@ public class ModBlocks {
             // ((ItemOreDict)itemBlock).initOreDict();
             // }
         }
-        
+
         if (block instanceof BlockTileEntity) {
             GameRegistry.registerTileEntity(((BlockTileEntity<?>) block).getTileEntityClass(),
                     block.getRegistryName().toString());
         }
-        
+
         return block;
     }
 
@@ -81,5 +83,15 @@ public class ModBlocks {
         ItemBlock itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         return register(block, itemBlock);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void initModels() {
+        blockOre.initModel();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void initItemModels() {
+        //   blockOre.initItemModel();
     }
 }

@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
@@ -7,20 +8,21 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
+import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
-import com.sixteencolorgames.supertechtweaks.render.TESRBlockOre;
-import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -83,6 +85,8 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
         }
+        //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
+        ModelLoaderRegistry.registerLoader(new BakedModelLoader());
     }
 
     @Override
@@ -90,7 +94,7 @@ public class ClientProxy extends CommonProxy {
         super.init(e);
         BlockColors colors = minecraft.getBlockColors();
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new TESRBlockOre());
+        // ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new TESRBlockOre());
     }
 
     @Override
