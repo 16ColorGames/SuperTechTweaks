@@ -1,6 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.tileentities;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import java.util.Arrays;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,19 +22,26 @@ public class TileEntityOre extends TileEntity {
     /**
      * array of metals in this block. Uses Ores index
      */
-    private int[] metals = new int[]{0, 0, 0, 0, 0, 0, 0};
+    private int[] metals = new int[]{0};
     /**
      * unlocalized name for the base block
      */
     private byte base = 0;
-
+/**
+ * Adds a new metal to the ore
+ * @param metal
+ * @return true if there was room, false if more room had to be made
+ */
     public boolean addMetal(Material metal) {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < metals.length; i++) {
             if (metals[i] == 0) {
                 metals[i] = metal.ordinal();
                 return true;
             }
         }
+        int[] copy = Arrays.copyOf(metals, metals.length + 1);
+        copy[copy.length-1] = metal.ordinal();
+        metals = copy;
         return false;
     }
 
@@ -54,17 +62,6 @@ public class TileEntityOre extends TileEntity {
 
     public void setBase(byte original) {
         base = original;
-    }
-
-    /**
-     * Only render the ore when the player is within 16 blocks
-     *
-     * @return
-     */
-    @SideOnly(Side.CLIENT)
-    @Override
-    public double getMaxRenderDistanceSquared() {
-        return 256.0D;
     }
 
     // When the world loads from disk, the server needs to send the TileEntity
