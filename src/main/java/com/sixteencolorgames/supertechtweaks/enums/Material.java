@@ -21,7 +21,7 @@ public class Material {
 
     public static Material getMaterial(String asString) {
         for (Material mat : materials) {
-            if (mat.getName().equals(asString)) {
+            if (mat.getName().toLowerCase().equals(asString.toLowerCase())) {
                 return mat;
             }
         }
