@@ -8,7 +8,7 @@ import java.util.Random;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.render.OreBakedModel;
-import com.sixteencolorgames.supertechtweaks.world.ExampleWorldSavedData;
+import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import java.util.ArrayList;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -41,7 +41,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * The ore block for world generation. Can hold up to 7 ores.
+ * The ore block for world generation. Can hold many ores
  *
  * @author oa10712
  *
@@ -83,10 +83,10 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 
         List<ItemStack> ret = new ArrayList<>();
-        int[] ores = ExampleWorldSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
-        int base = ExampleWorldSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
+        int[] ores = OreSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
+        int base = OreSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < ores.length; i++) {
             if (ores[i] != 0) {
                 Material material = Material.materials.get(ores[i]);
                 ret.add(material.getDrops((byte) base));
@@ -120,8 +120,8 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
                 return true;
             }
             boolean metalLeft = false;
-            int[] ores = ExampleWorldSavedData.get(worldIn).getOres(pos);
-            int base = ExampleWorldSavedData.get(worldIn).getBase(pos);
+            int[] ores = OreSavedData.get(worldIn).getOres(pos);
+            int base = OreSavedData.get(worldIn).getBase(pos);
             int tagCount;
             tagCount = player.getHeldItemMainhand().getEnchantmentTagList() != null ? player.getHeldItemMainhand().getEnchantmentTagList().tagCount() : 0;
             int fortune = 0;
@@ -131,7 +131,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
                     fortune = compound.getShort("lvl");
                 }
             }
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < ores.length; i++) {
                 if (ores[i] != 0) {
                     Material material = Material.materials.get(ores[i]);
                     if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
@@ -150,7 +150,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
                     }
                 }
             }
-            ExampleWorldSavedData.get(worldIn).setOres(pos, ores);
+            OreSavedData.get(worldIn).setOres(pos, ores);
             willHarvest = metalLeft;
             if (!metalLeft) {//When we have removel all of the ore from the block...
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
@@ -170,8 +170,8 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        int[] ores = ExampleWorldSavedData.get(accessor.getWorld()).getOres(accessor.getPosition());
-        int base = ExampleWorldSavedData.get(accessor.getWorld()).getBase(accessor.getPosition());
+        int[] ores = OreSavedData.get(accessor.getWorld()).getOres(accessor.getPosition());
+        int base = OreSavedData.get(accessor.getWorld()).getBase(accessor.getPosition());
         currenttip.add("Base: " + base);
         EntityPlayer player = accessor.getPlayer();
         int harvest = player.getHeldItemMainhand() != null
@@ -210,8 +210,8 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
     @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
-        int[] ores = ExampleWorldSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
-        int base = ExampleWorldSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
+        int[] ores = OreSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
+        int base = OreSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
         ArrayList<Integer> oreList = new ArrayList();
         for (int i : ores) {
             if (i != 0) {

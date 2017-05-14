@@ -122,7 +122,7 @@ public class CommonProxy {
     }
 
     private void initMaterials() {
-        new Material("none", "0x000000", 0);
+        new Material("none", "0x000000", -2);
         new Material("Antimony", "0xFADA5E", 0);
         new Material("Bismuth", "0xed7d92", 0);
         new Material("Cadmium", "0xed872d", 0);

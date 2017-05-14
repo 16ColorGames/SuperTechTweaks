@@ -81,7 +81,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < newOres.length; i++) {
                 newOres[i] = oresAdded.get(i);
             }
-            ExampleWorldSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
             world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         } else if (Config.nether.contains(world.getBlockState(pos))) {
             ArrayList<Integer> oresAdded = new ArrayList();
@@ -94,7 +94,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < newOres.length; i++) {
                 newOres[i] = oresAdded.get(i);
             }
-            ExampleWorldSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
             world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         } else if (Config.end.contains(world.getBlockState(pos))) {
             ArrayList<Integer> oresAdded = new ArrayList();
@@ -107,7 +107,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < newOres.length; i++) {
                 newOres[i] = oresAdded.get(i);
             }
-            ExampleWorldSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
             world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         } else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
             ArrayList<Integer> oresAdded = new ArrayList();
@@ -116,12 +116,12 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
                     oresAdded.add(k.ordinal());
                 }
             });
-            int[] oldOres = ExampleWorldSavedData.get(world).getOres(pos.getX(), pos.getY(), pos.getZ());
+            int[] oldOres = OreSavedData.get(world).getOres(pos.getX(), pos.getY(), pos.getZ());
             int[] newOres = Arrays.copyOf(oldOres, oldOres.length + oresAdded.size());
             for (int i = 0; i < oresAdded.size(); i++) {
                 newOres[i + oldOres.length] = oresAdded.get(i);
             }
-            ExampleWorldSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
         }
         return true;
     }

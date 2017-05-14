@@ -20,7 +20,7 @@ import net.minecraft.world.storage.MapStorage;
  *
  * @author oa10712
  */
-public class ExampleWorldSavedData extends WorldSavedData {
+public class OreSavedData extends WorldSavedData {
 
     private static final String DATA_NAME = SuperTechTweaksMod.MODID + "_OreData";
     /**
@@ -30,21 +30,21 @@ public class ExampleWorldSavedData extends WorldSavedData {
     HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer[]>>> data = new HashMap();
 
 // Required constructors
-    public ExampleWorldSavedData() {
+    public OreSavedData() {
         super(DATA_NAME);
     }
 
-    public ExampleWorldSavedData(String s) {
+    public OreSavedData(String s) {
         super(s);
     }
 
-    public static ExampleWorldSavedData get(World world) {
+    public static OreSavedData get(World world) {
         // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
         MapStorage storage = false ? world.getMapStorage() : world.getPerWorldStorage();
-        ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.getOrLoadData(ExampleWorldSavedData.class, DATA_NAME);
+        OreSavedData instance = (OreSavedData) storage.getOrLoadData(OreSavedData.class, DATA_NAME);
 
         if (instance == null) {
-            instance = new ExampleWorldSavedData();
+            instance = new OreSavedData();
             storage.setData(DATA_NAME, instance);
         }
         return instance;
@@ -63,6 +63,7 @@ public class ExampleWorldSavedData extends WorldSavedData {
             newData[i + 1] = ores[i];
         }
         data.get(x).get(y).put(z, newData);
+        markDirty();
     }
 
     public void setData(int x, int y, int z, int[] dataList) {
@@ -77,6 +78,7 @@ public class ExampleWorldSavedData extends WorldSavedData {
             newData[i] = dataList[i];
         }
         data.get(x).get(y).put(z, newData);
+        markDirty();
     }
 
     public int getBase(int x, int y, int z) {
@@ -103,6 +105,7 @@ public class ExampleWorldSavedData extends WorldSavedData {
             return;
         }
         data.get(x).get(y).put(z, new Integer[]{base});
+        markDirty();
     }
 
     public int[] getOres(int x, int y, int z) {
@@ -143,6 +146,7 @@ public class ExampleWorldSavedData extends WorldSavedData {
             newData[i + 1] = ores[i];
         }
         data.get(x).get(y).put(z, newData);
+        markDirty();
     }
     // WorldSavedData methods
 
