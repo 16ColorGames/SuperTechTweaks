@@ -9,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.Recipies;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
@@ -31,6 +32,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.network.Events;
+import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Proxy functions common to both the client and server side
@@ -43,6 +47,7 @@ public class CommonProxy {
     public static Configuration config;
 
     public void preInit(FMLPreInitializationEvent e) {
+        PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Channel");
         initMaterials();
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
@@ -108,6 +113,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
 
+        MinecraftForge.EVENT_BUS.register(new Events());
     }
 
     public void postInit(FMLPostInitializationEvent e) {
