@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
@@ -27,6 +28,7 @@ public class ServerProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent e) {
         super.init(e);
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
     }
 
     @Override

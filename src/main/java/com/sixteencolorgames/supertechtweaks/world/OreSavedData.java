@@ -193,4 +193,47 @@ public class OreSavedData extends WorldSavedData {
         });
     }
 
+    /**
+     * Reads data created from #getForChunk
+     *
+     * @param tag
+     */
+    public void updateFromTag(NBTTagCompound tag) {
+        
+    }
+
+    /**
+     * Creates a tag of ore data in a chunk. Intended for use with
+     * #updateFromTag.
+     *
+     * @param chunkX
+     * @param chunkZ
+     * @return
+     */
+    public NBTTagCompound getForChunk(int chunkX, int chunkZ) {
+        NBTTagCompound ret = new NBTTagCompound();
+        int xStart = chunkX * 16;
+        int zStart = chunkZ * 16;
+        for (int i = 0; i < 16; i++) {//cycle the x range
+            if (data.containsKey(xStart + i)) {
+                NBTTagCompound xTag = new NBTTagCompound();
+                HashMap<Integer, HashMap<Integer, Integer[]>> xData = data.get(xStart + i);
+                xData.forEach((Integer y, HashMap<Integer, Integer[]> yData) -> {
+                    NBTTagCompound yTag = new NBTTagCompound();
+                    yData.forEach((Integer z, Integer[] ores) -> {
+                        if (z >= zStart && z < zStart + 16) {//if its within the z range
+                            int[] oreArray = new int[ores.length];
+                            for (int i1 = 0; i1 < ores.length; i1++) {
+                                oreArray[i1] = ores[i1];
+                            }
+                            yTag.setIntArray(z.toString(), oreArray);
+                        }
+                    });
+                    xTag.setTag(y.toString(), yTag);
+                });
+            }
+        }
+        return ret;
+    }
+
 }

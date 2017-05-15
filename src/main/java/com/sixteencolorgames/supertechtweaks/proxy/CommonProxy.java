@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
-import com.sixteencolorgames.supertechtweaks.network.Events;
+import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -113,7 +113,6 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
 
-        MinecraftForge.EVENT_BUS.register(new Events());
     }
 
     public void postInit(FMLPostInitializationEvent e) {

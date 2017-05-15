@@ -168,8 +168,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
     }
 
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
-            IWailaConfigHandler config) {
+    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         int[] ores = OreSavedData.get(accessor.getWorld()).getOres(accessor.getPosition());
         int base = OreSavedData.get(accessor.getWorld()).getBase(accessor.getPosition());
         currenttip.add("Base: " + base);

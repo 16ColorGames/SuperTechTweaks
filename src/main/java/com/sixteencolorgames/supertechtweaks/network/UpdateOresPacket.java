@@ -19,36 +19,36 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @author oa10712
  */
 public class UpdateOresPacket implements IMessage {
-
+    
     private NBTTagCompound tag;
-
+    
     public UpdateOresPacket() {
     }
-
-    public UpdateOresPacket(OreSavedData a) {
-        this.tag = a.serializeNBT();
+    
+    public UpdateOresPacket(OreSavedData data, int chunkX, int chunkZ) {
+        this.tag = data.getForChunk(chunkX, chunkZ);
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
         tag = ByteBufUtils.readTag(buf);
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeTag(buf, tag);
     }
-
+    
     public static class Handler implements IMessageHandler<UpdateOresPacket, IMessage> {
-
+        
         @Override
         public IMessage onMessage(UpdateOresPacket message, MessageContext ctx) {
             System.out.println("Recieved ore update:" + message.toString());
-            OreSavedData.get(Minecraft.getMinecraft().theWorld).deserializeNBT(message.tag);
+            OreSavedData.get(Minecraft.getMinecraft().theWorld).readFromNBT(message.tag);
             OreSavedData.get(Minecraft.getMinecraft().theWorld).markDirty();
             return null;
         }
-
+        
     }
-
+    
 }
