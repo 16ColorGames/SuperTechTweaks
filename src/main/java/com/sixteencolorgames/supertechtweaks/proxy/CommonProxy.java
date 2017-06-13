@@ -109,6 +109,7 @@ public class CommonProxy {
             OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
         });
 
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
     }
 
     public void init(FMLInitializationEvent e) {

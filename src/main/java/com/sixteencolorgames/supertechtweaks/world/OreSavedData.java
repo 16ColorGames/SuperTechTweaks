@@ -6,10 +6,8 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,9 +36,16 @@ public class OreSavedData extends WorldSavedData {
         super(s);
     }
 
-    public static OreSavedData get(World world) {
+    public static void set(World world, OreSavedData newData) {
         // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
         MapStorage storage = false ? world.getMapStorage() : world.getPerWorldStorage();
+        storage.setData(DATA_NAME, newData);
+    }
+
+    public static OreSavedData get(World world) {
+        // OreSavedData data = (OreSavedData) world.loadItemData(OreSavedData.class, DATA_NAME);
+        // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
+        MapStorage storage = true ? world.getMapStorage() : world.getPerWorldStorage();
         OreSavedData instance = (OreSavedData) storage.getOrLoadData(OreSavedData.class, DATA_NAME);
 
         if (instance == null) {
@@ -199,7 +204,7 @@ public class OreSavedData extends WorldSavedData {
      * @param tag
      */
     public void updateFromTag(NBTTagCompound tag) {
-        
+
     }
 
     /**
@@ -214,6 +219,7 @@ public class OreSavedData extends WorldSavedData {
         NBTTagCompound ret = new NBTTagCompound();
         int xStart = chunkX * 16;
         int zStart = chunkZ * 16;
+
         for (int i = 0; i < 16; i++) {//cycle the x range
             if (data.containsKey(xStart + i)) {
                 NBTTagCompound xTag = new NBTTagCompound();
@@ -231,6 +237,7 @@ public class OreSavedData extends WorldSavedData {
                     });
                     xTag.setTag(y.toString(), yTag);
                 });
+                ret.setTag((i + xStart) + "", xTag);
             }
         }
         return ret;

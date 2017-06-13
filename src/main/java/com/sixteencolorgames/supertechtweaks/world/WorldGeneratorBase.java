@@ -94,7 +94,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < newOres.length; i++) {
                 newOres[i] = oresAdded.get(i);
             }
-            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), -1, newOres);
             world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         } else if (Config.end.contains(world.getBlockState(pos))) {
             ArrayList<Integer> oresAdded = new ArrayList();
@@ -107,7 +107,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < newOres.length; i++) {
                 newOres[i] = oresAdded.get(i);
             }
-            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 1, newOres);
             world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
         } else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
             ArrayList<Integer> oresAdded = new ArrayList();
