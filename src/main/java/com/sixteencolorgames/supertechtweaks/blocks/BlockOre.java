@@ -1,7 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.blocks;
 
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyByte;
-import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyInt;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +8,7 @@ import java.util.Random;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.render.OreBakedModel;
-import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
+import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import java.util.ArrayList;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -17,6 +16,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.entity.item.EntityItem;
@@ -41,36 +41,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * The ore block for world generation. Can hold up to 7 ores.
+ * The ore block for world generation. Can hold many ores
  *
  * @author oa10712
  *
  */
-public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInfoProvider {
-    
+public class BlockOre extends BlockBase implements WailaInfoProvider {
+
     public static final PropertyByte BASE = new PropertyByte("base");
     public static final PropertyOres ORES = new PropertyOres("ores");
-    
+
     public BlockOre() {
         super(net.minecraft.block.material.Material.ROCK, "superore");
         this.setHardness(3.0f);
-    }
-
-    /**
-     * Adds a metal to the ores contents
-     *
-     * @param worldIn The world this block is located in
-     * @param pos The position of the block
-     * @param metal The metal to add
-     * @return True if the metal was successfully added
-     */
-    public boolean addMetal(World worldIn, BlockPos pos, Material metal) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (tileEntity instanceof TileEntityOre) {
-            TileEntityOre ore = (TileEntityOre) tileEntity;
-            return ore.addMetal(metal);
-        }
-        return false;
     }
 
     /**
@@ -98,25 +81,23 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
      */
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        
+
         List<ItemStack> ret = new ArrayList<>();
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof TileEntityOre) {
-            TileEntityOre ore = (TileEntityOre) tileEntity;
-            int[] ores = ore.getOres();
-            Random rand = world instanceof World ? ((World) world).rand : RANDOM;
-            for (int i = 0; i < 7; i++) {
-                if (ores[i] != 0) {
-                    Material material = Material.materials.get(ores[i]);
-                    ret.add(material.getDrops(ore.getBase()));
-                    for (int j = 0; j < fortune; j++) {
-                        if (rand.nextDouble() < .25) {
-                            ret.add(material.getDrops(ore.getBase()));
-                        }
+        int[] ores = OreSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
+        int base = OreSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
+        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+        for (int i = 0; i < ores.length; i++) {
+            if (ores[i] != 0) {
+                Material material = Material.materials.get(ores[i]);
+                ret.add(material.getDrops((byte) base));
+                for (int j = 0; j < fortune; j++) {
+                    if (rand.nextDouble() < .25) {
+                        ret.add(material.getDrops((byte) base));
                     }
                 }
             }
         }
+
         return ret;
     }
 
@@ -139,39 +120,37 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 return true;
             }
             boolean metalLeft = false;
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof TileEntityOre) {
-                TileEntityOre ore = (TileEntityOre) tileEntity;
-                int[] ores = ore.getOres();
-                int tagCount;
-                tagCount = player.getHeldItemMainhand().getEnchantmentTagList() != null ? player.getHeldItemMainhand().getEnchantmentTagList().tagCount() : 0;
-                int fortune = 0;
-                for (int i = 0; i < tagCount; i++) {
-                    NBTTagCompound compound = (NBTTagCompound) player.getHeldItemMainhand().getEnchantmentTagList().get(i);
-                    if (compound.getShort("id") == 35) {//if the enchantment is Fortune
-                        fortune = compound.getShort("lvl");
-                    }
+            int[] ores = OreSavedData.get(worldIn).getOres(pos);
+            int base = OreSavedData.get(worldIn).getBase(pos);
+            int tagCount;
+            tagCount = player.getHeldItemMainhand().getEnchantmentTagList() != null ? player.getHeldItemMainhand().getEnchantmentTagList().tagCount() : 0;
+            int fortune = 0;
+            for (int i = 0; i < tagCount; i++) {
+                NBTTagCompound compound = (NBTTagCompound) player.getHeldItemMainhand().getEnchantmentTagList().get(i);
+                if (compound.getShort("id") == 35) {//if the enchantment is Fortune
+                    fortune = compound.getShort("lvl");
                 }
-                for (int i = 0; i < 7; i++) {
-                    if (ores[i] != 0) {
-                        Material material = Material.materials.get(ores[i]);
-                        if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
-                                .getHarvestLevel(player.getHeldItemMainhand(), "pickaxe")) {
-                            worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
-                                    pos.getZ() + 0.5, material.getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
-                            for (int j = 0; j < fortune; j++) {
-                                if (RANDOM.nextDouble() < .25) {//25% chance of an extra drop
-                                    worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
-                                            pos.getZ() + 0.5, material.getDrops(ore.getBase())));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
-                                }
+            }
+            for (int i = 0; i < ores.length; i++) {
+                if (ores[i] != 0) {
+                    Material material = Material.materials.get(ores[i]);
+                    if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
+                            .getHarvestLevel(player.getHeldItemMainhand(), "pickaxe")) {
+                        worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
+                                pos.getZ() + 0.5, material.getDrops((byte) base)));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
+                        for (int j = 0; j < fortune; j++) {
+                            if (RANDOM.nextDouble() < .25) {//25% chance of an extra drop
+                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
+                                        pos.getZ() + 0.5, material.getDrops((byte) base)));//this is what actually drops the item. Note this calls the getDrops function, which can be overridden
                             }
-                            ore.setMetal(i, Material.materials.get(0));//We dropped the ore, so remove it from the block
-                        } else {
-                            metalLeft = true;
                         }
+                        ores[i] = 0;
+                    } else {
+                        metalLeft = true;
                     }
                 }
             }
+            OreSavedData.get(worldIn).setOres(pos, ores);
             willHarvest = metalLeft;
             if (!metalLeft) {//When we have removel all of the ore from the block...
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
@@ -181,33 +160,22 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
         }
         return true;
     }
-    
-    @Override
-    public Class getTileEntityClass() {
-        return TileEntityOre.class;
-    }
-    
-    @Override
-    public TileEntityOre createTileEntity(World world, IBlockState state) {
-        TileEntityOre ore = new TileEntityOre();
-        return ore;
-    }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
-    
+
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
-            IWailaConfigHandler config) {
-        TileEntityOre te = getTileEntity(accessor.getWorld(), accessor.getPosition());
-        currenttip.add("Base: " + te.getBase());
+    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        int[] ores = OreSavedData.get(accessor.getWorld()).getOres(accessor.getPosition());
+        int base = OreSavedData.get(accessor.getWorld()).getBase(accessor.getPosition());
+        currenttip.add("Base: " + base);
         EntityPlayer player = accessor.getPlayer();
         int harvest = player.getHeldItemMainhand() != null
                 ? player.getHeldItemMainhand().getItem().getHarvestLevel(player.getHeldItemMainhand(), "pickaxe") : -1;
-        for (int metal : te.getOres()) {
+        for (int metal : ores) {
             if (metal != 0) {
                 Material ore = Material.materials.get(metal);
                 TextFormatting color = TextFormatting.RED;
@@ -217,32 +185,32 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
                 currenttip.add(color + ore.getName() + "(" + ore.getHarvest() + ")");
             }
         }
-        
+
         return currenttip;
     }
-    
+
     @Override
     public void registerItemModel(Item item) {
         // void since we shouldn't have this in inventory
     }
-    
+
     @Override
     public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
         return EnumBlockRenderType.MODEL;
     }
-    
+
     @Override
     protected BlockStateContainer createBlockState() {
         IProperty[] listedProperties = new IProperty[0]; // no listed properties
         IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{BASE, ORES};
         return new ExtendedBlockState(this, listedProperties, unlistedProperties);
     }
-    
+
     @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
-        Byte base = ((TileEntityOre) world.getTileEntity(pos)).getBase();
-        int[] ores = ((TileEntityOre) world.getTileEntity(pos)).getOres();
+        int[] ores = OreSavedData.get(Minecraft.getMinecraft().theWorld).getOres(pos);
+        int base = OreSavedData.get(Minecraft.getMinecraft().theWorld).getBase(pos);
         ArrayList<Integer> oreList = new ArrayList();
         for (int i : ores) {
             if (i != 0) {
@@ -250,16 +218,16 @@ public class BlockOre extends BlockTileEntity<TileEntityOre> implements WailaInf
             }
         }
         return extendedBlockState
-                .withProperty(BASE, base)
+                .withProperty(BASE, (byte) base)
                 .withProperty(ORES, oreList.toArray(new Integer[0]));
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
         return true;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void initModel() {
         // To make sure that our baked model model is chosen for all states we use this custom state mapper:

@@ -45,7 +45,7 @@ public class OreBakedModel implements IBakedModel {
     public OreBakedModel(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         this.format = format;
         ore1 = new TextureAtlasSprite[7];
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7 || i < ore1.length; i++) {
             ore1[i] = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore" + (i + 1)));
         }
         stone = bakedTextureGetter.apply(new ResourceLocation("minecraft", "blocks/stone"));

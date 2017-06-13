@@ -6,17 +6,11 @@ import java.awt.Color;
 
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
-import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 
-public class MetalColor implements IItemColor, IBlockColor {
+public class MetalColor implements IItemColor {
 
     /**
      * Returns the colour for rendering, based on 1) the itemstack 2) the
@@ -47,7 +41,7 @@ public class MetalColor implements IItemColor, IBlockColor {
                     } else {
                         return Color.WHITE.getRGB();
                     }
-                
+
                 case 1:
                     int metadata = stack.getMetadata();
                     while (metadata >= 1000) {
@@ -55,11 +49,11 @@ public class MetalColor implements IItemColor, IBlockColor {
                     }
                     Material metal = Material.materials.get(metadata);
                     return metal.getColor();
-                
+
                 default:
                     // oops! should never get here.
                     return Color.BLACK.getRGB();
-                
+
             }
         } else {
             switch (tintIndex) {
@@ -74,35 +68,5 @@ public class MetalColor implements IItemColor, IBlockColor {
                     return Color.BLACK.getRGB();
             }
         }
-    }
-    
-    @Override
-    public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
-        if (worldIn != null && pos != null) {
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof TileEntityOre) {
-                TileEntityOre ore = (TileEntityOre) tileEntity;
-                int[] ores = ore.getOres();
-                switch (tintIndex) {
-                    case 0:
-                        return Color.WHITE.getRGB();
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                        if (ores[tintIndex - 1] != 0) {
-                            return Material.materials.get(ores[tintIndex - 1]).getColor();
-                        } else {
-                            return new Color(0, 0, 0, 0).getRGB();
-                        }
-                }
-            }
-        }
-        return Color.WHITE.getRGB();
-        
     }
 }

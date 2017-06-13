@@ -9,12 +9,12 @@ import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.Recipies;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
-import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
@@ -32,6 +32,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.ServerEvents;
+import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Proxy functions common to both the client and server side
@@ -44,6 +47,7 @@ public class CommonProxy {
     public static Configuration config;
 
     public void preInit(FMLPreInitializationEvent e) {
+        PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Channel");
         initMaterials();
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
@@ -69,8 +73,6 @@ public class CommonProxy {
         ModFluids.mainRegistry();
         ModBlocks.init();
         ModItems.init();
-        GameRegistry.registerTileEntity(TileEntityOre.class, e.getModMetadata().modId + "TileEntityOre");
-        //GameRegistry.registerWorldGenerator(generator, 3);
         Material.materials.forEach((metal) -> {
             ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
             OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
@@ -107,6 +109,7 @@ public class CommonProxy {
             OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
         });
 
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
     }
 
     public void init(FMLInitializationEvent e) {
@@ -125,7 +128,7 @@ public class CommonProxy {
     }
 
     private void initMaterials() {
-        new Material("none", "0x000000", 0);
+        new Material("none", "0x000000", -2);
         new Material("Antimony", "0xFADA5E", 0);
         new Material("Bismuth", "0xed7d92", 0);
         new Material("Cadmium", "0xed872d", 0);

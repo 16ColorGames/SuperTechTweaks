@@ -5,12 +5,11 @@ import java.util.Map;
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
-import com.sixteencolorgames.supertechtweaks.tileentities.TileEntityOre;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
@@ -72,19 +71,57 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 
     public boolean generateOre(World world, BlockPos pos) {
         if (Config.stone.contains(world.getBlockState(pos))) {
-            updateState(world, pos, (byte) 0);
-        } else if (Config.nether.contains(world.getBlockState(pos))) {
-            updateState(world, pos, (byte) -1);
-        } else if (Config.end.contains(world.getBlockState(pos))) {
-            updateState(world, pos, (byte) 1);
-        }
-        if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
-            TileEntityOre tile = (TileEntityOre) world.getTileEntity(pos);
+            ArrayList<Integer> oresAdded = new ArrayList();
             ores.forEach((Material k, Double v) -> {
                 if (world.rand.nextDouble() < v) {
-                    tile.addMetal(k);
+                    oresAdded.add(k.ordinal());
                 }
             });
+            int[] newOres = new int[oresAdded.size()];
+            for (int i = 0; i < newOres.length; i++) {
+                newOres[i] = oresAdded.get(i);
+            }
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+        } else if (Config.nether.contains(world.getBlockState(pos))) {
+            ArrayList<Integer> oresAdded = new ArrayList();
+            ores.forEach((Material k, Double v) -> {
+                if (world.rand.nextDouble() < v) {
+                    oresAdded.add(k.ordinal());
+                }
+            });
+            int[] newOres = new int[oresAdded.size()];
+            for (int i = 0; i < newOres.length; i++) {
+                newOres[i] = oresAdded.get(i);
+            }
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), -1, newOres);
+            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+        } else if (Config.end.contains(world.getBlockState(pos))) {
+            ArrayList<Integer> oresAdded = new ArrayList();
+            ores.forEach((Material k, Double v) -> {
+                if (world.rand.nextDouble() < v) {
+                    oresAdded.add(k.ordinal());
+                }
+            });
+            int[] newOres = new int[oresAdded.size()];
+            for (int i = 0; i < newOres.length; i++) {
+                newOres[i] = oresAdded.get(i);
+            }
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 1, newOres);
+            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+        } else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
+            ArrayList<Integer> oresAdded = new ArrayList();
+            ores.forEach((Material k, Double v) -> {
+                if (world.rand.nextDouble() < v) {
+                    oresAdded.add(k.ordinal());
+                }
+            });
+            int[] oldOres = OreSavedData.get(world).getOres(pos.getX(), pos.getY(), pos.getZ());
+            int[] newOres = Arrays.copyOf(oldOres, oldOres.length + oresAdded.size());
+            for (int i = 0; i < oresAdded.size(); i++) {
+                newOres[i + oldOres.length] = oresAdded.get(i);
+            }
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
         }
         return true;
     }
@@ -110,14 +147,4 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
     }
 
     abstract boolean generate(World world, Random random, BlockPos pos);
-
-    private void updateState(World world, BlockPos pos, byte b) {
-
-        world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-        TileEntity entity = world.getTileEntity(pos);
-        if (entity instanceof TileEntityOre) {
-            TileEntityOre tile = (TileEntityOre) entity;
-            tile.setBase(b);
-        }
-    }
 }
