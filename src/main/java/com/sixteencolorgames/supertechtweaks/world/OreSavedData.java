@@ -6,7 +6,6 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import java.util.Arrays;
 import java.util.HashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -45,7 +44,7 @@ public class OreSavedData extends WorldSavedData {
     public static OreSavedData get(World world) {
         // OreSavedData data = (OreSavedData) world.loadItemData(OreSavedData.class, DATA_NAME);
         // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
-        MapStorage storage = true ? world.getMapStorage() : world.getPerWorldStorage();
+        MapStorage storage = false ? world.getMapStorage() : world.getPerWorldStorage();
         OreSavedData instance = (OreSavedData) storage.getOrLoadData(OreSavedData.class, DATA_NAME);
 
         if (instance == null) {

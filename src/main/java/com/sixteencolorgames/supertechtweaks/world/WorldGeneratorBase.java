@@ -121,7 +121,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
             for (int i = 0; i < oresAdded.size(); i++) {
                 newOres[i + oldOres.length] = oresAdded.get(i);
             }
-            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
+            OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), OreSavedData.get(world).getBase(pos), newOres);
         }
         return true;
     }
