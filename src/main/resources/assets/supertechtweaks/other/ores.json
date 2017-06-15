@@ -2,12 +2,12 @@
   "hematite":{
     "generator":"vein",
     "ore":"Iron",
-    "size":5,
-    "chance":15,
+    "size":4,
+    "chance":2,
     "minHeight":32,
     "maxHeight":128,
     "properties":{
-      "branchLength":5
+      "branchLength":2
     }
   },
   "coal":{
@@ -24,7 +24,7 @@
     "maxHeight":200,
     "properties":{
       "clusterVariance":10,
-      "perChunk":8
+      "perChunk":20
     }
   },
   "diamond":{
@@ -45,7 +45,7 @@
     "maxHeight":16,
     "properties":{
       "clusterVariance":3,
-      "perChunk":2
+      "perChunk":4
     }
   },
   "gold":{
@@ -59,10 +59,10 @@
     "size":10,
     "chance":1,
     "minHeight":4,
-    "maxHeight":16,
+    "maxHeight":32,
     "properties":{
       "clusterVariance":3,
-      "perChunk":2
+      "perChunk":7
     }
   },
   "Lapis":{
@@ -78,7 +78,8 @@
     "minHeight":4,
     "maxHeight":12,
     "properties":{
-      "clusterVariance":2
+      "clusterVariance":2,
+      "perChunk":4
     }
   },
   "Redstone":{
@@ -95,7 +96,7 @@
     "maxHeight":12,
     "properties":{
       "clusterVariance":3,
-      "perChunk":2
+      "perChunk":10
     }
   },
   "Village":{

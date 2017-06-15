@@ -54,7 +54,7 @@ public class CommonProxy {
         MainCompatHandler.registerMekanism();
         File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
         config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
-        Config.readConfig();
+        Config.readConfig(configFolder);
 
         ModWorldGeneration generator = new ModWorldGeneration();
         for (File gen : configFolder.listFiles()) {
@@ -110,6 +110,8 @@ public class CommonProxy {
         });
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
+        
+        
     }
 
     public void init(FMLInitializationEvent e) {

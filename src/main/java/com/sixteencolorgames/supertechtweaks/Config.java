@@ -3,12 +3,15 @@ package com.sixteencolorgames.supertechtweaks;
 import java.util.ArrayList;
 
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
+import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {
+
+    private static final String WORLD_GEN_VANILLA = "assets/supertechtweaks/other/ores.json";
 
     private static final String CATEGORY_GENERAL = "general";
     private static final String CATEGORY_DIMENSIONS = "dimensions";
@@ -21,11 +24,12 @@ public class Config {
 
     // Call this from CommonProxy.preInit(). It will create our config if it
     // doesn't exist yet and read the values if it does exist.
-    public static void readConfig() {
+    public static void readConfig(File configFolder) {
         Configuration cfg = CommonProxy.config;
         try {
             cfg.load();
             initGeneralConfig(cfg);
+            initVanillaOres(configFolder);
         } catch (Exception e1) {
         } finally {
             if (cfg.hasChanged()) {
@@ -79,6 +83,18 @@ public class Config {
             } else {
                 end.add(Block.getBlockFromName(type).getDefaultState());
             }
+        }
+    }
+
+    private static void initVanillaOres(File configFolder) {
+        try {
+            File vanillaGen = new File(configFolder, "ores.json");
+            if (vanillaGen.createNewFile()) {
+                Utils.copyFileUsingStream(WORLD_GEN_VANILLA, vanillaGen);
+            } else if (!vanillaGen.exists()) {
+                throw new Error("Unable to create vanilla generation json.");
+            }
+        } catch (Throwable t) {
         }
     }
 }
