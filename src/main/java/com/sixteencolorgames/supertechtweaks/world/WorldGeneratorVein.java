@@ -4,7 +4,6 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.Map;
 import java.util.Random;
 
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -45,8 +44,22 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        if (rand.nextInt(chance - 1) == 0) {
-            return generateVein(worldIn, rand, position);
+        if (chance <= 1) {
+            if ((int) params.getOrDefault("perChunk", 1) <= 1) {
+                return generateVein(worldIn, rand, position);
+            } else {
+                for (int i = 0; i < (int) params.getOrDefault("perChunk", 1); i++) {
+                    return generateVein(worldIn, rand, position);
+                }
+            }
+        } else if (rand.nextInt(chance - 1) == 0) {
+            if ((int) params.getOrDefault("perChunk", 1) <= 1) {
+                return generateVein(worldIn, rand, position);
+            } else {
+                for (int i = 0; i < (int) params.getOrDefault("perChunk", 1); i++) {
+                    return generateVein(worldIn, rand, position);
+                }
+            }
         }
         return true;
     }

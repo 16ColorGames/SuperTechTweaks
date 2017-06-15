@@ -157,8 +157,15 @@ public class GenerationParser {
                 System.out.println("Invalid/missing entry for branchLength, setting to 5");
                 params.put("branchLength", 5);
             }
+            if (props.has("perChunk") && props.get("perChunk").isJsonPrimitive()) {
+                params.put("perChunk", props.get("perChunk").getAsInt());
+            } else {
+                System.out.println("Invalid/missing entry for perChunk, setting to 1");
+                params.put("perChunk", 1);
+            }
         } else {
             params.put("branchLength", 5);
+            params.put("perChunk", 1);
         }
         return new WorldGeneratorVein(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
                 array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);

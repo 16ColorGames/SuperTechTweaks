@@ -2,12 +2,13 @@
   "hematite":{
     "generator":"vein",
     "ore":"Iron",
-    "size":5,
-    "chance":5,
+    "size":4,
+    "chance":1,
     "minHeight":32,
     "maxHeight":128,
     "properties":{
-      "branchLength":5
+      "branchLength":2,
+      "perChunk":3
     }
   },
   "coal":{
@@ -59,7 +60,7 @@
     "size":10,
     "chance":1,
     "minHeight":4,
-    "maxHeight":16,
+    "maxHeight":32,
     "properties":{
       "clusterVariance":3,
       "perChunk":7
@@ -108,7 +109,7 @@
       }
     ],
     "size":4,
-    "chance":20,
+    "chance":10,
     "minHeight":12,
     "maxHeight":30,
     "properties":{
