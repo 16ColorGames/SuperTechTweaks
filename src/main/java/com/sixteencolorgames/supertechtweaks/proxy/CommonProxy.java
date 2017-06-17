@@ -250,9 +250,9 @@ public class CommonProxy {
         new Material("Paper", "0xF0EEE1", -1, _0_stone);
         new Material("Sponge", "0xD8C060", -1, _0_stone);
         new Material("Firewood", "0x000000", -1, _0_stone);
-        new Material("Slime", "0x000000", -1, _0_stone);
-        new Material("BlueSlime", "0x000000", -1, _0_stone);
-        new Material("MagmaSlime", "0x000000", -1, _0_stone);
+        new Material("Slime", 0x32CD32, -1, _0_stone);
+        new Material("BlueSlime", 0x20B2AA, -1, _0_stone);
+        new Material("MagmaSlime", 0xFF4500, -1, _0_stone);
         new Material("TreatedWood", "0x000000", -1, _0_stone);
         new Material("Cactus", "0x64F566", -1, _0_stone);
         new Material("Netherrack", "0x800000", -1, _0_stone);

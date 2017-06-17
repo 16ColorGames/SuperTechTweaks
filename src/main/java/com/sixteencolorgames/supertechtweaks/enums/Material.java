@@ -69,6 +69,14 @@ public class Material {
         this.ordinal = materials.size();
         materials.add(this);
     }
+    public Material(String name, int color, int harvest, int mine) {
+        this.name = name;
+        this.color = color;
+        this.harvest = harvest;
+        this.mine = mine;
+        this.ordinal = materials.size();
+        materials.add(this);
+    }
 
     public int getColor() {
         return color;

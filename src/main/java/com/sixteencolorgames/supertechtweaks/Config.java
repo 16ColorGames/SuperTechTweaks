@@ -21,6 +21,7 @@ public class Config {
     public static ArrayList<IBlockState> nether;
     public static ArrayList<IBlockState> end;
     public static boolean removeVanilla;
+    public static String extraDrop;
 
     // Call this from CommonProxy.preInit(). It will create our config if it
     // doesn't exist yet and read the values if it does exist.
@@ -44,6 +45,7 @@ public class Config {
         // specified there. If not it will create the value.
         removeVanilla = cfg.getBoolean("removeVanilla", CATEGORY_GENERAL, false,
                 "If vanilla generation should be removed");
+        //extraDrop = cfg.getString("extraDrop", CATEGORY_GENERAL, "null", "the name of the additional block that an ore should drop when broken.");
         // gets a string list from the config or creates one with default values
         String[] types = cfg.getStringList("stone types", CATEGORY_GENERAL,
                 new String[]{"minecraft:stone", "minecraft:stone:1", "minecraft:stone:3", "minecraft:stone:5"},

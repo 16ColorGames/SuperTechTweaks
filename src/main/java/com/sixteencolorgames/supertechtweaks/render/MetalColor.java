@@ -26,14 +26,9 @@ public class MetalColor implements IItemColor {
      */
     @Override
     public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-        // when rendering, choose the colour multiplier based on the contents
-        // we want layer 0 (the bottle glass) to be unaffected (return white as
-        // the multiplier)
-        // layer 1 will change colour depending on the contents.
-
         if (stack.getItem() == ModItems.itemOreChunk) {
             switch (tintIndex) {
-                case 0:
+                case 0://base rock
                     if (stack.getMetadata() < NETHER) {
                         return Color.GRAY.getRGB();
                     } else if (stack.getMetadata() < END) {
@@ -42,7 +37,7 @@ public class MetalColor implements IItemColor {
                         return Color.WHITE.getRGB();
                     }
 
-                case 1:
+                case 1://the actual ore piece
                     int metadata = stack.getMetadata();
                     while (metadata >= 1000) {
                         metadata -= 1000;
