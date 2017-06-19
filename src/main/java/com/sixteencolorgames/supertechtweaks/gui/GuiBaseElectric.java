@@ -21,7 +21,7 @@ public abstract class GuiBaseElectric extends GuiBase {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
@@ -31,7 +31,7 @@ public abstract class GuiBaseElectric extends GuiBase {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
@@ -41,9 +41,9 @@ public abstract class GuiBaseElectric extends GuiBase {
         }
     }
 
-    abstract int getEnergy();
+    abstract public int getEnergy();
 
-    abstract int getMaxEnergy();
+    abstract public int getMaxEnergy();
 
-    abstract int getEnergyLeftScaled(int pixels);
+    abstract public int getEnergyLeftScaled(int pixels);
 }

@@ -23,7 +23,7 @@ public abstract class TileEntityPoweredBase extends TileEntityBase implements IE
     /**
      * The optimal energy input per tick
      */
-    int energyRate;
+    protected int energyRate;
 
     public TileEntityPoweredBase(String name, int rate, int max) {
         super(name);

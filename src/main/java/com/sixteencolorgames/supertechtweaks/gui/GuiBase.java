@@ -20,7 +20,7 @@ public abstract class GuiBase extends GuiContainer {
 
     final ResourceLocation BACKGROUND;
     final InventoryPlayer playerInventory;
-    IInventory tile;
+    protected IInventory tile;
 
     public GuiBase(Container inventorySlotsIn, ResourceLocation background, InventoryPlayer playerInv, IInventory tile) {
         super(inventorySlotsIn);
@@ -30,7 +30,7 @@ public abstract class GuiBase extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(BACKGROUND);
         int i = (this.width - this.xSize) / 2;
@@ -39,7 +39,7 @@ public abstract class GuiBase extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String s = this.tile.getDisplayName().getUnformattedText();
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);//Draw tile name
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);//Draw player inventory name

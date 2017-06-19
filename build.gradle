@@ -11,6 +11,17 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
 
+
+task DeobdeobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+ 
+task DeobsourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
 version = "1.2.2"
 group= "com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod.modId" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "supertechtweaksmod"
