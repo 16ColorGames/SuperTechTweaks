@@ -22,11 +22,14 @@ public class MainCompatHandler {
     }
 
     public static void registerTiCon() {
-        TiConCompatability logic = new TiConCompatability();
-        MinecraftForge.EVENT_BUS.register(logic);
+        if (Loader.isModLoaded("tconstruct")) {
+            TiConCompatability.registerMelting();
+            TiConCompatability logic = new TiConCompatability();
+            MinecraftForge.EVENT_BUS.register(logic);
+        }
     }
-    
-    public static void registerMekanism(){
+
+    public static void registerMekanism() {
         MekanismCompat.registerRecipes();
     }
 }

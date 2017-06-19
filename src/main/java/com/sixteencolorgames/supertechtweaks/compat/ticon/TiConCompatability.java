@@ -46,8 +46,8 @@ public class TiConCompatability {
         }
     }
 
-    public static void registerMelting() {//Overrides for melting
-        for (Material ore : Material.materials) {
+    public static void registerMelting() { //Overrides for melting
+        Material.materials.forEach((ore) -> {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getName());
@@ -62,7 +62,7 @@ public class TiConCompatability {
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }
-        }
+        });
     }
 
     public static void registerAlloys() {

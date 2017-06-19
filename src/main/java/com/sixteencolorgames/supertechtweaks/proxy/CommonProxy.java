@@ -33,6 +33,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
+import com.sixteencolorgames.supertechtweaks.handlers.CustomFuelHandler;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -49,6 +50,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Channel");
         initMaterials();
+        GameRegistry.registerFuelHandler(CustomFuelHandler.getInstance());
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
         MainCompatHandler.registerMekanism();
@@ -107,11 +109,15 @@ public class CommonProxy {
             OreDictionary.registerOre("dustDirty" + metal.getName(), subItemStack);
             subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + FOIL);
             OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
+            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + TINY);
+            OreDictionary.registerOre("dustTiny" + metal.getName(), subItemStack);
+
+            if (metal.getName().equalsIgnoreCase("coal")) {
+                CustomFuelHandler.getInstance().addFuel(new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT), 20000);
+            }
         });
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
-        
-        
     }
 
     public void init(FMLInitializationEvent e) {

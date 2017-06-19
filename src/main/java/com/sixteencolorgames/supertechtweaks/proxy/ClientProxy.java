@@ -62,6 +62,8 @@ public class ClientProxy extends CommonProxy {
             "inventory");
     static ModelResourceLocation wireLocation = new ModelResourceLocation("supertechtweaks:itemWire",
             "inventory");
+    static ModelResourceLocation tinyLocation = new ModelResourceLocation("supertechtweaks:itemTinyDust",
+            "inventory");
     static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:itemBlock",
             "inventory");
 
@@ -84,6 +86,7 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
             ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
+            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + TINY, tinyLocation);
         }
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());

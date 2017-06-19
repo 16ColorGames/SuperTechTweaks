@@ -14,6 +14,7 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -36,12 +37,15 @@ public class Recipies {
                     " x ", "xyx", " x ", 'x', "ingot" + ore.getName(), 'y', "nugget" + ore.getName()));//Craft a gear
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT),
                     "xxx", "xxx", "xxx", 'x', "nugget" + ore.getName()));//Craft nuggets into an ingot
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST),
+                    "xxx", "xxx", "xxx", 'x', "dustTiny" + ore.getName()));//Craft nuggets into an ingot
 //            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.blockMaterial.get(ore)),
 //                    "xxx", "xxx", "xxx", 'x', "ingot" + ore.getName()));//Craft ingots into a block
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 4, ore.ordinal() + ROD),
                     "x", "x", 'x', "ingot" + ore.getName()));//Craft ingots into a rod
 
             GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
+            GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + TINY), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST));//Craft dust into dust
             // GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.blockMaterial.get(ore)));//Craft blocks into ingots
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + WIRE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), "craftingToolWireCutter")); //Craft plates into wires
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), "craftingToolForgeHammer")); //Craft ingot into plate
@@ -50,7 +54,9 @@ public class Recipies {
         //addAlloys();
         registerAlloys();
 
-        TiConCompatability.registerMelting();
+        if (Loader.isModLoaded("tconstruct")) {
+            TiConCompatability.registerMelting();
+        }
     }
 
     private static void addAlloys() {
@@ -90,7 +96,9 @@ public class Recipies {
     }
 
     private static void registerAlloys() {
-        TiConCompatability.registerAlloys();
+        if (Loader.isModLoaded("tconstruct")) {
+            TiConCompatability.registerAlloys();
+        }
         for (Alloy alloy : Alloy.alloys) {
             if (alloy.getInCount() <= 9) {
 
