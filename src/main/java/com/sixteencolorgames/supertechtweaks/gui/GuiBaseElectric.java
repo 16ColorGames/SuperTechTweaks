@@ -5,6 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.gui;
 
+import java.util.ArrayList;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -36,8 +37,9 @@ public abstract class GuiBaseElectric extends GuiBase {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         if (mouseX - i > 9 && mouseX - i < 24 && mouseY > j + 18 && mouseY < j + 66) {
-            String s = getEnergy() + "/" + getMaxEnergy();
-            this.fontRendererObj.drawString(s, mouseX - i, mouseY - j-10, 4210752);//Draw tile name
+            ArrayList list = new ArrayList();
+            list.add(getEnergy() + "/" + getMaxEnergy()+" RF");
+            this.drawHoveringText(list, mouseX - i, mouseY - j);
         }
     }
 

@@ -21,6 +21,7 @@ public abstract class GuiBase extends GuiContainer {
     final ResourceLocation BACKGROUND;
     final InventoryPlayer playerInventory;
     protected IInventory tile;
+    private final static int LINE_HEIGHT = 11;
 
     public GuiBase(Container inventorySlotsIn, ResourceLocation background, InventoryPlayer playerInv, IInventory tile) {
         super(inventorySlotsIn);
@@ -44,4 +45,5 @@ public abstract class GuiBase extends GuiContainer {
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);//Draw tile name
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);//Draw player inventory name
     }
+
 }
