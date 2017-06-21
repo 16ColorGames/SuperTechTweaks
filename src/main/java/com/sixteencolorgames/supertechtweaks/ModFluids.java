@@ -45,7 +45,7 @@ public class ModFluids {
         });
     }
 
-    private static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon, Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory, Material ore) {
+    public static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon, Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory, Material ore) {
         System.out.println("Creating Fluid: " + name);
         final String texturePrefix = SuperTechTweaksMod.MODID + ":" + "blocks/fluid_";
 

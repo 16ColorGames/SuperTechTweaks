@@ -31,7 +31,7 @@ public class MainCompatHandler {
     }
 
     public static void registerMineTweaker() {
-        if (Loader.isModLoaded("crafttweaker")) {
+        if (Loader.isModLoaded("MineTweaker3")) {
             CraftTweaker.instance.register();
         }
     }

@@ -71,25 +71,29 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
         for (Material metal : Material.materials) {
-            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
-            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
-            ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + INGOT, ingotLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DUST, dustLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + GEAR, gearLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + NUGGET, nuggetLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + ROD, rodLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CLUMP, clumpLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CRYSTAL, crystalLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
-            ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + TINY, tinyLocation);
+            registerModels(metal);
         }
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
+    }
+
+    public static void registerModels(Material metal) {
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + INGOT, ingotLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DUST, dustLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + GEAR, gearLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + NUGGET, nuggetLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + ROD, rodLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CLUMP, clumpLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CRYSTAL, crystalLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + TINY, tinyLocation);
     }
 
     @Override

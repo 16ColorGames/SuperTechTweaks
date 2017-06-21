@@ -76,41 +76,7 @@ public class CommonProxy {
         ModBlocks.init();
         ModItems.init();
         Material.materials.forEach((metal) -> {
-            ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
-            OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + NETHER);
-            OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
-            OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
-
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT);
-            OreDictionary.registerOre("ingot" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DUST);
-            OreDictionary.registerOre("dust" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + GEAR);
-            OreDictionary.registerOre("gear" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + NUGGET);
-            OreDictionary.registerOre("nugget" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + PLATE);
-            OreDictionary.registerOre("plate" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + ROD);
-            OreDictionary.registerOre("rod" + metal.getName(), subItemStack);
-            OreDictionary.registerOre("stick" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CLUMP);
-            OreDictionary.registerOre("clump" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CRYSTAL);
-            OreDictionary.registerOre("crystal" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + SHARD);
-            OreDictionary.registerOre("shard" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + WIRE);
-            OreDictionary.registerOre("wire" + metal.getName(), subItemStack);
-            OreDictionary.registerOre("cable" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DIRTY);
-            OreDictionary.registerOre("dustDirty" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + FOIL);
-            OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
-            subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + TINY);
-            OreDictionary.registerOre("dustTiny" + metal.getName(), subItemStack);
+            registerOreDict(metal);
 
             if (metal.getName().equalsIgnoreCase("coal")) {
                 CustomFuelHandler.getInstance().addFuel(new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT), 20000);
@@ -129,6 +95,7 @@ public class CommonProxy {
             config.save();
         }
         Recipies.addRecipies();
+        MainCompatHandler.registerMineTweaker();
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {
@@ -345,5 +312,43 @@ public class CommonProxy {
         };
         new Material("Invar", "0xD0C0B3", 3);
         new Material("Nichrome", "0x858F80", 3);
+    }
+
+    public static void registerOreDict(Material metal) {
+        ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
+        OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + NETHER);
+        OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
+        OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
+
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT);
+        OreDictionary.registerOre("ingot" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DUST);
+        OreDictionary.registerOre("dust" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + GEAR);
+        OreDictionary.registerOre("gear" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + NUGGET);
+        OreDictionary.registerOre("nugget" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + PLATE);
+        OreDictionary.registerOre("plate" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + ROD);
+        OreDictionary.registerOre("rod" + metal.getName(), subItemStack);
+        OreDictionary.registerOre("stick" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CLUMP);
+        OreDictionary.registerOre("clump" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + CRYSTAL);
+        OreDictionary.registerOre("crystal" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + SHARD);
+        OreDictionary.registerOre("shard" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + WIRE);
+        OreDictionary.registerOre("wire" + metal.getName(), subItemStack);
+        OreDictionary.registerOre("cable" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DIRTY);
+        OreDictionary.registerOre("dustDirty" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + FOIL);
+        OreDictionary.registerOre("foil" + metal.getName(), subItemStack);
+        subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + TINY);
+        OreDictionary.registerOre("dustTiny" + metal.getName(), subItemStack);
     }
 }

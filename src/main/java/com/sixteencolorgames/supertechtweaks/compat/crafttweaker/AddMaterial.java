@@ -5,8 +5,15 @@
  */
 package com.sixteencolorgames.supertechtweaks.compat.crafttweaker;
 
+import com.sixteencolorgames.supertechtweaks.ModFluids;
+import com.sixteencolorgames.supertechtweaks.Recipies;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 import minetweaker.IUndoableAction;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialLiquid;
+import net.minecraftforge.fluids.BlockFluidClassic;
 
 /**
  *
@@ -26,7 +33,14 @@ public class AddMaterial implements IUndoableAction {
 
     @Override
     public void apply() {
-        new Material(name, color, harvest);
+        Material mat = new Material(name, color, harvest);
+        ModFluids.createFluid(mat.getName().toLowerCase(), false,
+                    fluid -> fluid.setLuminosity(10).setDensity(800).setViscosity(300),
+                    fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.PURPLE)),
+                    mat);
+        Recipies.register(mat);
+        CommonProxy.registerOreDict(mat);
+        ClientProxy.registerModels(mat);
     }
 
     @Override

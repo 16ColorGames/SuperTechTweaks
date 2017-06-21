@@ -20,10 +20,12 @@ public class CraftTweaker {
 
     public void register() {
         MineTweakerAPI.registerClass(this.getClass());
+        System.out.println("Registered ZenScript for supertech");
     }
 
     @ZenMethod
     public static void addMaterial(String name, String color, int harvest) {
         MineTweakerAPI.apply(new AddMaterial(name, color, harvest));
+       System.out.println("Adding new material");
     }
 }
