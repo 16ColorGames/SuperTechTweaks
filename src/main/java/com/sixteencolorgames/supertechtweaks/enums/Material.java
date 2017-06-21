@@ -16,9 +16,9 @@ import net.minecraft.item.ItemStack;
  * @author oa10712
  */
 public class Material {
-
+    
     public static ArrayList<Material> materials = new ArrayList();
-
+    
     public static Material getMaterial(String asString) {
         for (Material mat : materials) {
             if (mat.getName().equalsIgnoreCase(asString)) {
@@ -27,9 +27,15 @@ public class Material {
         }
         return materials.get(0);
     }
-
+    
     public static Material getMaterial(int index) {
         return materials.get(index);
+    }
+    
+    public static void remove(String name) {
+        materials.stream().filter((m) -> (m.name.equals(name))).forEachOrdered((m) -> {
+            materials.remove(m);
+        });
     }
 
     /**
@@ -48,7 +54,7 @@ public class Material {
      * Level that a tool made of this can mine
      */
     private int mine;
-
+    
     private int ordinal;
 
     /**
@@ -60,7 +66,7 @@ public class Material {
     public Material(String name, String color, int harvest) {
         this(name, color, harvest, -1);
     }
-
+    
     public Material(String name, String color, int harvest, int mine) {
         this.name = name;
         this.color = Color.decode(color).getRGB();
@@ -69,6 +75,7 @@ public class Material {
         this.ordinal = materials.size();
         materials.add(this);
     }
+
     public Material(String name, int color, int harvest, int mine) {
         this.name = name;
         this.color = color;
@@ -77,23 +84,23 @@ public class Material {
         this.ordinal = materials.size();
         materials.add(this);
     }
-
+    
     public int getColor() {
         return color;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public int getHarvest() {
         return harvest;
     }
-
+    
     public int getMine() {
         return mine;
     }
-
+    
     public ItemStack getDrops(byte base) {
         switch (base) {//Switch based on base block
             case -1://NetherRack and similar
@@ -104,7 +111,7 @@ public class Material {
                 return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal());
         }
     }
-
+    
     public int ordinal() {
         return ordinal;
     }

@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.compat;
 
+import com.sixteencolorgames.supertechtweaks.compat.crafttweaker.CraftTweaker;
 import com.sixteencolorgames.supertechtweaks.compat.mekanism.MekanismCompat;
 import com.sixteencolorgames.supertechtweaks.compat.ticon.TiConCompatability;
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaCompatibility;
@@ -26,6 +27,12 @@ public class MainCompatHandler {
             TiConCompatability.registerMelting();
             TiConCompatability logic = new TiConCompatability();
             MinecraftForge.EVENT_BUS.register(logic);
+        }
+    }
+
+    public static void registerMineTweaker() {
+        if (Loader.isModLoaded("crafttweaker")) {
+            CraftTweaker.instance.register();
         }
     }
 
