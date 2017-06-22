@@ -50,6 +50,7 @@ public class ItemMaterialObject extends ItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+
         for (Material metal : Material.materials) {
             ItemStack subItemStack = new ItemStack(itemIn, 1, metal.ordinal() + INGOT);
             subItems.add(subItemStack);
@@ -84,43 +85,43 @@ public class ItemMaterialObject extends ItemBase {
     public String getUnlocalizedName(ItemStack stack) {
         int metadata = stack.getMetadata();
         if (metadata >= TINY) {
-            return super.getUnlocalizedName() + ".dustTiny" + Material.materials.get(metadata - TINY).getName();
+            return super.getUnlocalizedName() + ".dustTiny" + Material.getMaterial(metadata - TINY).getName();
         }
         if (metadata >= FOIL) {
-            return super.getUnlocalizedName() + ".foil" + Material.materials.get(metadata - FOIL).getName();
+            return super.getUnlocalizedName() + ".foil" + Material.getMaterial(metadata - FOIL).getName();
         }
         if (metadata >= DIRTY) {
-            return super.getUnlocalizedName() + ".dustDirty" + Material.materials.get(metadata - DIRTY).getName();
+            return super.getUnlocalizedName() + ".dustDirty" + Material.getMaterial(metadata - DIRTY).getName();
         }
         if (metadata >= WIRE) {
-            return super.getUnlocalizedName() + ".wire" + Material.materials.get(metadata - WIRE).getName();
+            return super.getUnlocalizedName() + ".wire" + Material.getMaterial(metadata - WIRE).getName();
         }
         if (metadata >= SHARD) {
-            return super.getUnlocalizedName() + ".shard" + Material.materials.get(metadata - SHARD).getName();
+            return super.getUnlocalizedName() + ".shard" + Material.getMaterial(metadata - SHARD).getName();
         }
         if (metadata >= CRYSTAL) {
-            return super.getUnlocalizedName() + ".crystal" + Material.materials.get(metadata - CRYSTAL).getName();
+            return super.getUnlocalizedName() + ".crystal" + Material.getMaterial(metadata - CRYSTAL).getName();
         }
         if (metadata >= CLUMP) {
-            return super.getUnlocalizedName() + ".clump" + Material.materials.get(metadata - CLUMP).getName();
+            return super.getUnlocalizedName() + ".clump" + Material.getMaterial(metadata - CLUMP).getName();
         }
         if (metadata >= ROD) {
-            return super.getUnlocalizedName() + ".rod" + Material.materials.get(metadata - ROD).getName();
+            return super.getUnlocalizedName() + ".rod" + Material.getMaterial(metadata - ROD).getName();
         }
         if (metadata >= PLATE) {
-            return super.getUnlocalizedName() + ".plate" + Material.materials.get(metadata - PLATE).getName();
+            return super.getUnlocalizedName() + ".plate" + Material.getMaterial(metadata - PLATE).getName();
         }
         if (metadata >= NUGGET) {
-            return super.getUnlocalizedName() + ".nugget" + Material.materials.get(metadata - NUGGET).getName();
+            return super.getUnlocalizedName() + ".nugget" + Material.getMaterial(metadata - NUGGET).getName();
         }
         if (metadata >= GEAR) {
-            return super.getUnlocalizedName() + ".gear" + Material.materials.get(metadata - GEAR).getName();
+            return super.getUnlocalizedName() + ".gear" + Material.getMaterial(metadata - GEAR).getName();
         }
         if (metadata >= DUST) {
-            return super.getUnlocalizedName() + ".dust" + Material.materials.get(metadata - DUST).getName();
+            return super.getUnlocalizedName() + ".dust" + Material.getMaterial(metadata - DUST).getName();
         }
         if (metadata >= INGOT) {
-            return super.getUnlocalizedName() + ".ingot" + Material.materials.get(metadata - INGOT).getName();
+            return super.getUnlocalizedName() + ".ingot" + Material.getMaterial(metadata - INGOT).getName();
         }
         return super.getUnlocalizedName() + ".ERROR_" + metadata;//We somehow got a material outside of the preset types
     }

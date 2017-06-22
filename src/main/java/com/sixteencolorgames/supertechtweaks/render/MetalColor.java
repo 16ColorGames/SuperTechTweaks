@@ -26,42 +26,46 @@ public class MetalColor implements IItemColor {
      */
     @Override
     public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-        if (stack.getItem() == ModItems.itemOreChunk) {
-            switch (tintIndex) {
-                case 0://base rock
-                    if (stack.getMetadata() < NETHER) {
-                        return Color.GRAY.getRGB();
-                    } else if (stack.getMetadata() < END) {
-                        return Color.RED.darker().getRGB();
-                    } else {
-                        return Color.WHITE.getRGB();
-                    }
+        try {
+            if (stack.getItem() == ModItems.itemOreChunk) {
+                switch (tintIndex) {
+                    case 0://base rock
+                        if (stack.getMetadata() < NETHER) {
+                            return Color.GRAY.getRGB();
+                        } else if (stack.getMetadata() < END) {
+                            return Color.RED.darker().getRGB();
+                        } else {
+                            return Color.WHITE.getRGB();
+                        }
 
-                case 1://the actual ore piece
-                    int metadata = stack.getMetadata();
-                    while (metadata >= 1000) {
-                        metadata -= 1000;
-                    }
-                    Material metal = Material.materials.get(metadata);
-                    return metal.getColor();
+                    case 1://the actual ore piece
+                        int metadata = stack.getMetadata();
+                        while (metadata >= 1000) {
+                            metadata -= 1000;
+                        }
+                        Material metal = Material.getMaterial(metadata);
+                        return metal.getColor();
 
-                default:
-                    // oops! should never get here.
-                    return Color.BLACK.getRGB();
+                    default:
+                        // oops! should never get here.
+                        return Color.BLACK.getRGB();
 
+                }
+            } else {
+                switch (tintIndex) {
+                    case 0:
+                        int metadata = stack.getMetadata();
+                        while (metadata >= 1000) {
+                            metadata -= 1000;
+                        }
+                        Material metal = Material.getMaterial(metadata);
+                        return metal.getColor();
+                    default:
+                        return Color.BLACK.getRGB();
+                }
             }
-        } else {
-            switch (tintIndex) {
-                case 0:
-                    int metadata = stack.getMetadata();
-                    while (metadata >= 1000) {
-                        metadata -= 1000;
-                    }
-                    Material metal = Material.materials.get(metadata);
-                    return metal.getColor();
-                default:
-                    return Color.BLACK.getRGB();
-            }
+        } catch (Exception ex) {
+            return Color.BLACK.getRGB();
         }
     }
 }

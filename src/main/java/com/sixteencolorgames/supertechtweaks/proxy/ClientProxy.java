@@ -70,30 +70,30 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-        for (Material metal : Material.materials) {
-            registerModels(metal);
+        for (int i = 0; i < 200; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
+            registerModels(i);
         }
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
     }
 
-    public static void registerModels(Material metal) {
-        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal(), chunkLocation);
-        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + NETHER, chunkLocation);
-        ModelLoader.setCustomModelResourceLocation(itemOreChunk, metal.ordinal() + END, chunkLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + INGOT, ingotLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DUST, dustLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + GEAR, gearLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + NUGGET, nuggetLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + PLATE, plateLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + ROD, rodLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CLUMP, clumpLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + CRYSTAL, crystalLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + SHARD, shardLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + WIRE, wireLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + DIRTY, dustLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + FOIL, foilLocation);
-        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, metal.ordinal() + TINY, tinyLocation);
+    public static void registerModels(int ordinal) {
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, ordinal, chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, ordinal + NETHER, chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemOreChunk, ordinal + END, chunkLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + INGOT, ingotLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + DUST, dustLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + GEAR, gearLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + NUGGET, nuggetLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + PLATE, plateLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + ROD, rodLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + CLUMP, clumpLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + CRYSTAL, crystalLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + SHARD, shardLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + WIRE, wireLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + DIRTY, dustLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + FOIL, foilLocation);
+        ModelLoader.setCustomModelResourceLocation(itemMaterialObject, ordinal + TINY, tinyLocation);
     }
 
     @Override

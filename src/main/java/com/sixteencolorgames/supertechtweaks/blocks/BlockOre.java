@@ -88,7 +88,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
         for (int i = 0; i < ores.length; i++) {
             if (ores[i] != 0) {
-                Material material = Material.materials.get(ores[i]);
+                Material material = Material.getMaterial(ores[i]);
                 ret.add(material.getDrops((byte) base));
                 for (int j = 0; j < fortune; j++) {
                     if (rand.nextDouble() < .25) {
@@ -133,7 +133,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
             }
             for (int i = 0; i < ores.length; i++) {
                 if (ores[i] != 0) {
-                    Material material = Material.materials.get(ores[i]);
+                    Material material = Material.getMaterial(ores[i]);
                     if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
                             .getHarvestLevel(player.getHeldItemMainhand(), "pickaxe")) {
                         worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(),
@@ -177,7 +177,7 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
                 ? player.getHeldItemMainhand().getItem().getHarvestLevel(player.getHeldItemMainhand(), "pickaxe") : -1;
         for (int metal : ores) {
             if (metal != 0) {
-                Material ore = Material.materials.get(metal);
+                Material ore = Material.getMaterial(metal);
                 TextFormatting color = TextFormatting.RED;
                 if (harvest >= ore.getHarvest()) {
                     color = TextFormatting.GREEN;
