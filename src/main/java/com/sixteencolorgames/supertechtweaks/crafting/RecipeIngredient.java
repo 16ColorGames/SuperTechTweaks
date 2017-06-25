@@ -6,7 +6,9 @@
 package com.sixteencolorgames.supertechtweaks.crafting;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -18,7 +20,13 @@ public class RecipeIngredient {
 
     List<ItemStack> items = new ArrayList();
     String ore;
-    int quantity = 1;
+
+    /**
+     * This one is used for placeholder slots.
+     */
+    public RecipeIngredient() {
+
+    }
 
     public RecipeIngredient(ItemStack item) {
         items.add(item);
@@ -35,7 +43,6 @@ public class RecipeIngredient {
 
     public RecipeIngredient(String ore, int amount) {
         this(OreDictionary.getOres(ore), amount);
-        quantity = amount;
     }
 
     public RecipeIngredient(List<ItemStack> list) {
@@ -49,14 +56,16 @@ public class RecipeIngredient {
             stack.stackSize = amount;
             items.add(stack);
         });
-        quantity = amount;
     }
 
     public boolean matches(Object o) {
+        if (items.isEmpty()) {
+            return true;
+        }
         if (o instanceof ItemStack) {
             ItemStack stack = (ItemStack) o;
             for (ItemStack saved : items) {
-                if (saved.getItem() == stack.getItem() && saved.getMetadata() == stack.getMetadata() && stack.stackSize >= quantity) {
+                if (saved.getItem() == stack.getItem() && saved.getMetadata() == stack.getMetadata() && stack.stackSize >= saved.stackSize) {
                     return true;
                 }
             }
@@ -64,11 +73,25 @@ public class RecipeIngredient {
         return false;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public ItemStack getMatch(Object o) {
+        if (o instanceof ItemStack) {
+            ItemStack stack = (ItemStack) o;
+            if (items.isEmpty()) {
+                return new ItemStack(Blocks.AIR, 0);
+            }
+            for (ItemStack saved : items) {
+                if (saved.getItem() == stack.getItem() && saved.getMetadata() == stack.getMetadata() && stack.stackSize >= saved.stackSize) {
+                    return saved;
+                }
+            }
+        }
+        return null;
     }
 
     public List<ItemStack> getExamples() {
+        if (items.isEmpty()) {
+            return Collections.singletonList(new ItemStack(Blocks.AIR, 0));
+        }
         return items;
     }
 }
