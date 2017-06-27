@@ -5,18 +5,15 @@ import com.sixteencolorgames.supertechtweaks.ModItems;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -73,6 +70,7 @@ public class ClientProxy extends CommonProxy {
         for (int i = 0; i < 200; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
             registerModels(i);
         }
+        ModItems.itemTechComponent.registerModels();
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
     }

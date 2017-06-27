@@ -78,6 +78,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     deobfCompile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4"
+    deobfCompile "mezz.jei:jei_${version_minecraft}:${jei_version}:api"
 	
     deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.1.4.+"
     deobfCompile "slimeknights:TConstruct:1.10.2-2.6.3.500"

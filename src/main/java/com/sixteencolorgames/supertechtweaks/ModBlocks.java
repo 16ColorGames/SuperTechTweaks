@@ -31,12 +31,6 @@ public class ModBlocks {
     public static void init() {
         blockMaterial = new HashMap();
         blockOre = register(new BlockOre());
-        int count = 0;
-//        for (Ores ore : Ores.values()) {
-//            BlockMaterial register = register(new BlockMaterial(ore));
-//            OreDictionary.registerOre("block" + ore.getName(), register);
-//            blockMaterial.put(ore, register);
-//        }
     }
 
     /**
@@ -94,4 +88,5 @@ public class ModBlocks {
     public static void initItemModels() {
         //   blockOre.initItemModel();
     }
+
 }

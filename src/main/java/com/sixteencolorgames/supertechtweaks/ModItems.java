@@ -3,6 +3,7 @@ package com.sixteencolorgames.supertechtweaks;
 import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -17,6 +18,7 @@ public class ModItems {
 
     public static ItemOreChunk itemOreChunk;
     public static ItemMaterialObject itemMaterialObject;
+    public static ItemTechComponent itemTechComponent;
 
     /**
      * Registers an item and its model with forge
@@ -40,6 +42,8 @@ public class ModItems {
     public static void init() {
         itemOreChunk = register(new ItemOreChunk());
         itemMaterialObject = register(new ItemMaterialObject());
+        itemTechComponent = register(new ItemTechComponent());
+        itemTechComponent.setupDictionary();
     }
 
 }

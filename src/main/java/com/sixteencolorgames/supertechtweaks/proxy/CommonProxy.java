@@ -84,6 +84,7 @@ public class CommonProxy {
         });
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
+        
     }
 
     public void init(FMLInitializationEvent e) {
