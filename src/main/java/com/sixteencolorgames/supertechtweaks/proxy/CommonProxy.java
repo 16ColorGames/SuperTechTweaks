@@ -95,8 +95,8 @@ public class CommonProxy {
         if (config.hasChanged()) {
             config.save();
         }
-        Recipies.addRecipies();
         MainCompatHandler.registerMineTweaker();
+        Recipies.addRecipies();
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {

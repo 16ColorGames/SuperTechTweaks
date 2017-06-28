@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /**
  *
@@ -59,6 +60,21 @@ public class TiConCompatability {
                 TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + NUGGET), fluid, 16);
                 TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), fluid, 288);
                 TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + ItemOreChunk.NETHER), fluid, 576);
+            } catch (Exception ex) {
+                System.out.println("Failed to add melting.");
+            }
+        });
+    }
+    
+    public static void registerCasting(){
+                Material.materials.forEach((ore) -> {
+            try {
+                Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
+                System.out.println("Attempting to add casting for " + ore.getName() + ": " + fluid.getName());
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+INGOT), TinkerSmeltery.castIngot, fluid, 144);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+NUGGET), TinkerSmeltery.castNugget, fluid, 16);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+GEAR), TinkerSmeltery.castGear, fluid, 576);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+PLATE), TinkerSmeltery.castPlate, fluid, 144);
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }

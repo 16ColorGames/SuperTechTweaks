@@ -39,11 +39,9 @@ public class ItemTechComponent extends ItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        subItems.add(new ItemStack(itemIn, 1, 0));
-        subItems.add(new ItemStack(itemIn, 1, 1));
-        subItems.add(new ItemStack(itemIn, 1, 2));
-        subItems.add(new ItemStack(itemIn, 1, 3));
-        subItems.add(new ItemStack(itemIn, 1, 4));
+        for (int i = 0; i < 7; i++) {
+            subItems.add(new ItemStack(itemIn, 1, i));
+        }
     }
 
     @Override
@@ -60,6 +58,10 @@ public class ItemTechComponent extends ItemBase {
                 return super.getUnlocalizedName() + ".circuitUltimate";
             case 4:
                 return super.getUnlocalizedName() + ".casingBasic";
+            case 5:
+                return super.getUnlocalizedName() + ".powerUnitSmall";
+            case 6:
+                return super.getUnlocalizedName() + ".heatingElement";
             default:
                 return super.getUnlocalizedName();
         }
@@ -76,6 +78,10 @@ public class ItemTechComponent extends ItemBase {
                 "inventory"));
         ModelLoader.setCustomModelResourceLocation(itemTechComponent, 4, new ModelResourceLocation("supertechtweaks:itemCasingBasic",
                 "inventory"));
+        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 5, new ModelResourceLocation("supertechtweaks:itemPowerUnitSmall",
+                "inventory"));
+        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 6, new ModelResourceLocation("supertechtweaks:itemHeatingElement",
+                "inventory"));
     }
 
     public void setupDictionary() {
@@ -84,5 +90,7 @@ public class ItemTechComponent extends ItemBase {
         OreDictionary.registerOre("circuitElite", new ItemStack(itemTechComponent, 1, 2));
         OreDictionary.registerOre("circuitUltimate", new ItemStack(itemTechComponent, 1, 3));
         OreDictionary.registerOre("casingBasic", new ItemStack(itemTechComponent, 1, 4));
+        OreDictionary.registerOre("powerUnitSmall", new ItemStack(itemTechComponent, 1, 5));
+        OreDictionary.registerOre("heatingElement", new ItemStack(itemTechComponent, 1, 6));
     }
 }

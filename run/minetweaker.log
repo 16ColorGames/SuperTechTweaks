@@ -2,5 +2,3 @@
 [AVAILABLE][CLIENT][INFO] MineTweaker: Sucessfully built item registry
 [SERVER_ABOUT_TO_START][SERVER][INFO] Adding command minetweaker
 [SERVER_ABOUT_TO_START][SERVER][INFO] Adding new material type: Test
-[SERVER_STOPPING][SERVER][INFO] Server stopping, Scripts are being rolled back!
-[SERVER_STOPPING][SERVER][INFO] Removing new material type: Test

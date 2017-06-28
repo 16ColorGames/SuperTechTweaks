@@ -2,6 +2,6 @@
     "parent": "block/cube_column",
     "textures": {
         "side": "supertechtweaks:items/casingBasic",
-		"end": "blocks:blocks/iron_block"
+		"end": "blocks/iron_block"
     }
 }

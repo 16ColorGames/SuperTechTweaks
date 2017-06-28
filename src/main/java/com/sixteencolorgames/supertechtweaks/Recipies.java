@@ -31,15 +31,27 @@ public class Recipies {
             //Iterate through each material and create recipies for each
             register(ore);
         });
-        //addAlloys();
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 4),
+                "zxz", "xyx", "zxz", 'x', "barsIron", 'y', "powerUnitSmall", 'z', "ingotIron"));//Craft a basic casing
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 5),
+                "x x", "yxy", "   ", 'x', "plateIron", 'y', "wireCopper"));//Craft a small power unit
+        
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 6),
+                "xxx", "xyx", "xxx", 'x', "wireNichrome", 'y', "plateCopper"));//Craft a heating element
+
+        addAlloys();
         registerAlloys();
 
         if (Loader.isModLoaded("tconstruct")) {
             TiConCompatability.registerMelting();
+            TiConCompatability.registerCasting();
         }
     }
 
     private static void addAlloys() {
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nichrome"), 5), new AlloyElement(Material.getMaterial("Nickel"), 4), new AlloyElement(Material.getMaterial("Chromium"), 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Electrum"), 2), new AlloyElement(Material.getMaterial("Silver"), 1), new AlloyElement(Material.getMaterial("Gold"), 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("AluBrass"), 4), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Material.getMaterial("Aluminum"), 3)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Brass"), 3), new AlloyElement(Material.getMaterial("Copper"), 2), new AlloyElement(Material.getMaterial("Zinc"), 1)));
@@ -137,8 +149,8 @@ public class Recipies {
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + TINY), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST));//Craft dust into dust
         // GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.blockMaterial.get(ore)));//Craft blocks into ingots
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + WIRE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), "craftingToolWireCutter")); //Craft plates into wires
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), "craftingToolForgeHammer")); //Craft ingot into plate
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + WIRE), "plate" + ore.getName(), "craftingToolWireCutter")); //Craft plates into wires
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), "ingot" + ore.getName(), "craftingToolForgeHammer")); //Craft ingot into plate
     }
 
 }
