@@ -51,7 +51,10 @@ public class Recipies {
     }
 
     private static void addAlloys() {
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Signalum"), 4), new AlloyElement(Material.getMaterial("Copper"), 3), new AlloyElement(Material.getMaterial("Silver"), 1), new AlloyElement(Material.getMaterial("Redstone"), 8)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Nichrome"), 5), new AlloyElement(Material.getMaterial("Nickel"), 4), new AlloyElement(Material.getMaterial("Chromium"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Osmiridium"), 2), new AlloyElement(Material.getMaterial("Osmium"), 1), new AlloyElement(Material.getMaterial("Iridium"), 1)));
+        Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("StainlessSteel"), 5), new AlloyElement(Material.getMaterial("Steel"), 4), new AlloyElement(Material.getMaterial("Chromium"), 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Electrum"), 2), new AlloyElement(Material.getMaterial("Silver"), 1), new AlloyElement(Material.getMaterial("Gold"), 1)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("AluBrass"), 4), new AlloyElement(Material.getMaterial("Copper"), 1), new AlloyElement(Material.getMaterial("Aluminum"), 3)));
         Alloy.alloys.add(new Alloy(new AlloyElement(Material.getMaterial("Brass"), 3), new AlloyElement(Material.getMaterial("Copper"), 2), new AlloyElement(Material.getMaterial("Zinc"), 1)));

@@ -5,6 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.network;
 
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
  * @author oa10712
  */
 public class PacketHandler {
+
     private static int packetId = 0;
 
     public static SimpleNetworkWrapper INSTANCE = null;
@@ -32,6 +34,8 @@ public class PacketHandler {
 
     public static void registerMessages() {
         // Register messages which are sent from the client to the server here:
-        INSTANCE.registerMessage(UpdateOresPacket.Handler.class, UpdateOresPacket.class, nextID(), Side.CLIENT);
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            INSTANCE.registerMessage(UpdateOresPacket.Handler.class, UpdateOresPacket.class, nextID(), Side.CLIENT);
+        }
     }
 }

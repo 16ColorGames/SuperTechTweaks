@@ -313,6 +313,9 @@ public class CommonProxy {
         };
         new Material("Invar", "0xD0C0B3", 3);
         new Material("Nichrome", "0x858F80", 3);
+        new Material("Osmiridium", "0x191970", 7);
+        new Material("Signalum", "0x800000", 7);
+        new Material("StainlessSteel", "0x800000", 2);
     }
 
     public static void registerOreDict(Material metal) {
