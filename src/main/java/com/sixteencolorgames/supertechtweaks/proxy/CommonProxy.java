@@ -35,9 +35,6 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.handlers.CustomFuelHandler;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -227,7 +224,7 @@ public abstract class CommonProxy {
         new Material("Basalt", "0x202A29", 2, _0_stone);
         new Material("Paper", "0xF0EEE1", -1, _0_stone);
         new Material("Sponge", "0xD8C060", -1, _0_stone);
-        new Material("Firewood", "0x000000", -1, _0_stone);
+        new Material("Firewood", "0x8B0000", -1, _0_stone);
         new Material("Slime", 0x32CD32, -1, _0_stone);
         new Material("BlueSlime", 0x20B2AA, -1, _0_stone);
         new Material("MagmaSlime", 0xFF4500, -1, _0_stone);
@@ -266,13 +263,13 @@ public abstract class CommonProxy {
             }
         };
         new Material("Adamantine", "0xb30000", 8, 9);
-        new Material("Terrax", "0x000000", 4, 5);
-        new Material("Karmesine", "0x000000", 4);
-        new Material("Ovium", "0x000000", 4);
-        new Material("Jauxum", "0x000000", 4);
-        new Material("Aurorium", "0x000000", 4, 5);
+        new Material("Terrax", "0xA9A9A9", 4, 5);
+        new Material("Karmesine", "0xC71585", 4);
+        new Material("Ovium", "0x8A2BE2", 4);
+        new Material("Jauxum", "0x7FFF00", 4);
+        new Material("Aurorium", "0xFFC0CB", 4, 5);
         new Material("Tiberium", "0xD4FF00", 2, 3);
-        new Material("Dilithium", "0x000000", 2);
+        new Material("Dilithium", "0xC0C0CC", 2);
         new Material("Fractum", "0x000000", 3, 4);
         new Material("Triberium", "0x000000", 3, 3);
         new Material("Abyssum", "0x000000", 4);
@@ -298,7 +295,7 @@ public abstract class CommonProxy {
         new Material("Palladium", "0x000000", 5, 9);
         new Material("Yrdeen", "0x000000", 7, 7);
         new Material("Niob", "0x000000", 6, 6);
-        new Material("Obsidiorite", "0x000000", 4, 4);
+        new Material("Obsidiorite", "0x4B0082", 4, 4);
         new Material("Lumix", "0x000000", 4, 4);
         new Material("Dyonite", "0x000000", 6, 6);
         new Material("AluBrass", "0xCAA585", 1);
@@ -319,7 +316,7 @@ public abstract class CommonProxy {
         new Material("Nichrome", "0x858F80", 3);
         new Material("Osmiridium", "0x191970", 7);
         new Material("Signalum", "0x800000", 7);
-        new Material("StainlessSteel", "0x800000", 2);
+        new Material("StainlessSteel", "0xE0DFDB", 2);
     }
 
     public static void registerOreDict(Material metal) {
