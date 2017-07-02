@@ -38,6 +38,7 @@ import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 /**
  * Proxy functions common to both the client and server side
@@ -89,7 +90,8 @@ public abstract class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
-
+        FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic",
+                "superore");
     }
 
     public void postInit(FMLPostInitializationEvent e) {
