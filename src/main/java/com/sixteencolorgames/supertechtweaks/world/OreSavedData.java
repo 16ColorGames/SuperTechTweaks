@@ -242,4 +242,33 @@ public class OreSavedData extends WorldSavedData {
         return ret;
     }
 
+    /**
+     * Creates a tag of ore data in a single position. Intended for use with
+     * block break updates.
+     *
+     * @return
+     */
+    public NBTTagCompound getForPos(BlockPos pos) {
+        NBTTagCompound ret = new NBTTagCompound();
+        if (data.containsKey(pos.getX())) {
+            NBTTagCompound xTag = new NBTTagCompound();
+            if (data.get(pos.getX()).containsKey(pos.getY())) {
+                NBTTagCompound yTag = new NBTTagCompound();
+                if (data.get(pos.getX()).get(pos.getY()).containsKey(pos.getZ())) {
+                    Integer[] get = data.get(pos.getX()).get(pos.getY()).get(pos.getZ());
+                    int[] arr = new int[get.length];
+                    for (int i = 0; i < get.length; i++) {
+                        arr[i] = get[i];
+                    }
+                    yTag.setIntArray(pos.getZ() + "", arr);
+                } else {
+                    yTag.setIntArray(pos.getZ() + "", new int[0]);
+                }
+                xTag.setTag(pos.getY() + "", yTag);
+            }
+            ret.setTag(pos.getX() + "", xTag);
+        }
+        return ret;
+    }
+
 }

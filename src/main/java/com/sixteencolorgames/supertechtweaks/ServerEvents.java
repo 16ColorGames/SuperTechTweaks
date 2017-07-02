@@ -11,7 +11,6 @@ import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;

@@ -8,8 +8,10 @@ package com.sixteencolorgames.supertechtweaks.network;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
+import java.util.Timer;
+import java.util.TimerTask;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -30,6 +32,10 @@ public class UpdateOresPacket implements IMessage {
         this.tag = data.getForChunk(chunkX, chunkZ);
     }
 
+    public UpdateOresPacket(OreSavedData get, BlockPos pos) {
+        this.tag = get.getForPos(pos);
+    }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         tag = ByteBufUtils.readTag(buf);
@@ -44,8 +50,19 @@ public class UpdateOresPacket implements IMessage {
 
         @Override
         public IMessage onMessage(UpdateOresPacket message, MessageContext ctx) {
-            OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
-            OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
+            if (SuperTechTweaksMod.proxy.getWorld(null) != null) {
+                OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
+                OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
+            } else {
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        onMessage(message, ctx);
+                    }
+                }, 1000);
+            }
+
             return null;
         }
 

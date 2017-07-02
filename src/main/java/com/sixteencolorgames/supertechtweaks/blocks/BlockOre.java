@@ -8,6 +8,8 @@ import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.compat.waila.WailaInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import java.util.ArrayList;
 
@@ -16,9 +18,9 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -152,6 +154,10 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());//...remove the block itself
             }
             worldIn.notifyBlockUpdate(pos, state, state, 2);
+
+            UpdateOresPacket packet = new UpdateOresPacket(OreSavedData.get(player.worldObj), pos);
+            PacketHandler.INSTANCE.sendTo(packet, (EntityPlayerMP) player);
+
             return !metalLeft;
         }
         return true;
@@ -237,4 +243,8 @@ public class BlockOre extends BlockBase implements WailaInfoProvider {
 //        };
 //        ModelLoader.setCustomStateMapper(this, ignoreState);
 //    }
+    @Deprecated //Forge: State sensitive version
+    protected boolean canSilkHarvest() {
+        return false;
+    }
 }
