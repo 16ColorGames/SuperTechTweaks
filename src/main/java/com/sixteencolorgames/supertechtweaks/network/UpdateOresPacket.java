@@ -5,6 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.network;
 
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -43,8 +44,8 @@ public class UpdateOresPacket implements IMessage {
 
         @Override
         public IMessage onMessage(UpdateOresPacket message, MessageContext ctx) {
-            OreSavedData.get(Minecraft.getMinecraft().theWorld).readFromNBT(message.tag);
-            OreSavedData.get(Minecraft.getMinecraft().theWorld).markDirty();
+            OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
+            OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
             return null;
         }
 

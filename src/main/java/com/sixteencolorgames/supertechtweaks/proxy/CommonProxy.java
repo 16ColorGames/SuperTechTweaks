@@ -35,6 +35,11 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.handlers.CustomFuelHandler;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -43,17 +48,16 @@ import net.minecraftforge.common.MinecraftForge;
  * @author oa10712
  *
  */
-public class CommonProxy {
+public abstract class CommonProxy {
 
     public static Configuration config;
 
     public void preInit(FMLPreInitializationEvent e) {
-        PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Channel");
+        PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Chan");
         initMaterials();
         GameRegistry.registerFuelHandler(CustomFuelHandler.getInstance());
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
-        MainCompatHandler.registerMekanism();
         File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
         config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
         Config.readConfig(configFolder);
@@ -84,7 +88,7 @@ public class CommonProxy {
         });
 
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
-        
+
     }
 
     public void init(FMLInitializationEvent e) {
@@ -355,4 +359,6 @@ public class CommonProxy {
         subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + TINY);
         OreDictionary.registerOre("dustTiny" + metal.getName(), subItemStack);
     }
+
+    public abstract World getWorld(IBlockAccess world);
 }

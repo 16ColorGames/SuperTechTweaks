@@ -80,7 +80,7 @@ public class ServerEvents {
     }
 
     private void handleOreUpdate(EntityPlayerMP e, int newChunkX, int newChunkZ) {
-        if (Minecraft.getMinecraft().theWorld != null) {
+        if (e.worldObj != null) {
             if (!sentChunks.get(e.getUniqueID()).contains(new Pair(newChunkX, newChunkZ))) {//Check if we have sent this chunk data already
                 UpdateOresPacket packet = new UpdateOresPacket(OreSavedData.get(e.worldObj), newChunkX, newChunkZ);
                 PacketHandler.INSTANCE.sendTo(packet, e);

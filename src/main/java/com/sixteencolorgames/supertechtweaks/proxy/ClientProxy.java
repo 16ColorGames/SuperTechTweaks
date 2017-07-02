@@ -18,6 +18,8 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -118,5 +120,13 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(item, item2.getMetadata(),
                     new ModelResourceLocation(SuperTechTweaksMod.MODID + ":" + id, "inventory"));
         });
+    }
+
+    @Override
+    public World getWorld(IBlockAccess world) {
+        if (world != null && world instanceof World) {
+            return (World) world;
+        }
+        return Minecraft.getMinecraft().theWorld;
     }
 }

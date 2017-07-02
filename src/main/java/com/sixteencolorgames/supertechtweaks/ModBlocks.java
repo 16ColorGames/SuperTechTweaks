@@ -81,7 +81,7 @@ public class ModBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        blockOre.initModel();
+        //blockOre.initModel();
     }
 
     @SideOnly(Side.CLIENT)

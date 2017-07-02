@@ -75,12 +75,12 @@ public class ModFluids {
         block.setRegistryName("fluid" + block.getFluid().getName());
         block.setUnlocalizedName(SuperTechTweaksMod.MODID + ":" + block.getFluid().getUnlocalizedName());
 
-        ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return new ModelResourceLocation("supertechtweaks:fluid", "fluid");
-            }
-        });
+//        ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
+//            @Override
+//            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+//                return new ModelResourceLocation("supertechtweaks:fluid", "fluid");
+//            }
+//        });
         ItemBlock itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         GameRegistry.register(block);

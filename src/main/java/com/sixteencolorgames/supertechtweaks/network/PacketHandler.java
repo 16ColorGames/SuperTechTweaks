@@ -34,8 +34,8 @@ public class PacketHandler {
 
     public static void registerMessages() {
         // Register messages which are sent from the client to the server here:
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+      //  if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             INSTANCE.registerMessage(UpdateOresPacket.Handler.class, UpdateOresPacket.class, nextID(), Side.CLIENT);
-        }
+       // }
     }
 }
