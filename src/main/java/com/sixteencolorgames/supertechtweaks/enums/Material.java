@@ -9,14 +9,15 @@ import com.sixteencolorgames.supertechtweaks.ModItems;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 /**
  *
  * @author oa10712
  */
-public class Material {
+public class Material implements IForgeRegistryEntry{
 
     public static ArrayList<Material> materials = new ArrayList();
 
@@ -119,5 +120,20 @@ public class Material {
 
     public int ordinal() {
         return ordinal;
+    }
+
+    @Override
+    public Object setRegistryName(ResourceLocation name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ResourceLocation getRegistryName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Class getRegistryType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

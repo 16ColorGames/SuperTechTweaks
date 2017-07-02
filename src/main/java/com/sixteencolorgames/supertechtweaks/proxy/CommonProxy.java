@@ -38,7 +38,9 @@ import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import org.apache.http.config.RegistryBuilder;
 
 /**
  * Proxy functions common to both the client and server side
@@ -50,7 +52,13 @@ public abstract class CommonProxy {
 
     public static Configuration config;
 
+    public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {
+        RegistryBuilder<Material> created = RegistryBuilder.create();
+        return created;
+    }
+
     public void preInit(FMLPreInitializationEvent e) {
+
         PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Chan");
         initMaterials();
         GameRegistry.registerFuelHandler(CustomFuelHandler.getInstance());
@@ -91,7 +99,7 @@ public abstract class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
         FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic",
-                "superore");
+                "supertechtweaks:superore");
     }
 
     public void postInit(FMLPostInitializationEvent e) {

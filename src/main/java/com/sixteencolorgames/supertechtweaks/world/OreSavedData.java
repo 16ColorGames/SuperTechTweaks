@@ -203,15 +203,6 @@ public class OreSavedData extends WorldSavedData {
     }
 
     /**
-     * Reads data created from #getForChunk
-     *
-     * @param tag
-     */
-    public void updateFromTag(NBTTagCompound tag) {
-
-    }
-
-    /**
      * Creates a tag of ore data in a chunk. Intended for use with
      * #updateFromTag.
      *
