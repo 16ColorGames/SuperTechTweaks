@@ -6,9 +6,9 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+import java.util.ArrayList;
 import java.util.HashMap;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,8 +27,9 @@ public class OreSavedData extends WorldSavedData {
      * remaining elements are the ore data
      */
     HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer[]>>> data = new HashMap();
-
+    HashMap<Integer, ArrayList<Integer>> generated = new HashMap();
 // Required constructors
+
     public OreSavedData() {
         super(DATA_NAME);
     }
@@ -46,7 +47,7 @@ public class OreSavedData extends WorldSavedData {
     public static OreSavedData get(World world) {
         // OreSavedData data = (OreSavedData) world.loadItemData(OreSavedData.class, DATA_NAME);
         // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
-        MapStorage storage = false ? world.getMapStorage() : world.getPerWorldStorage();
+        MapStorage storage = world.getPerWorldStorage();
         OreSavedData instance = (OreSavedData) storage.getOrLoadData(OreSavedData.class, DATA_NAME);
 
         if (instance == null) {
@@ -69,6 +70,7 @@ public class OreSavedData extends WorldSavedData {
             newData[i + 1] = ores[i];
         }
         data.get(x).get(y).put(z, newData);
+
         markDirty();
     }
 
@@ -195,11 +197,15 @@ public class OreSavedData extends WorldSavedData {
                     int[] dataList = yTag.getIntArray(z);
                     setData(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), dataList);
                     BlockPos pos = new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z));
-                    SuperTechTweaksMod.proxy.getWorld(null).markBlockRangeForRenderUpdate(pos, pos);
+                    if (SuperTechTweaksMod.proxy instanceof ClientProxy) {
+                        SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
+                    }
+                    setChunkGenerated((Integer.parseInt(x) / 16), (Integer.parseInt(z) / 16));
                     // SuperTechTweaksMod.proxy.getWorld(null).getChunkFromBlockCoords(new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z))).setChunkModified();
                 });
             });
         });
+        this.markDirty();
     }
 
     /**
@@ -267,4 +273,22 @@ public class OreSavedData extends WorldSavedData {
         return ret;
     }
 
+    public void clearData() {
+        data = new HashMap();
+        generated = new HashMap();
+        this.markDirty();
+    }
+
+    public boolean isChunkGenerated(int newChunkX, int newChunkZ) {
+        return generated.containsKey(newChunkX) && generated.get(newChunkX).contains(newChunkZ);
+    }
+
+    public void setChunkGenerated(int chunkX, int chunkZ) {
+        if (!generated.containsKey(chunkX)) {
+            generated.put(chunkX, new ArrayList());
+        }
+        if (!generated.get(chunkX).contains(chunkZ)) {
+            generated.get(chunkX).add(chunkZ);
+        }
+    }
 }

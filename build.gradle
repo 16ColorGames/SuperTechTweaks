@@ -53,7 +53,11 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }	
-    maven { url "http://blamejared.com/maven" }
+    maven { url "http://blamejared.com/maven" }	
+    maven {
+        name "amadornes"
+        url "https://maven.amadornes.com"
+    }
 }
 
 dependencies {
@@ -83,7 +87,10 @@ dependencies {
     deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.1.4.+"
     deobfCompile "slimeknights:TConstruct:1.10.2-2.6.3.500"
     deobfCompile "MineTweaker3:MineTweaker3-API:+"
+    deobfCompile "MCMultiPart:MCMultiPart-experimental:1.2.0_73:deobf"
     runtime "MineTweaker3:MineTweaker3-MC${mc_version2}-Main:+"
+    
+    compile files('libs/')
 }
 
 processResources

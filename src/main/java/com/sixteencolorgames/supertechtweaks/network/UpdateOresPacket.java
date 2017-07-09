@@ -53,14 +53,6 @@ public class UpdateOresPacket implements IMessage {
             if (SuperTechTweaksMod.proxy.getWorld(null) != null) {
                 OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
                 OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
-            } else {
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        onMessage(message, ctx);
-                    }
-                }, 1000);
             }
 
             return null;

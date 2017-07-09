@@ -15,3 +15,5 @@ Here is a list of tasks I'm currently working on:
 5. Run "gradlew setupDecompWorkspace" from your main repo folders
 6. Run "gradlew eclipse" from your main repo folder
 7. Open Eclipse with your workspace set to the eclipse folder you copied to your repo folder
+
+[http://cf.way2muchnoise.eu/versions/super-tech-tweaks.svg](https://minecraft.curseforge.com/projects/super-tech-tweaks)

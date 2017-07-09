@@ -61,6 +61,7 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
                 }
             }
         }
+        OreSavedData.get(worldIn).setChunkGenerated((position.getX() / 16), (position.getZ() / 16));
         return true;
     }
 

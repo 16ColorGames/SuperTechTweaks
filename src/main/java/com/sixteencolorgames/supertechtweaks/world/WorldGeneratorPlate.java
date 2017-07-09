@@ -25,6 +25,7 @@ public class WorldGeneratorPlate extends WorldGeneratorBase {
         if (rand.nextInt(chance - 1) == 0) {
             return generatePlate(worldIn, rand, position);
         }
+        OreSavedData.get(worldIn).setChunkGenerated((position.getX() / 16), (position.getZ() / 16));
         return true;
     }
 

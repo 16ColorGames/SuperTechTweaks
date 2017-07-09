@@ -51,6 +51,7 @@ import org.apache.http.config.RegistryBuilder;
 public abstract class CommonProxy {
 
     public static Configuration config;
+    public static ArrayList<WorldGeneratorBase> parsed;
 
     public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {
         RegistryBuilder<Material> created = RegistryBuilder.create();
@@ -72,7 +73,7 @@ public abstract class CommonProxy {
         for (File gen : configFolder.listFiles()) {
             if (gen.getName().contains(".json")) {
                 try {
-                    ArrayList<WorldGeneratorBase> parsed = GenerationParser.parseScripts(gen);
+                    parsed = GenerationParser.parseScripts(gen);
                     parsed.forEach((WorldGeneratorBase base) -> {
                         GameRegistry.registerWorldGenerator(base, 3 + base.params.hashCode() + base.hashCode());
                     });
@@ -100,6 +101,7 @@ public abstract class CommonProxy {
     public void init(FMLInitializationEvent e) {
         FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic",
                 "supertechtweaks:superore");
+        MainCompatHandler.registerMekanism();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
@@ -368,4 +370,9 @@ public abstract class CommonProxy {
     }
 
     public abstract World getWorld(IBlockAccess world);
+
+    public World getWorld() {
+        return getWorld(null);
+    }
+
 }
