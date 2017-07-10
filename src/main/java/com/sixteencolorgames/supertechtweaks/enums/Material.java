@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
  *
  * @author oa10712
  */
-public class Material implements IForgeRegistryEntry{
+public class Material extends IForgeRegistryEntry.Impl<Material> {
 
     public static ArrayList<Material> materials = new ArrayList();
 
@@ -120,20 +120,5 @@ public class Material implements IForgeRegistryEntry{
 
     public int ordinal() {
         return ordinal;
-    }
-
-    @Override
-    public Object setRegistryName(ResourceLocation name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ResourceLocation getRegistryName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Class getRegistryType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

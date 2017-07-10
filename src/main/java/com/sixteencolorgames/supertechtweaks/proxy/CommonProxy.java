@@ -33,13 +33,16 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.handlers.CustomFuelHandler;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.http.config.RegistryBuilder;
 
 /**
@@ -49,17 +52,17 @@ import org.apache.http.config.RegistryBuilder;
  *
  */
 public abstract class CommonProxy {
-
+    
     public static Configuration config;
     public static ArrayList<WorldGeneratorBase> parsed;
-
+    
     public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {
         RegistryBuilder<Material> created = RegistryBuilder.create();
         return created;
     }
-
+    
     public void preInit(FMLPreInitializationEvent e) {
-
+        
         PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Chan");
         initMaterials();
         GameRegistry.registerFuelHandler(CustomFuelHandler.getInstance());
@@ -68,7 +71,7 @@ public abstract class CommonProxy {
         File configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
         config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
         Config.readConfig(configFolder);
-
+        
         ModWorldGeneration generator = new ModWorldGeneration();
         for (File gen : configFolder.listFiles()) {
             if (gen.getName().contains(".json")) {
@@ -88,22 +91,22 @@ public abstract class CommonProxy {
         ModItems.init();
         Material.materials.forEach((metal) -> {
             registerOreDict(metal);
-
+            
             if (metal.getName().equalsIgnoreCase("coal")) {
                 CustomFuelHandler.getInstance().addFuel(new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT), 20000);
             }
         });
-
+        
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
-
+        
     }
-
+    
     public void init(FMLInitializationEvent e) {
         FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic",
                 "supertechtweaks:superore");
         MainCompatHandler.registerMekanism();
     }
-
+    
     public void postInit(FMLPostInitializationEvent e) {
         if (config.hasChanged()) {
             config.save();
@@ -111,11 +114,11 @@ public abstract class CommonProxy {
         MainCompatHandler.registerMineTweaker();
         Recipies.addRecipies();
     }
-
+    
     public void registerItemRenderer(Item item, int meta, String id) {
-
+        
     }
-
+    
     private void initMaterials() {
         new Material("none", "0x000000", -2);
         new Material("Antimony", "0xFADA5E", 0);
@@ -330,7 +333,7 @@ public abstract class CommonProxy {
         new Material("Signalum", "0x800000", 7);
         new Material("StainlessSteel", "0xE0DFDB", 2);
     }
-
+    
     public static void registerOreDict(Material metal) {
         ItemStack subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal());
         OreDictionary.registerOre("ore" + metal.getName(), subItemStack);
@@ -338,7 +341,7 @@ public abstract class CommonProxy {
         OreDictionary.registerOre("oreNether" + metal.getName(), subItemStack);
         subItemStack = new ItemStack(itemOreChunk, 1, metal.ordinal() + END);
         OreDictionary.registerOre("oreEnd" + metal.getName(), subItemStack);
-
+        
         subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT);
         OreDictionary.registerOre("ingot" + metal.getName(), subItemStack);
         subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + DUST);
@@ -368,11 +371,11 @@ public abstract class CommonProxy {
         subItemStack = new ItemStack(itemMaterialObject, 1, metal.ordinal() + TINY);
         OreDictionary.registerOre("dustTiny" + metal.getName(), subItemStack);
     }
-
+    
     public abstract World getWorld(IBlockAccess world);
-
+    
     public World getWorld() {
         return getWorld(null);
     }
-
+   
 }
