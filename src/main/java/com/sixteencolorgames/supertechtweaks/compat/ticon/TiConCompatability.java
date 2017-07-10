@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -27,7 +28,18 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
  * @author oa10712
  */
 public class TiConCompatability {
-
+    
+    public static void registerMaterials() {
+        
+        TinkerRegistry.getAllMaterials().forEach((mat) -> {
+            try {
+                Material material = Material.getMaterial(mat.identifier);
+                mat.addItemIngot("ingot" + material.getName());
+            } catch (Exception ex) {
+            }
+        });
+    }
+    
     @SubscribeEvent
     public void onStatRegister(MaterialEvent.StatRegisterEvent<HeadMaterialStats> statRegisterEvent) {
         if (statRegisterEvent.stats instanceof HeadMaterialStats) {
@@ -46,7 +58,7 @@ public class TiConCompatability {
             }
         }
     }
-
+    
     public static void registerMelting() { //Overrides for melting
         Material.materials.forEach((ore) -> {
             try {
@@ -66,21 +78,22 @@ public class TiConCompatability {
         });
     }
     
-    public static void registerCasting(){
-                Material.materials.forEach((ore) -> {
+    public static void registerCasting() {
+        Material.materials.forEach((ore) -> {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 System.out.println("Attempting to add casting for " + ore.getName() + ": " + fluid.getName());
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+INGOT), TinkerSmeltery.castIngot, fluid, 144);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+NUGGET), TinkerSmeltery.castNugget, fluid, 16);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+GEAR), TinkerSmeltery.castGear, fluid, 576);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal()+PLATE), TinkerSmeltery.castPlate, fluid, 144);
+                TinkerRegistry.registerBasinCasting(OreDictionary.getOres("block" + ore.getName()).get(0), null, fluid, 1296);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), TinkerSmeltery.castIngot, fluid, 144);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + NUGGET), TinkerSmeltery.castNugget, fluid, 16);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + GEAR), TinkerSmeltery.castGear, fluid, 576);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), TinkerSmeltery.castPlate, fluid, 144);
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }
         });
     }
-
+    
     public static void registerAlloys() {
         Alloy.alloys.forEach((Alloy t) -> {
             try {

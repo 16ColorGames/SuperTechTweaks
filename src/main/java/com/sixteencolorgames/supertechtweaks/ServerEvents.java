@@ -77,7 +77,7 @@ public class ServerEvents {
         }
     }
 
-    @SubscribeEvent
+    //@SubscribeEvent
     public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent e) {
         if (e.player instanceof EntityPlayerMP) {
             for (int x = -4; x < 5; x++) {
