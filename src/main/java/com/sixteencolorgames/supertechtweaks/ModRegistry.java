@@ -41,7 +41,6 @@ public class ModRegistry {
     @SubscribeEvent
     public static void registerMaterials(RegistryEvent.Register<Material> event) {
         System.out.println("Attempting material registry");
-       event.getRegistry().register(value);
     }
 
     @SubscribeEvent

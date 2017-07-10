@@ -6,13 +6,16 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockTileEntity;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.items.ItemModelProvider;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Holds and registers blocks used by the mod
@@ -24,6 +27,8 @@ public class ModBlocks {
 
     public static BlockOre blockOre;
     public static HashMap<Material, BlockMaterial> blockMaterial;
+    public static ArrayList<BlockMaterial> materialBlocks = new ArrayList();
+    public static ArrayList<ItemBlock> itemBlocks = new ArrayList();
 
     /**
      * Tasks to perform when the mod is started. should only be called once
@@ -31,6 +36,18 @@ public class ModBlocks {
     public static void init() {
         blockMaterial = new HashMap();
         blockOre = register(new BlockOre());
+
+        for (Material mat : Material.materials) {
+            System.out.println("Adding block for " + mat.getName());
+            BlockMaterial value = new BlockMaterial(mat);
+            ItemBlock itemBlock = new ItemBlock(value);
+            itemBlock.setRegistryName(value.getRegistryName());
+            register(value, itemBlock);
+            OreDictionary.registerOre("block" + mat.getName(), new ItemStack(value));
+            System.out.println("Registered block: " + value.getUnlocalizedName());
+            materialBlocks.add(value);
+            itemBlocks.add(itemBlock);
+        }
     }
 
     /**

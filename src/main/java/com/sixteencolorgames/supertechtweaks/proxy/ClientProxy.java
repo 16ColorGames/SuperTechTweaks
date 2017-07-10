@@ -10,10 +10,15 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -35,7 +40,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
-    public static MetalColor color = new MetalColor();
 
     static ModelResourceLocation chunkLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk",
             "inventory");
@@ -63,8 +67,8 @@ public class ClientProxy extends CommonProxy {
             "inventory");
     static ModelResourceLocation tinyLocation = new ModelResourceLocation("supertechtweaks:itemTinyDust",
             "inventory");
-    static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:itemBlock",
-            "inventory");
+    static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:blockMaterial", "normal");
+    static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial", "inventory");
 
     @Override
     public void preInit(FMLPreInitializationEvent e) {
@@ -72,6 +76,24 @@ public class ClientProxy extends CommonProxy {
         for (int i = 0; i < 200; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
             registerModels(i);
         }
+        ModBlocks.itemBlocks.forEach((value) -> {
+            ModelLoader.setCustomModelResourceLocation(value, 0, itemLocation);
+        });
+        ModBlocks.materialBlocks.forEach((value) -> {
+            ModelLoader.setCustomModelResourceLocation(value.getItemBlock(), 0, itemLocation);
+            ModelLoader.setCustomStateMapper(value, new IStateMapper() {
+                @Override
+                public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
+
+                    final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
+
+                    loc.put(blockIn.getDefaultState(), blockLocation);
+
+                    return loc;
+
+                }
+            });
+        });
         ModItems.itemTechComponent.registerModels();
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
@@ -107,9 +129,12 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemOreChunk);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(color, ModItems.itemMaterialObject);
-        //Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModItems.itemOreChunk);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModItems.itemMaterialObject);
+        ModBlocks.materialBlocks.forEach((value) -> {
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, value.getItemBlock());
+        });
+//Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
     }
 
     @Override

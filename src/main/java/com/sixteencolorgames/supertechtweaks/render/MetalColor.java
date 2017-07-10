@@ -12,6 +12,8 @@ import net.minecraft.item.ItemStack;
 
 public class MetalColor implements IItemColor {
 
+    public static final MetalColor INSTANCE = new MetalColor();
+
     /**
      * Returns the colour for rendering, based on 1) the itemstack 2) the
      * "tintindex" (layer in the item model json) For example:
