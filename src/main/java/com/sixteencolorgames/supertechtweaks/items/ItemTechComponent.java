@@ -5,7 +5,6 @@
  */
 package com.sixteencolorgames.supertechtweaks.items;
 
-import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemTechComponent;
 import java.util.List;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -68,29 +67,29 @@ public class ItemTechComponent extends ItemBase {
     }
 
     public void registerModels() {
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 0, new ModelResourceLocation("supertechtweaks:itemBasicCircuit",
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("supertechtweaks:itemBasicCircuit",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 1, new ModelResourceLocation("supertechtweaks:itemAdvancedCircuit",
+        ModelLoader.setCustomModelResourceLocation(this, 1, new ModelResourceLocation("supertechtweaks:itemAdvancedCircuit",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 2, new ModelResourceLocation("supertechtweaks:itemEliteCircuit",
+        ModelLoader.setCustomModelResourceLocation(this, 2, new ModelResourceLocation("supertechtweaks:itemEliteCircuit",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 3, new ModelResourceLocation("supertechtweaks:itemUltimateCircuit",
+        ModelLoader.setCustomModelResourceLocation(this, 3, new ModelResourceLocation("supertechtweaks:itemUltimateCircuit",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 4, new ModelResourceLocation("supertechtweaks:itemCasingBasic",
+        ModelLoader.setCustomModelResourceLocation(this, 4, new ModelResourceLocation("supertechtweaks:itemCasingBasic",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 5, new ModelResourceLocation("supertechtweaks:itemPowerUnitSmall",
+        ModelLoader.setCustomModelResourceLocation(this, 5, new ModelResourceLocation("supertechtweaks:itemPowerUnitSmall",
                 "inventory"));
-        ModelLoader.setCustomModelResourceLocation(itemTechComponent, 6, new ModelResourceLocation("supertechtweaks:itemHeatingElement",
+        ModelLoader.setCustomModelResourceLocation(this, 6, new ModelResourceLocation("supertechtweaks:itemHeatingElement",
                 "inventory"));
     }
 
     public void setupDictionary() {
-        OreDictionary.registerOre("circuitBasic", new ItemStack(itemTechComponent, 1, 0));
-        OreDictionary.registerOre("circuitAdvanced", new ItemStack(itemTechComponent, 1, 1));
-        OreDictionary.registerOre("circuitElite", new ItemStack(itemTechComponent, 1, 2));
-        OreDictionary.registerOre("circuitUltimate", new ItemStack(itemTechComponent, 1, 3));
-        OreDictionary.registerOre("casingBasic", new ItemStack(itemTechComponent, 1, 4));
-        OreDictionary.registerOre("powerUnitSmall", new ItemStack(itemTechComponent, 1, 5));
-        OreDictionary.registerOre("heatingElement", new ItemStack(itemTechComponent, 1, 6));
+        OreDictionary.registerOre("circuitBasic", new ItemStack(this, 1, 0));
+        OreDictionary.registerOre("circuitAdvanced", new ItemStack(this, 1, 1));
+        OreDictionary.registerOre("circuitElite", new ItemStack(this, 1, 2));
+        OreDictionary.registerOre("circuitUltimate", new ItemStack(this, 1, 3));
+        OreDictionary.registerOre("casingBasic", new ItemStack(this, 1, 4));
+        OreDictionary.registerOre("powerUnitSmall", new ItemStack(this, 1, 5));
+        OreDictionary.registerOre("heatingElement", new ItemStack(this, 1, 6));
     }
 }

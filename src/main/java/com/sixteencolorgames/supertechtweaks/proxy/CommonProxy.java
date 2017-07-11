@@ -3,7 +3,6 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 import java.io.File;
 
 import com.sixteencolorgames.supertechtweaks.Config;
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModFluids;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
@@ -33,16 +32,13 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.handlers.CustomFuelHandler;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
-import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.http.config.RegistryBuilder;
 
 /**
@@ -64,7 +60,7 @@ public abstract class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         
         PacketHandler.registerMessages(SuperTechTweaksMod.MODID + "Chan");
-        initMaterials();
+        //initMaterials();
         GameRegistry.registerFuelHandler(CustomFuelHandler.getInstance());
         MainCompatHandler.registerWaila();
         MainCompatHandler.registerTiCon();
@@ -87,7 +83,6 @@ public abstract class CommonProxy {
         }
         System.out.println("Generators Loaded");
         ModFluids.mainRegistry();
-        ModBlocks.init();
         Material.materials.forEach((metal) -> {
             registerOreDict(metal);
             

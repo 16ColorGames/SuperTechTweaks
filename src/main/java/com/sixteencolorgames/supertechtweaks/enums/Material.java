@@ -6,11 +6,25 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
+import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+import static com.sixteencolorgames.supertechtweaks.proxy.ClientProxy.itemLocation;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  *
@@ -62,6 +76,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
     private int ordinal;
 
+    private BlockMaterial block;
+    private ItemBlock itemBlock;
+
     /**
      *
      * @param name The ore dictionary name
@@ -73,21 +90,25 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
     }
 
     public Material(String name, String color, int harvest, int mine) {
-        this.name = name;
-        this.color = Color.decode(color).getRGB();
-        this.harvest = harvest;
-        this.mine = mine;
-        this.ordinal = materials.size();
-        materials.add(this);
+        this(name, Color.decode(color).getRGB(), harvest, mine);
     }
 
     public Material(String name, int color, int harvest, int mine) {
+        System.out.println("Creating mat: " + name);
         this.name = name;
         this.color = color;
         this.harvest = harvest;
         this.mine = mine;
         this.ordinal = materials.size();
         materials.add(this);
+        System.out.println("  Registering associated blocks/items");
+        block = new BlockMaterial(this);
+
+        itemBlock = new ItemBlock(block);
+        itemBlock.setRegistryName(block.getRegistryName());
+        System.out.println("  Registering block ties");
+        ModRegistry.register(block, itemBlock);
+        OreDictionary.registerOre("block" + getName(), new ItemStack(block));
     }
 
     public int getColor() {
@@ -119,5 +140,24 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
     public int ordinal() {
         return ordinal;
+    }
+
+    public BlockMaterial getBlock() {
+        return block;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void clientPrep() {
+
+        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, itemLocation);
+        ModelLoader.setCustomModelResourceLocation(block.getItemBlock(), 0, ClientProxy.itemLocation);
+        ModelLoader.setCustomStateMapper(block, new IStateMapper() {
+            @Override
+            public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
+                final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
+                loc.put(blockIn.getDefaultState(), ClientProxy.blockLocation);
+                return loc;
+            }
+        });
     }
 }

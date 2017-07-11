@@ -3,7 +3,6 @@ package com.sixteencolorgames.supertechtweaks.world;
 import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.Config;
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.ArrayList;

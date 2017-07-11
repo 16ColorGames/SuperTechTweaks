@@ -1,11 +1,10 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.ModBlocks;
-import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
 import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
@@ -69,32 +68,17 @@ public class ClientProxy extends CommonProxy {
             "inventory");
     static ModelResourceLocation tinyLocation = new ModelResourceLocation("supertechtweaks:itemTinyDust",
             "inventory");
-    static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:blockMaterial", "normal");
-    static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial", "inventory");
+    public static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:blockMaterial", "normal");
+    public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial", "inventory");
 
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-        for (int i = 0; i < 200; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
+        for (int i = 0; i < 256; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
             registerModels(i);
         }
-        ModBlocks.itemBlocks.forEach((value) -> {
-            ModelLoader.setCustomModelResourceLocation(value, 0, itemLocation);
-        });
-        ModBlocks.materialBlocks.forEach((value) -> {
-            ModelLoader.setCustomModelResourceLocation(value.getItemBlock(), 0, itemLocation);
-            ModelLoader.setCustomStateMapper(value, new IStateMapper() {
-                @Override
-                public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
-
-                    final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
-
-                    loc.put(blockIn.getDefaultState(), blockLocation);
-
-                    return loc;
-
-                }
-            });
+        Material.materials.forEach((mat) -> {
+            mat.clientPrep();
         });
         ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
@@ -133,10 +117,6 @@ public class ClientProxy extends CommonProxy {
         super.postInit(e);
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemOreChunk);
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemMaterialObject);
-        ModBlocks.materialBlocks.forEach((value) -> {
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, value.getItemBlock());
-        });
-//Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(color, ModBlocks.blockOre);
     }
 
     @Override

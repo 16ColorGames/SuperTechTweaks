@@ -142,7 +142,7 @@ public class Recipies {
                 " x ", "xyx", " x ", 'x', "ingot" + ore.getName(), 'y', "nugget" + ore.getName()));//Craft a gear
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT),
                 "xxx", "xxx", "xxx", 'x', "nugget" + ore.getName()));//Craft nuggets into an ingot
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.materialBlocks.get(ore.ordinal())),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ore.getBlock()),
                 "xxx", "xxx", "xxx", 'x', "ingot" + ore.getName()));//Craft ingots into an block
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST),
                 "xxx", "xxx", "xxx", 'x', "dustTiny" + ore.getName()));//Craft nuggets into an ingot
@@ -152,7 +152,7 @@ public class Recipies {
                 "x", "x", 'x', "ingot" + ore.getName()));//Craft ingots into a rod
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
-        GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.materialBlocks.get(ore.ordinal())));//Craft blocks into ingots
+        GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ore.getBlock()));//Craft blocks into ingots
         GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + TINY), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST));//Craft dust into dust
         // GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.blockMaterial.get(ore)));//Craft blocks into ingots
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 2, ore.ordinal() + WIRE), "plate" + ore.getName(), "craftingToolWireCutter")); //Craft plates into wires
