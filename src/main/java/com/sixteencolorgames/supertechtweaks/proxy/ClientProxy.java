@@ -9,28 +9,28 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
+import com.sixteencolorgames.supertechtweaks.render.BlockColor;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Proxy for clients only.
@@ -38,6 +38,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * @author oa10712
  *
  */
+@Mod.EventBusSubscriber(value = Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
@@ -71,15 +72,19 @@ public class ClientProxy extends CommonProxy {
     public static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:blockMaterial", "normal");
     public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial", "inventory");
 
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent e) {
+        Material.materials.forEach((mat) -> {
+            mat.clientPrep();
+        });
+    }
+
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
         for (int i = 0; i < 256; i++) {//setup models for 200 metal types, we only use 109, but the rest are for IMC and CT usage
             registerModels(i);
         }
-        Material.materials.forEach((mat) -> {
-            mat.clientPrep();
-        });
         ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
@@ -115,8 +120,11 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemOreChunk);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemMaterialObject);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemOreChunk, ModRegistry.itemMaterialObject);
+        for (Material mat : Material.materials) {
+            Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, mat.getBlock());
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(BlockColor.INSTANCE, mat.getItemBlock());
+        }
     }
 
     @Override

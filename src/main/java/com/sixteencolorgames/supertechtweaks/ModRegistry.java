@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -63,7 +64,7 @@ public class ModRegistry {
         register(new BlockOre());
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerItems(RegistryEvent.Register<Item> event) {
         System.out.println("Attempting item registry");
         ItemTechComponent tech = register(new ItemTechComponent());
@@ -345,7 +346,7 @@ public class ModRegistry {
      * @param item The Item to register
      * @return The Item registered
      */
-    private static <T extends Item> T register(T item) {
+    public static <T extends Item> T register(T item) {
         GameRegistry.register(item);
 
         if (item instanceof ItemBase) {
@@ -356,7 +357,6 @@ public class ModRegistry {
     }
 
     public static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon, Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory, Material ore) {
-        System.out.println("Creating Fluid: " + name);
         final String texturePrefix = SuperTechTweaksMod.MODID + ":" + "blocks/fluid_";
 
         final ResourceLocation still = new ResourceLocation(texturePrefix + "still");

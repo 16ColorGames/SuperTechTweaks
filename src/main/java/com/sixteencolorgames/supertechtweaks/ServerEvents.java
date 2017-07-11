@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
  *
  * @author oa10712
  */
+
 public class ServerEvents {
 
     HashMap<UUID, ArrayList<Pair>> sentChunks = new HashMap();
@@ -38,6 +39,7 @@ public class ServerEvents {
     @SubscribeEvent
     public void onPlayerEnterChunk(EntityEvent.EnteringChunk e) {
         if (e.getEntity() instanceof EntityPlayerMP) {
+            EntityPlayerMP en = (EntityPlayerMP) e.getEntity();
             for (int x = -1; x < 2; x++) {
                 for (int z = -1; z < 2; z++) {
                     handleOreUpdate((EntityPlayerMP) e.getEntity(), e.getEntity().chunkCoordX + x, e.getEntity().chunkCoordZ + z);//sent the player the nearby chunks on startup

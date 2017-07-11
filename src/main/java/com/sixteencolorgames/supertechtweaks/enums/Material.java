@@ -14,7 +14,6 @@ import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
-import static com.sixteencolorgames.supertechtweaks.proxy.ClientProxy.itemLocation;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -160,9 +160,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
     @SideOnly(Side.CLIENT)
     public void clientPrep() {
-
-        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, itemLocation);
-        ModelLoader.setCustomModelResourceLocation(block.getItemBlock(), 0, ClientProxy.itemLocation);
+        System.out.println("Attempting model registration");
+        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.itemLocation);
+        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.blockLocation);
         ModelLoader.setCustomStateMapper(block, new IStateMapper() {
             @Override
             public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
@@ -213,6 +213,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
         if (metal.getName().equalsIgnoreCase("coal")) {
             CustomFuelHandler.getInstance().addFuel(new ItemStack(itemMaterialObject, 1, metal.ordinal() + INGOT), 20000);
         }
+    }
+
+    public Item getItemBlock() {
+        return itemBlock;
     }
 
 }

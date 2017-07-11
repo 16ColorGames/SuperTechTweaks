@@ -6,9 +6,13 @@ import java.awt.Color;
 
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.END;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.NETHER;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IBlockColor;
 
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 public class MetalColor implements IItemColor {
 
