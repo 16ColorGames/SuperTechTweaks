@@ -28,12 +28,6 @@ public class CraftTweaker {
         System.out.println("Registered ZenScript for supertech");
     }
 
-    @ZenMethod
-    public static void addMaterial(String name, String color, int harvest) {
-        MineTweakerAPI.apply(new AddMaterial(name, color, harvest));
-        System.out.println("Adding new material");
-    }
-
     /**
      * Converts a list of minetweaker item stacks into an array of minecraft
      * item stacks.
