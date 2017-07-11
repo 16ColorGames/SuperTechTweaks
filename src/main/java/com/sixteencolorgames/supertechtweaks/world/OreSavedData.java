@@ -9,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -198,7 +199,10 @@ public class OreSavedData extends WorldSavedData {
                     setData(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), dataList);
                     BlockPos pos = new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z));
                     if (SuperTechTweaksMod.proxy instanceof ClientProxy) {
-                        SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
+                        try {
+                            SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
+                        } catch (Exception ex) {
+                        }
                     }
                     setChunkGenerated((Integer.parseInt(x) / 16), (Integer.parseInt(z) / 16));
                 });
