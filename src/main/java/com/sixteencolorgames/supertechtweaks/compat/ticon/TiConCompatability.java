@@ -5,7 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.compat.ticon;
 
-import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Alloy;
 import com.sixteencolorgames.supertechtweaks.enums.AlloyElement;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
@@ -64,14 +64,14 @@ public class TiConCompatability {
             try {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 System.out.println("Attempting to add melting for " + ore.getName() + ": " + fluid.getName());
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), fluid, 144);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST), fluid, 144);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), fluid, 144);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + WIRE), fluid, 72);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + GEAR), fluid, 576);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + NUGGET), fluid, 16);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), fluid, 288);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + ItemOreChunk.NETHER), fluid, 576);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + PLATE), fluid, 144);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + WIRE), fluid, 72);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + GEAR), fluid, 576);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + NUGGET), fluid, 16);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemOreChunk, 1, ore.ordinal()), fluid, 288);
+                TinkerRegistry.registerMelting(new ItemStack(ModRegistry.itemOreChunk, 1, ore.ordinal() + ItemOreChunk.NETHER), fluid, 576);
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }
@@ -84,10 +84,10 @@ public class TiConCompatability {
                 Fluid fluid = FluidRegistry.getFluid(ore.getName().toLowerCase());
                 System.out.println("Attempting to add casting for " + ore.getName() + ": " + fluid.getName());
                 TinkerRegistry.registerBasinCasting(OreDictionary.getOres("block" + ore.getName()).get(0), null, fluid, 1296);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), TinkerSmeltery.castIngot, fluid, 144);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + NUGGET), TinkerSmeltery.castNugget, fluid, 16);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + GEAR), TinkerSmeltery.castGear, fluid, 576);
-                TinkerRegistry.registerTableCasting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), TinkerSmeltery.castPlate, fluid, 144);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT), TinkerSmeltery.castIngot, fluid, 144);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + NUGGET), TinkerSmeltery.castNugget, fluid, 16);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + GEAR), TinkerSmeltery.castGear, fluid, 576);
+                TinkerRegistry.registerTableCasting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + PLATE), TinkerSmeltery.castPlate, fluid, 144);
             } catch (Exception ex) {
                 System.out.println("Failed to add melting.");
             }

@@ -5,7 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.items;
 
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemTechComponent;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemTechComponent;
 import java.util.List;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;

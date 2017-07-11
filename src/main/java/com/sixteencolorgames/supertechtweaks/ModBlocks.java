@@ -2,7 +2,6 @@ package com.sixteencolorgames.supertechtweaks;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockBase;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockTileEntity;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.items.ItemModelProvider;
@@ -13,8 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -25,7 +22,6 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class ModBlocks {
 
-    public static BlockOre blockOre;
     public static HashMap<Material, BlockMaterial> blockMaterial;
     public static ArrayList<BlockMaterial> materialBlocks = new ArrayList();
     public static ArrayList<ItemBlock> itemBlocks = new ArrayList();
@@ -35,7 +31,6 @@ public class ModBlocks {
      */
     public static void init() {
         blockMaterial = new HashMap();
-        blockOre = register(new BlockOre());
 
         for (Material mat : Material.materials) {
             System.out.println("Adding block for " + mat.getName());
@@ -94,16 +89,6 @@ public class ModBlocks {
         ItemBlock itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         return register(block, itemBlock);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void initModels() {
-        //blockOre.initModel();
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void initItemModels() {
-        //   blockOre.initItemModel();
     }
 
 }

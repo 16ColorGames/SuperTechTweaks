@@ -5,19 +5,13 @@
  */
 package com.sixteencolorgames.supertechtweaks;
 
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockBase;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
-import com.sixteencolorgames.supertechtweaks.items.ItemModelProvider;
-import java.awt.Color;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLiquid;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;

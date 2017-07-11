@@ -1,6 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.render;
 
-import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.awt.Color;
 
@@ -29,7 +29,7 @@ public class MetalColor implements IItemColor {
     @Override
     public int getColorFromItemstack(ItemStack stack, int tintIndex) {
         try {
-            if (stack.getItem() == ModItems.itemOreChunk) {
+            if (stack.getItem() == ModRegistry.itemOreChunk) {
                 switch (tintIndex) {
                     case 0://base rock
                         if (stack.getMetadata() < NETHER) {

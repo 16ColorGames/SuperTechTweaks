@@ -5,12 +5,11 @@
  */
 package com.sixteencolorgames.supertechtweaks.enums;
 
-import com.sixteencolorgames.supertechtweaks.ModItems;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.items.ItemOreChunk;
 import java.awt.Color;
 import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 /**
@@ -110,11 +109,11 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
     public ItemStack getDrops(byte base) {
         switch (base) {//Switch based on base block
             case -1://NetherRack and similar
-                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal() + ItemOreChunk.NETHER);
+                return new ItemStack(ModRegistry.itemOreChunk, 1, this.ordinal() + ItemOreChunk.NETHER);
             case 1://Endstone and similar
-                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal() + ItemOreChunk.END);
+                return new ItemStack(ModRegistry.itemOreChunk, 1, this.ordinal() + ItemOreChunk.END);
             default://Stone and unspecified
-                return new ItemStack(ModItems.itemOreChunk, 1, this.ordinal());
+                return new ItemStack(ModRegistry.itemOreChunk, 1, this.ordinal());
         }
     }
 

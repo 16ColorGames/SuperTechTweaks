@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,7 +83,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
                 newOres[i] = oresAdded.get(i);
             }
             OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 0, newOres);
-            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+            world.setBlockState(pos, ModRegistry.superore.getDefaultState());
         } else if (Config.nether.contains(world.getBlockState(pos))) {
             ArrayList<Integer> oresAdded = new ArrayList();
             ores.forEach((Material k, Double v) -> {
@@ -95,7 +96,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
                 newOres[i] = oresAdded.get(i);
             }
             OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), -1, newOres);
-            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
+            world.setBlockState(pos, ModRegistry.superore.getDefaultState());
         } else if (Config.end.contains(world.getBlockState(pos))) {
             ArrayList<Integer> oresAdded = new ArrayList();
             ores.forEach((Material k, Double v) -> {
@@ -108,8 +109,8 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
                 newOres[i] = oresAdded.get(i);
             }
             OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), 1, newOres);
-            world.setBlockState(pos, ModBlocks.blockOre.getDefaultState());
-        } else if (world.getBlockState(pos).getBlock() == ModBlocks.blockOre) {
+            world.setBlockState(pos, ModRegistry.superore.getDefaultState());
+        } else if (world.getBlockState(pos).getBlock() == ModRegistry.superore) {
             ArrayList<Integer> oresAdded = new ArrayList();
             ores.forEach((Material k, Double v) -> {
                 if (world.rand.nextDouble() < v) {

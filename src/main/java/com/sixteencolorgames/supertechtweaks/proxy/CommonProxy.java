@@ -5,9 +5,9 @@ import java.io.File;
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
 import com.sixteencolorgames.supertechtweaks.ModFluids;
-import com.sixteencolorgames.supertechtweaks.ModItems;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.Recipies;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
@@ -88,7 +88,6 @@ public abstract class CommonProxy {
         System.out.println("Generators Loaded");
         ModFluids.mainRegistry();
         ModBlocks.init();
-        ModItems.init();
         Material.materials.forEach((metal) -> {
             registerOreDict(metal);
             
@@ -167,7 +166,7 @@ public abstract class CommonProxy {
         new Material("Sulfur", "0xedff21", 3) {
             @Override
             public ItemStack getDrops(byte base) {
-                return new ItemStack(ModItems.itemMaterialObject, 1, Material.getMaterial("Sulfur").ordinal() + DUST);
+                return new ItemStack(ModRegistry.itemMaterialObject, 1, Material.getMaterial("Sulfur").ordinal() + DUST);
             }
         };
         new Material("Nickel", "0xccd3d8", 3);

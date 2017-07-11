@@ -5,8 +5,8 @@
  */
 package com.sixteencolorgames.supertechtweaks.compat.mekanism;
 
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import mekanism.api.gas.Gas;

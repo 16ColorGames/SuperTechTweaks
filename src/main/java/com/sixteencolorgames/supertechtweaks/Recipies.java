@@ -32,13 +32,13 @@ public class Recipies {
             register(ore);
         });
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 4),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemTechComponent, 1, 4),
                 "zxz", "xyx", "zxz", 'x', "barsIron", 'y', "powerUnitSmall", 'z', "ingotIron"));//Craft a basic casing
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 5),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemTechComponent, 1, 5),
                 "x x", "yxy", "   ", 'x', "plateIron", 'y', "wireCopper"));//Craft a small power unit
-        
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemTechComponent, 1, 6),
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemTechComponent, 1, 6),
                 "xxx", "xyx", "xxx", 'x', "wireNichrome", 'y', "plateCopper"));//Craft a heating element
 
         addAlloys();
@@ -110,9 +110,9 @@ public class Recipies {
                 inductionSmelterDust.setTag("primaryInput", new NBTTagCompound());
                 inductionSmelterDust.setTag("secondaryInput", new NBTTagCompound());
                 inductionSmelterDust.setTag("primaryOutput", new NBTTagCompound());
-                (new ItemStack(ModItems.itemMaterialObject, first.getAmount(), first.getOre().ordinal() + DUST)).writeToNBT(inductionSmelterDust.getCompoundTag("primaryInput"));
-                (new ItemStack(ModItems.itemMaterialObject, second.getAmount(), second.getOre().ordinal() + DUST)).writeToNBT(inductionSmelterDust.getCompoundTag("secondaryInput"));
-                (new ItemStack(ModItems.itemMaterialObject, result.getAmount(), result.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterDust.getCompoundTag("primaryOutput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, first.getAmount(), first.getOre().ordinal() + DUST)).writeToNBT(inductionSmelterDust.getCompoundTag("primaryInput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, second.getAmount(), second.getOre().ordinal() + DUST)).writeToNBT(inductionSmelterDust.getCompoundTag("secondaryInput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, result.getAmount(), result.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterDust.getCompoundTag("primaryOutput"));
 
                 FMLInterModComms.sendMessage("ThermalExpansion", "SmelterRecipe", inductionSmelterDust);
 
@@ -123,9 +123,9 @@ public class Recipies {
                 inductionSmelterIngot.setTag("primaryInput", new NBTTagCompound());
                 inductionSmelterIngot.setTag("secondaryInput", new NBTTagCompound());
                 inductionSmelterIngot.setTag("primaryOutput", new NBTTagCompound());
-                (new ItemStack(ModItems.itemMaterialObject, first.getAmount(), first.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("primaryInput"));
-                (new ItemStack(ModItems.itemMaterialObject, second.getAmount(), second.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("secondaryInput"));
-                (new ItemStack(ModItems.itemMaterialObject, result.getAmount(), result.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("primaryOutput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, first.getAmount(), first.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("primaryInput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, second.getAmount(), second.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("secondaryInput"));
+                (new ItemStack(ModRegistry.itemMaterialObject, result.getAmount(), result.getOre().ordinal() + INGOT)).writeToNBT(inductionSmelterIngot.getCompoundTag("primaryOutput"));
 
                 FMLInterModComms.sendMessage("ThermalExpansion", "SmelterRecipe", inductionSmelterIngot);
             }
@@ -133,27 +133,30 @@ public class Recipies {
     }
 
     public static void register(Material ore) {
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal()), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt ore to ingot
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt dust to ingot
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + NETHER), new ItemStack(ModItems.itemOreChunk, 2, ore.ordinal()), 0);//Smelt nether to regular
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemOreChunk, 1, ore.ordinal() + END), new ItemStack(ModItems.itemOreChunk, 3, ore.ordinal()), 0);//Smelt end to regular
+        GameRegistry.addSmelting(new ItemStack(ModRegistry.itemOreChunk, 1, ore.ordinal()), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt ore to ingot
+        GameRegistry.addSmelting(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT), 1.0f);//Smelt dust to ingot
+        GameRegistry.addSmelting(new ItemStack(ModRegistry.itemOreChunk, 1, ore.ordinal() + NETHER), new ItemStack(ModRegistry.itemOreChunk, 2, ore.ordinal()), 0);//Smelt nether to regular
+        GameRegistry.addSmelting(new ItemStack(ModRegistry.itemOreChunk, 1, ore.ordinal() + END), new ItemStack(ModRegistry.itemOreChunk, 3, ore.ordinal()), 0);//Smelt end to regular
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + GEAR),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + GEAR),
                 " x ", "xyx", " x ", 'x', "ingot" + ore.getName(), 'y', "nugget" + ore.getName()));//Craft a gear
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT),
                 "xxx", "xxx", "xxx", 'x', "nugget" + ore.getName()));//Craft nuggets into an ingot
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.materialBlocks.get(ore.ordinal())),
+                "xxx", "xxx", "xxx", 'x', "ingot" + ore.getName()));//Craft ingots into an block
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST),
                 "xxx", "xxx", "xxx", 'x', "dustTiny" + ore.getName()));//Craft nuggets into an ingot
 //            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.blockMaterial.get(ore)),
 //                    "xxx", "xxx", "xxx", 'x', "ingot" + ore.getName()));//Craft ingots into a block
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemMaterialObject, 4, ore.ordinal() + ROD),
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 4, ore.ordinal() + ROD),
                 "x", "x", 'x', "ingot" + ore.getName()));//Craft ingots into a rod
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + TINY), new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + DUST));//Craft dust into dust
-        // GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.blockMaterial.get(ore)));//Craft blocks into ingots
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, ore.ordinal() + WIRE), "plate" + ore.getName(), "craftingToolWireCutter")); //Craft plates into wires
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 1, ore.ordinal() + PLATE), "ingot" + ore.getName(), "craftingToolForgeHammer")); //Craft ingot into plate
+        GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + NUGGET), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + INGOT));//Craft ingots into nuggets
+        GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.materialBlocks.get(ore.ordinal())));//Craft blocks into ingots
+        GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + TINY), new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + DUST));//Craft dust into dust
+        // GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemMaterialObject, 9, ore.ordinal() + INGOT), new ItemStack(ModBlocks.blockMaterial.get(ore)));//Craft blocks into ingots
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 2, ore.ordinal() + WIRE), "plate" + ore.getName(), "craftingToolWireCutter")); //Craft plates into wires
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 1, ore.ordinal() + PLATE), "ingot" + ore.getName(), "craftingToolForgeHammer")); //Craft ingot into plate
     }
 
 }

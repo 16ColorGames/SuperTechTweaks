@@ -1,12 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
 import com.sixteencolorgames.supertechtweaks.ModBlocks;
-import com.sixteencolorgames.supertechtweaks.ModItems;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemOreChunk;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
+import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class ClientProxy extends CommonProxy {
                 }
             });
         });
-        ModItems.itemTechComponent.registerModels();
+        ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
         //((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new ModelCache());
         ModelLoaderRegistry.registerLoader(new BakedModelLoader());
     }
@@ -129,8 +131,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModItems.itemOreChunk);
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModItems.itemMaterialObject);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemOreChunk);
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, ModRegistry.itemMaterialObject);
         ModBlocks.materialBlocks.forEach((value) -> {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, value.getItemBlock());
         });

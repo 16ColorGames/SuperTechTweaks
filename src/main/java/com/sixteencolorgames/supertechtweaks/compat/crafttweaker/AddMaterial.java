@@ -7,14 +7,13 @@ package com.sixteencolorgames.supertechtweaks.compat.crafttweaker;
 
 import com.google.common.collect.Lists;
 import com.sixteencolorgames.supertechtweaks.ModFluids;
-import com.sixteencolorgames.supertechtweaks.ModItems;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemMaterialObject;
-import static com.sixteencolorgames.supertechtweaks.ModItems.itemOreChunk;
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemMaterialObject;
+import static com.sixteencolorgames.supertechtweaks.ModRegistry.itemOreChunk;
 import com.sixteencolorgames.supertechtweaks.Recipies;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import static com.sixteencolorgames.supertechtweaks.items.ItemMaterialObject.*;
 import static com.sixteencolorgames.supertechtweaks.items.ItemOreChunk.*;
-import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import net.minecraft.block.material.MapColor;
@@ -104,9 +103,9 @@ public class AddMaterial implements IUndoableAction {
         Recipies.register(mat);
         MineTweakerAPI.ijeiRecipeRegistry.addFurnace(Lists.newArrayList(ore), ingot);
         MineTweakerAPI.ijeiRecipeRegistry.addFurnace(Lists.newArrayList(oreNether),
-                new ItemStack(ModItems.itemOreChunk, 2, mat.ordinal()));
+                new ItemStack(ModRegistry.itemOreChunk, 2, mat.ordinal()));
         MineTweakerAPI.ijeiRecipeRegistry.addFurnace(Lists.newArrayList(oreEnd),
-                new ItemStack(ModItems.itemOreChunk, 3, mat.ordinal()));
+                new ItemStack(ModRegistry.itemOreChunk, 3, mat.ordinal()));
         MineTweakerAPI.ijeiRecipeRegistry.addFurnace(Lists.newArrayList(dust), ingot);
 
         ShapedOreRecipe gearRec = new ShapedOreRecipe(gear, " x ", "xyx", " x ", 'x', "ingot" + mat.getName(), 'y', "nugget" + mat.getName());
@@ -121,7 +120,7 @@ public class AddMaterial implements IUndoableAction {
         ShapedOreRecipe rodRec = new ShapedOreRecipe(rod, "x", "x", 'x', "ingot" + mat.getName());
         GameRegistry.addRecipe(rodRec);
         MineTweakerAPI.ijeiRecipeRegistry.addRecipe(rodRec);
-        ShapelessOreRecipe wireRec = new ShapelessOreRecipe(new ItemStack(ModItems.itemMaterialObject, 2, mat.ordinal() + WIRE), plate, "craftingToolWireCutter");
+        ShapelessOreRecipe wireRec = new ShapelessOreRecipe(new ItemStack(ModRegistry.itemMaterialObject, 2, mat.ordinal() + WIRE), plate, "craftingToolWireCutter");
         GameRegistry.addRecipe(wireRec);
         MineTweakerAPI.ijeiRecipeRegistry.addRecipe(wireRec);
         ShapelessOreRecipe plateRec = new ShapelessOreRecipe(plate, ingot, "craftingToolForgeHammer");

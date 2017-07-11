@@ -58,7 +58,7 @@ public class ServerEvents {
                                     IBlockState targetBlockState = world.getBlockState(targetBlockPos);
                                     Block targetBlock = targetBlockState.getBlock();
 
-                                    if (targetBlock.equals(ModBlocks.blockOre) && get.getBase(targetBlockPos) == Integer.MIN_VALUE) {
+                                    if (targetBlock.equals(ModRegistry.superore) && get.getBase(targetBlockPos) == Integer.MIN_VALUE) {
                                         world.setBlockState(targetBlockPos, Blocks.STONE.getDefaultState());
                                     }
 
@@ -72,17 +72,6 @@ public class ServerEvents {
 
                         get.setChunkGenerated(x, z);
                     }
-                }
-            }
-        }
-    }
-
-    //@SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent e) {
-        if (e.player instanceof EntityPlayerMP) {
-            for (int x = -4; x < 5; x++) {
-                for (int z = -4; z < 5; z++) {
-                    handleOreUpdate((EntityPlayerMP) e.player, e.player.chunkCoordX + x, e.player.chunkCoordZ + z);
                 }
             }
         }

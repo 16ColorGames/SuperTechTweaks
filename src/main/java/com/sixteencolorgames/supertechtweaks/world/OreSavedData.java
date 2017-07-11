@@ -201,7 +201,6 @@ public class OreSavedData extends WorldSavedData {
                         SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
                     }
                     setChunkGenerated((Integer.parseInt(x) / 16), (Integer.parseInt(z) / 16));
-                    // SuperTechTweaksMod.proxy.getWorld(null).getChunkFromBlockCoords(new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z))).setChunkModified();
                 });
             });
         });
