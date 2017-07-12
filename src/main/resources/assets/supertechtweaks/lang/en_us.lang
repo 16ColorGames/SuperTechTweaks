@@ -25,6 +25,7 @@ item.itemOreChunk.none.name=none Ore
 item.itemOreChunk.nethernone.name=Nether none Ore
 item.itemOreChunk.endnone.name=End none Ore
 fluid.none=Molten none
+tile.blocknone.name=Block of none
 
 item.itemMaterialObject.ingotAntimony.name=Antimony Ingot
 item.itemMaterialObject.dustAntimony.name=Antimony Dust
@@ -43,6 +44,7 @@ item.itemOreChunk.Antimony.name=Antimony Ore
 item.itemOreChunk.netherAntimony.name=Nether Antimony Ore
 item.itemOreChunk.endAntimony.name=End Antimony Ore
 fluid.antimony=Molten Antimony
+tile.blockAntimony.name=Block of Antimony
 
 item.itemMaterialObject.ingotBismuth.name=Bismuth Ingot
 item.itemMaterialObject.dustBismuth.name=Bismuth Dust
@@ -61,6 +63,7 @@ item.itemOreChunk.Bismuth.name=Bismuth Ore
 item.itemOreChunk.netherBismuth.name=Nether Bismuth Ore
 item.itemOreChunk.endBismuth.name=End Bismuth Ore
 fluid.bismuth=Molten Bismuth
+tile.blockBismuth.name=Block of Bismuth
 
 item.itemMaterialObject.ingotCadmium.name=Cadmium Ingot
 item.itemMaterialObject.dustCadmium.name=Cadmium Dust
@@ -79,6 +82,7 @@ item.itemOreChunk.Cadmium.name=Cadmium Ore
 item.itemOreChunk.netherCadmium.name=Nether Cadmium Ore
 item.itemOreChunk.endCadmium.name=End Cadmium Ore
 fluid.cadmium=Molten Cadmium
+tile.blockCadmium.name=Block of Cadmium
 
 item.itemMaterialObject.ingotMercury.name=Mercury Ingot
 item.itemMaterialObject.dustMercury.name=Mercury Dust
@@ -97,6 +101,7 @@ item.itemOreChunk.Mercury.name=Mercury Ore
 item.itemOreChunk.netherMercury.name=Nether Mercury Ore
 item.itemOreChunk.endMercury.name=End Mercury Ore
 fluid.mercury=Molten Mercury
+tile.blockMercury.name=Block of Mercury
 
 item.itemMaterialObject.ingotCopper.name=Copper Ingot
 item.itemMaterialObject.dustCopper.name=Copper Dust
@@ -115,6 +120,7 @@ item.itemOreChunk.Copper.name=Copper Ore
 item.itemOreChunk.netherCopper.name=Nether Copper Ore
 item.itemOreChunk.endCopper.name=End Copper Ore
 fluid.copper=Molten Copper
+tile.blockCopper.name=Block of Copper
 
 item.itemMaterialObject.ingotZinc.name=Zinc Ingot
 item.itemMaterialObject.dustZinc.name=Zinc Dust
@@ -133,6 +139,7 @@ item.itemOreChunk.Zinc.name=Zinc Ore
 item.itemOreChunk.netherZinc.name=Nether Zinc Ore
 item.itemOreChunk.endZinc.name=End Zinc Ore
 fluid.zinc=Molten Zinc
+tile.blockZinc.name=Block of Zinc
 
 item.itemMaterialObject.ingotCoal.name=Coal Ingot
 item.itemMaterialObject.dustCoal.name=Coal Dust
@@ -151,6 +158,7 @@ item.itemOreChunk.Coal.name=Coal Ore
 item.itemOreChunk.netherCoal.name=Nether Coal Ore
 item.itemOreChunk.endCoal.name=End Coal Ore
 fluid.coal=Molten Coal
+tile.blockCoal.name=Block of Coal
 
 item.itemMaterialObject.ingotMonazit.name=Monazit Ingot
 item.itemMaterialObject.dustMonazit.name=Monazit Dust
@@ -169,6 +177,7 @@ item.itemOreChunk.Monazit.name=Monazit Ore
 item.itemOreChunk.netherMonazit.name=Nether Monazit Ore
 item.itemOreChunk.endMonazit.name=End Monazit Ore
 fluid.monazit=Molten Monazit
+tile.blockMonazit.name=Block of Monazit
 
 item.itemMaterialObject.ingotIron.name=Iron Ingot
 item.itemMaterialObject.dustIron.name=Iron Dust
@@ -187,6 +196,7 @@ item.itemOreChunk.Iron.name=Iron Ore
 item.itemOreChunk.netherIron.name=Nether Iron Ore
 item.itemOreChunk.endIron.name=End Iron Ore
 fluid.iron=Molten Iron
+tile.blockIron.name=Block of Iron
 
 item.itemMaterialObject.ingotApatite.name=Apatite Ingot
 item.itemMaterialObject.dustApatite.name=Apatite Dust
@@ -205,6 +215,7 @@ item.itemOreChunk.Apatite.name=Apatite Ore
 item.itemOreChunk.netherApatite.name=Nether Apatite Ore
 item.itemOreChunk.endApatite.name=End Apatite Ore
 fluid.apatite=Molten Apatite
+tile.blockApatite.name=Block of Apatite
 
 item.itemMaterialObject.ingotChromium.name=Chromium Ingot
 item.itemMaterialObject.dustChromium.name=Chromium Dust
@@ -223,6 +234,7 @@ item.itemOreChunk.Chromium.name=Chromium Ore
 item.itemOreChunk.netherChromium.name=Nether Chromium Ore
 item.itemOreChunk.endChromium.name=End Chromium Ore
 fluid.chromium=Molten Chromium
+tile.blockChromium.name=Block of Chromium
 
 item.itemMaterialObject.ingotAluminum.name=Aluminum Ingot
 item.itemMaterialObject.dustAluminum.name=Aluminum Dust
@@ -241,6 +253,7 @@ item.itemOreChunk.Aluminum.name=Aluminum Ore
 item.itemOreChunk.netherAluminum.name=Nether Aluminum Ore
 item.itemOreChunk.endAluminum.name=End Aluminum Ore
 fluid.aluminum=Molten Aluminum
+tile.blockAluminum.name=Block of Aluminum
 
 item.itemMaterialObject.ingotSilver.name=Silver Ingot
 item.itemMaterialObject.dustSilver.name=Silver Dust
@@ -259,6 +272,7 @@ item.itemOreChunk.Silver.name=Silver Ore
 item.itemOreChunk.netherSilver.name=Nether Silver Ore
 item.itemOreChunk.endSilver.name=End Silver Ore
 fluid.silver=Molten Silver
+tile.blockSilver.name=Block of Silver
 
 item.itemMaterialObject.ingotTellurium.name=Tellurium Ingot
 item.itemMaterialObject.dustTellurium.name=Tellurium Dust
@@ -277,6 +291,7 @@ item.itemOreChunk.Tellurium.name=Tellurium Ore
 item.itemOreChunk.netherTellurium.name=Nether Tellurium Ore
 item.itemOreChunk.endTellurium.name=End Tellurium Ore
 fluid.tellurium=Molten Tellurium
+tile.blockTellurium.name=Block of Tellurium
 
 item.itemMaterialObject.ingotLapis.name=Lapis Ingot
 item.itemMaterialObject.dustLapis.name=Lapis Dust
@@ -295,6 +310,7 @@ item.itemOreChunk.Lapis.name=Lapis Ore
 item.itemOreChunk.netherLapis.name=Nether Lapis Ore
 item.itemOreChunk.endLapis.name=End Lapis Ore
 fluid.lapis=Molten Lapis
+tile.blockLapis.name=Block of Lapis
 
 item.itemMaterialObject.ingotTin.name=Tin Ingot
 item.itemMaterialObject.dustTin.name=Tin Dust
@@ -313,6 +329,7 @@ item.itemOreChunk.Tin.name=Tin Ore
 item.itemOreChunk.netherTin.name=Nether Tin Ore
 item.itemOreChunk.endTin.name=End Tin Ore
 fluid.tin=Molten Tin
+tile.blockTin.name=Block of Tin
 
 item.itemMaterialObject.ingotGold.name=Gold Ingot
 item.itemMaterialObject.dustGold.name=Gold Dust
@@ -331,6 +348,7 @@ item.itemOreChunk.Gold.name=Gold Ore
 item.itemOreChunk.netherGold.name=Nether Gold Ore
 item.itemOreChunk.endGold.name=End Gold Ore
 fluid.gold=Molten Gold
+tile.blockGold.name=Block of Gold
 
 item.itemMaterialObject.ingotLead.name=Lead Ingot
 item.itemMaterialObject.dustLead.name=Lead Dust
@@ -349,6 +367,7 @@ item.itemOreChunk.Lead.name=Lead Ore
 item.itemOreChunk.netherLead.name=Nether Lead Ore
 item.itemOreChunk.endLead.name=End Lead Ore
 fluid.lead=Molten Lead
+tile.blockLead.name=Block of Lead
 
 item.itemMaterialObject.ingotRedstone.name=Redstone Ingot
 item.itemMaterialObject.dustRedstone.name=Redstone Dust
@@ -367,6 +386,7 @@ item.itemOreChunk.Redstone.name=Redstone Ore
 item.itemOreChunk.netherRedstone.name=Nether Redstone Ore
 item.itemOreChunk.endRedstone.name=End Redstone Ore
 fluid.redstone=Molten Redstone
+tile.blockRedstone.name=Block of Redstone
 
 item.itemMaterialObject.ingotSulfur.name=Sulfur Ingot
 item.itemMaterialObject.dustSulfur.name=Sulfur Dust
@@ -385,6 +405,7 @@ item.itemOreChunk.Sulfur.name=Sulfur Ore
 item.itemOreChunk.netherSulfur.name=Nether Sulfur Ore
 item.itemOreChunk.endSulfur.name=End Sulfur Ore
 fluid.sulfur=Molten Sulfur
+tile.blockSulfur.name=Block of Sulfur
 
 item.itemMaterialObject.ingotNickel.name=Nickel Ingot
 item.itemMaterialObject.dustNickel.name=Nickel Dust
@@ -403,6 +424,7 @@ item.itemOreChunk.Nickel.name=Nickel Ore
 item.itemOreChunk.netherNickel.name=Nether Nickel Ore
 item.itemOreChunk.endNickel.name=End Nickel Ore
 fluid.nickel=Molten Nickel
+tile.blockNickel.name=Block of Nickel
 
 item.itemMaterialObject.ingotOsmium.name=Osmium Ingot
 item.itemMaterialObject.dustOsmium.name=Osmium Dust
@@ -421,6 +443,7 @@ item.itemOreChunk.Osmium.name=Osmium Ore
 item.itemOreChunk.netherOsmium.name=Nether Osmium Ore
 item.itemOreChunk.endOsmium.name=End Osmium Ore
 fluid.osmium=Molten Osmium
+tile.blockOsmium.name=Block of Osmium
 
 item.itemMaterialObject.ingotColdIron.name=ColdIron Ingot
 item.itemMaterialObject.dustColdIron.name=ColdIron Dust
@@ -439,6 +462,7 @@ item.itemOreChunk.ColdIron.name=ColdIron Ore
 item.itemOreChunk.netherColdIron.name=Nether ColdIron Ore
 item.itemOreChunk.endColdIron.name=End ColdIron Ore
 fluid.coldiron=Molten ColdIron
+tile.blockColdIron.name=Block of ColdIron
 
 item.itemMaterialObject.ingotDiamond.name=Diamond Ingot
 item.itemMaterialObject.dustDiamond.name=Diamond Dust
@@ -457,6 +481,7 @@ item.itemOreChunk.Diamond.name=Diamond Ore
 item.itemOreChunk.netherDiamond.name=Nether Diamond Ore
 item.itemOreChunk.endDiamond.name=End Diamond Ore
 fluid.diamond=Molten Diamond
+tile.blockDiamond.name=Block of Diamond
 
 item.itemMaterialObject.ingotEmerald.name=Emerald Ingot
 item.itemMaterialObject.dustEmerald.name=Emerald Dust
@@ -475,6 +500,7 @@ item.itemOreChunk.Emerald.name=Emerald Ore
 item.itemOreChunk.netherEmerald.name=Nether Emerald Ore
 item.itemOreChunk.endEmerald.name=End Emerald Ore
 fluid.emerald=Molten Emerald
+tile.blockEmerald.name=Block of Emerald
 
 item.itemMaterialObject.ingotRuby.name=Ruby Ingot
 item.itemMaterialObject.dustRuby.name=Ruby Dust
@@ -493,6 +519,7 @@ item.itemOreChunk.Ruby.name=Ruby Ore
 item.itemOreChunk.netherRuby.name=Nether Ruby Ore
 item.itemOreChunk.endRuby.name=End Ruby Ore
 fluid.ruby=Molten Ruby
+tile.blockRuby.name=Block of Ruby
 
 item.itemMaterialObject.ingotSapphire.name=Sapphire Ingot
 item.itemMaterialObject.dustSapphire.name=Sapphire Dust
@@ -511,6 +538,7 @@ item.itemOreChunk.Sapphire.name=Sapphire Ore
 item.itemOreChunk.netherSapphire.name=Nether Sapphire Ore
 item.itemOreChunk.endSapphire.name=End Sapphire Ore
 fluid.sapphire=Molten Sapphire
+tile.blockSapphire.name=Block of Sapphire
 
 item.itemMaterialObject.ingotAmethyst.name=Amethyst Ingot
 item.itemMaterialObject.dustAmethyst.name=Amethyst Dust
@@ -529,6 +557,7 @@ item.itemOreChunk.Amethyst.name=Amethyst Ore
 item.itemOreChunk.netherAmethyst.name=Nether Amethyst Ore
 item.itemOreChunk.endAmethyst.name=End Amethyst Ore
 fluid.amethyst=Molten Amethyst
+tile.blockAmethyst.name=Block of Amethyst
 
 item.itemMaterialObject.ingotManganese.name=Manganese Ingot
 item.itemMaterialObject.dustManganese.name=Manganese Dust
@@ -547,6 +576,7 @@ item.itemOreChunk.Manganese.name=Manganese Ore
 item.itemOreChunk.netherManganese.name=Nether Manganese Ore
 item.itemOreChunk.endManganese.name=End Manganese Ore
 fluid.manganese=Molten Manganese
+tile.blockManganese.name=Block of Manganese
 
 item.itemMaterialObject.ingotCertus.name=Certus Ingot
 item.itemMaterialObject.dustCertus.name=Certus Dust
@@ -565,6 +595,7 @@ item.itemOreChunk.Certus.name=Certus Ore
 item.itemOreChunk.netherCertus.name=Nether Certus Ore
 item.itemOreChunk.endCertus.name=End Certus Ore
 fluid.certus=Molten Certus
+tile.blockCertus.name=Block of Certus
 
 item.itemMaterialObject.ingotCertusCharged.name=CertusCharged Ingot
 item.itemMaterialObject.dustCertusCharged.name=CertusCharged Dust
@@ -583,6 +614,7 @@ item.itemOreChunk.CertusCharged.name=CertusCharged Ore
 item.itemOreChunk.netherCertusCharged.name=Nether CertusCharged Ore
 item.itemOreChunk.endCertusCharged.name=End CertusCharged Ore
 fluid.certuscharged=Molten CertusCharged
+tile.blockCertusCharged.name=Block of CertusCharged
 
 item.itemMaterialObject.ingotArdite.name=Ardite Ingot
 item.itemMaterialObject.dustArdite.name=Ardite Dust
@@ -601,6 +633,7 @@ item.itemOreChunk.Ardite.name=Ardite Ore
 item.itemOreChunk.netherArdite.name=Nether Ardite Ore
 item.itemOreChunk.endArdite.name=End Ardite Ore
 fluid.ardite=Molten Ardite
+tile.blockArdite.name=Block of Ardite
 
 item.itemMaterialObject.ingotUranium.name=Uranium Ingot
 item.itemMaterialObject.dustUranium.name=Uranium Dust
@@ -619,6 +652,7 @@ item.itemOreChunk.Uranium.name=Uranium Ore
 item.itemOreChunk.netherUranium.name=Nether Uranium Ore
 item.itemOreChunk.endUranium.name=End Uranium Ore
 fluid.uranium=Molten Uranium
+tile.blockUranium.name=Block of Uranium
 
 item.itemMaterialObject.ingotPlatinum.name=Platinum Ingot
 item.itemMaterialObject.dustPlatinum.name=Platinum Dust
@@ -637,6 +671,7 @@ item.itemOreChunk.Platinum.name=Platinum Ore
 item.itemOreChunk.netherPlatinum.name=Nether Platinum Ore
 item.itemOreChunk.endPlatinum.name=End Platinum Ore
 fluid.platinum=Molten Platinum
+tile.blockPlatinum.name=Block of Platinum
 
 item.itemMaterialObject.ingotYellorium.name=Yellorium Ingot
 item.itemMaterialObject.dustYellorium.name=Yellorium Dust
@@ -655,6 +690,7 @@ item.itemOreChunk.Yellorium.name=Yellorium Ore
 item.itemOreChunk.netherYellorium.name=Nether Yellorium Ore
 item.itemOreChunk.endYellorium.name=End Yellorium Ore
 fluid.yellorium=Molten Yellorium
+tile.blockYellorium.name=Block of Yellorium
 
 item.itemMaterialObject.ingotDraconium.name=Draconium Ingot
 item.itemMaterialObject.dustDraconium.name=Draconium Dust
@@ -673,6 +709,7 @@ item.itemOreChunk.Draconium.name=Draconium Ore
 item.itemOreChunk.netherDraconium.name=Nether Draconium Ore
 item.itemOreChunk.endDraconium.name=End Draconium Ore
 fluid.draconium=Molten Draconium
+tile.blockDraconium.name=Block of Draconium
 
 item.itemMaterialObject.ingotCobalt.name=Cobalt Ingot
 item.itemMaterialObject.dustCobalt.name=Cobalt Dust
@@ -691,6 +728,7 @@ item.itemOreChunk.Cobalt.name=Cobalt Ore
 item.itemOreChunk.netherCobalt.name=Nether Cobalt Ore
 item.itemOreChunk.endCobalt.name=End Cobalt Ore
 fluid.cobalt=Molten Cobalt
+tile.blockCobalt.name=Block of Cobalt
 
 item.itemMaterialObject.ingotIridium.name=Iridium Ingot
 item.itemMaterialObject.dustIridium.name=Iridium Dust
@@ -709,6 +747,7 @@ item.itemOreChunk.Iridium.name=Iridium Ore
 item.itemOreChunk.netherIridium.name=Nether Iridium Ore
 item.itemOreChunk.endIridium.name=End Iridium Ore
 fluid.iridium=Molten Iridium
+tile.blockIridium.name=Block of Iridium
 
 item.itemMaterialObject.ingotTitanium.name=Titanium Ingot
 item.itemMaterialObject.dustTitanium.name=Titanium Dust
@@ -727,6 +766,7 @@ item.itemOreChunk.Titanium.name=Titanium Ore
 item.itemOreChunk.netherTitanium.name=Nether Titanium Ore
 item.itemOreChunk.endTitanium.name=End Titanium Ore
 fluid.titanium=Molten Titanium
+tile.blockTitanium.name=Block of Titanium
 
 item.itemMaterialObject.ingotStone.name=Stone Ingot
 item.itemMaterialObject.dustStone.name=Stone Dust
@@ -745,6 +785,7 @@ item.itemOreChunk.Stone.name=Stone Ore
 item.itemOreChunk.netherStone.name=Nether Stone Ore
 item.itemOreChunk.endStone.name=End Stone Ore
 fluid.stone=Molten Stone
+tile.blockStone.name=Block of Stone
 
 item.itemMaterialObject.ingotBasalt.name=Basalt Ingot
 item.itemMaterialObject.dustBasalt.name=Basalt Dust
@@ -763,6 +804,7 @@ item.itemOreChunk.Basalt.name=Basalt Ore
 item.itemOreChunk.netherBasalt.name=Nether Basalt Ore
 item.itemOreChunk.endBasalt.name=End Basalt Ore
 fluid.basalt=Molten Basalt
+tile.blockBasalt.name=Block of Basalt
 
 item.itemMaterialObject.ingotPaper.name=Paper Ingot
 item.itemMaterialObject.dustPaper.name=Paper Dust
@@ -781,6 +823,7 @@ item.itemOreChunk.Paper.name=Paper Ore
 item.itemOreChunk.netherPaper.name=Nether Paper Ore
 item.itemOreChunk.endPaper.name=End Paper Ore
 fluid.paper=Molten Paper
+tile.blockPaper.name=Block of Paper
 
 item.itemMaterialObject.ingotSponge.name=Sponge Ingot
 item.itemMaterialObject.dustSponge.name=Sponge Dust
@@ -799,6 +842,7 @@ item.itemOreChunk.Sponge.name=Sponge Ore
 item.itemOreChunk.netherSponge.name=Nether Sponge Ore
 item.itemOreChunk.endSponge.name=End Sponge Ore
 fluid.sponge=Molten Sponge
+tile.blockSponge.name=Block of Sponge
 
 item.itemMaterialObject.ingotFirewood.name=Firewood Ingot
 item.itemMaterialObject.dustFirewood.name=Firewood Dust
@@ -817,6 +861,7 @@ item.itemOreChunk.Firewood.name=Firewood Ore
 item.itemOreChunk.netherFirewood.name=Nether Firewood Ore
 item.itemOreChunk.endFirewood.name=End Firewood Ore
 fluid.firewood=Molten Firewood
+tile.blockFirewood.name=Block of Firewood
 
 item.itemMaterialObject.ingotSlime.name=Slime Ingot
 item.itemMaterialObject.dustSlime.name=Slime Dust
@@ -835,6 +880,7 @@ item.itemOreChunk.Slime.name=Slime Ore
 item.itemOreChunk.netherSlime.name=Nether Slime Ore
 item.itemOreChunk.endSlime.name=End Slime Ore
 fluid.slime=Molten Slime
+tile.blockSlime.name=Block of Slime
 
 item.itemMaterialObject.ingotBlueSlime.name=BlueSlime Ingot
 item.itemMaterialObject.dustBlueSlime.name=BlueSlime Dust
@@ -853,6 +899,7 @@ item.itemOreChunk.BlueSlime.name=BlueSlime Ore
 item.itemOreChunk.netherBlueSlime.name=Nether BlueSlime Ore
 item.itemOreChunk.endBlueSlime.name=End BlueSlime Ore
 fluid.blueslime=Molten BlueSlime
+tile.blockBlueSlime.name=Block of BlueSlime
 
 item.itemMaterialObject.ingotMagmaSlime.name=MagmaSlime Ingot
 item.itemMaterialObject.dustMagmaSlime.name=MagmaSlime Dust
@@ -871,6 +918,7 @@ item.itemOreChunk.MagmaSlime.name=MagmaSlime Ore
 item.itemOreChunk.netherMagmaSlime.name=Nether MagmaSlime Ore
 item.itemOreChunk.endMagmaSlime.name=End MagmaSlime Ore
 fluid.magmaslime=Molten MagmaSlime
+tile.blockMagmaSlime.name=Block of MagmaSlime
 
 item.itemMaterialObject.ingotTreatedWood.name=TreatedWood Ingot
 item.itemMaterialObject.dustTreatedWood.name=TreatedWood Dust
@@ -889,6 +937,7 @@ item.itemOreChunk.TreatedWood.name=TreatedWood Ore
 item.itemOreChunk.netherTreatedWood.name=Nether TreatedWood Ore
 item.itemOreChunk.endTreatedWood.name=End TreatedWood Ore
 fluid.treatedwood=Molten TreatedWood
+tile.blockTreatedWood.name=Block of TreatedWood
 
 item.itemMaterialObject.ingotCactus.name=Cactus Ingot
 item.itemMaterialObject.dustCactus.name=Cactus Dust
@@ -907,6 +956,7 @@ item.itemOreChunk.Cactus.name=Cactus Ore
 item.itemOreChunk.netherCactus.name=Nether Cactus Ore
 item.itemOreChunk.endCactus.name=End Cactus Ore
 fluid.cactus=Molten Cactus
+tile.blockCactus.name=Block of Cactus
 
 item.itemMaterialObject.ingotNetherrack.name=Netherrack Ingot
 item.itemMaterialObject.dustNetherrack.name=Netherrack Dust
@@ -925,6 +975,7 @@ item.itemOreChunk.Netherrack.name=Netherrack Ore
 item.itemOreChunk.netherNetherrack.name=Nether Netherrack Ore
 item.itemOreChunk.endNetherrack.name=End Netherrack Ore
 fluid.netherrack=Molten Netherrack
+tile.blockNetherrack.name=Block of Netherrack
 
 item.itemMaterialObject.ingotWood.name=Wood Ingot
 item.itemMaterialObject.dustWood.name=Wood Dust
@@ -943,6 +994,7 @@ item.itemOreChunk.Wood.name=Wood Ore
 item.itemOreChunk.netherWood.name=Nether Wood Ore
 item.itemOreChunk.endWood.name=End Wood Ore
 fluid.wood=Molten Wood
+tile.blockWood.name=Block of Wood
 
 item.itemMaterialObject.ingotBone.name=Bone Ingot
 item.itemMaterialObject.dustBone.name=Bone Dust
@@ -961,6 +1013,7 @@ item.itemOreChunk.Bone.name=Bone Ore
 item.itemOreChunk.netherBone.name=Nether Bone Ore
 item.itemOreChunk.endBone.name=End Bone Ore
 fluid.bone=Molten Bone
+tile.blockBone.name=Block of Bone
 
 item.itemMaterialObject.ingotFlint.name=Flint Ingot
 item.itemMaterialObject.dustFlint.name=Flint Dust
@@ -979,6 +1032,7 @@ item.itemOreChunk.Flint.name=Flint Ore
 item.itemOreChunk.netherFlint.name=Nether Flint Ore
 item.itemOreChunk.endFlint.name=End Flint Ore
 fluid.flint=Molten Flint
+tile.blockFlint.name=Block of Flint
 
 item.itemMaterialObject.ingotPrismarine.name=Prismarine Ingot
 item.itemMaterialObject.dustPrismarine.name=Prismarine Dust
@@ -997,6 +1051,7 @@ item.itemOreChunk.Prismarine.name=Prismarine Ore
 item.itemOreChunk.netherPrismarine.name=Nether Prismarine Ore
 item.itemOreChunk.endPrismarine.name=End Prismarine Ore
 fluid.prismarine=Molten Prismarine
+tile.blockPrismarine.name=Block of Prismarine
 
 item.itemMaterialObject.ingotElectrum.name=Electrum Ingot
 item.itemMaterialObject.dustElectrum.name=Electrum Dust
@@ -1015,6 +1070,7 @@ item.itemOreChunk.Electrum.name=Electrum Ore
 item.itemOreChunk.netherElectrum.name=Nether Electrum Ore
 item.itemOreChunk.endElectrum.name=End Electrum Ore
 fluid.electrum=Molten Electrum
+tile.blockElectrum.name=Block of Electrum
 
 item.itemMaterialObject.ingotXu_demonic_metal.name=Xu_demonic_metal Ingot
 item.itemMaterialObject.dustXu_demonic_metal.name=Xu_demonic_metal Dust
@@ -1033,6 +1089,7 @@ item.itemOreChunk.Xu_demonic_metal.name=Xu_demonic_metal Ore
 item.itemOreChunk.netherXu_demonic_metal.name=Nether Xu_demonic_metal Ore
 item.itemOreChunk.endXu_demonic_metal.name=End Xu_demonic_metal Ore
 fluid.xu_demonic_metal=Molten Xu_demonic_metal
+tile.blockXu_demonic_metal.name=Block of Xu_demonic_metal
 
 item.itemMaterialObject.ingotBrass.name=Brass Ingot
 item.itemMaterialObject.dustBrass.name=Brass Dust
@@ -1051,6 +1108,7 @@ item.itemOreChunk.Brass.name=Brass Ore
 item.itemOreChunk.netherBrass.name=Nether Brass Ore
 item.itemOreChunk.endBrass.name=End Brass Ore
 fluid.brass=Molten Brass
+tile.blockBrass.name=Block of Brass
 
 item.itemMaterialObject.ingotConstantan.name=Constantan Ingot
 item.itemMaterialObject.dustConstantan.name=Constantan Dust
@@ -1069,6 +1127,7 @@ item.itemOreChunk.Constantan.name=Constantan Ore
 item.itemOreChunk.netherConstantan.name=Nether Constantan Ore
 item.itemOreChunk.endConstantan.name=End Constantan Ore
 fluid.constantan=Molten Constantan
+tile.blockConstantan.name=Block of Constantan
 
 item.itemMaterialObject.ingotEndstone.name=Endstone Ingot
 item.itemMaterialObject.dustEndstone.name=Endstone Dust
@@ -1087,6 +1146,7 @@ item.itemOreChunk.Endstone.name=Endstone Ore
 item.itemOreChunk.netherEndstone.name=Nether Endstone Ore
 item.itemOreChunk.endEndstone.name=End Endstone Ore
 fluid.endstone=Molten Endstone
+tile.blockEndstone.name=Block of Endstone
 
 item.itemMaterialObject.ingotBronze.name=Bronze Ingot
 item.itemMaterialObject.dustBronze.name=Bronze Dust
@@ -1105,6 +1165,7 @@ item.itemOreChunk.Bronze.name=Bronze Ore
 item.itemOreChunk.netherBronze.name=Nether Bronze Ore
 item.itemOreChunk.endBronze.name=End Bronze Ore
 fluid.bronze=Molten Bronze
+tile.blockBronze.name=Block of Bronze
 
 item.itemMaterialObject.ingotSteel.name=Steel Ingot
 item.itemMaterialObject.dustSteel.name=Steel Dust
@@ -1123,6 +1184,7 @@ item.itemOreChunk.Steel.name=Steel Ore
 item.itemOreChunk.netherSteel.name=Nether Steel Ore
 item.itemOreChunk.endSteel.name=End Steel Ore
 fluid.steel=Molten Steel
+tile.blockSteel.name=Block of Steel
 
 item.itemMaterialObject.ingotPigiron.name=Pigiron Ingot
 item.itemMaterialObject.dustPigiron.name=Pigiron Dust
@@ -1141,6 +1203,7 @@ item.itemOreChunk.Pigiron.name=Pigiron Ore
 item.itemOreChunk.netherPigiron.name=Nether Pigiron Ore
 item.itemOreChunk.endPigiron.name=End Pigiron Ore
 fluid.pigiron=Molten Pigiron
+tile.blockPigiron.name=Block of Pigiron
 
 item.itemMaterialObject.ingotObsidian.name=Obsidian Ingot
 item.itemMaterialObject.dustObsidian.name=Obsidian Dust
@@ -1159,6 +1222,7 @@ item.itemOreChunk.Obsidian.name=Obsidian Ore
 item.itemOreChunk.netherObsidian.name=Nether Obsidian Ore
 item.itemOreChunk.endObsidian.name=End Obsidian Ore
 fluid.obsidian=Molten Obsidian
+tile.blockObsidian.name=Block of Obsidian
 
 item.itemMaterialObject.ingotManyullyn.name=Manyullyn Ingot
 item.itemMaterialObject.dustManyullyn.name=Manyullyn Dust
@@ -1177,6 +1241,7 @@ item.itemOreChunk.Manyullyn.name=Manyullyn Ore
 item.itemOreChunk.netherManyullyn.name=Nether Manyullyn Ore
 item.itemOreChunk.endManyullyn.name=End Manyullyn Ore
 fluid.manyullyn=Molten Manyullyn
+tile.blockManyullyn.name=Block of Manyullyn
 
 item.itemMaterialObject.ingotMithril.name=Mithril Ingot
 item.itemMaterialObject.dustMithril.name=Mithril Dust
@@ -1195,6 +1260,7 @@ item.itemOreChunk.Mithril.name=Mithril Ore
 item.itemOreChunk.netherMithril.name=Nether Mithril Ore
 item.itemOreChunk.endMithril.name=End Mithril Ore
 fluid.mithril=Molten Mithril
+tile.blockMithril.name=Block of Mithril
 
 item.itemMaterialObject.ingotNetherQuartz.name=NetherQuartz Ingot
 item.itemMaterialObject.dustNetherQuartz.name=NetherQuartz Dust
@@ -1213,6 +1279,7 @@ item.itemOreChunk.NetherQuartz.name=NetherQuartz Ore
 item.itemOreChunk.netherNetherQuartz.name=Nether NetherQuartz Ore
 item.itemOreChunk.endNetherQuartz.name=End NetherQuartz Ore
 fluid.netherquartz=Molten NetherQuartz
+tile.blockNetherQuartz.name=Block of NetherQuartz
 
 item.itemMaterialObject.ingotAdamantine.name=Adamantine Ingot
 item.itemMaterialObject.dustAdamantine.name=Adamantine Dust
@@ -1231,6 +1298,7 @@ item.itemOreChunk.Adamantine.name=Adamantine Ore
 item.itemOreChunk.netherAdamantine.name=Nether Adamantine Ore
 item.itemOreChunk.endAdamantine.name=End Adamantine Ore
 fluid.adamantine=Molten Adamantine
+tile.blockAdamantine.name=Block of Adamantine
 
 item.itemMaterialObject.ingotTerrax.name=Terrax Ingot
 item.itemMaterialObject.dustTerrax.name=Terrax Dust
@@ -1249,6 +1317,7 @@ item.itemOreChunk.Terrax.name=Terrax Ore
 item.itemOreChunk.netherTerrax.name=Nether Terrax Ore
 item.itemOreChunk.endTerrax.name=End Terrax Ore
 fluid.terrax=Molten Terrax
+tile.blockTerrax.name=Block of Terrax
 
 item.itemMaterialObject.ingotKarmesine.name=Karmesine Ingot
 item.itemMaterialObject.dustKarmesine.name=Karmesine Dust
@@ -1267,6 +1336,7 @@ item.itemOreChunk.Karmesine.name=Karmesine Ore
 item.itemOreChunk.netherKarmesine.name=Nether Karmesine Ore
 item.itemOreChunk.endKarmesine.name=End Karmesine Ore
 fluid.karmesine=Molten Karmesine
+tile.blockKarmesine.name=Block of Karmesine
 
 item.itemMaterialObject.ingotOvium.name=Ovium Ingot
 item.itemMaterialObject.dustOvium.name=Ovium Dust
@@ -1285,6 +1355,7 @@ item.itemOreChunk.Ovium.name=Ovium Ore
 item.itemOreChunk.netherOvium.name=Nether Ovium Ore
 item.itemOreChunk.endOvium.name=End Ovium Ore
 fluid.ovium=Molten Ovium
+tile.blockOvium.name=Block of Ovium
 
 item.itemMaterialObject.ingotJauxum.name=Jauxum Ingot
 item.itemMaterialObject.dustJauxum.name=Jauxum Dust
@@ -1303,6 +1374,7 @@ item.itemOreChunk.Jauxum.name=Jauxum Ore
 item.itemOreChunk.netherJauxum.name=Nether Jauxum Ore
 item.itemOreChunk.endJauxum.name=End Jauxum Ore
 fluid.jauxum=Molten Jauxum
+tile.blockJauxum.name=Block of Jauxum
 
 item.itemMaterialObject.ingotAurorium.name=Aurorium Ingot
 item.itemMaterialObject.dustAurorium.name=Aurorium Dust
@@ -1321,6 +1393,7 @@ item.itemOreChunk.Aurorium.name=Aurorium Ore
 item.itemOreChunk.netherAurorium.name=Nether Aurorium Ore
 item.itemOreChunk.endAurorium.name=End Aurorium Ore
 fluid.aurorium=Molten Aurorium
+tile.blockAurorium.name=Block of Aurorium
 
 item.itemMaterialObject.ingotTiberium.name=Tiberium Ingot
 item.itemMaterialObject.dustTiberium.name=Tiberium Dust
@@ -1339,6 +1412,7 @@ item.itemOreChunk.Tiberium.name=Tiberium Ore
 item.itemOreChunk.netherTiberium.name=Nether Tiberium Ore
 item.itemOreChunk.endTiberium.name=End Tiberium Ore
 fluid.tiberium=Molten Tiberium
+tile.blockTiberium.name=Block of Tiberium
 
 item.itemMaterialObject.ingotDilithium.name=Dilithium Ingot
 item.itemMaterialObject.dustDilithium.name=Dilithium Dust
@@ -1357,6 +1431,7 @@ item.itemOreChunk.Dilithium.name=Dilithium Ore
 item.itemOreChunk.netherDilithium.name=Nether Dilithium Ore
 item.itemOreChunk.endDilithium.name=End Dilithium Ore
 fluid.dilithium=Molten Dilithium
+tile.blockDilithium.name=Block of Dilithium
 
 item.itemMaterialObject.ingotFractum.name=Fractum Ingot
 item.itemMaterialObject.dustFractum.name=Fractum Dust
@@ -1375,6 +1450,7 @@ item.itemOreChunk.Fractum.name=Fractum Ore
 item.itemOreChunk.netherFractum.name=Nether Fractum Ore
 item.itemOreChunk.endFractum.name=End Fractum Ore
 fluid.fractum=Molten Fractum
+tile.blockFractum.name=Block of Fractum
 
 item.itemMaterialObject.ingotTriberium.name=Triberium Ingot
 item.itemMaterialObject.dustTriberium.name=Triberium Dust
@@ -1393,6 +1469,7 @@ item.itemOreChunk.Triberium.name=Triberium Ore
 item.itemOreChunk.netherTriberium.name=Nether Triberium Ore
 item.itemOreChunk.endTriberium.name=End Triberium Ore
 fluid.triberium=Molten Triberium
+tile.blockTriberium.name=Block of Triberium
 
 item.itemMaterialObject.ingotAbyssum.name=Abyssum Ingot
 item.itemMaterialObject.dustAbyssum.name=Abyssum Dust
@@ -1411,6 +1488,7 @@ item.itemOreChunk.Abyssum.name=Abyssum Ore
 item.itemOreChunk.netherAbyssum.name=Nether Abyssum Ore
 item.itemOreChunk.endAbyssum.name=End Abyssum Ore
 fluid.abyssum=Molten Abyssum
+tile.blockAbyssum.name=Block of Abyssum
 
 item.itemMaterialObject.ingotTritonite.name=Tritonite Ingot
 item.itemMaterialObject.dustTritonite.name=Tritonite Dust
@@ -1429,6 +1507,7 @@ item.itemOreChunk.Tritonite.name=Tritonite Ore
 item.itemOreChunk.netherTritonite.name=Nether Tritonite Ore
 item.itemOreChunk.endTritonite.name=End Tritonite Ore
 fluid.tritonite=Molten Tritonite
+tile.blockTritonite.name=Block of Tritonite
 
 item.itemMaterialObject.ingotViolium.name=Violium Ingot
 item.itemMaterialObject.dustViolium.name=Violium Dust
@@ -1447,6 +1526,7 @@ item.itemOreChunk.Violium.name=Violium Ore
 item.itemOreChunk.netherViolium.name=Nether Violium Ore
 item.itemOreChunk.endViolium.name=End Violium Ore
 fluid.violium=Molten Violium
+tile.blockViolium.name=Block of Violium
 
 item.itemMaterialObject.ingotAstrium.name=Astrium Ingot
 item.itemMaterialObject.dustAstrium.name=Astrium Dust
@@ -1465,6 +1545,7 @@ item.itemOreChunk.Astrium.name=Astrium Ore
 item.itemOreChunk.netherAstrium.name=Nether Astrium Ore
 item.itemOreChunk.endAstrium.name=End Astrium Ore
 fluid.astrium=Molten Astrium
+tile.blockAstrium.name=Block of Astrium
 
 item.itemMaterialObject.ingotNihilite.name=Nihilite Ingot
 item.itemMaterialObject.dustNihilite.name=Nihilite Dust
@@ -1483,6 +1564,7 @@ item.itemOreChunk.Nihilite.name=Nihilite Ore
 item.itemOreChunk.netherNihilite.name=Nether Nihilite Ore
 item.itemOreChunk.endNihilite.name=End Nihilite Ore
 fluid.nihilite=Molten Nihilite
+tile.blockNihilite.name=Block of Nihilite
 
 item.itemMaterialObject.ingotVibranium.name=Vibranium Ingot
 item.itemMaterialObject.dustVibranium.name=Vibranium Dust
@@ -1501,6 +1583,7 @@ item.itemOreChunk.Vibranium.name=Vibranium Ore
 item.itemOreChunk.netherVibranium.name=Nether Vibranium Ore
 item.itemOreChunk.endVibranium.name=End Vibranium Ore
 fluid.vibranium=Molten Vibranium
+tile.blockVibranium.name=Block of Vibranium
 
 item.itemMaterialObject.ingotSolarium.name=Solarium Ingot
 item.itemMaterialObject.dustSolarium.name=Solarium Dust
@@ -1519,6 +1602,7 @@ item.itemOreChunk.Solarium.name=Solarium Ore
 item.itemOreChunk.netherSolarium.name=Nether Solarium Ore
 item.itemOreChunk.endSolarium.name=End Solarium Ore
 fluid.solarium=Molten Solarium
+tile.blockSolarium.name=Block of Solarium
 
 item.itemMaterialObject.ingotValyrium.name=Valyrium Ingot
 item.itemMaterialObject.dustValyrium.name=Valyrium Dust
@@ -1537,6 +1621,7 @@ item.itemOreChunk.Valyrium.name=Valyrium Ore
 item.itemOreChunk.netherValyrium.name=Nether Valyrium Ore
 item.itemOreChunk.endValyrium.name=End Valyrium Ore
 fluid.valyrium=Molten Valyrium
+tile.blockValyrium.name=Block of Valyrium
 
 item.itemMaterialObject.ingotUru.name=Uru Ingot
 item.itemMaterialObject.dustUru.name=Uru Dust
@@ -1555,6 +1640,7 @@ item.itemOreChunk.Uru.name=Uru Ore
 item.itemOreChunk.netherUru.name=Nether Uru Ore
 item.itemOreChunk.endUru.name=End Uru Ore
 fluid.uru=Molten Uru
+tile.blockUru.name=Block of Uru
 
 item.itemMaterialObject.ingotAdamant.name=Adamant Ingot
 item.itemMaterialObject.dustAdamant.name=Adamant Dust
@@ -1573,6 +1659,7 @@ item.itemOreChunk.Adamant.name=Adamant Ore
 item.itemOreChunk.netherAdamant.name=Nether Adamant Ore
 item.itemOreChunk.endAdamant.name=End Adamant Ore
 fluid.adamant=Molten Adamant
+tile.blockAdamant.name=Block of Adamant
 
 item.itemMaterialObject.ingotNucleum.name=Nucleum Ingot
 item.itemMaterialObject.dustNucleum.name=Nucleum Dust
@@ -1591,6 +1678,7 @@ item.itemOreChunk.Nucleum.name=Nucleum Ore
 item.itemOreChunk.netherNucleum.name=Nether Nucleum Ore
 item.itemOreChunk.endNucleum.name=End Nucleum Ore
 fluid.nucleum=Molten Nucleum
+tile.blockNucleum.name=Block of Nucleum
 
 item.itemMaterialObject.ingotIox.name=Iox Ingot
 item.itemMaterialObject.dustIox.name=Iox Dust
@@ -1609,6 +1697,7 @@ item.itemOreChunk.Iox.name=Iox Ore
 item.itemOreChunk.netherIox.name=Nether Iox Ore
 item.itemOreChunk.endIox.name=End Iox Ore
 fluid.iox=Molten Iox
+tile.blockIox.name=Block of Iox
 
 item.itemMaterialObject.ingotSeismum.name=Seismum Ingot
 item.itemMaterialObject.dustSeismum.name=Seismum Dust
@@ -1627,6 +1716,7 @@ item.itemOreChunk.Seismum.name=Seismum Ore
 item.itemOreChunk.netherSeismum.name=Nether Seismum Ore
 item.itemOreChunk.endSeismum.name=End Seismum Ore
 fluid.seismum=Molten Seismum
+tile.blockSeismum.name=Block of Seismum
 
 item.itemMaterialObject.ingotImperomite.name=Imperomite Ingot
 item.itemMaterialObject.dustImperomite.name=Imperomite Dust
@@ -1645,6 +1735,7 @@ item.itemOreChunk.Imperomite.name=Imperomite Ore
 item.itemOreChunk.netherImperomite.name=Nether Imperomite Ore
 item.itemOreChunk.endImperomite.name=End Imperomite Ore
 fluid.imperomite=Molten Imperomite
+tile.blockImperomite.name=Block of Imperomite
 
 item.itemMaterialObject.ingotEezo.name=Eezo Ingot
 item.itemMaterialObject.dustEezo.name=Eezo Dust
@@ -1663,6 +1754,7 @@ item.itemOreChunk.Eezo.name=Eezo Ore
 item.itemOreChunk.netherEezo.name=Nether Eezo Ore
 item.itemOreChunk.endEezo.name=End Eezo Ore
 fluid.eezo=Molten Eezo
+tile.blockEezo.name=Block of Eezo
 
 item.itemMaterialObject.ingotDuranite.name=Duranite Ingot
 item.itemMaterialObject.dustDuranite.name=Duranite Dust
@@ -1681,6 +1773,7 @@ item.itemOreChunk.Duranite.name=Duranite Ore
 item.itemOreChunk.netherDuranite.name=Nether Duranite Ore
 item.itemOreChunk.endDuranite.name=End Duranite Ore
 fluid.duranite=Molten Duranite
+tile.blockDuranite.name=Block of Duranite
 
 item.itemMaterialObject.ingotPromethium.name=Promethium Ingot
 item.itemMaterialObject.dustPromethium.name=Promethium Dust
@@ -1699,6 +1792,7 @@ item.itemOreChunk.Promethium.name=Promethium Ore
 item.itemOreChunk.netherPromethium.name=Nether Promethium Ore
 item.itemOreChunk.endPromethium.name=End Promethium Ore
 fluid.promethium=Molten Promethium
+tile.blockPromethium.name=Block of Promethium
 
 item.itemMaterialObject.ingotIgnitz.name=Ignitz Ingot
 item.itemMaterialObject.dustIgnitz.name=Ignitz Dust
@@ -1717,6 +1811,7 @@ item.itemOreChunk.Ignitz.name=Ignitz Ore
 item.itemOreChunk.netherIgnitz.name=Nether Ignitz Ore
 item.itemOreChunk.endIgnitz.name=End Ignitz Ore
 fluid.ignitz=Molten Ignitz
+tile.blockIgnitz.name=Block of Ignitz
 
 item.itemMaterialObject.ingotProxii.name=Proxii Ingot
 item.itemMaterialObject.dustProxii.name=Proxii Dust
@@ -1735,6 +1830,7 @@ item.itemOreChunk.Proxii.name=Proxii Ore
 item.itemOreChunk.netherProxii.name=Nether Proxii Ore
 item.itemOreChunk.endProxii.name=End Proxii Ore
 fluid.proxii=Molten Proxii
+tile.blockProxii.name=Block of Proxii
 
 item.itemMaterialObject.ingotOsram.name=Osram Ingot
 item.itemMaterialObject.dustOsram.name=Osram Dust
@@ -1753,6 +1849,7 @@ item.itemOreChunk.Osram.name=Osram Ore
 item.itemOreChunk.netherOsram.name=Nether Osram Ore
 item.itemOreChunk.endOsram.name=End Osram Ore
 fluid.osram=Molten Osram
+tile.blockOsram.name=Block of Osram
 
 item.itemMaterialObject.ingotPalladium.name=Palladium Ingot
 item.itemMaterialObject.dustPalladium.name=Palladium Dust
@@ -1771,6 +1868,7 @@ item.itemOreChunk.Palladium.name=Palladium Ore
 item.itemOreChunk.netherPalladium.name=Nether Palladium Ore
 item.itemOreChunk.endPalladium.name=End Palladium Ore
 fluid.palladium=Molten Palladium
+tile.blockPalladium.name=Block of Palladium
 
 item.itemMaterialObject.ingotYrdeen.name=Yrdeen Ingot
 item.itemMaterialObject.dustYrdeen.name=Yrdeen Dust
@@ -1789,6 +1887,7 @@ item.itemOreChunk.Yrdeen.name=Yrdeen Ore
 item.itemOreChunk.netherYrdeen.name=Nether Yrdeen Ore
 item.itemOreChunk.endYrdeen.name=End Yrdeen Ore
 fluid.yrdeen=Molten Yrdeen
+tile.blockYrdeen.name=Block of Yrdeen
 
 item.itemMaterialObject.ingotNiob.name=Niob Ingot
 item.itemMaterialObject.dustNiob.name=Niob Dust
@@ -1807,6 +1906,7 @@ item.itemOreChunk.Niob.name=Niob Ore
 item.itemOreChunk.netherNiob.name=Nether Niob Ore
 item.itemOreChunk.endNiob.name=End Niob Ore
 fluid.niob=Molten Niob
+tile.blockNiob.name=Block of Niob
 
 item.itemMaterialObject.ingotObsidiorite.name=Obsidiorite Ingot
 item.itemMaterialObject.dustObsidiorite.name=Obsidiorite Dust
@@ -1825,6 +1925,7 @@ item.itemOreChunk.Obsidiorite.name=Obsidiorite Ore
 item.itemOreChunk.netherObsidiorite.name=Nether Obsidiorite Ore
 item.itemOreChunk.endObsidiorite.name=End Obsidiorite Ore
 fluid.obsidiorite=Molten Obsidiorite
+tile.blockObsidiorite.name=Block of Obsidiorite
 
 item.itemMaterialObject.ingotLumix.name=Lumix Ingot
 item.itemMaterialObject.dustLumix.name=Lumix Dust
@@ -1843,6 +1944,7 @@ item.itemOreChunk.Lumix.name=Lumix Ore
 item.itemOreChunk.netherLumix.name=Nether Lumix Ore
 item.itemOreChunk.endLumix.name=End Lumix Ore
 fluid.lumix=Molten Lumix
+tile.blockLumix.name=Block of Lumix
 
 item.itemMaterialObject.ingotDyonite.name=Dyonite Ingot
 item.itemMaterialObject.dustDyonite.name=Dyonite Dust
@@ -1861,6 +1963,7 @@ item.itemOreChunk.Dyonite.name=Dyonite Ore
 item.itemOreChunk.netherDyonite.name=Nether Dyonite Ore
 item.itemOreChunk.endDyonite.name=End Dyonite Ore
 fluid.dyonite=Molten Dyonite
+tile.blockDyonite.name=Block of Dyonite
 
 item.itemMaterialObject.ingotAluBrass.name=AluBrass Ingot
 item.itemMaterialObject.dustAluBrass.name=AluBrass Dust
@@ -1879,6 +1982,7 @@ item.itemOreChunk.AluBrass.name=AluBrass Ore
 item.itemOreChunk.netherAluBrass.name=Nether AluBrass Ore
 item.itemOreChunk.endAluBrass.name=End AluBrass Ore
 fluid.alubrass=Molten AluBrass
+tile.blockAluBrass.name=Block of AluBrass
 
 item.itemMaterialObject.ingotNitronite.name=Nitronite Ingot
 item.itemMaterialObject.dustNitronite.name=Nitronite Dust
@@ -1897,6 +2001,7 @@ item.itemOreChunk.Nitronite.name=Nitronite Ore
 item.itemOreChunk.netherNitronite.name=Nether Nitronite Ore
 item.itemOreChunk.endNitronite.name=End Nitronite Ore
 fluid.nitronite=Molten Nitronite
+tile.blockNitronite.name=Block of Nitronite
 
 item.itemMaterialObject.ingotMagma.name=Magma Ingot
 item.itemMaterialObject.dustMagma.name=Magma Dust
@@ -1915,6 +2020,7 @@ item.itemOreChunk.Magma.name=Magma Ore
 item.itemOreChunk.netherMagma.name=Nether Magma Ore
 item.itemOreChunk.endMagma.name=End Magma Ore
 fluid.magma=Molten Magma
+tile.blockMagma.name=Block of Magma
 
 item.itemMaterialObject.ingotResonating.name=Resonating Ingot
 item.itemMaterialObject.dustResonating.name=Resonating Dust
@@ -1933,6 +2039,7 @@ item.itemOreChunk.Resonating.name=Resonating Ore
 item.itemOreChunk.netherResonating.name=Nether Resonating Ore
 item.itemOreChunk.endResonating.name=End Resonating Ore
 fluid.resonating=Molten Resonating
+tile.blockResonating.name=Block of Resonating
 
 item.itemMaterialObject.ingotBlackQuartz.name=BlackQuartz Ingot
 item.itemMaterialObject.dustBlackQuartz.name=BlackQuartz Dust
@@ -1951,6 +2058,7 @@ item.itemOreChunk.BlackQuartz.name=BlackQuartz Ore
 item.itemOreChunk.netherBlackQuartz.name=Nether BlackQuartz Ore
 item.itemOreChunk.endBlackQuartz.name=End BlackQuartz Ore
 fluid.blackquartz=Molten BlackQuartz
+tile.blockBlackQuartz.name=Block of BlackQuartz
 
 item.itemMaterialObject.ingotInvar.name=Invar Ingot
 item.itemMaterialObject.dustInvar.name=Invar Dust
@@ -1969,6 +2077,7 @@ item.itemOreChunk.Invar.name=Invar Ore
 item.itemOreChunk.netherInvar.name=Nether Invar Ore
 item.itemOreChunk.endInvar.name=End Invar Ore
 fluid.invar=Molten Invar
+tile.blockInvar.name=Block of Invar
 
 item.itemMaterialObject.ingotNichrome.name=Nichrome Ingot
 item.itemMaterialObject.dustNichrome.name=Nichrome Dust
@@ -1987,3 +2096,61 @@ item.itemOreChunk.Nichrome.name=Nichrome Ore
 item.itemOreChunk.netherNichrome.name=Nether Nichrome Ore
 item.itemOreChunk.endNichrome.name=End Nichrome Ore
 fluid.nichrome=Molten Nichrome
+tile.blockNichrome.name=Block of Nichrome
+
+item.itemMaterialObject.ingotOsmiridium.name=Osmiridium Ingot
+item.itemMaterialObject.dustOsmiridium.name=Osmiridium Dust
+item.itemMaterialObject.gearOsmiridium.name=Osmiridium Gear
+item.itemMaterialObject.nuggetOsmiridium.name=Osmiridium Nugget
+item.itemMaterialObject.plateOsmiridium.name=Osmiridium Plate
+item.itemMaterialObject.rodOsmiridium.name=Osmiridium Rod
+item.itemMaterialObject.clumpOsmiridium.name=Osmiridium Clump
+item.itemMaterialObject.crystalOsmiridium.name=Osmiridium Crystal
+item.itemMaterialObject.shardOsmiridium.name=Osmiridium Shard
+item.itemMaterialObject.wireOsmiridium.name=Osmiridium Wire
+item.itemMaterialObject.dustDirtyOsmiridium.name=Dirty Osmiridium Dust
+item.itemMaterialObject.dustTinyOsmiridium.name=Tiny Osmiridium Dust
+item.itemMaterialObject.foilOsmiridium.name=Osmiridium Foil
+item.itemOreChunk.Osmiridium.name=Osmiridium Ore
+item.itemOreChunk.netherOsmiridium.name=Nether Osmiridium Ore
+item.itemOreChunk.endOsmiridium.name=End Osmiridium Ore
+fluid.osmiridium=Molten Osmiridium
+tile.blockOsmiridium.name=Block of Osmiridium
+
+item.itemMaterialObject.ingotSignalum.name=Signalum Ingot
+item.itemMaterialObject.dustSignalum.name=Signalum Dust
+item.itemMaterialObject.gearSignalum.name=Signalum Gear
+item.itemMaterialObject.nuggetSignalum.name=Signalum Nugget
+item.itemMaterialObject.plateSignalum.name=Signalum Plate
+item.itemMaterialObject.rodSignalum.name=Signalum Rod
+item.itemMaterialObject.clumpSignalum.name=Signalum Clump
+item.itemMaterialObject.crystalSignalum.name=Signalum Crystal
+item.itemMaterialObject.shardSignalum.name=Signalum Shard
+item.itemMaterialObject.wireSignalum.name=Signalum Wire
+item.itemMaterialObject.dustDirtySignalum.name=Dirty Signalum Dust
+item.itemMaterialObject.dustTinySignalum.name=Tiny Signalum Dust
+item.itemMaterialObject.foilSignalum.name=Signalum Foil
+item.itemOreChunk.Signalum.name=Signalum Ore
+item.itemOreChunk.netherSignalum.name=Nether Signalum Ore
+item.itemOreChunk.endSignalum.name=End Signalum Ore
+fluid.signalum=Molten Signalum
+tile.blockSignalum.name=Block of Signalum
+
+item.itemMaterialObject.ingotStainlessSteel.name=StainlessSteel Ingot
+item.itemMaterialObject.dustStainlessSteel.name=StainlessSteel Dust
+item.itemMaterialObject.gearStainlessSteel.name=StainlessSteel Gear
+item.itemMaterialObject.nuggetStainlessSteel.name=StainlessSteel Nugget
+item.itemMaterialObject.plateStainlessSteel.name=StainlessSteel Plate
+item.itemMaterialObject.rodStainlessSteel.name=StainlessSteel Rod
+item.itemMaterialObject.clumpStainlessSteel.name=StainlessSteel Clump
+item.itemMaterialObject.crystalStainlessSteel.name=StainlessSteel Crystal
+item.itemMaterialObject.shardStainlessSteel.name=StainlessSteel Shard
+item.itemMaterialObject.wireStainlessSteel.name=StainlessSteel Wire
+item.itemMaterialObject.dustDirtyStainlessSteel.name=Dirty StainlessSteel Dust
+item.itemMaterialObject.dustTinyStainlessSteel.name=Tiny StainlessSteel Dust
+item.itemMaterialObject.foilStainlessSteel.name=StainlessSteel Foil
+item.itemOreChunk.StainlessSteel.name=StainlessSteel Ore
+item.itemOreChunk.netherStainlessSteel.name=Nether StainlessSteel Ore
+item.itemOreChunk.endStainlessSteel.name=End StainlessSteel Ore
+fluid.stainlesssteel=Molten StainlessSteel
+tile.blockStainlessSteel.name=Block of StainlessSteel

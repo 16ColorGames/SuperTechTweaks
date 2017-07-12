@@ -15,7 +15,7 @@ difficulty:2
 fancyGraphics:true
 ao:2
 renderClouds:true
-resourcePacks:[]
+resourcePacks:["3D-Craft 64x64 [1.10.2] V1.zip"]
 incompatibleResourcePacks:[]
 lastServer:127.0.0.1
 lang:en_US
