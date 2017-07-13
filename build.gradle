@@ -22,7 +22,7 @@ task DeobsourceJar(type: Jar) {
     classifier = 'sources'
 }
 
-version = "1.3.3"
+version = "1.4.0"
 group= "com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod.modId" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "supertechtweaksmod"
 
