@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "supertechtweaks",
+  "name": "Super Tech Tweaks",
+  "description": "Tweaks and additions originally for the SuperTech Pack. Adds custom ore gen and materials.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Oa10712"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
