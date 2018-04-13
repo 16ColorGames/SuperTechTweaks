@@ -141,8 +141,8 @@ public class GuiResearchTab extends Gui {
 			for (ResearchTabType researchtabtype : ResearchTabType.values()) {
 				if ((p_193936_2_ % ResearchTabType.MAX_TABS) < researchtabtype.getMax()) {
 					return new GuiResearchTab(p_193936_0_, p_193936_1_, researchtabtype,
-							p_193936_2_ % ResearchTabType.MAX_TABS, p_193936_2_ / ResearchTabType.MAX_TABS,
-							p_193936_3_, p_193936_3_.getDisplay());
+							p_193936_2_ % ResearchTabType.MAX_TABS, p_193936_2_ / ResearchTabType.MAX_TABS, p_193936_3_,
+							p_193936_3_.getDisplay());
 				}
 
 				p_193936_2_ -= researchtabtype.getMax();
@@ -164,8 +164,7 @@ public class GuiResearchTab extends Gui {
 
 	public void addResearch(Research p_191800_1_) {
 		if (p_191800_1_.getDisplay() != null) {
-			GuiResearch guiresearch = new GuiResearch(this, this.minecraft, p_191800_1_,
-					p_191800_1_.getDisplay());
+			GuiResearch guiresearch = new GuiResearch(this, this.minecraft, p_191800_1_, p_191800_1_.getDisplay());
 			this.addGuiResearch(guiresearch, p_191800_1_);
 		}
 	}

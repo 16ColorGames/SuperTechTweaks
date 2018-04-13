@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.multiplayer;
 
 import com.google.common.collect.Maps;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.enums.Research.Builder;
 import com.sixteencolorgames.supertechtweaks.gui.ResearchProgress;
 import com.sixteencolorgames.supertechtweaks.gui.ResearchToast;
 

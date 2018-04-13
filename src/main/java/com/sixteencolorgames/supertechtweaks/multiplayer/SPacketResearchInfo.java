@@ -2,6 +2,9 @@ package com.sixteencolorgames.supertechtweaks.multiplayer;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.gui.ResearchProgress;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;

@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.gui;
 
 import com.google.common.collect.Maps;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.multiplayer.CPacketSeenResearch;
 import com.sixteencolorgames.supertechtweaks.multiplayer.ClientResearchManager;
 
 import java.io.IOException;
@@ -47,8 +48,8 @@ public class GuiScreenResearch extends GuiScreen implements ClientResearchManage
 			this.clientResearchManager
 					.setSelectedTab(((GuiResearchTab) this.tabs.values().iterator().next()).getResearch(), true);
 		} else {
-			this.clientResearchManager
-					.setSelectedTab(this.selectedTab == null ? null : this.selectedTab.getResearch(), true);
+			this.clientResearchManager.setSelectedTab(this.selectedTab == null ? null : this.selectedTab.getResearch(),
+					true);
 		}
 		if (this.tabs.size() > ResearchTabType.MAX_TABS) {
 			int guiLeft = (this.width - 252) / 2;
@@ -98,7 +99,7 @@ public class GuiScreenResearch extends GuiScreen implements ClientResearchManage
 	 * (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if (keyCode == this.mc.gameSettings.keyBindResearch.getKeyCode()) {
+		if (keyCode == this.mc.gameSettings.keyBindAdvancements.getKeyCode()) {
 			this.mc.displayGuiScreen((GuiScreen) null);
 			this.mc.setIngameFocus();
 		} else {
