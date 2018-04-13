@@ -3,10 +3,12 @@ package com.sixteencolorgames.supertechtweaks.gui;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ResearchGui extends GuiContainer {
@@ -14,7 +16,8 @@ public class ResearchGui extends GuiContainer {
 	public static final int HEIGHT = 152;
 
 	int xoff = 0;
-	int yoff = 0;
+	int scrollbarY = 0;
+	private boolean isDragging;
 
 	private static final ResourceLocation background = new ResourceLocation("minecraft", "textures/blocks/brick.png");
 
@@ -32,7 +35,7 @@ public class ResearchGui extends GuiContainer {
 		int row = 0;
 		int col = 0;
 		for (Research research : GameRegistry.findRegistry(Research.class).getValues()) {
-			this.drawItemStack(research.getDisplayStack(), guiLeft + row * 16 + xoff, guiTop + col * 16 + yoff, "");
+			this.drawItemStack(research.getDisplayStack(), guiLeft + row * 16 + xoff, guiTop + col * 16 + scrollbarY, "");
 			row++;
 			col++;
 		}
@@ -57,7 +60,4 @@ public class ResearchGui extends GuiContainer {
 		this.itemRender.zLevel = 0.0F;
 	}
 
-	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int button) {
-	}
 }
