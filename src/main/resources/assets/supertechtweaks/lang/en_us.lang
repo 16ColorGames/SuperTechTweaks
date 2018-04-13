@@ -1,4 +1,5 @@
 tile.superore.name=Super Tech Ore
+tile.supertechtweaks.basicresearcher.name=Basic Research Station
 
 item.itemTechComponent.circuitBasic.name=Basic Circuit
 item.itemTechComponent.circuitAdvanced.name=Advanced Circuit
@@ -7,25 +8,6 @@ item.itemTechComponent.circuitUltimate.name=Ultimate Circuit
 item.itemTechComponent.casingBasic.name=Basic Casing
 item.itemTechComponent.heatingElement.name=Heating Element
 item.itemTechComponent.powerUnitSmall.name=Small Power Unit
-
-item.itemMaterialObject.ingotnone.name=none Ingot
-item.itemMaterialObject.dustnone.name=none Dust
-item.itemMaterialObject.gearnone.name=none Gear
-item.itemMaterialObject.nuggetnone.name=none Nugget
-item.itemMaterialObject.platenone.name=none Plate
-item.itemMaterialObject.rodnone.name=none Rod
-item.itemMaterialObject.clumpnone.name=none Clump
-item.itemMaterialObject.crystalnone.name=none Crystal
-item.itemMaterialObject.shardnone.name=none Shard
-item.itemMaterialObject.wirenone.name=none Wire
-item.itemMaterialObject.dustDirtynone.name=Dirty none Dust
-item.itemMaterialObject.dustTinynone.name=Tiny none Dust
-item.itemMaterialObject.foilnone.name=none Foil
-item.itemMaterialObject.orenone.name=none Ore
-item.itemMaterialObject.nethernone.name=Nether none Ore
-item.itemMaterialObject.endnone.name=End none Ore
-fluid.none=Molten none
-tile.blocknone.name=Block of none
 
 item.itemMaterialObject.ingotAntimony.name=Antimony Ingot
 item.itemMaterialObject.dustAntimony.name=Antimony Dust

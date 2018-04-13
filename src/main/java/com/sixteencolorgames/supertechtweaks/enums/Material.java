@@ -135,7 +135,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 	@SideOnly(Side.CLIENT)
 	public void clientPrep() {
-		System.out.println("Attempting model registration");
 		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.itemLocation);
 		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.blockLocation);
 		ModelLoader.setCustomStateMapper(block, new IStateMapper() {

@@ -41,11 +41,11 @@ public class MetalColor implements IItemColor {
 				switch (tintIndex) {
 				case 0:// base rock
 					if (stack.getMetadata() == MaterialItem.NETHER_ORE) {
-						return Color.GRAY.getRGB();
-					} else if (stack.getMetadata() == MaterialItem.END_ORE) {
 						return Color.RED.darker().getRGB();
-					} else {
+					} else if (stack.getMetadata() == MaterialItem.END_ORE) {
 						return Color.WHITE.getRGB();
+					} else {
+						return Color.gray.getRGB();
 					}
 
 				case 1:

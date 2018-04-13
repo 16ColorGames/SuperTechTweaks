@@ -1,0 +1,8 @@
+{
+   "ingredients":{
+      "tool_dict":"com.sixteencolorgames.supertechtweaks.recipe.ToolDictIngredientFactory"
+   },
+   "recipes":{
+      "addNBT":"com.sixteencolorgames.supertechtweaks.recipe.AddNBTRecipeFactory"
+   }
+}
