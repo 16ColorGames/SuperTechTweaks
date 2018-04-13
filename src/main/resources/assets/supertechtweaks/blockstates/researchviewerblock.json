@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_top",
+    "textures": {
+        "top": "blocks/furnace_top",
+        "front": "blocks/furnace_front_off",
+        "side": "blocks/furnace_side"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

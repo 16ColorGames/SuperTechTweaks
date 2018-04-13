@@ -40,9 +40,7 @@ public class OreSavedData extends WorldSavedData {
 	}
 
 	public static void set(World world, OreSavedData newData) {
-		// The IS_GLOBAL constant is there for clarity, and should be simplified
-		// into the right branch.
-		MapStorage storage = false ? world.getMapStorage() : world.getPerWorldStorage();
+		MapStorage storage = world.getPerWorldStorage();
 		storage.setData(DATA_NAME, newData);
 	}
 

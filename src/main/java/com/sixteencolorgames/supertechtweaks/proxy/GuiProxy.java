@@ -1,8 +1,12 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import com.sixteencolorgames.supertechtweaks.gui.ResearchContainer;
+import com.sixteencolorgames.supertechtweaks.gui.ResearchGui;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherContainer;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherGui;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -19,6 +23,9 @@ public class GuiProxy implements IGuiHandler {
 		if (te instanceof BasicResearcherTileEntity) {
 			return new BasicResearcherContainer(player.inventory, (BasicResearcherTileEntity) te);
 		}
+		if (te instanceof ResearchViewerTileEntity) {
+			return new ResearchContainer(player.inventory, (ResearchViewerTileEntity) te);
+		}
 		return null;
 	}
 
@@ -30,6 +37,11 @@ public class GuiProxy implements IGuiHandler {
 			BasicResearcherTileEntity containerTileEntity = (BasicResearcherTileEntity) te;
 			return new BasicResearcherGui(containerTileEntity,
 					new BasicResearcherContainer(player.inventory, containerTileEntity));
+		}
+		if (te instanceof ResearchViewerTileEntity) {
+			ResearchViewerTileEntity containerTileEntity = (ResearchViewerTileEntity) te;
+			ResearchContainer researchContainer = new ResearchContainer(player.inventory, containerTileEntity);
+			return new ResearchGui(researchContainer);
 		}
 		return null;
 	}

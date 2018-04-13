@@ -1,6 +1,7 @@
 package com.sixteencolorgames.supertechtweaks;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchViewer;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
@@ -8,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.render.BlockColor;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -42,7 +44,9 @@ import java.util.function.Function;
 public class ModRegistry {
 
 	public static final int BASIC_RESEARCHER = 1;
+	public static final int RESEARCH_VIEWER = 2;
 	public static BlockBasicResearcher basicResearcherBlock;
+	public static BlockResearchViewer blockResearchViewer;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -50,18 +54,21 @@ public class ModRegistry {
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		System.out.println("Attempting block registry");
 		event.getRegistry().register(new BlockOre());
+
 		basicResearcherBlock = new BlockBasicResearcher();
 		event.getRegistry().register(basicResearcherBlock);
 		GameRegistry.registerTileEntity(BasicResearcherTileEntity.class,
 				SuperTechTweaksMod.MODID + "_basicresearcherblock");
+
+		blockResearchViewer = new BlockResearchViewer();
+		event.getRegistry().register(blockResearchViewer);
+		GameRegistry.registerTileEntity(ResearchViewerTileEntity.class,
+				SuperTechTweaksMod.MODID + "_researchviewerblock");
 	}
 
 	@SubscribeEvent
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		// add smelting, since there's no json for that
-		Material copper = GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation("Copper"));
-		GameRegistry.addSmelting(new ItemStack(copper.getMaterialItem(), 1, MaterialItem.ORE),
-				new ItemStack(copper.getMaterialItem(), 1, MaterialItem.INGOT), 1);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -73,6 +80,8 @@ public class ModRegistry {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry()
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
+		event.getRegistry()
+				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 	}
 
 	@SubscribeEvent
@@ -87,7 +96,11 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
-		Research r = new Research("sample").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"));
+		Research r = new Research("sample").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplayStack(new ItemStack(Items.APPLE));
+		event.getRegistry().register(r);
+		r = new Research("sample2").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplayStack(new ItemStack(Items.ACACIA_BOAT, 4));
 		event.getRegistry().register(r);
 	}
 
@@ -104,6 +117,7 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Copper", "0xb4713d", 1, _2_copper);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Zinc", "0xbac4c8", 1);
 		material.registerMaterial();
 		material = new Material("Coal", "0x060607", 1) {
@@ -117,12 +131,14 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Iron", "0xd3ad90", 2, _3_iron);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Chromium", "0x18391e", 2);
 		material.registerMaterial();
 		material = new Material("Aluminum", "0xe0d9cd", 2);
 		material.registerMaterial();
 		material = new Material("Silver", "0xb5b5bd", 2, _1_flint);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Tellurium", "0xb5b5bd", 2);
 		material.registerMaterial();
 		material = new Material("Lapis", "0x000094", 2) {
@@ -134,10 +150,13 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Tin", "0x726a78", 3);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Gold", "0xcccc33", 3);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Lead", "0x474c4d", 3, _1_flint);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Redstone", "0xd43c2c", 3) {
 			@Override
 			public ItemStack getDrops(byte base) {
@@ -154,6 +173,7 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Nickel", "0xccd3d8", 3);
 		material.registerMaterial();
+		material.addBasicSmelting();
 		material = new Material("Osmium", "0x9090a3", 3);
 		material.registerMaterial();
 		material = new Material("ColdIron", "0x5f6c81", 3);

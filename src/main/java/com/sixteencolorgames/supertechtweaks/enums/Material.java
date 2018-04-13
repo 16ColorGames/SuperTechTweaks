@@ -184,4 +184,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.TINY);
 		OreDictionary.registerOre("dustTiny" + getName(), subItemStack);
 	}
+
+	public void addBasicSmelting() {
+		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.ORE),
+				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
+	}
 }
