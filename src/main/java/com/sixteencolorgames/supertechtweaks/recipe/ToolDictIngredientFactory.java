@@ -3,20 +3,22 @@ package com.sixteencolorgames.supertechtweaks.recipe;
 import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.item.*;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemShears;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientFactory;
 import net.minecraftforge.common.crafting.JsonContext;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ToolDictIngredientFactory implements IIngredientFactory {
 	@Override

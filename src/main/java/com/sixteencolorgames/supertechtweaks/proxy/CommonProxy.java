@@ -1,32 +1,19 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import java.io.File;
+import org.apache.http.config.RegistryBuilder;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import java.util.ArrayList;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.config.Configuration;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-
-import com.sixteencolorgames.supertechtweaks.enums.Material;
-import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
-
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
-import org.apache.http.config.RegistryBuilder;
 
 /**
  * Proxy functions common to both the client and server side

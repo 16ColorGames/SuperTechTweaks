@@ -5,13 +5,14 @@
  */
 package com.sixteencolorgames.supertechtweaks.render;
 
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -21,7 +22,6 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import static net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage.UV;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;

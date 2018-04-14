@@ -1,21 +1,19 @@
 package com.sixteencolorgames.supertechtweaks.blocks;
 
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyByte;
-import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyByte;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
-import java.util.ArrayList;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -26,7 +24,6 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;

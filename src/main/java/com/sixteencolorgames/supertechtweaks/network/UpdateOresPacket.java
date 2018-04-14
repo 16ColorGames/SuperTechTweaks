@@ -7,9 +7,8 @@ package com.sixteencolorgames.supertechtweaks.network;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
+
 import io.netty.buffer.ByteBuf;
-import java.util.Timer;
-import java.util.TimerTask;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;

@@ -5,11 +5,12 @@
  */
 package com.sixteencolorgames.supertechtweaks.render;
 
-import com.google.common.collect.ImmutableSet;
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Function;
+
+import com.google.common.collect.ImmutableSet;
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

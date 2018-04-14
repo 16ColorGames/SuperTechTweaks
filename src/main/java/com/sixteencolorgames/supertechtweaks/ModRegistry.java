@@ -1,13 +1,21 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._0_stone;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._1_flint;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._2_copper;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._3_iron;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._4_bronze;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._5_diamond;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._6_obsidian;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._7_ardite;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._8_cobalt;
+
+import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchViewer;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
-import com.sixteencolorgames.supertechtweaks.render.BlockColor;
-import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
 import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
 
@@ -20,25 +28,15 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels.*;
-
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 @Mod.EventBusSubscriber()
 public class ModRegistry {
@@ -97,10 +95,10 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
 		Research r = new Research("sample").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
-				.setDisplayStack(new ItemStack(Items.APPLE));
+				.setDisplay(new ItemStack(Items.APPLE)).setTitle("First Sample");
 		event.getRegistry().register(r);
 		r = new Research("sample2").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
-				.setDisplayStack(new ItemStack(Items.ACACIA_BOAT, 4));
+				.setDisplay(new ItemStack(Items.ACACIA_BOAT, 4)).setTitle("Second Sample");
 		event.getRegistry().register(r);
 	}
 

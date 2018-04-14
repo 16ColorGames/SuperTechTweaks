@@ -5,11 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.render;
 
-import java.awt.Color;
-import java.util.function.Consumer;
-
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +15,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  *

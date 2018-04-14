@@ -5,11 +5,12 @@
  */
 package com.sixteencolorgames.supertechtweaks.world;
 
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.minecraft.client.Minecraft;
+
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
