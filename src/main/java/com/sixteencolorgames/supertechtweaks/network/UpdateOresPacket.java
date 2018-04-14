@@ -22,41 +22,41 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  */
 public class UpdateOresPacket implements IMessage {
 
-    private NBTTagCompound tag;
+	private NBTTagCompound tag;
 
-    public UpdateOresPacket() {
-    }
+	public UpdateOresPacket() {
+	}
 
-    public UpdateOresPacket(OreSavedData data, int chunkX, int chunkZ) {
-        this.tag = data.getForChunk(chunkX, chunkZ);
-    }
+	public UpdateOresPacket(OreSavedData data, int chunkX, int chunkZ) {
+		this.tag = data.getForChunk(chunkX, chunkZ);
+	}
 
-    public UpdateOresPacket(OreSavedData get, BlockPos pos) {
-        this.tag = get.getForPos(pos);
-    }
+	public UpdateOresPacket(OreSavedData get, BlockPos pos) {
+		this.tag = get.getForPos(pos);
+	}
 
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        tag = ByteBufUtils.readTag(buf);
-    }
+	@Override
+	public void fromBytes(ByteBuf buf) {
+		tag = ByteBufUtils.readTag(buf);
+	}
 
-    @Override
-    public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeTag(buf, tag);
-    }
+	@Override
+	public void toBytes(ByteBuf buf) {
+		ByteBufUtils.writeTag(buf, tag);
+	}
 
-    public static class Handler implements IMessageHandler<UpdateOresPacket, IMessage> {
+	public static class Handler implements IMessageHandler<UpdateOresPacket, IMessage> {
 
-        @Override
-        public IMessage onMessage(UpdateOresPacket message, MessageContext ctx) {
-            if (SuperTechTweaksMod.proxy.getWorld(null) != null) {
-                OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
-                OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
-            }
+		@Override
+		public IMessage onMessage(UpdateOresPacket message, MessageContext ctx) {
+			if (SuperTechTweaksMod.proxy.getWorld(null) != null) {
+				OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).readFromNBT(message.tag);
+				OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(null)).markDirty();
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-    }
+	}
 
 }

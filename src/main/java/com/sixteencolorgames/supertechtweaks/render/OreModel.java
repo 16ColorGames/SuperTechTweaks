@@ -26,29 +26,30 @@ import net.minecraftforge.common.model.TRSRTransformation;
  */
 public class OreModel implements IModel {
 
-    @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        return new OreBakedModel(state, format, bakedTextureGetter);
-    }
+	@Override
+	public IBakedModel bake(IModelState state, VertexFormat format,
+			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+		return new OreBakedModel(state, format, bakedTextureGetter);
+	}
 
-    @Override
-    public Collection<ResourceLocation> getDependencies() {
-        return Collections.emptySet();
-    }
+	@Override
+	public Collection<ResourceLocation> getDependencies() {
+		return Collections.emptySet();
+	}
 
-    @Override
-    public Collection<ResourceLocation> getTextures() {
-        return ImmutableSet.of(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore1"),
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore2"), 
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore3"),
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore4"),
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore5"),
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore6"), 
-                new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore7"));
-    }
+	@Override
+	public Collection<ResourceLocation> getTextures() {
+		return ImmutableSet.of(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore1"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore2"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore3"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore4"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore5"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore6"),
+				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore7"));
+	}
 
-    @Override
-    public IModelState getDefaultState() {
-        return TRSRTransformation.identity();
-    }
+	@Override
+	public IModelState getDefaultState() {
+		return TRSRTransformation.identity();
+	}
 }

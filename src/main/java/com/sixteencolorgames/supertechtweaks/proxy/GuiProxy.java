@@ -1,8 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import com.sixteencolorgames.supertechtweaks.gui.GuiResearchPicker;
 import com.sixteencolorgames.supertechtweaks.gui.ResearchContainer;
-import com.sixteencolorgames.supertechtweaks.gui.ResearchGui;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherContainer;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherGui;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
@@ -41,7 +40,7 @@ public class GuiProxy implements IGuiHandler {
 		if (te instanceof ResearchViewerTileEntity) {
 			ResearchViewerTileEntity containerTileEntity = (ResearchViewerTileEntity) te;
 			ResearchContainer researchContainer = new ResearchContainer(player.inventory, containerTileEntity);
-			return new ResearchGui(researchContainer);
+			return new GuiResearchPicker(player);
 		}
 		return null;
 	}

@@ -18,21 +18,21 @@ import net.minecraftforge.client.model.IModel;
  */
 public class BakedModelLoader implements ICustomModelLoader {
 
-    public static final OreModel ORE_MODEL = new OreModel();
+	public static final OreModel ORE_MODEL = new OreModel();
 
+	@Override
+	public boolean accepts(ResourceLocation modelLocation) {
+		return modelLocation.getResourceDomain().equals(SuperTechTweaksMod.MODID)
+				&& "superore".equals(modelLocation.getResourcePath());
+	}
 
-    @Override
-    public boolean accepts(ResourceLocation modelLocation) {
-        return modelLocation.getResourceDomain().equals(SuperTechTweaksMod.MODID) && "superore".equals(modelLocation.getResourcePath());
-    }
+	@Override
+	public IModel loadModel(ResourceLocation modelLocation) throws Exception {
+		return ORE_MODEL;
+	}
 
-    @Override
-    public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-        return ORE_MODEL;
-    }
+	@Override
+	public void onResourceManagerReload(IResourceManager resourceManager) {
 
-    @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {
-
-    }
+	}
 }
