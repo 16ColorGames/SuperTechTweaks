@@ -16,10 +16,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ServerProxy extends CommonProxy {
 
 	@Override
-	public void preInit(FMLPreInitializationEvent e) {
-		super.preInit(e);
-
-		DimensionManager.init();
+	public World getWorld(IBlockAccess world) {
+		if (world instanceof World) {
+			return (World) world;
+		}
+		return null;
 	}
 
 	@Override
@@ -33,10 +34,9 @@ public class ServerProxy extends CommonProxy {
 	}
 
 	@Override
-	public World getWorld(IBlockAccess world) {
-		if (world instanceof World) {
-			return (World) world;
-		}
-		return null;
+	public void preInit(FMLPreInitializationEvent e) {
+		super.preInit(e);
+
+		DimensionManager.init();
 	}
 }

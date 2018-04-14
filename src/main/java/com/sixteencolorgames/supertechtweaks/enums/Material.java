@@ -45,34 +45,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	private ItemBlock itemBlock;
 	private MaterialItem itemMaterial;
 
-	/**
-	 *
-	 * @param name
-	 *            The ore dictionary name
-	 * @param color
-	 * @param harvest
-	 */
-	public Material(String name, String color, int harvest) {
-		this(name, color, harvest, -1);
-	}
-
-	public MaterialItem getMaterialItem() {
-		return itemMaterial;
-	}
-
-	public Item getItemBlock() {
-		return itemBlock;
-	}
-
-	public BlockMaterial getBlock() {
-		return block;
-	}
-
-	public Material(String name, String color, int harvest, int mine) {
-
-		this(name, Color.decode(color).getRGB(), harvest, mine);
-	}
-
 	public Material(String name, int color, int harvest, int mine) {
 		this.name = name;
 		this.color = color;
@@ -85,6 +57,80 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 		itemMaterial = new MaterialItem(this);
 
+	}
+
+	/**
+	 *
+	 * @param name
+	 *            The ore dictionary name
+	 * @param color
+	 * @param harvest
+	 */
+	public Material(String name, String color, int harvest) {
+		this(name, color, harvest, -1);
+	}
+
+	public Material(String name, String color, int harvest, int mine) {
+
+		this(name, Color.decode(color).getRGB(), harvest, mine);
+	}
+
+	public void addBasicSmelting() {
+		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.ORE),
+				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void clientPrep() {
+		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.itemLocation);
+		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.blockLocation);
+		ModelLoader.setCustomStateMapper(block, new IStateMapper() {
+			@Override
+			public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
+				final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
+				loc.put(blockIn.getDefaultState(), ClientProxy.blockLocation);
+				return loc;
+			}
+		});
+	}
+
+	public BlockMaterial getBlock() {
+		return block;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public ItemStack getDrops(byte base) {
+		switch (base) {// Switch based on base block
+		case -1:// NetherRack and similar
+			return new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
+		case 1:// Endstone and similar
+			return new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
+		default:// Stone and unspecified
+			return new ItemStack(itemMaterial, 1, MaterialItem.ORE);
+		}
+	}
+
+	public int getHarvest() {
+		return harvest;
+	}
+
+	public Item getItemBlock() {
+		return itemBlock;
+	}
+
+	public MaterialItem getMaterialItem() {
+		return itemMaterial;
+	}
+
+	public int getMine() {
+		return mine;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void registerMaterial() {
@@ -101,47 +147,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 		GameRegistry.findRegistry(Material.class).register(this);
 		this.clientPrep();
-	}
-
-	public int getColor() {
-		return color;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getHarvest() {
-		return harvest;
-	}
-
-	public int getMine() {
-		return mine;
-	}
-
-	public ItemStack getDrops(byte base) {
-		switch (base) {// Switch based on base block
-		case -1:// NetherRack and similar
-			return new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
-		case 1:// Endstone and similar
-			return new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
-		default:// Stone and unspecified
-			return new ItemStack(itemMaterial, 1, MaterialItem.ORE);
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void clientPrep() {
-		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.itemLocation);
-		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.blockLocation);
-		ModelLoader.setCustomStateMapper(block, new IStateMapper() {
-			@Override
-			public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
-				final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
-				loc.put(blockIn.getDefaultState(), ClientProxy.blockLocation);
-				return loc;
-			}
-		});
 	}
 
 	public void registerOreDict() {
@@ -180,10 +185,5 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("foil" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.TINY);
 		OreDictionary.registerOre("dustTiny" + getName(), subItemStack);
-	}
-
-	public void addBasicSmelting() {
-		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.ORE),
-				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
 	}
 }

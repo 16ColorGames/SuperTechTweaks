@@ -16,19 +16,6 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiProxy implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		BlockPos pos = new BlockPos(x, y, z);
-		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof BasicResearcherTileEntity) {
-			return new BasicResearcherContainer(player.inventory, (BasicResearcherTileEntity) te);
-		}
-		if (te instanceof ResearchViewerTileEntity) {
-			return new ResearchContainer(player.inventory, (ResearchViewerTileEntity) te);
-		}
-		return null;
-	}
-
-	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		BlockPos pos = new BlockPos(x, y, z);
 		TileEntity te = world.getTileEntity(pos);
@@ -41,6 +28,19 @@ public class GuiProxy implements IGuiHandler {
 			ResearchViewerTileEntity containerTileEntity = (ResearchViewerTileEntity) te;
 			ResearchContainer researchContainer = new ResearchContainer(player.inventory, containerTileEntity);
 			return new GuiResearchPicker(player);
+		}
+		return null;
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof BasicResearcherTileEntity) {
+			return new BasicResearcherContainer(player.inventory, (BasicResearcherTileEntity) te);
+		}
+		if (te instanceof ResearchViewerTileEntity) {
+			return new ResearchContainer(player.inventory, (ResearchViewerTileEntity) te);
 		}
 		return null;
 	}

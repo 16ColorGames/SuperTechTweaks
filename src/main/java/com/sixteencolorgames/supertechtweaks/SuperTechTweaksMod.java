@@ -25,12 +25,6 @@ public class SuperTechTweaksMod {
 	public static CommonProxy proxy;
 
 	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		System.out.println(MODNAME + " is loading!");
-		SuperTechTweaksMod.proxy.preInit(event);
-	}
-
-	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		SuperTechTweaksMod.proxy.init(event);
 	}
@@ -38,6 +32,12 @@ public class SuperTechTweaksMod {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		SuperTechTweaksMod.proxy.postInit(event);
+	}
+
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		System.out.println(MODNAME + " is loading!");
+		SuperTechTweaksMod.proxy.preInit(event);
 	}
 
 }

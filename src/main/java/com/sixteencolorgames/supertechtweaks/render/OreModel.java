@@ -33,6 +33,11 @@ public class OreModel implements IModel {
 	}
 
 	@Override
+	public IModelState getDefaultState() {
+		return TRSRTransformation.identity();
+	}
+
+	@Override
 	public Collection<ResourceLocation> getDependencies() {
 		return Collections.emptySet();
 	}
@@ -46,10 +51,5 @@ public class OreModel implements IModel {
 				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore5"),
 				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore6"),
 				new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore7"));
-	}
-
-	@Override
-	public IModelState getDefaultState() {
-		return TRSRTransformation.identity();
 	}
 }

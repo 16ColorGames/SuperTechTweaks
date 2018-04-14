@@ -48,18 +48,35 @@ public class BlockOre extends BlockBase {
 		this.setHardness(3.0f);
 	}
 
-	/**
-	 * Ensures that this block does not drop any items, this is now handled in
-	 * removedByPlayer.
-	 *
-	 * @param meta
-	 * @param random
-	 * @param fortune
-	 * @return
-	 */
+	// @SideOnly(Side.CLIENT)
+	// public void initModel() {
+	// // To make sure that our baked model model is chosen for all states we
+	// use this custom state mapper:
+	// StateMapperBase ignoreState = new StateMapperBase() {
+	// @Override
+	// protected ModelResourceLocation getModelResourceLocation(IBlockState
+	// iBlockState) {
+	// return OreBakedModel.BAKED_MODEL;
+	// }
+	// };
+	// ModelLoader.setCustomStateMapper(this, ignoreState);
+	// }
+	@Deprecated // Forge: State sensitive version
+	protected boolean canSilkHarvest() {
+		return false;
+	}
+
 	@Override
-	public Item getItemDropped(IBlockState meta, Random random, int fortune) {
-		return null;
+	protected BlockStateContainer createBlockState() {
+		IProperty[] listedProperties = new IProperty[0]; // no listed properties
+		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { BASE, ORES };
+		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 	/**
@@ -80,6 +97,45 @@ public class BlockOre extends BlockBase {
 		World worldObject = SuperTechTweaksMod.proxy.getWorld(world);
 		List<ItemStack> ret = new ArrayList<>();
 		return ret;
+	}
+
+	@Override
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+
+		int[] ores = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getOres(pos);
+		int base = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getBase(pos);
+		ArrayList<Integer> oreList = new ArrayList();
+		for (int i : ores) {
+			if (i != 0) {
+				oreList.add(i);
+			}
+		}
+		return extendedBlockState.withProperty(BASE, (byte) base).withProperty(ORES, oreList.toArray(new Integer[0]));
+	}
+
+	/**
+	 * Ensures that this block does not drop any items, this is now handled in
+	 * removedByPlayer.
+	 *
+	 * @param meta
+	 * @param random
+	 * @param fortune
+	 * @return
+	 */
+	@Override
+	public Item getItemDropped(IBlockState meta, Random random, int fortune) {
+		return null;
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
+		return EnumBlockRenderType.MODEL;
+	}
+
+	@Override
+	public void registerItemModel(Item item) {
+		// void since we shouldn't have this in inventory
 	}
 
 	/**
@@ -133,65 +189,9 @@ public class BlockOre extends BlockBase {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT_MIPPED;
-	}
-
-	@Override
-	public void registerItemModel(Item item) {
-		// void since we shouldn't have this in inventory
-	}
-
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
-		return EnumBlockRenderType.MODEL;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		IProperty[] listedProperties = new IProperty[0]; // no listed properties
-		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { BASE, ORES };
-		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
-	}
-
-	@Override
-	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
-
-		int[] ores = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getOres(pos);
-		int base = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getBase(pos);
-		ArrayList<Integer> oreList = new ArrayList();
-		for (int i : ores) {
-			if (i != 0) {
-				oreList.add(i);
-			}
-		}
-		return extendedBlockState.withProperty(BASE, (byte) base).withProperty(ORES, oreList.toArray(new Integer[0]));
-	}
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return true;
-	}
-
-	// @SideOnly(Side.CLIENT)
-	// public void initModel() {
-	// // To make sure that our baked model model is chosen for all states we
-	// use this custom state mapper:
-	// StateMapperBase ignoreState = new StateMapperBase() {
-	// @Override
-	// protected ModelResourceLocation getModelResourceLocation(IBlockState
-	// iBlockState) {
-	// return OreBakedModel.BAKED_MODEL;
-	// }
-	// };
-	// ModelLoader.setCustomStateMapper(this, ignoreState);
-	// }
-	@Deprecated // Forge: State sensitive version
-	protected boolean canSilkHarvest() {
-		return false;
 	}
 }

@@ -37,30 +37,43 @@ public class GuiResearchPicker extends GuiScreen {
 		research = GameRegistry.findRegistry(Research.class);
 	}
 
-	@Override
-	public void initGui() {
-		this.buttonList.clear();
-
+	private void applyScrollLimits() {
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
+		int top = posY + 25;
+		int bottom = posY + 140;
+		int var1 = getSize() * this.slotHeight - (bottom - top - 4);
 
-		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Transfer"));
+		if (var1 < 0) {
+			var1 /= 2;
+		}
 
-		this.transferName = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 65, 126, 20);
-		this.transferName.setMaxStringLength(19);
-		this.transferName.setFocused(false);
+		if (this.scrollDistance < 0.0F) {
+			this.scrollDistance = 0.0F;
+		}
 
-		this.transferAmount = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 105, 126, 20);
-		this.transferAmount.setMaxStringLength(19);
-		this.transferAmount.setFocused(false);
+		if (this.scrollDistance > (float) var1) {
+			this.scrollDistance = (float) var1;
+		}
 	}
 
-	private int getContentHeight() {
-		return research.getValues().size() * this.slotHeight;
-	}
-
-	private int getSize() {
-		return research.getValues().size();
+	/**
+	 * Draws an ItemStack.
+	 * 
+	 * The z index is increased by 32 (and not decreased afterwards), and the
+	 * item is then rendered at z=200.
+	 */
+	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
+		GlStateManager.translate(0.0F, 0.0F, 32.0F);
+		this.zLevel = 200.0F;
+		this.itemRender.zLevel = 200.0F;
+		net.minecraft.client.gui.FontRenderer font = stack.getItem().getFontRenderer(stack);
+		if (font == null)
+			font = fontRenderer;
+		this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+		this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
+		this.zLevel = 0.0F;
+		this.itemRender.zLevel = 0.0F;
 	}
 
 	@Override
@@ -230,24 +243,30 @@ public class GuiResearchPicker extends GuiScreen {
 		super.drawScreen(x, y, f);
 	}
 
-	private void applyScrollLimits() {
+	private int getContentHeight() {
+		return research.getValues().size() * this.slotHeight;
+	}
+
+	private int getSize() {
+		return research.getValues().size();
+	}
+
+	@Override
+	public void initGui() {
+		this.buttonList.clear();
+
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
-		int top = posY + 25;
-		int bottom = posY + 140;
-		int var1 = getSize() * this.slotHeight - (bottom - top - 4);
 
-		if (var1 < 0) {
-			var1 /= 2;
-		}
+		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Transfer"));
 
-		if (this.scrollDistance < 0.0F) {
-			this.scrollDistance = 0.0F;
-		}
+		this.transferName = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 65, 126, 20);
+		this.transferName.setMaxStringLength(19);
+		this.transferName.setFocused(false);
 
-		if (this.scrollDistance > (float) var1) {
-			this.scrollDistance = (float) var1;
-		}
+		this.transferAmount = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 105, 126, 20);
+		this.transferAmount.setMaxStringLength(19);
+		this.transferAmount.setFocused(false);
 	}
 
 	@Override
@@ -264,25 +283,6 @@ public class GuiResearchPicker extends GuiScreen {
 		}
 
 		super.mouseClicked(x, y, z);
-	}
-
-	/**
-	 * Draws an ItemStack.
-	 * 
-	 * The z index is increased by 32 (and not decreased afterwards), and the
-	 * item is then rendered at z=200.
-	 */
-	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
-		GlStateManager.translate(0.0F, 0.0F, 32.0F);
-		this.zLevel = 200.0F;
-		this.itemRender.zLevel = 200.0F;
-		net.minecraft.client.gui.FontRenderer font = stack.getItem().getFontRenderer(stack);
-		if (font == null)
-			font = fontRenderer;
-		this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-		this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
-		this.zLevel = 0.0F;
-		this.itemRender.zLevel = 0.0F;
 	}
 
 	public boolean mousePressed(CustomGuiTextField field, int mouseX, int mouseY) {

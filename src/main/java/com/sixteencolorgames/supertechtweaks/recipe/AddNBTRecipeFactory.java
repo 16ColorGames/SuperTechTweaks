@@ -33,6 +33,127 @@ import net.minecraftforge.common.util.Constants;
 
 public class AddNBTRecipeFactory implements IRecipeFactory {
 
+	public static class AddNBTRecipe extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
+			implements IRecipe {
+		public final NonNullList<Ingredient> input;
+		public final int height, width;
+		public final String nbtTag;
+		public final String tooltip;
+
+		public AddNBTRecipe(ResourceLocation group, ShapedPrimer primer, String nbt, String tip) {
+			input = primer.input;
+			height = primer.height;
+			width = primer.width;
+			nbtTag = nbt;
+			tooltip = tip;
+		}
+
+		@Override
+		public boolean canFit(int width, int height) {
+			return width >= this.width && height >= this.height;
+		}
+
+		/**
+		 * Checks if the region of a crafting inventory is match for the recipe.
+		 */
+		private boolean checkMatch(InventoryCrafting p_77573_1_, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
+			for (int i = 0; i < p_77573_1_.getWidth(); ++i) {
+				for (int j = 0; j < p_77573_1_.getHeight(); ++j) {
+					int k = i - p_77573_2_;
+					int l = j - p_77573_3_;
+					Ingredient ingredient = Ingredient.EMPTY;
+
+					if (k >= 0 && l >= 0 && k < this.width && l < this.height) {
+						if (p_77573_4_) {
+							ingredient = this.input.get(this.width - k - 1 + l * this.width);
+						} else {
+							ingredient = this.input.get(k + l * this.width);
+						}
+					}
+
+					if (!ingredient.apply(p_77573_1_.getStackInRowAndColumn(i, j))) {
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		@Nonnull
+		public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+
+			ItemStack itemstack = var1.getStackInRowAndColumn(1, 1).copy();
+			NBTTagCompound tag;
+			if (itemstack.getTagCompound() != null) {
+				tag = itemstack.getTagCompound();
+			} else {
+				tag = new NBTTagCompound();
+			}
+
+			tag.setBoolean(nbtTag, true);
+
+			if (tooltip != null && tooltip != "") {
+				NBTTagCompound display = tag.getCompoundTag("display");
+				if (display != null) {
+					NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
+					if (lore != null) {
+						String[] split = tooltip.split("\n");
+						for (String s : split) {
+							lore.appendTag(new NBTTagString(s));
+						}
+					} else {
+						lore = new NBTTagList();
+						String[] split = tooltip.split("\n");
+						for (String s : split) {
+							lore.appendTag(new NBTTagString(s));
+						}
+					}
+					display.setTag("Lore", lore);
+				} else {
+					display = new NBTTagCompound();
+					NBTTagList lore = new NBTTagList();
+					String[] split = tooltip.split("\n");
+					for (String s : split) {
+						lore.appendTag(new NBTTagString(s));
+					}
+					display.setTag("Lore", lore);
+				}
+				tag.setTag("display", display);
+			}
+
+			ItemStack out = itemstack.copy();
+			out.setCount(1);
+			out.setTagCompound(tag);
+
+			return out;
+		}
+
+		@Override
+		public ItemStack getRecipeOutput() {
+			return ItemStack.EMPTY;
+		}
+
+		@Override
+		public boolean matches(InventoryCrafting inv, World worldIn) {
+			for (int i = 0; i <= inv.getWidth() - this.width; ++i) {
+				for (int j = 0; j <= inv.getHeight() - this.height; ++j) {
+					if (this.checkMatch(inv, i, j, true)) {
+						return true;
+					}
+
+					if (this.checkMatch(inv, i, j, false)) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+	}
+
 	@Override
 	public IRecipe parse(JsonContext context, JsonObject json) {
 
@@ -87,126 +208,5 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 
 		return new AddNBTRecipe(new ResourceLocation(SuperTechTweaksMod.MODID, "addNBT_crafting"), primer,
 				JsonUtils.getString(json, "nbt"), JsonUtils.getString(json, "tooltip"));
-	}
-
-	public static class AddNBTRecipe extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
-			implements IRecipe {
-		public final NonNullList<Ingredient> input;
-		public final int height, width;
-		public final String nbtTag;
-		public final String tooltip;
-
-		public AddNBTRecipe(ResourceLocation group, ShapedPrimer primer, String nbt, String tip) {
-			input = primer.input;
-			height = primer.height;
-			width = primer.width;
-			nbtTag = nbt;
-			tooltip = tip;
-		}
-
-		@Override
-		@Nonnull
-		public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-
-			ItemStack itemstack = var1.getStackInRowAndColumn(1, 1).copy();
-			NBTTagCompound tag;
-			if (itemstack.getTagCompound() != null) {
-				tag = itemstack.getTagCompound();
-			} else {
-				tag = new NBTTagCompound();
-			}
-
-			tag.setBoolean(nbtTag, true);
-
-			if (tooltip != null && tooltip != "") {
-				NBTTagCompound display = tag.getCompoundTag("display");
-				if (display != null) {
-					NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
-					if (lore != null) {
-						String[] split = tooltip.split("\n");
-						for (String s : split) {
-							lore.appendTag(new NBTTagString(s));
-						}
-					} else {
-						lore = new NBTTagList();
-						String[] split = tooltip.split("\n");
-						for (String s : split) {
-							lore.appendTag(new NBTTagString(s));
-						}
-					}
-					display.setTag("Lore", lore);
-				} else {
-					display = new NBTTagCompound();
-					NBTTagList lore = new NBTTagList();
-					String[] split = tooltip.split("\n");
-					for (String s : split) {
-						lore.appendTag(new NBTTagString(s));
-					}
-					display.setTag("Lore", lore);
-				}
-				tag.setTag("display", display);
-			}
-
-			ItemStack out = itemstack.copy();
-			out.setCount(1);
-			out.setTagCompound(tag);
-
-			return out;
-		}
-
-		@Override
-		public boolean matches(InventoryCrafting inv, World worldIn) {
-			for (int i = 0; i <= inv.getWidth() - this.width; ++i) {
-				for (int j = 0; j <= inv.getHeight() - this.height; ++j) {
-					if (this.checkMatch(inv, i, j, true)) {
-						return true;
-					}
-
-					if (this.checkMatch(inv, i, j, false)) {
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
-
-		/**
-		 * Checks if the region of a crafting inventory is match for the recipe.
-		 */
-		private boolean checkMatch(InventoryCrafting p_77573_1_, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
-			for (int i = 0; i < p_77573_1_.getWidth(); ++i) {
-				for (int j = 0; j < p_77573_1_.getHeight(); ++j) {
-					int k = i - p_77573_2_;
-					int l = j - p_77573_3_;
-					Ingredient ingredient = Ingredient.EMPTY;
-
-					if (k >= 0 && l >= 0 && k < this.width && l < this.height) {
-						if (p_77573_4_) {
-							ingredient = this.input.get(this.width - k - 1 + l * this.width);
-						} else {
-							ingredient = this.input.get(k + l * this.width);
-						}
-					}
-
-					if (!ingredient.apply(p_77573_1_.getStackInRowAndColumn(i, j))) {
-						return false;
-					}
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		public boolean canFit(int width, int height) {
-			return width >= this.width && height >= this.height;
-		}
-
-		@Override
-		public ItemStack getRecipeOutput() {
-			return ItemStack.EMPTY;
-		}
-
 	}
 }

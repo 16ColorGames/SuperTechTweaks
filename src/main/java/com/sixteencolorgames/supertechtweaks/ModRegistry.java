@@ -48,6 +48,11 @@ public class ModRegistry {
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
+	@SideOnly(Side.CLIENT)
+	public static void initModels() {
+		basicResearcherBlock.initModel();
+	}
+
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		System.out.println("Attempting block registry");
@@ -65,41 +70,11 @@ public class ModRegistry {
 	}
 
 	@SubscribeEvent
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		// add smelting, since there's no json for that
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static void initModels() {
-		basicResearcherBlock.initModel();
-	}
-
-	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry()
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
-	}
-
-	@SubscribeEvent
-	public static void registerRegistry(RegistryEvent.NewRegistry event) {
-		IForgeRegistry builder = new RegistryBuilder().setType(Material.class)
-				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "MaterialRegistry")).setIDRange(0, 256)
-				.create();
-		builder = new RegistryBuilder().setType(Research.class)
-				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
-				.create();
-	}
-
-	@SubscribeEvent
-	public static void registerResearch(RegistryEvent.Register<Research> event) {
-		Research r = new Research("sample").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
-				.setDisplay(new ItemStack(Items.APPLE)).setTitle("First Sample");
-		event.getRegistry().register(r);
-		r = new Research("sample2").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
-				.setDisplay(new ItemStack(Items.ACACIA_BOAT, 4)).setTitle("Second Sample");
-		event.getRegistry().register(r);
 	}
 
 	@SubscribeEvent
@@ -325,5 +300,30 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("StainlessSteel", "0xE0DFDB", 2);
 		material.registerMaterial();
+	}
+
+	@SubscribeEvent
+	public static void registerRegistry(RegistryEvent.NewRegistry event) {
+		IForgeRegistry builder = new RegistryBuilder().setType(Material.class)
+				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "MaterialRegistry")).setIDRange(0, 256)
+				.create();
+		builder = new RegistryBuilder().setType(Research.class)
+				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
+				.create();
+	}
+
+	@SubscribeEvent
+	public static void registerResearch(RegistryEvent.Register<Research> event) {
+		Research r = new Research("sample").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.APPLE)).setTitle("First Sample");
+		event.getRegistry().register(r);
+		r = new Research("sample2").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.ACACIA_BOAT, 4)).setTitle("Second Sample");
+		event.getRegistry().register(r);
+	}
+
+	@SubscribeEvent
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		// add smelting, since there's no json for that
 	}
 }

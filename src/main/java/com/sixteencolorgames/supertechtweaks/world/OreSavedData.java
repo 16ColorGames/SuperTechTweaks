@@ -24,27 +24,6 @@ import net.minecraft.world.storage.WorldSavedData;
 public class OreSavedData extends WorldSavedData {
 
 	private static final String DATA_NAME = SuperTechTweaksMod.MODID + "_OreData";
-	/**
-	 * <X,<Y,<Z,Data>>> where Data[0] is the base type of the ore and the
-	 * remaining elements are the ore data
-	 */
-	HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer[]>>> data = new HashMap();
-	HashMap<Integer, ArrayList<Integer>> generated = new HashMap();
-	// Required constructors
-
-	public OreSavedData() {
-		super(DATA_NAME);
-	}
-
-	public OreSavedData(String s) {
-		super(s);
-	}
-
-	public static void set(World world, OreSavedData newData) {
-		MapStorage storage = world.getPerWorldStorage();
-		storage.setData(DATA_NAME, newData);
-	}
-
 	public static OreSavedData get(World world) {
 		// OreSavedData data = (OreSavedData)
 		// world.loadItemData(OreSavedData.class, DATA_NAME);
@@ -59,37 +38,36 @@ public class OreSavedData extends WorldSavedData {
 		}
 		return instance;
 	}
-
-	public void setData(int x, int y, int z, int base, int[] ores) {
-		if (!data.containsKey(x)) {
-			data.put(x, new HashMap());
-		}
-		if (!data.get(x).containsKey(y)) {
-			data.get(x).put(y, new HashMap());
-		}
-		Integer[] newData = new Integer[ores.length + 1];
-		newData[0] = base;
-		for (int i = 0; i < ores.length; i++) {
-			newData[i + 1] = ores[i];
-		}
-		data.get(x).get(y).put(z, newData);
-
-		markDirty();
+	public static void set(World world, OreSavedData newData) {
+		MapStorage storage = world.getPerWorldStorage();
+		storage.setData(DATA_NAME, newData);
 	}
 
-	public void setData(int x, int y, int z, int[] dataList) {
-		if (!data.containsKey(x)) {
-			data.put(x, new HashMap());
-		}
-		if (!data.get(x).containsKey(y)) {
-			data.get(x).put(y, new HashMap());
-		}
-		Integer[] newData = new Integer[dataList.length];
-		for (int i = 0; i < dataList.length; i++) {
-			newData[i] = dataList[i];
-		}
-		data.get(x).get(y).put(z, newData);
-		markDirty();
+	/**
+	 * <X,<Y,<Z,Data>>> where Data[0] is the base type of the ore and the
+	 * remaining elements are the ore data
+	 */
+	HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer[]>>> data = new HashMap();
+
+	HashMap<Integer, ArrayList<Integer>> generated = new HashMap();
+	// Required constructors
+
+	public OreSavedData() {
+		super(DATA_NAME);
+	}
+
+	public OreSavedData(String s) {
+		super(s);
+	}
+
+	public void clearData() {
+		data = new HashMap();
+		generated = new HashMap();
+		this.markDirty();
+	}
+
+	public int getBase(BlockPos pos) {
+		return getBase(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public int getBase(int x, int y, int z) {
@@ -98,120 +76,6 @@ public class OreSavedData extends WorldSavedData {
 		} catch (Exception ex) {
 			return Integer.MIN_VALUE;
 		}
-	}
-
-	public int getBase(BlockPos pos) {
-		return getBase(pos.getX(), pos.getY(), pos.getZ());
-	}
-
-	public void setBase(int x, int y, int z, int base) {
-		if (!data.containsKey(x)) {
-			data.put(x, new HashMap());
-		}
-		if (!data.get(x).containsKey(y)) {
-			data.get(x).put(y, new HashMap());
-		}
-		if (data.get(x).get(y).containsKey(z)) {
-			data.get(x).get(y).get(z)[0] = base;
-			return;
-		}
-		data.get(x).get(y).put(z, new Integer[] { base });
-		markDirty();
-	}
-
-	public int[] getOres(int x, int y, int z) {
-		try {
-			Integer[] get = data.get(x).get(y).get(z);
-			int[] ret = new int[get.length - 1];
-			for (int i = 1; i < get.length; i++) {
-				ret[i - 1] = get[i];
-			}
-			return ret;
-		} catch (Exception ex) {
-			return new int[0];
-		}
-	}
-
-	public int[] getOres(BlockPos pos) {
-		return getOres(pos.getX(), pos.getY(), pos.getZ());
-	}
-
-	public void setOres(BlockPos pos, int[] ores) {
-		setOres(pos.getX(), pos.getY(), pos.getZ(), ores);
-	}
-
-	public void setOres(int x, int y, int z, int[] ores) {
-		if (!data.containsKey(x)) {
-			data.put(x, new HashMap());
-		}
-		if (!data.get(x).containsKey(y)) {
-			data.get(x).put(y, new HashMap());
-		}
-		Integer[] newData = new Integer[ores.length + 1];
-		;
-		if (data.get(x).get(y).containsKey(z)) {
-			newData[0] = getBase(x, y, z);
-		} else {
-			newData[0] = 0;
-		}
-		for (int i = 0; i < ores.length; i++) {
-			newData[i + 1] = ores[i];
-		}
-		data.get(x).get(y).put(z, newData);
-		markDirty();
-	}
-	// WorldSavedData methods
-
-	/**
-	 * This is where you save any data that you don't want to lose when the tile
-	 * entity unloads In this case, we only need to store the gem colour. For
-	 * examples with other types of data, see MBE20
-	 *
-	 * @param parentNBTTagCompound
-	 * @return
-	 */
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
-		data.forEach((Integer x, HashMap<Integer, HashMap<Integer, Integer[]>> xData) -> {
-			NBTTagCompound xTag = new NBTTagCompound();
-			xData.forEach((Integer y, HashMap<Integer, Integer[]> yData) -> {
-				NBTTagCompound yTag = new NBTTagCompound();
-				yData.forEach((Integer z, Integer[] ores) -> {
-					int[] oreArray = new int[ores.length];
-					for (int i = 0; i < ores.length; i++) {
-						oreArray[i] = ores[i];
-					}
-					yTag.setIntArray(z.toString(), oreArray);
-				});
-				xTag.setTag(y.toString(), yTag);
-			});
-			parentNBTTagCompound.setTag(x.toString(), xTag);
-		});
-		return parentNBTTagCompound;
-	}
-
-	// This is where you load the data that you saved in writeToNBT
-	@Override
-	public void readFromNBT(NBTTagCompound parentNBTTagCompound) {
-		parentNBTTagCompound.getKeySet().forEach((x) -> {
-			NBTTagCompound xTag = parentNBTTagCompound.getCompoundTag(x);
-			xTag.getKeySet().forEach((y) -> {
-				NBTTagCompound yTag = xTag.getCompoundTag(y);
-				yTag.getKeySet().forEach((z) -> {
-					int[] dataList = yTag.getIntArray(z);
-					setData(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), dataList);
-					BlockPos pos = new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z));
-					if (SuperTechTweaksMod.proxy instanceof ClientProxy) {
-						try {
-							SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
-						} catch (Exception ex) {
-						}
-					}
-					setChunkGenerated((Integer.parseInt(x) / 16), (Integer.parseInt(z) / 16));
-				});
-			});
-		});
-		this.markDirty();
 	}
 
 	/**
@@ -280,14 +144,64 @@ public class OreSavedData extends WorldSavedData {
 		return ret;
 	}
 
-	public void clearData() {
-		data = new HashMap();
-		generated = new HashMap();
-		this.markDirty();
+	public int[] getOres(BlockPos pos) {
+		return getOres(pos.getX(), pos.getY(), pos.getZ());
+	}
+
+	public int[] getOres(int x, int y, int z) {
+		try {
+			Integer[] get = data.get(x).get(y).get(z);
+			int[] ret = new int[get.length - 1];
+			for (int i = 1; i < get.length; i++) {
+				ret[i - 1] = get[i];
+			}
+			return ret;
+		} catch (Exception ex) {
+			return new int[0];
+		}
 	}
 
 	public boolean isChunkGenerated(int newChunkX, int newChunkZ) {
 		return generated.containsKey(newChunkX) && generated.get(newChunkX).contains(newChunkZ);
+	}
+
+	// This is where you load the data that you saved in writeToNBT
+	@Override
+	public void readFromNBT(NBTTagCompound parentNBTTagCompound) {
+		parentNBTTagCompound.getKeySet().forEach((x) -> {
+			NBTTagCompound xTag = parentNBTTagCompound.getCompoundTag(x);
+			xTag.getKeySet().forEach((y) -> {
+				NBTTagCompound yTag = xTag.getCompoundTag(y);
+				yTag.getKeySet().forEach((z) -> {
+					int[] dataList = yTag.getIntArray(z);
+					setData(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), dataList);
+					BlockPos pos = new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z));
+					if (SuperTechTweaksMod.proxy instanceof ClientProxy) {
+						try {
+							SuperTechTweaksMod.proxy.getWorld().markBlockRangeForRenderUpdate(pos, pos);
+						} catch (Exception ex) {
+						}
+					}
+					setChunkGenerated((Integer.parseInt(x) / 16), (Integer.parseInt(z) / 16));
+				});
+			});
+		});
+		this.markDirty();
+	}
+
+	public void setBase(int x, int y, int z, int base) {
+		if (!data.containsKey(x)) {
+			data.put(x, new HashMap());
+		}
+		if (!data.get(x).containsKey(y)) {
+			data.get(x).put(y, new HashMap());
+		}
+		if (data.get(x).get(y).containsKey(z)) {
+			data.get(x).get(y).get(z)[0] = base;
+			return;
+		}
+		data.get(x).get(y).put(z, new Integer[] { base });
+		markDirty();
 	}
 
 	public void setChunkGenerated(int chunkX, int chunkZ) {
@@ -297,5 +211,91 @@ public class OreSavedData extends WorldSavedData {
 		if (!generated.get(chunkX).contains(chunkZ)) {
 			generated.get(chunkX).add(chunkZ);
 		}
+	}
+
+	public void setData(int x, int y, int z, int base, int[] ores) {
+		if (!data.containsKey(x)) {
+			data.put(x, new HashMap());
+		}
+		if (!data.get(x).containsKey(y)) {
+			data.get(x).put(y, new HashMap());
+		}
+		Integer[] newData = new Integer[ores.length + 1];
+		newData[0] = base;
+		for (int i = 0; i < ores.length; i++) {
+			newData[i + 1] = ores[i];
+		}
+		data.get(x).get(y).put(z, newData);
+
+		markDirty();
+	}
+
+	public void setData(int x, int y, int z, int[] dataList) {
+		if (!data.containsKey(x)) {
+			data.put(x, new HashMap());
+		}
+		if (!data.get(x).containsKey(y)) {
+			data.get(x).put(y, new HashMap());
+		}
+		Integer[] newData = new Integer[dataList.length];
+		for (int i = 0; i < dataList.length; i++) {
+			newData[i] = dataList[i];
+		}
+		data.get(x).get(y).put(z, newData);
+		markDirty();
+	}
+
+	public void setOres(BlockPos pos, int[] ores) {
+		setOres(pos.getX(), pos.getY(), pos.getZ(), ores);
+	}
+
+	public void setOres(int x, int y, int z, int[] ores) {
+		if (!data.containsKey(x)) {
+			data.put(x, new HashMap());
+		}
+		if (!data.get(x).containsKey(y)) {
+			data.get(x).put(y, new HashMap());
+		}
+		Integer[] newData = new Integer[ores.length + 1];
+		;
+		if (data.get(x).get(y).containsKey(z)) {
+			newData[0] = getBase(x, y, z);
+		} else {
+			newData[0] = 0;
+		}
+		for (int i = 0; i < ores.length; i++) {
+			newData[i + 1] = ores[i];
+		}
+		data.get(x).get(y).put(z, newData);
+		markDirty();
+	}
+	// WorldSavedData methods
+
+	/**
+	 * This is where you save any data that you don't want to lose when the tile
+	 * entity unloads In this case, we only need to store the gem colour. For
+	 * examples with other types of data, see MBE20
+	 *
+	 * @param parentNBTTagCompound
+	 * @return
+	 */
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
+		data.forEach((Integer x, HashMap<Integer, HashMap<Integer, Integer[]>> xData) -> {
+			NBTTagCompound xTag = new NBTTagCompound();
+			xData.forEach((Integer y, HashMap<Integer, Integer[]> yData) -> {
+				NBTTagCompound yTag = new NBTTagCompound();
+				yData.forEach((Integer z, Integer[] ores) -> {
+					int[] oreArray = new int[ores.length];
+					for (int i = 0; i < ores.length; i++) {
+						oreArray[i] = ores[i];
+					}
+					yTag.setIntArray(z.toString(), oreArray);
+				});
+				xTag.setTag(y.toString(), yTag);
+			});
+			parentNBTTagCompound.setTag(x.toString(), xTag);
+		});
+		return parentNBTTagCompound;
 	}
 }

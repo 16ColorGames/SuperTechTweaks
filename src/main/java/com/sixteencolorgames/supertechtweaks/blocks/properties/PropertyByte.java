@@ -25,13 +25,13 @@ public class PropertyByte implements IUnlistedProperty<Byte> {
 	}
 
 	@Override
-	public boolean isValid(Byte value) {
-		return true;
+	public Class<Byte> getType() {
+		return Byte.class;
 	}
 
 	@Override
-	public Class<Byte> getType() {
-		return Byte.class;
+	public boolean isValid(Byte value) {
+		return true;
 	}
 
 	@Override

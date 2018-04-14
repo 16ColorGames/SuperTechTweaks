@@ -19,16 +19,8 @@ public class PacketHandler {
 
 	public static SimpleNetworkWrapper INSTANCE = null;
 
-	public PacketHandler() {
-	}
-
 	public static int nextID() {
 		return packetId++;
-	}
-
-	public static void registerMessages(String channelName) {
-		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
-		registerMessages();
 	}
 
 	public static void registerMessages() {
@@ -36,5 +28,13 @@ public class PacketHandler {
 		// if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 		INSTANCE.registerMessage(UpdateOresPacket.Handler.class, UpdateOresPacket.class, nextID(), Side.CLIENT);
 		// }
+	}
+
+	public static void registerMessages(String channelName) {
+		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
+		registerMessages();
+	}
+
+	public PacketHandler() {
 	}
 }

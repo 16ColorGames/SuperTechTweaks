@@ -16,12 +16,12 @@ public class CustomGuiTextField {
 		this.height = height;
 	}
 
-	public void setMaxStringLength(int i) {
+	public void setFocused(boolean b) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void setFocused(boolean b) {
+	public void setMaxStringLength(int i) {
 		// TODO Auto-generated method stub
 
 	}

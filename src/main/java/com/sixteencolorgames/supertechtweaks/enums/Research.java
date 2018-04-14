@@ -21,30 +21,12 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 		return this;
 	}
 
-	public Research setEnergyRequired(int req) {
-		this.energyRequired = req;
-		return this;
-	}
-
-	public int getEnergyRequired() {
-		return this.energyRequired;
-	}
-
-	public NonNullList<ResourceLocation> getRequirements() {
-		return this.requirements;
-	}
-
-	public Research setDisplay(ItemStack st) {
-		this.display = st;
-		return this;
-	}
-
 	public ItemStack getDisplay() {
 		return this.display;
 	}
 
-	public int getRequirementCount() {
-		return this.requirements.size();
+	public int getEnergyRequired() {
+		return this.energyRequired;
 	}
 
 	public Research getParent() {
@@ -54,12 +36,30 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 		return null;
 	}
 
-	public Research setTitle(String title) {
-		this.title = title;
-		return this;
+	public int getRequirementCount() {
+		return this.requirements.size();
+	}
+
+	public NonNullList<ResourceLocation> getRequirements() {
+		return this.requirements;
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public Research setDisplay(ItemStack st) {
+		this.display = st;
+		return this;
+	}
+
+	public Research setEnergyRequired(int req) {
+		this.energyRequired = req;
+		return this;
+	}
+
+	public Research setTitle(String title) {
+		this.title = title;
+		return this;
 	}
 }

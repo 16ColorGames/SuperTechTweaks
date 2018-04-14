@@ -28,6 +28,20 @@ public class BasicResearcherContainer extends Container {
 		addPlayerSlots(playerInventory);
 	}
 
+	private void addOwnSlots() {
+		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		int x = 9;
+		int y = 6;
+
+		// Add our own slots
+		int slotIndex = 0;
+		for (int i = 0; i < itemHandler.getSlots(); i++) {
+			addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
+			slotIndex++;
+			x += 18;
+		}
+	}
+
 	private void addPlayerSlots(IInventory playerInventory) {
 		// Slots for the main inventory
 		for (int row = 0; row < 3; ++row) {
@@ -46,18 +60,9 @@ public class BasicResearcherContainer extends Container {
 		}
 	}
 
-	private void addOwnSlots() {
-		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		int x = 9;
-		int y = 6;
-
-		// Add our own slots
-		int slotIndex = 0;
-		for (int i = 0; i < itemHandler.getSlots(); i++) {
-			addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
-			slotIndex++;
-			x += 18;
-		}
+	@Override
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return te.canInteractWith(playerIn);
 	}
 
 	@Nullable
@@ -87,10 +92,5 @@ public class BasicResearcherContainer extends Container {
 		}
 
 		return itemstack;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return te.canInteractWith(playerIn);
 	}
 }

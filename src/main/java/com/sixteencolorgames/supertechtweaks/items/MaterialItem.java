@@ -9,7 +9,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MaterialItem extends ItemBase {
-	Material material;
 	public static final int INGOT = 0;
 	public static final int DUST = 1;
 	public static final int GEAR = 2;
@@ -23,10 +22,11 @@ public class MaterialItem extends ItemBase {
 	public static final int DIRTY = 10;
 	public static final int FOIL = 11;
 	public static final int TINY = 12;
-
 	public static final int ORE = 50;
+
 	public static final int NETHER_ORE = 51;
 	public static final int END_ORE = 52;
+	Material material;
 
 	public MaterialItem(Material material) {
 		super("item" + material.getName());
@@ -34,6 +34,10 @@ public class MaterialItem extends ItemBase {
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 		this.setCreativeTab(CreativeTabs.MISC); // items will appear on the
+	}
+
+	public Material getMaterial() {
+		return this.material;
 	}
 
 	@Override
@@ -139,9 +143,5 @@ public class MaterialItem extends ItemBase {
 															// of the
 															// preset
 															// types
-	}
-
-	public Material getMaterial() {
-		return this.material;
 	}
 }

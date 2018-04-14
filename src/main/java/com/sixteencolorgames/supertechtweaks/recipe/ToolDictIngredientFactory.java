@@ -21,14 +21,6 @@ import net.minecraftforge.common.crafting.IIngredientFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 
 public class ToolDictIngredientFactory implements IIngredientFactory {
-	@Override
-	public Ingredient parse(final JsonContext context, final JsonObject json) {
-
-		String type = JsonUtils.getString(json, "tool");
-
-		return new ToolDictIngredient(type);
-	}
-
 	public class ToolDictIngredient extends Ingredient {
 
 		private NonNullList<ItemStack> types;
@@ -78,6 +70,14 @@ public class ToolDictIngredientFactory implements IIngredientFactory {
 			return false;
 		}
 
+	}
+
+	@Override
+	public Ingredient parse(final JsonContext context, final JsonObject json) {
+
+		String type = JsonUtils.getString(json, "tool");
+
+		return new ToolDictIngredient(type);
 	}
 
 }

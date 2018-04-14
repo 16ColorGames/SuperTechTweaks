@@ -27,15 +27,15 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 		setRegistryName("basicresearcherblock");
 	}
 
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new BasicResearcherTileEntity();
+	}
+
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
 				new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new BasicResearcherTileEntity();
 	}
 
 	/**

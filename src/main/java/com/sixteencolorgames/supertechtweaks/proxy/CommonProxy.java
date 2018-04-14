@@ -23,14 +23,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
  */
 public abstract class CommonProxy {
 
-	public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {
-		RegistryBuilder<Material> created = RegistryBuilder.create();
-		return created;
+	public World getWorld() {
+		return getWorld(null);
 	}
 
-	public void preInit(FMLPreInitializationEvent e) {
-
-	}
+	public abstract World getWorld(IBlockAccess world);
 
 	public void init(FMLInitializationEvent e) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(SuperTechTweaksMod.instance, new GuiProxy());
@@ -41,19 +38,22 @@ public abstract class CommonProxy {
 
 	}
 
-	public void registerItemRenderer(Item item, int meta, String id) {
+	public void preInit(FMLPreInitializationEvent e) {
 
 	}
 
-	public abstract World getWorld(IBlockAccess world);
+	public void registerItemRenderer(Item item, int meta, String id) {
 
-	public World getWorld() {
-		return getWorld(null);
 	}
 
 	public void registerModels(Material mat) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {
+		RegistryBuilder<Material> created = RegistryBuilder.create();
+		return created;
 	}
 
 }

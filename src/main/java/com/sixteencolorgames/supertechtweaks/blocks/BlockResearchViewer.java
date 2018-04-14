@@ -23,6 +23,11 @@ public class BlockResearchViewer extends Block implements ITileEntityProvider {
 		setRegistryName("researchviewerblock");
 	}
 
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new ResearchViewerTileEntity();
+	}
+
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
@@ -40,10 +45,5 @@ public class BlockResearchViewer extends Block implements ITileEntityProvider {
 		player.openGui(SuperTechTweaksMod.instance, ModRegistry.RESEARCH_VIEWER, world, pos.getX(), pos.getY(),
 				pos.getZ());
 		return true;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new ResearchViewerTileEntity();
 	}
 }

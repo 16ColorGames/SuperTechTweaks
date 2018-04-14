@@ -57,34 +57,6 @@ public class OreBakedModel implements IBakedModel {
 
 	}
 
-	private void putVertex(UnpackedBakedQuad.Builder builder, Vec3d normal, double x, double y, double z, float u,
-			float v, Color color, TextureAtlasSprite sprite) {
-		for (int e = 0; e < format.getElementCount(); e++) {
-			switch (format.getElement(e).getUsage()) {
-			case POSITION:
-				builder.put(e, (float) x, (float) y, (float) z, 1.0f);
-				break;
-			case COLOR:
-				builder.put(e, ((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
-						((float) color.getBlue()) / 255, 1.0f);
-				break;
-			case UV:
-				if (format.getElement(e).getIndex() == 0) {
-					u = sprite.getInterpolatedU(u);
-					v = sprite.getInterpolatedV(v);
-					builder.put(e, u, v, 0f, 1f);
-					break;
-				}
-			case NORMAL:
-				builder.put(e, (float) normal.x, (float) normal.y, (float) normal.z, 0f);
-				break;
-			default:
-				builder.put(e);
-				break;
-			}
-		}
-	}
-
 	private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite, Color color,
 			int tint) {
 		Vec3d normal = v3.subtract(v2).crossProduct(v1.subtract(v2)).normalize();
@@ -97,6 +69,21 @@ public class OreBakedModel implements IBakedModel {
 		putVertex(builder, normal, v3.x, v3.y, v3.z, 16, 16, color, sprite);
 		putVertex(builder, normal, v4.x, v4.y, v4.z, 16, 0, color, sprite);
 		return builder.build();
+	}
+
+	@Override
+	public ItemCameraTransforms getItemCameraTransforms() {
+		return ItemCameraTransforms.DEFAULT;
+	}
+
+	@Override
+	public ItemOverrideList getOverrides() {
+		return null;
+	}
+
+	@Override
+	public TextureAtlasSprite getParticleTexture() {
+		return ore1[0];
 	}
 
 	@Override
@@ -177,17 +164,7 @@ public class OreBakedModel implements IBakedModel {
 	}
 
 	@Override
-	public ItemOverrideList getOverrides() {
-		return null;
-	}
-
-	@Override
 	public boolean isAmbientOcclusion() {
-		return false;
-	}
-
-	@Override
-	public boolean isGui3d() {
 		return false;
 	}
 
@@ -197,12 +174,35 @@ public class OreBakedModel implements IBakedModel {
 	}
 
 	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return ore1[0];
+	public boolean isGui3d() {
+		return false;
 	}
 
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
+	private void putVertex(UnpackedBakedQuad.Builder builder, Vec3d normal, double x, double y, double z, float u,
+			float v, Color color, TextureAtlasSprite sprite) {
+		for (int e = 0; e < format.getElementCount(); e++) {
+			switch (format.getElement(e).getUsage()) {
+			case POSITION:
+				builder.put(e, (float) x, (float) y, (float) z, 1.0f);
+				break;
+			case COLOR:
+				builder.put(e, ((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
+						((float) color.getBlue()) / 255, 1.0f);
+				break;
+			case UV:
+				if (format.getElement(e).getIndex() == 0) {
+					u = sprite.getInterpolatedU(u);
+					v = sprite.getInterpolatedV(v);
+					builder.put(e, u, v, 0f, 1f);
+					break;
+				}
+			case NORMAL:
+				builder.put(e, (float) normal.x, (float) normal.y, (float) normal.z, 0f);
+				break;
+			default:
+				builder.put(e);
+				break;
+			}
+		}
 	}
 }

@@ -27,13 +27,13 @@ public class PropertyOres implements IUnlistedProperty<Integer[]> {
 	}
 
 	@Override
-	public boolean isValid(Integer[] value) {
-		return true;
+	public Class<Integer[]> getType() {
+		return Integer[].class;
 	}
 
 	@Override
-	public Class<Integer[]> getType() {
-		return Integer[].class;
+	public boolean isValid(Integer[] value) {
+		return true;
 	}
 
 	@Override

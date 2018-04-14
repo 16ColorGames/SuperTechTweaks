@@ -59,47 +59,6 @@ public class ClientProxy extends CommonProxy {
 	public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial",
 			"inventory");
 
-	@Override
-	public void preInit(FMLPreInitializationEvent e) {
-		super.preInit(e);
-		// ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
-		ModelLoaderRegistry.registerLoader(new BakedModelLoader());
-	}
-
-	@Override
-	public void registerModels(Material mat) {
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.ORE, chunkLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.NETHER_ORE, chunkLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.END_ORE, chunkLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.INGOT, ingotLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DUST, dustLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.GEAR, gearLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.NUGGET, nuggetLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PLATE, plateLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.ROD, rodLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.CLUMP, clumpLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.CRYSTAL, crystalLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.SHARD, shardLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.WIRE, wireLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DIRTY, dustLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.FOIL, foilLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.TINY, tinyLocation);
-	}
-
-	@Override
-	public void init(FMLInitializationEvent e) {
-		super.init(e);
-		BlockColors colors = minecraft.getBlockColors();
-
-		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new
-		// TESRBlockOre());
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent e) {
-		super.postInit(e);
-	}
-
 	/**
 	 * Register the {@link IBlockColor} handlers
 	 *
@@ -128,6 +87,35 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public World getWorld(IBlockAccess world) {
+		if (world != null && world instanceof World) {
+			return (World) world;
+		}
+		return Minecraft.getMinecraft().world;
+	}
+
+	@Override
+	public void init(FMLInitializationEvent e) {
+		super.init(e);
+		BlockColors colors = minecraft.getBlockColors();
+
+		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new
+		// TESRBlockOre());
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent e) {
+		super.postInit(e);
+	}
+
+	@Override
+	public void preInit(FMLPreInitializationEvent e) {
+		super.preInit(e);
+		// ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
+		ModelLoaderRegistry.registerLoader(new BakedModelLoader());
+	}
+
+	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
 		NonNullList<ItemStack> subItems = NonNullList.create();
 		item.getSubItems(CreativeTabs.MISC, subItems);
@@ -138,10 +126,22 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public World getWorld(IBlockAccess world) {
-		if (world != null && world instanceof World) {
-			return (World) world;
-		}
-		return Minecraft.getMinecraft().world;
+	public void registerModels(Material mat) {
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.NETHER_ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.END_ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.INGOT, ingotLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DUST, dustLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.GEAR, gearLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.NUGGET, nuggetLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PLATE, plateLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.ROD, rodLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.CLUMP, clumpLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.CRYSTAL, crystalLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.SHARD, shardLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.WIRE, wireLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DIRTY, dustLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.FOIL, foilLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.TINY, tinyLocation);
 	}
 }
