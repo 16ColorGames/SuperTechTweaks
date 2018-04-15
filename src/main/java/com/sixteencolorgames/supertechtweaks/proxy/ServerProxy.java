@@ -6,6 +6,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Serverside only functions
@@ -38,5 +39,10 @@ public class ServerProxy extends CommonProxy {
 		super.preInit(e);
 
 		DimensionManager.init();
+	}
+
+	@Override
+	public Side getSide() {
+		return Side.SERVER;
 	}
 }

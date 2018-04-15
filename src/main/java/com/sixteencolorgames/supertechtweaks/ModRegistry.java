@@ -79,6 +79,7 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerMaterials(RegistryEvent.Register<Material> event) {
+		
 
 		Material material = new Material("Antimony", "0xFADA5E", 0);
 		material.registerMaterial();
@@ -217,8 +218,6 @@ public class ModRegistry {
 		material = new Material("Titanium", "0x323230", 7);
 		material.registerMaterial();
 		material = new Material("Stone", "0x8B8D7A", -1, _0_stone);
-		material.registerMaterial();
-		material = new Material("Paper", "0xF0EEE1", -1, _0_stone);
 		material.registerMaterial();
 		material = new Material("Sponge", "0xD8C060", -1, _0_stone);
 		material.registerMaterial();

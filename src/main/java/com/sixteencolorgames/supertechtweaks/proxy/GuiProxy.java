@@ -27,7 +27,7 @@ public class GuiProxy implements IGuiHandler {
 		if (te instanceof ResearchViewerTileEntity) {
 			ResearchViewerTileEntity containerTileEntity = (ResearchViewerTileEntity) te;
 			ResearchContainer researchContainer = new ResearchContainer(player.inventory, containerTileEntity);
-			return new GuiResearchPicker(player);
+			return new GuiResearchPicker(player, researchContainer);
 		}
 		return null;
 	}

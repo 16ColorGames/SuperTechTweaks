@@ -19,4 +19,8 @@ public class ResearchContainer extends Container {
 		return containerTileEntity.canInteractWith(playerIn);
 	}
 
+	public ResearchViewerTileEntity getTileEntity() {
+		return containerTileEntity;
+	}
+
 }

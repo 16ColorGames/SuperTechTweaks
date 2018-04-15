@@ -97,8 +97,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		BlockColors colors = minecraft.getBlockColors();
-
 		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new
 		// TESRBlockOre());
 	}
@@ -143,5 +141,10 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DIRTY, dustLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.FOIL, foilLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.TINY, tinyLocation);
+	}
+
+	@Override
+	public Side getSide() {
+		return Side.CLIENT;
 	}
 }

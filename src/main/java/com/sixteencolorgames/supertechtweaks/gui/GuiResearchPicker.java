@@ -5,9 +5,12 @@ import java.io.IOException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.omg.CORBA.DataOutputStream;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
+import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -16,9 +19,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**
@@ -35,15 +40,20 @@ public class GuiResearchPicker extends GuiScreen {
 	private float scrollDistance, initialMouseClickY = -2.0F, scrollFactor;
 	private int lastMouseY;
 	private IForgeRegistry<Research> research;
-	private int selected = -1;
+	private ResourceLocation selected = new ResourceLocation("none:none");
+	private ResearchContainer researchContainer;
 
-	public GuiResearchPicker(EntityPlayer player) {
+	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
 		this.player = player;
+		this.researchContainer = researchContainer;
 		this.scrollDistance = 0;
 		this.initialMouseClickY = 0;
 		lastMouseY = 0;
 		this.slotHeight = 30;
 		research = GameRegistry.findRegistry(Research.class);
+		if (research.containsKey(researchContainer.getTileEntity().getSelected())) {
+			research.getValue(researchContainer.getTileEntity().getSelected());
+		}
 	}
 
 	private void applyScrollLimits() {
@@ -209,13 +219,14 @@ public class GuiResearchPicker extends GuiScreen {
 			var13 = this.slotHeight - 4;
 
 			if (var19 <= this.bottom && var19 + var13 >= this.top) {
-				if (i == selected) {
+				if (research.getValues().get(i).getRegistryName().equals(selected)) {
 					this.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
 				}
 
 				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145,
 						var19 + slotHeight / 2 - 4, Color.white.getRGB());
-				this.drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
+				this.drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8,
+						"");
 			}
 		}
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -267,7 +278,7 @@ public class GuiResearchPicker extends GuiScreen {
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
 
-		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Transfer"));
+		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Select"));
 	}
 
 	@Override
@@ -283,7 +294,7 @@ public class GuiResearchPicker extends GuiScreen {
 
 				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + this.slotHeight) {
 					System.out.println(research.getValues().get(i).getTitle());
-					selected = i;
+					selected = research.getValues().get(i).getRegistryName();
 					return;
 				}
 			}
@@ -301,5 +312,16 @@ public class GuiResearchPicker extends GuiScreen {
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		GL11.glScissor((int) (x * scaleW), (int) (client.displayHeight - (y * scaleH)), (int) (w * scaleW),
 				(int) (h * scaleH));
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton button) {
+		if (button.id == 0) {
+			System.out.println("clicked the select button, selected " + selected);
+			researchContainer.getTileEntity().setSelected(selected);
+			ResearchUpdatePacket airstrikeMessageToServer = new ResearchUpdatePacket(
+					ResearchUpdatePacket.SELECTION_UPDATE, selected, researchContainer.getTileEntity().getPos());
+			CommonProxy.simpleNetworkWrapper.sendToServer(airstrikeMessageToServer);
+		}
 	}
 }

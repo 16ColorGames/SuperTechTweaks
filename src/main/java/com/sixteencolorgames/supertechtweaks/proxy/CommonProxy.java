@@ -4,6 +4,8 @@ import org.apache.http.config.RegistryBuilder;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
+import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 
 import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
@@ -14,6 +16,8 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Proxy functions common to both the client and server side
@@ -22,6 +26,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
  *
  */
 public abstract class CommonProxy {
+
+	public static SimpleNetworkWrapper simpleNetworkWrapper;
+	public static final byte RESEARCH_MESSAGE_ID = 35;
 
 	public World getWorld() {
 		return getWorld(null);
@@ -40,6 +47,9 @@ public abstract class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent e) {
 
+		simpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("MBEchannel");
+		simpleNetworkWrapper.registerMessage(ReceiveResearchUpdate.class, ResearchUpdatePacket.class,
+				RESEARCH_MESSAGE_ID, Side.SERVER);
 	}
 
 	public void registerItemRenderer(Item item, int meta, String id) {
@@ -55,5 +65,7 @@ public abstract class CommonProxy {
 		RegistryBuilder<Material> created = RegistryBuilder.create();
 		return created;
 	}
+
+	public abstract Side getSide();
 
 }
