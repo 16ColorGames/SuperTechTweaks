@@ -59,34 +59,6 @@ public class ClientProxy extends CommonProxy {
 	public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial",
 			"inventory");
 
-	/**
-	 * Register the {@link IBlockColor} handlers
-	 *
-	 * @param event
-	 *            The event
-	 */
-	@SubscribeEvent
-	public static void registerBlockColourHandlers(final ColorHandlerEvent.Block event) {
-		GameRegistry.findRegistry(Material.class).forEach((m) -> {
-			event.getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, m.getBlock());
-		});
-	}
-
-	/**
-	 * Register the {@link IItemColor} handlers
-	 *
-	 * @param event
-	 *            The event
-	 */
-	@SubscribeEvent
-	public static void registerItemColourHandlers(final ColorHandlerEvent.Item event) {
-		GameRegistry.findRegistry(Material.class).forEach((m) -> {
-			event.getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getMaterialItem());
-			event.getItemColors().registerItemColorHandler(BlockColor.INSTANCE, m.getItemBlock());
-		});
-	}
-
-	@Override
 	public World getWorld(IBlockAccess world) {
 		if (world != null && world instanceof World) {
 			return (World) world;
@@ -104,6 +76,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent e) {
 		super.postInit(e);
+		GameRegistry.findRegistry(Material.class).getValuesCollection().forEach((m) -> {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getMaterialItem());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(BlockColor.INSTANCE, m.getItemBlock());
+			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, m.getBlock());
+		});
 	}
 
 	@Override

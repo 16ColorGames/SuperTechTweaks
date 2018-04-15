@@ -79,8 +79,6 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerMaterials(RegistryEvent.Register<Material> event) {
-		
-
 		Material material = new Material("Antimony", "0xFADA5E", 0);
 		material.registerMaterial();
 		material = new Material("Bismuth", "0xed7d92", 0);
@@ -219,12 +217,6 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Stone", "0x8B8D7A", -1, _0_stone);
 		material.registerMaterial();
-		material = new Material("Sponge", "0xD8C060", -1, _0_stone);
-		material.registerMaterial();
-		material = new Material("Slime", 0x32CD32, -1, _0_stone);
-		material.registerMaterial();
-		material = new Material("Cactus", "0x64F566", -1, _0_stone);
-		material.registerMaterial();
 		material = new Material("Netherrack", "0x800000", -1, _0_stone);
 		material.registerMaterial();
 		material = new Material("Wood", "0x000000", -1, _0_stone);
@@ -237,8 +229,6 @@ public class ModRegistry {
 				return new ItemStack(Items.FLINT, 1, 0);
 			}
 		};
-		material.registerMaterial();
-		material = new Material("Prismarine", "0x000000", -1, _1_flint);
 		material.registerMaterial();
 		material = new Material("Electrum", "0x928729", 2, _1_flint);
 		material.registerMaterial();

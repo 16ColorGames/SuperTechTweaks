@@ -8,9 +8,12 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+import com.sixteencolorgames.supertechtweaks.render.BlockColor;
+import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
@@ -145,6 +148,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		SuperTechTweaksMod.proxy.registerModels(this);
 
 		this.setRegistryName(getName());
+
+		GameRegistry.findRegistry(Material.class).register(this);
+
 		if (SuperTechTweaksMod.proxy.getSide() == Side.CLIENT) {
 			clientPrep();
 		}
