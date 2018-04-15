@@ -320,6 +320,23 @@ public class ModRegistry {
 		r = new Research("sample2").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
 				.setDisplay(new ItemStack(Items.ACACIA_BOAT, 4)).setTitle("Second Sample");
 		event.getRegistry().register(r);
+		r = new Research("sample3").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.COMMAND_BLOCK_MINECART, 4)).setTitle("Third Sample");
+		event.getRegistry().register(r);
+		r = new Research("sample4").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.ARROW, 4)).setTitle("Fourth Sample");
+		event.getRegistry().register(r);
+		r = new Research("sample5").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.POTATO, 4)).setTitle("Fifth Sample");
+		event.getRegistry().register(r);
+		r = new Research("sample6").setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+				.setDisplay(new ItemStack(Items.FEATHER, 4)).setTitle("Sixth Sample");
+		event.getRegistry().register(r);
+		for (int i = 0; i < 16; i++) {
+			r = new Research("samplea" + i).setEnergyRequired(1000).addRequirement(new ResourceLocation("crafting"))
+					.setDisplay(new ItemStack(Items.DYE, 4, i)).setTitle("Sample #" + i);
+			event.getRegistry().register(r);
+		}
 	}
 
 	@SubscribeEvent

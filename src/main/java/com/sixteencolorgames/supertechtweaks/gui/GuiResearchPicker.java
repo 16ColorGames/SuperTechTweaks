@@ -9,8 +9,11 @@ import org.lwjgl.opengl.GL11;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,6 +21,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
+/**
+ * Thanks to cmchenry from the forge forums for the basics of this class.
+ * 
+ * @author oa10712
+ *
+ */
 public class GuiResearchPicker extends GuiScreen {
 
 	private EntityPlayer player;
@@ -25,8 +34,8 @@ public class GuiResearchPicker extends GuiScreen {
 			topScrollBar, bottomScrollBar;
 	private float scrollDistance, initialMouseClickY = -2.0F, scrollFactor;
 	private int lastMouseY;
-	private CustomGuiTextField transferName, transferAmount;
 	private IForgeRegistry<Research> research;
+	private int selected = -1;
 
 	public GuiResearchPicker(EntityPlayer player) {
 		this.player = player;
@@ -42,18 +51,18 @@ public class GuiResearchPicker extends GuiScreen {
 		int posY = (this.height - ySizeOfTexture) / 2;
 		int top = posY + 25;
 		int bottom = posY + 140;
-		int var1 = getSize() * this.slotHeight - (bottom - top - 4);
+		int scrollMax = getSize() * this.slotHeight - (bottom - top - 4);
 
-		if (var1 < 0) {
-			var1 /= 2;
+		if (scrollMax < 0) {
+			scrollMax /= 2;
 		}
 
 		if (this.scrollDistance < 0.0F) {
 			this.scrollDistance = 0.0F;
 		}
 
-		if (this.scrollDistance > (float) var1) {
-			this.scrollDistance = (float) var1;
+		if (this.scrollDistance > (float) scrollMax) {
+			this.scrollDistance = (float) scrollMax;
 		}
 	}
 
@@ -67,11 +76,10 @@ public class GuiResearchPicker extends GuiScreen {
 		GlStateManager.translate(0.0F, 0.0F, 32.0F);
 		this.zLevel = 200.0F;
 		this.itemRender.zLevel = 200.0F;
-		net.minecraft.client.gui.FontRenderer font = stack.getItem().getFontRenderer(stack);
+		FontRenderer font = stack.getItem().getFontRenderer(stack);
 		if (font == null)
 			font = fontRenderer;
 		this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-		this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
 		this.zLevel = 0.0F;
 		this.itemRender.zLevel = 0.0F;
 	}
@@ -81,7 +89,8 @@ public class GuiResearchPicker extends GuiScreen {
 		drawDefaultBackground();
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/GuiFriends.png"));
+		this.mc.renderEngine
+				.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/researchpicker.png"));
 
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
@@ -91,8 +100,8 @@ public class GuiResearchPicker extends GuiScreen {
 		this.mouseY = y;
 		int bottomOffset = 140;
 		int topOffset = 35;
-		this.top = posY + 45;
-		this.bottom = posY + 140;
+		this.top = posY + 10;
+		this.bottom = posY + 170;
 		this.topScrollBar = posY + 10;
 		this.bottomScrollBar = posY + 170;
 		int listLength = this.getSize();
@@ -107,7 +116,7 @@ public class GuiResearchPicker extends GuiScreen {
 
 		if (Mouse.isButtonDown(0)) {
 			if (this.initialMouseClickY == -1.0F) {
-				boolean var7 = true;
+				boolean scrollValid = true;
 				if (mouseX >= scrollBarXStart && mouseX <= scrollBarXEnd) {
 					int function = -(posY - y) - 16;
 					if (function < 0) {
@@ -133,10 +142,8 @@ public class GuiResearchPicker extends GuiScreen {
 				if (mouseY >= this.topScrollBar && mouseY <= this.bottomScrollBar) {
 					var10 = mouseY - this.top - 0 + (int) this.scrollDistance - 4;
 					var11 = var10 / this.slotHeight;
-
-					if (mouseX >= boxLeft && mouseX <= boxRight && var11 >= 0 && var10 >= 0 && var11 < listLength) {
-					} else if (mouseX >= boxLeft && mouseX <= boxRight && var10 < 0) {
-						var7 = false;
+					if (mouseX >= boxLeft && mouseX <= boxRight && var10 < 0) {
+						scrollValid = false;
 					}
 
 					if (mouseX >= scrollBarXStart && mouseX <= scrollBarXEnd) {
@@ -163,7 +170,7 @@ public class GuiResearchPicker extends GuiScreen {
 						this.scrollFactor = .4F;
 					}
 
-					if (var7) {
+					if (scrollValid) {
 						this.initialMouseClickY = (float) mouseY;
 					} else {
 						this.initialMouseClickY = -2.0F;
@@ -177,39 +184,41 @@ public class GuiResearchPicker extends GuiScreen {
 			}
 		} else {
 			while (Mouse.next()) {
-				int var16 = Mouse.getEventDWheel();
+				int scroll = Mouse.getEventDWheel();
 
-				if (var16 != 0) {
-					if (var16 > 0) {
-						var16 = -1;
-					} else if (var16 < 0) {
-						var16 = 1;
+				if (scroll != 0) {
+					if (scroll > 0) {
+						scroll = -1;
+					} else if (scroll < 0) {
+						scroll = 1;
 					}
 
-					this.scrollDistance += (float) (var16 * this.slotHeight / 2);
+					this.scrollDistance += (float) (scroll * this.slotHeight / 2);
 				}
 			}
 
 			this.initialMouseClickY = -1.0F;
 		}
 		this.applyScrollLimits();
-		var10 = this.top + 4 - (int) this.scrollDistance;
+		var10 = this.top - (int) this.scrollDistance;
 
-		int var14;
-
+		// cut out nonvisible stuff
+		this.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
 		for (int i = 0; i < listLength; ++i) {
 			var19 = var10 + i * this.slotHeight + 0;
 			var13 = this.slotHeight - 4;
 
 			if (var19 <= this.bottom && var19 + var13 >= this.top) {
-				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145, var19,
-						Color.black.getRGB());
-				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145, var19 + 10,
-						Color.gray.getRGB());
-				this.drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19, "");
+				if (i == selected) {
+					this.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
+				}
 
+				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145,
+						var19 + slotHeight / 2 - 4, Color.white.getRGB());
+				this.drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
 			}
 		}
+		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
 		var19 = this.getContentHeight() - (this.bottomScrollBar - this.topScrollBar - 4);
 
@@ -225,15 +234,15 @@ public class GuiResearchPicker extends GuiScreen {
 				var13 = this.bottomScrollBar - this.topScrollBar - 8;
 			}
 
-			var14 = (int) this.scrollDistance * (this.bottomScrollBar - this.topScrollBar - var13) / var19
+			int scrollY = (int) this.scrollDistance * (this.bottomScrollBar - this.topScrollBar - var13) / var19
 					+ this.topScrollBar;
 
-			if (var14 < this.topScrollBar) {
-				var14 = this.topScrollBar;
+			if (scrollY < this.topScrollBar) {
+				scrollY = this.topScrollBar;
 			}
 			this.mc.renderEngine
-					.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/GuiFriends.png"));
-			this.drawTexturedModalRect(scrollBarXStart, var14, xSizeOfTexture - 25, ySizeOfTexture, 12, 16);
+					.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/researchpicker.png"));
+			this.drawTexturedModalRect(scrollBarXStart, scrollY, xSizeOfTexture - 25, ySizeOfTexture, 12, 16);
 		}
 
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -259,34 +268,38 @@ public class GuiResearchPicker extends GuiScreen {
 		int posY = (this.height - ySizeOfTexture) / 2;
 
 		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Transfer"));
-
-		this.transferName = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 65, 126, 20);
-		this.transferName.setMaxStringLength(19);
-		this.transferName.setFocused(false);
-
-		this.transferAmount = new CustomGuiTextField(fontRenderer, this.width / 2 - 126 / 2, posY + 105, 126, 20);
-		this.transferAmount.setMaxStringLength(19);
-		this.transferAmount.setFocused(false);
 	}
 
 	@Override
 	public void mouseClicked(int x, int y, int z) throws IOException {
-		if (mousePressed(this.transferAmount, x, y)) {
-			this.transferAmount.setFocused(true);
-			this.transferName.setFocused(false);
-		} else if (mousePressed(this.transferName, x, y)) {
-			this.transferAmount.setFocused(false);
-			this.transferName.setFocused(true);
-		} else {
-			this.transferName.setFocused(false);
-			this.transferAmount.setFocused(false);
+		int var10 = this.top - (int) this.scrollDistance;
+
+		int posX = (this.width - xSizeOfTexture) / 2;
+		for (int i = 0; i < getSize(); ++i) {
+			int var19 = var10 + i * this.slotHeight + 0;
+			int var13 = this.slotHeight - 4;
+
+			if (var19 <= this.bottom && var19 + var13 >= this.top) {
+
+				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + this.slotHeight) {
+					System.out.println(research.getValues().get(i).getTitle());
+					selected = i;
+					return;
+				}
+			}
 		}
 
 		super.mouseClicked(x, y, z);
 	}
 
-	public boolean mousePressed(CustomGuiTextField field, int mouseX, int mouseY) {
-		return mouseX >= field.xPosition && mouseY >= field.yPosition && mouseX < field.xPosition + field.width
-				&& mouseY < field.yPosition + field.height;
+	public static void scissor(int x, int y, int w, int h) {
+
+		Minecraft client = Minecraft.getMinecraft();
+		ScaledResolution res = new ScaledResolution(client);
+		double scaleW = client.displayWidth / res.getScaledWidth_double();
+		double scaleH = client.displayHeight / res.getScaledHeight_double();
+		GL11.glEnable(GL11.GL_SCISSOR_TEST);
+		GL11.glScissor((int) (x * scaleW), (int) (client.displayHeight - (y * scaleH)), (int) (w * scaleW),
+				(int) (h * scaleH));
 	}
 }
