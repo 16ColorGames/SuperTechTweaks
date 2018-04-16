@@ -1,29 +1,13 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.passive.EntityPig;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
+
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityEgg;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.Random;
-
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
 
 /**
  * The MessageHandlerOnServer is used to process the network message once it has
@@ -82,15 +66,15 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 	}
 
 	// This message is called from the Server thread.
-	// It spawns a random number of the given projectile at a position above the
-	// target location
 	void processMessage(ResearchUpdatePacket message, EntityPlayerMP sendingPlayer) {
 		System.out.println("Processing research packet");
 		switch (message.getMessageType()) {
 		case ResearchUpdatePacket.SELECTION_UPDATE:
+			System.out.println("updating entity: " + message.getBlockPos() + " to " + message.getSelected());
 			ResearchViewerTileEntity tileEntity = (ResearchViewerTileEntity) sendingPlayer.getEntityWorld()
 					.getTileEntity(message.getBlockPos());
 			tileEntity.setSelected(message.getSelected());
+			tileEntity.markDirty();
 			break;
 		}
 		// TODO update TE

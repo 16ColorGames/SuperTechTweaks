@@ -4,11 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class BasicResearcherTileEntity extends TileEntity {
+public class BasicResearcherTileEntity extends TileMultiBlockController {
 	public static final int SIZE = 9;
 
 	// This item handler will hold our nine inventory slots
@@ -24,6 +25,28 @@ public class BasicResearcherTileEntity extends TileEntity {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		// If we are too far away from this tile entity you cannot use it
 		return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
+	}
+
+	@Override
+	public boolean checkMultiBlockForm() {
+		// Scan a 3x3x3 area, starting with the bottom left corner
+		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
+			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
+				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+					// Make sure tile isn't null, is an instance of the same
+					// Tile, and isn't already a part of a multiblock
+					if (tile != null && (tile instanceof TileMultiBlock)) {
+						if (((TileMultiBlock) tile).hasMaster()) {
+							return false;
+						}
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -43,6 +66,12 @@ public class BasicResearcherTileEntity extends TileEntity {
 	}
 
 	@Override
+	public void masterTick() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		if (compound.hasKey("items")) {
@@ -51,9 +80,44 @@ public class BasicResearcherTileEntity extends TileEntity {
 	}
 
 	@Override
+	public void resetStructure() {
+		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
+			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
+				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+					if (tile != null && (tile instanceof TileMultiBlock))
+						((TileMultiBlock) tile).reset();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void setupStructure() {
+		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
+			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
+				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+					// Check if block is center block
+					boolean master = (x == this.getPos().getX() && y == this.getPos().getY()
+							&& z == this.getPos().getZ());
+					if (tile != null && (tile instanceof TileMultiBlock)) {
+						((TileMultiBlock) tile).setMasterCoords(this.getPos().getX(), this.getPos().getY(),
+								this.getPos().getZ());
+						((TileMultiBlock) tile).setHasMaster(true);
+						((TileMultiBlock) tile).setIsMaster(master);
+					}
+				}
+			}
+		}
+		System.out.println("multiblock formed");
+	}
+
+	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setTag("items", itemStackHandler.serializeNBT());
 		return compound;
 	}
+
 }

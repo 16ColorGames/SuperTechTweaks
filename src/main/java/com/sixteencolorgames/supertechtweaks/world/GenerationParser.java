@@ -2,7 +2,9 @@ package com.sixteencolorgames.supertechtweaks.world;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-
 /**
  * Parses through the config file
  *
@@ -30,6 +29,84 @@ import java.io.UnsupportedEncodingException;
  *
  */
 public class GenerationParser {
+
+	private static Object[] getWeightedOre(JsonObject ore) {
+		System.out.println("    Parsing weighted ore: ");
+		double weight;
+		if (ore.has("weight")) {
+			weight = ore.get("weight").getAsDouble();
+		} else {
+			weight = 1.0;
+		}
+		String name = ore.get("ore").getAsString();
+		System.out.println("      " + name + " weight: " + weight);
+		return new Object[] { GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(name)), weight };
+	}
+
+	private static WorldGeneratorBase parseCluster(JsonObject array) {
+		Map<Material, Double> ores = parseOres(array.get("ore"));
+		HashMap<String, Object> params = new HashMap();
+		if (array.has("properties") && array.get("properties").isJsonObject()) {
+			JsonObject props = array.get("properties").getAsJsonObject();
+			if (props.has("clusterVariance") && props.get("clusterVariance").isJsonPrimitive()) {
+				params.put("clusterVariance", props.get("clusterVariance").getAsInt());
+			} else {
+				System.out.println("Invalid/missing entry for clusterVariance, setting to 0");
+				params.put("clusterVariance", 0);
+			}
+			if (props.has("perChunk") && props.get("perChunk").isJsonPrimitive()) {
+				params.put("perChunk", props.get("perChunk").getAsInt());
+			} else {
+				System.out.println("Invalid/missing entry for perChunk, setting to 1");
+				params.put("perChunk", 1);
+			}
+		} else {
+			params.put("clusterVariance", 0);
+			params.put("perChunk", 1);
+		}
+		return new WorldGeneratorCluster(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
+				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
+	}
+
+	private static Map<Material, Double> parseOres(JsonElement oreElement) {
+		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
+		System.out.println("Parsing ores.");
+		HashMap<Material, Double> ores = new HashMap();
+		if (oreElement.isJsonArray()) {
+			System.out.println("Parsing as array.");
+			JsonArray array = oreElement.getAsJsonArray();
+			for (JsonElement element : array) {
+				if (element.isJsonPrimitive()) {
+					System.out.println("  Ore Found: " + oreElement.getAsString());
+					ores.put(mats.getValue(new ResourceLocation(element.getAsString())), 1.0);
+				} else {
+					System.out.println("  Weighted Ore Found:");
+					Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
+					ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
+				}
+			}
+		} else {
+			System.out.println("Parsing as primative.");
+			if (oreElement.isJsonPrimitive()) {
+				System.out.println("  Ore Found: " + oreElement.getAsString());
+				ores.put(mats.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
+			} else {
+				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
+				ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
+			}
+		}
+		ores.forEach((k, v) -> {
+			System.out.println(k.getName() + ":" + v);
+		});
+		return ores;
+	}
+
+	private static WorldGeneratorBase parsePlate(JsonObject array) {
+		Map<Material, Double> ores = parseOres(array.get("ore"));
+		HashMap<String, Object> params = new HashMap();
+		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
+				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
+	}
 
 	public static ArrayList<WorldGeneratorBase> parseScripts(File config) {
 		ArrayList<WorldGeneratorBase> generators = new ArrayList<>();
@@ -126,38 +203,6 @@ public class GenerationParser {
 		return generators;
 	}
 
-	private static WorldGeneratorBase parseCluster(JsonObject array) {
-		Map<Material, Double> ores = parseOres(array.get("ore"));
-		HashMap<String, Object> params = new HashMap();
-		if (array.has("properties") && array.get("properties").isJsonObject()) {
-			JsonObject props = array.get("properties").getAsJsonObject();
-			if (props.has("clusterVariance") && props.get("clusterVariance").isJsonPrimitive()) {
-				params.put("clusterVariance", props.get("clusterVariance").getAsInt());
-			} else {
-				System.out.println("Invalid/missing entry for clusterVariance, setting to 0");
-				params.put("clusterVariance", 0);
-			}
-			if (props.has("perChunk") && props.get("perChunk").isJsonPrimitive()) {
-				params.put("perChunk", props.get("perChunk").getAsInt());
-			} else {
-				System.out.println("Invalid/missing entry for perChunk, setting to 1");
-				params.put("perChunk", 1);
-			}
-		} else {
-			params.put("clusterVariance", 0);
-			params.put("perChunk", 1);
-		}
-		return new WorldGeneratorCluster(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
-				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
-	}
-
-	private static WorldGeneratorBase parsePlate(JsonObject array) {
-		Map<Material, Double> ores = parseOres(array.get("ore"));
-		HashMap<String, Object> params = new HashMap();
-		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
-				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
-	}
-
 	private static WorldGeneratorVein parseVein(JsonObject array) {
 		Map<Material, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
@@ -181,51 +226,5 @@ public class GenerationParser {
 		}
 		return new WorldGeneratorVein(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
-	}
-
-	private static Map<Material, Double> parseOres(JsonElement oreElement) {
-		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
-		System.out.println("Parsing ores.");
-		HashMap<Material, Double> ores = new HashMap();
-		if (oreElement.isJsonArray()) {
-			System.out.println("Parsing as array.");
-			JsonArray array = oreElement.getAsJsonArray();
-			for (JsonElement element : array) {
-				if (element.isJsonPrimitive()) {
-					System.out.println("  Ore Found: " + oreElement.getAsString());
-					ores.put(mats.getValue(new ResourceLocation(element.getAsString())), 1.0);
-				} else {
-					System.out.println("  Weighted Ore Found:");
-					Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
-					ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
-				}
-			}
-		} else {
-			System.out.println("Parsing as primative.");
-			if (oreElement.isJsonPrimitive()) {
-				System.out.println("  Ore Found: " + oreElement.getAsString());
-				ores.put(mats.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
-			} else {
-				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
-				ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
-			}
-		}
-		ores.forEach((k, v) -> {
-			System.out.println(k.getName() + ":" + v);
-		});
-		return ores;
-	}
-
-	private static Object[] getWeightedOre(JsonObject ore) {
-		System.out.println("    Parsing weighted ore: ");
-		double weight;
-		if (ore.has("weight")) {
-			weight = ore.get("weight").getAsDouble();
-		} else {
-			weight = 1.0;
-		}
-		String name = ore.get("ore").getAsString();
-		System.out.println("      " + name + " weight: " + weight);
-		return new Object[] { GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(name)), weight };
 	}
 }

@@ -5,14 +5,16 @@
  */
 package com.sixteencolorgames.supertechtweaks;
 
-import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
-import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
-import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
-import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
+
+import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
+import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
+import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -36,6 +38,24 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 public class ServerEvents {
 
 	HashMap<UUID, ArrayList<Pair>> sentChunks = new HashMap();
+
+	private void handleOreUpdate(EntityPlayerMP e, int newChunkX, int newChunkZ) {
+		if (e.world != null) {
+			if (!sentChunks.get(e.getUniqueID()).contains(new Pair(newChunkX, newChunkZ))) {// Check
+																							// if
+																							// we
+																							// have
+																							// sent
+																							// this
+																							// chunk
+																							// data
+																							// already
+				UpdateOresPacket packet = new UpdateOresPacket(OreSavedData.get(e.world), newChunkX, newChunkZ);
+				PacketHandler.INSTANCE.sendTo(packet, e);
+				sentChunks.get(e.getUniqueID()).add(new Pair(newChunkX, newChunkZ));
+			}
+		}
+	}
 
 	@SubscribeEvent
 	public void onPlayerEnterChunk(EntityEvent.EnteringChunk e) {
@@ -111,24 +131,6 @@ public class ServerEvents {
 		if (e.player instanceof EntityPlayerMP) {
 			sentChunks.remove(e.player.getUniqueID());// remove the player from
 														// the chunk tracker
-		}
-	}
-
-	private void handleOreUpdate(EntityPlayerMP e, int newChunkX, int newChunkZ) {
-		if (e.world != null) {
-			if (!sentChunks.get(e.getUniqueID()).contains(new Pair(newChunkX, newChunkZ))) {// Check
-																							// if
-																							// we
-																							// have
-																							// sent
-																							// this
-																							// chunk
-																							// data
-																							// already
-				UpdateOresPacket packet = new UpdateOresPacket(OreSavedData.get(e.world), newChunkX, newChunkZ);
-				PacketHandler.INSTANCE.sendTo(packet, e);
-				sentChunks.get(e.getUniqueID()).add(new Pair(newChunkX, newChunkZ));
-			}
 		}
 	}
 

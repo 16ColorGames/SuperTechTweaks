@@ -1,8 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
-import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.Map;
 import java.util.Random;
+
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

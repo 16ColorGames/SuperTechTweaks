@@ -1,11 +1,8 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
-import java.nio.charset.Charset;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 /**
@@ -31,25 +28,11 @@ public class ResearchUpdatePacket implements IMessage {
 	private ResourceLocation selected;
 	private int messageType;
 
-	public int getMessageType() {
-		return this.messageType;
-	}
+	private boolean messageIsValid;
 
 	// for use by the message handler only.
 	public ResearchUpdatePacket() {
 		messageIsValid = false;
-	}
-
-	public BlockPos getBlockPos() {
-		return this.blockPos;
-	}
-
-	public ResourceLocation getSelected() {
-		return selected;
-	}
-
-	public boolean isMessageValid() {
-		return messageIsValid;
 	}
 
 	// for use by the message handler only.
@@ -93,6 +76,22 @@ public class ResearchUpdatePacket implements IMessage {
 		messageIsValid = true;
 	}
 
+	public BlockPos getBlockPos() {
+		return this.blockPos;
+	}
+
+	public int getMessageType() {
+		return this.messageType;
+	}
+
+	public ResourceLocation getSelected() {
+		return selected;
+	}
+
+	public boolean isMessageValid() {
+		return messageIsValid;
+	}
+
 	private String readStringFromBuffer(ByteBuf buf) {
 		int len = buf.readInt();
 		String ret = "";
@@ -130,18 +129,16 @@ public class ResearchUpdatePacket implements IMessage {
 		// for Strings: ByteBufUtils.writeUTF8String();
 	}
 
-	private void writeStringToBuffer(ByteBuf buf, String str) {
-		buf.writeInt(str.length());
-		for (int i = 0; i < str.length(); i++) {
-			buf.writeChar(str.charAt(i));
-		}
-	}
-
 	@Override
 	public String toString() {
 		return "ResearchUpdatePacket[location=" + blockPos.toString() + ", type=" + messageType + ", value="
 				+ selected.toString() + "]";
 	}
 
-	private boolean messageIsValid;
+	private void writeStringToBuffer(ByteBuf buf, String str) {
+		buf.writeInt(str.length());
+		for (int i = 0; i < str.length(); i++) {
+			buf.writeChar(str.charAt(i));
+		}
+	}
 }

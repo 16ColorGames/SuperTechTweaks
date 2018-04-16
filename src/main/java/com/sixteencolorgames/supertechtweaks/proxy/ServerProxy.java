@@ -17,6 +17,11 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ServerProxy extends CommonProxy {
 
 	@Override
+	public Side getSide() {
+		return Side.SERVER;
+	}
+
+	@Override
 	public World getWorld(IBlockAccess world) {
 		if (world instanceof World) {
 			return (World) world;
@@ -39,10 +44,5 @@ public class ServerProxy extends CommonProxy {
 		super.preInit(e);
 
 		DimensionManager.init();
-	}
-
-	@Override
-	public Side getSide() {
-		return Side.SERVER;
 	}
 }

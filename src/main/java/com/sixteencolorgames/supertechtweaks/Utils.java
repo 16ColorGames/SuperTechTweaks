@@ -19,11 +19,6 @@ import org.apache.logging.log4j.core.util.Loader;
  */
 public class Utils {
 
-	public static void copyFileUsingStream(String source, String dest) throws IOException {
-
-		copyFileUsingStream(source, new File(dest));
-	}
-
 	public static void copyFileUsingStream(String source, File dest) throws IOException {
 
 		InputStream is = Loader.getResource(source, null).openStream();
@@ -34,5 +29,10 @@ public class Utils {
 			os.write(buffer, 0, length);
 		}
 		os.close();
+	}
+
+	public static void copyFileUsingStream(String source, String dest) throws IOException {
+
+		copyFileUsingStream(source, new File(dest));
 	}
 }

@@ -27,6 +27,16 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 		setRegistryName("basicresearcherblock");
 	}
 
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but
+	 * before the Tile Entity is updated
+	 */
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		BasicResearcherTileEntity tile = (BasicResearcherTileEntity) worldIn.getTileEntity(pos);
+		tile.resetStructure();
+		super.breakBlock(worldIn, pos, state);
+	}
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new BasicResearcherTileEntity();

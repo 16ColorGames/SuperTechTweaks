@@ -9,23 +9,18 @@ import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -58,6 +53,11 @@ public class ClientProxy extends CommonProxy {
 			"normal");
 	public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial",
 			"inventory");
+
+	@Override
+	public Side getSide() {
+		return Side.CLIENT;
+	}
 
 	public World getWorld(IBlockAccess world) {
 		if (world != null && world instanceof World) {
@@ -118,10 +118,5 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DIRTY, dustLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.FOIL, foilLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.TINY, tinyLocation);
-	}
-
-	@Override
-	public Side getSide() {
-		return Side.CLIENT;
 	}
 }

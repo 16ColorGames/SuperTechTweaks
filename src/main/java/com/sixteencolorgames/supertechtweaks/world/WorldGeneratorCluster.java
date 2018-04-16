@@ -1,8 +1,9 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
-import com.sixteencolorgames.supertechtweaks.enums.Material;
 import java.util.Map;
 import java.util.Random;
+
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,21 +18,6 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
         width = (int) Math.sqrt(size);
     }
 
-    public boolean generateCluster(World worldIn, Random rand, BlockPos position) {
-        int height = rand.nextInt(maxY - minY) + minY;
-        int variance = ((int) params.getOrDefault("clusterVariance", 1) > 0)
-                ? (int) params.getOrDefault("clusterVariance", 1) : 1;
-        int numBlocks = size + rand.nextInt(variance * 2) - variance;
-        if (numBlocks < 1) {
-            numBlocks = 1;
-        }
-        for (int i = 0; i < numBlocks; i++) {
-            BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
-            super.generateOre(worldIn, newPos);
-        }
-        return true;
-    }
-
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (chance == 1 || rand.nextInt(chance) == 0) {
@@ -44,6 +30,21 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
             }
         }
         OreSavedData.get(worldIn).setChunkGenerated((position.getX() / 16), (position.getZ() / 16));
+        return true;
+    }
+
+    public boolean generateCluster(World worldIn, Random rand, BlockPos position) {
+        int height = rand.nextInt(maxY - minY) + minY;
+        int variance = ((int) params.getOrDefault("clusterVariance", 1) > 0)
+                ? (int) params.getOrDefault("clusterVariance", 1) : 1;
+        int numBlocks = size + rand.nextInt(variance * 2) - variance;
+        if (numBlocks < 1) {
+            numBlocks = 1;
+        }
+        for (int i = 0; i < numBlocks; i++) {
+            BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
+            super.generateOre(worldIn, newPos);
+        }
         return true;
     }
 }

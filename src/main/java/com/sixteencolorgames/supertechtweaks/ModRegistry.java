@@ -11,6 +11,7 @@ import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._7_ardit
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._8_cobalt;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchViewer;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
@@ -18,6 +19,7 @@ import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
 import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -45,6 +47,7 @@ public class ModRegistry {
 	public static final int RESEARCH_VIEWER = 2;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchViewer blockResearchViewer;
+	public static BlockMultiWall blockMultiWall;
 	public static BlockOre superore;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
@@ -70,6 +73,10 @@ public class ModRegistry {
 
 		superore = new BlockOre();
 		event.getRegistry().register(superore);
+
+		blockMultiWall = new BlockMultiWall();
+		event.getRegistry().register(blockMultiWall);
+		GameRegistry.registerTileEntity(TileMultiWall.class, SuperTechTweaksMod.MODID + "_tilemultiwall");
 	}
 
 	@SubscribeEvent
@@ -78,8 +85,8 @@ public class ModRegistry {
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
-		event.getRegistry()
-				.register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
 	}
 
 	@SubscribeEvent

@@ -1,14 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -46,33 +46,32 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		dims = new ArrayList();
 	}
 
-	public void setName(String n) {
-		name = n;
-	}
-
 	public void addDim(int i) {
 		dims.add(i);
 	}
 
-	public List getDims() {
-		return dims;
+	public BlockPos[] facing(BlockPos center) {
+		BlockPos[] ret = new BlockPos[7];
+		ret[0] = center;
+		ret[1] = center.up();
+		ret[2] = center.down();
+		ret[3] = center.north();
+		ret[4] = center.south();
+		ret[5] = center.east();
+		ret[6] = center.west();
+		return ret;
 	}
 
-	public String getName() {
-		return name;
+	@Override
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
+			IChunkProvider chunkProvider) {
+		if (dims.contains(world.provider.getDimension())) {
+			BlockPos pos = new BlockPos(chunkX * 16 + world.rand.nextInt(16), 0, chunkZ * 16 + world.rand.nextInt(16));
+			generate(world, random, pos);
+		}
 	}
 
-	public Map<Material, Double> getOres() {
-		return ores;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public Map<String, Object> getParams() {
-		return params;
-	}
+	abstract boolean generate(World world, Random random, BlockPos pos);
 
 	public boolean generateOre(World world, BlockPos pos) {
 		if (Config.stone.contains(world.getBlockState(pos))) {
@@ -132,26 +131,27 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		return true;
 	}
 
-	public BlockPos[] facing(BlockPos center) {
-		BlockPos[] ret = new BlockPos[7];
-		ret[0] = center;
-		ret[1] = center.up();
-		ret[2] = center.down();
-		ret[3] = center.north();
-		ret[4] = center.south();
-		ret[5] = center.east();
-		ret[6] = center.west();
-		return ret;
+	public List getDims() {
+		return dims;
 	}
 
-	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-			IChunkProvider chunkProvider) {
-		if (dims.contains(world.provider.getDimension())) {
-			BlockPos pos = new BlockPos(chunkX * 16 + world.rand.nextInt(16), 0, chunkZ * 16 + world.rand.nextInt(16));
-			generate(world, random, pos);
-		}
+	public String getName() {
+		return name;
 	}
 
-	abstract boolean generate(World world, Random random, BlockPos pos);
+	public Map<Material, Double> getOres() {
+		return ores;
+	}
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setName(String n) {
+		name = n;
+	}
 }

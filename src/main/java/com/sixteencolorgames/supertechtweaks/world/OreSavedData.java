@@ -11,7 +11,6 @@ import java.util.HashMap;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;

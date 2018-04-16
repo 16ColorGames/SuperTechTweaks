@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.omg.CORBA.DataOutputStream;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
@@ -19,11 +18,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**
@@ -34,6 +31,16 @@ import net.minecraftforge.registries.IForgeRegistry;
  */
 public class GuiResearchPicker extends GuiScreen {
 
+	public static void scissor(int x, int y, int w, int h) {
+
+		Minecraft client = Minecraft.getMinecraft();
+		ScaledResolution res = new ScaledResolution(client);
+		double scaleW = client.displayWidth / res.getScaledWidth_double();
+		double scaleH = client.displayHeight / res.getScaledHeight_double();
+		GL11.glEnable(GL11.GL_SCISSOR_TEST);
+		GL11.glScissor((int) (x * scaleW), (int) (client.displayHeight - (y * scaleH)), (int) (w * scaleW),
+				(int) (h * scaleH));
+	}
 	private EntityPlayer player;
 	private int xSizeOfTexture = 256, ySizeOfTexture = 168, scrollButtonY = 0, top, bottom, mouseX, mouseY, slotHeight,
 			topScrollBar, bottomScrollBar;
@@ -41,6 +48,7 @@ public class GuiResearchPicker extends GuiScreen {
 	private int lastMouseY;
 	private IForgeRegistry<Research> research;
 	private ResourceLocation selected = new ResourceLocation("none:none");
+
 	private ResearchContainer researchContainer;
 
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
@@ -52,7 +60,18 @@ public class GuiResearchPicker extends GuiScreen {
 		this.slotHeight = 30;
 		research = GameRegistry.findRegistry(Research.class);
 		if (research.containsKey(researchContainer.getTileEntity().getSelected())) {
-			research.getValue(researchContainer.getTileEntity().getSelected());
+			selected = researchContainer.getTileEntity().getSelected();
+		}
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton button) {
+		if (button.id == 0) {
+			System.out.println("clicked the select button, selected " + selected);
+			researchContainer.getTileEntity().setSelected(selected);
+			ResearchUpdatePacket airstrikeMessageToServer = new ResearchUpdatePacket(
+					ResearchUpdatePacket.SELECTION_UPDATE, selected, researchContainer.getTileEntity().getPos());
+			CommonProxy.simpleNetworkWrapper.sendToServer(airstrikeMessageToServer);
 		}
 	}
 
@@ -301,27 +320,5 @@ public class GuiResearchPicker extends GuiScreen {
 		}
 
 		super.mouseClicked(x, y, z);
-	}
-
-	public static void scissor(int x, int y, int w, int h) {
-
-		Minecraft client = Minecraft.getMinecraft();
-		ScaledResolution res = new ScaledResolution(client);
-		double scaleW = client.displayWidth / res.getScaledWidth_double();
-		double scaleH = client.displayHeight / res.getScaledHeight_double();
-		GL11.glEnable(GL11.GL_SCISSOR_TEST);
-		GL11.glScissor((int) (x * scaleW), (int) (client.displayHeight - (y * scaleH)), (int) (w * scaleW),
-				(int) (h * scaleH));
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton button) {
-		if (button.id == 0) {
-			System.out.println("clicked the select button, selected " + selected);
-			researchContainer.getTileEntity().setSelected(selected);
-			ResearchUpdatePacket airstrikeMessageToServer = new ResearchUpdatePacket(
-					ResearchUpdatePacket.SELECTION_UPDATE, selected, researchContainer.getTileEntity().getPos());
-			CommonProxy.simpleNetworkWrapper.sendToServer(airstrikeMessageToServer);
-		}
 	}
 }

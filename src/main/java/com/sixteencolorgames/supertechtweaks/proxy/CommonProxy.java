@@ -14,10 +14,13 @@ import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
 import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -27,9 +30,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
 /**
  * Proxy functions common to both the client and server side
@@ -44,6 +44,8 @@ public abstract class CommonProxy {
 	public static final byte RESEARCH_MESSAGE_ID = 35;
 	public static ArrayList<WorldGeneratorBase> parsed;
 	private File configFolder;
+
+	public abstract Side getSide();
 
 	public World getWorld() {
 		return getWorld(null);
@@ -100,7 +102,5 @@ public abstract class CommonProxy {
 		RegistryBuilder<Material> created = RegistryBuilder.create();
 		return created;
 	}
-
-	public abstract Side getSide();
 
 }

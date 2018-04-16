@@ -1,9 +1,9 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
-import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -22,22 +22,6 @@ public class Config {
 	public static ArrayList<IBlockState> end;
 	public static boolean removeVanilla;
 	public static String extraDrop;
-
-	// Call this from CommonProxy.preInit(). It will create our config if it
-	// doesn't exist yet and read the values if it does exist.
-	public static void readConfig(File configFolder) {
-		Configuration cfg = CommonProxy.config;
-		try {
-			cfg.load();
-			initGeneralConfig(cfg);
-			initVanillaOres(configFolder);
-		} catch (Exception e1) {
-		} finally {
-			if (cfg.hasChanged()) {
-				cfg.save();
-			}
-		}
-	}
 
 	private static void initGeneralConfig(Configuration cfg) {
 		cfg.addCustomCategoryComment(CATEGORY_GENERAL, "General configuration");
@@ -103,6 +87,22 @@ public class Config {
 				throw new Error("Unable to create vanilla generation json.");
 			}
 		} catch (Throwable t) {
+		}
+	}
+
+	// Call this from CommonProxy.preInit(). It will create our config if it
+	// doesn't exist yet and read the values if it does exist.
+	public static void readConfig(File configFolder) {
+		Configuration cfg = CommonProxy.config;
+		try {
+			cfg.load();
+			initGeneralConfig(cfg);
+			initVanillaOres(configFolder);
+		} catch (Exception e1) {
+		} finally {
+			if (cfg.hasChanged()) {
+				cfg.save();
+			}
 		}
 	}
 }
