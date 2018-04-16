@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 public class BlockBase extends Block implements ItemModelProvider {
 
 	protected String name;
-	private Item itemBlock;
 
 	public BlockBase(Material material, String name) {
 		super(material);
@@ -30,10 +29,6 @@ public class BlockBase extends Block implements ItemModelProvider {
 		// setCreativeTab(SuperTechTweaksMod.creativeTab);
 	}
 
-	public Item getItemBlock() {
-		return itemBlock;
-	}
-
 	@Override
 	public void registerItemModel(Item item) {
 		SuperTechTweaksMod.proxy.registerItemRenderer(item, 0, name);
@@ -43,9 +38,5 @@ public class BlockBase extends Block implements ItemModelProvider {
 	public BlockBase setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
-	}
-
-	public void setItemBlock(Item itemBlock) {
-		this.itemBlock = itemBlock;
 	}
 }

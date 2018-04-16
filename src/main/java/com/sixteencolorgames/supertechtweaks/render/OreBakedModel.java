@@ -13,6 +13,7 @@ import java.util.function.Function;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  *
@@ -44,9 +46,12 @@ public class OreBakedModel implements IBakedModel {
 	private TextureAtlasSprite end;
 	private VertexFormat format;
 
+	private Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter;
+
 	public OreBakedModel(IModelState state, VertexFormat format,
 			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		this.format = format;
+		this.bakedTextureGetter = bakedTextureGetter;
 		ore1 = new TextureAtlasSprite[7];
 		for (int i = 0; i < 7 || i < ore1.length; i++) {
 			ore1[i] = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore" + (i + 1)));
@@ -93,60 +98,29 @@ public class OreBakedModel implements IBakedModel {
 		}
 
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
-		Integer[] ores = extendedBlockState.getValue(BlockOre.ORES);
-		Byte base = extendedBlockState.getValue(BlockOre.BASE);
+		ResourceLocation[] ores = extendedBlockState.getValue(BlockOre.ORES);
+		ResourceLocation base = extendedBlockState.getValue(BlockOre.BASE);
 
 		List<BakedQuad> quads = new ArrayList<>();
 
-		switch (base) {
-		default:
-			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1), stone,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), stone,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), new Vec3d(1, 0, 0), new Vec3d(1, 1, 0), stone,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 1, 1), stone,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0), stone,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), new Vec3d(1, 0, 1), stone,
-					Color.white, 0));
-			break;
-		case 1:
-			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1), end,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), end,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), new Vec3d(1, 0, 0), new Vec3d(1, 1, 0), end,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 1, 1), end,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0), end,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), new Vec3d(1, 0, 1), end,
-					Color.white, 0));
-			break;
-		case -1:
-			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1), nether,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), nether,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), new Vec3d(1, 0, 0), new Vec3d(1, 1, 0), nether,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 1, 1), nether,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0), nether,
-					Color.white, 0));
-			quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), new Vec3d(1, 0, 1), nether,
-					Color.white, 0));
-			break;
-		}
+		// render back
+
+		quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), new Vec3d(1, 0, 0), new Vec3d(1, 1, 0),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), new Vec3d(0, 0, 1), new Vec3d(0, 1, 1),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		quads.add(createQuad(new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), new Vec3d(1, 0, 1),
+				bakedTextureGetter.apply(base), Color.white, 0));
+		// end render back
 
 		for (int i = 0; i < 7 && i < ores.length; i++) {
-			// Color firstColor = new
-			// Color(com.sixteencolorgames.supertechtweaks.enums.Material.getMaterial(ores[i]).getColor());
-			Color firstColor = Color.BLUE;
+			Color firstColor = new Color(GameRegistry.findRegistry(Material.class).getValue(ores[i]).getColor());
 			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1),
 					ore1[i], firstColor, 0));
 			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0),

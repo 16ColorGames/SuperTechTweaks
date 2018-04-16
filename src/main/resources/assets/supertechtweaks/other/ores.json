@@ -1,7 +1,7 @@
 {
   "hematite":{
     "generator":"vein",
-    "ore":"Iron",
+    "ore":"supertechtweaks:iron",
     "size":4,
     "chance":1,
     "minHeight":32,
@@ -15,7 +15,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Coal",
+        "ore":"supertechtweaks:coal",
         "weight":1.0
       }
     ],
@@ -32,11 +32,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Coal",
+        "ore":"supertechtweaks:coal",
         "weight":1.0
       },
       {
-        "ore":"Diamond",
+        "ore":"supertechtweaks:diamond",
         "weight":0.1
       }
     ],
@@ -53,7 +53,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Gold",
+        "ore":"supertechtweaks:gold",
         "weight":1.0
       }
     ],
@@ -70,7 +70,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Lapis",
+        "ore":"supertechtweaks:lapis",
         "weight":1.0
       }
     ],
@@ -87,7 +87,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Redstone",
+        "ore":"supertechtweaks:redstone",
         "weight":1.0
       }
     ],
@@ -104,7 +104,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Emerald",
+        "ore":"supertechtweaks:emerald",
         "weight":1.0
       }
     ],
@@ -120,7 +120,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Nether_Quartz",
+        "ore":"supertechtweaks:netherquartz",
         "weight":1.0
       }
     ],

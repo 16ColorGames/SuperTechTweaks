@@ -7,13 +7,14 @@ package com.sixteencolorgames.supertechtweaks.blocks.properties;
 
 import java.util.Arrays;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 /**
  *
  * @author oa10712
  */
-public class PropertyOres implements IUnlistedProperty<Integer[]> {
+public class PropertyOres implements IUnlistedProperty<ResourceLocation[]> {
 
 	private final String name;
 
@@ -27,17 +28,17 @@ public class PropertyOres implements IUnlistedProperty<Integer[]> {
 	}
 
 	@Override
-	public Class<Integer[]> getType() {
-		return Integer[].class;
+	public Class<ResourceLocation[]> getType() {
+		return ResourceLocation[].class;
 	}
 
 	@Override
-	public boolean isValid(Integer[] value) {
+	public boolean isValid(ResourceLocation[] value) {
 		return true;
 	}
 
 	@Override
-	public String valueToString(Integer[] value) {
+	public String valueToString(ResourceLocation[] value) {
 		return Arrays.toString(value);
 	}
 }

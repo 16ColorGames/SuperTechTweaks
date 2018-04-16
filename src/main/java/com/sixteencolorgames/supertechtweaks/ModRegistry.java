@@ -45,6 +45,7 @@ public class ModRegistry {
 	public static final int RESEARCH_VIEWER = 2;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchViewer blockResearchViewer;
+	public static BlockOre superore;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -56,7 +57,6 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		System.out.println("Attempting block registry");
-		event.getRegistry().register(new BlockOre());
 
 		basicResearcherBlock = new BlockBasicResearcher();
 		event.getRegistry().register(basicResearcherBlock);
@@ -67,6 +67,9 @@ public class ModRegistry {
 		event.getRegistry().register(blockResearchViewer);
 		GameRegistry.registerTileEntity(ResearchViewerTileEntity.class,
 				SuperTechTweaksMod.MODID + "_researchviewerblock");
+
+		superore = new BlockOre();
+		event.getRegistry().register(superore);
 	}
 
 	@SubscribeEvent
@@ -75,6 +78,8 @@ public class ModRegistry {
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
+		event.getRegistry()
+				.register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
 	}
 
 	@SubscribeEvent

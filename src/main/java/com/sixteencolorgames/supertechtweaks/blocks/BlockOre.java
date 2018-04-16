@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyByte;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyBase;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -40,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockOre extends BlockBase {
 
-	public static final PropertyByte BASE = new PropertyByte("base");
+	public static final PropertyBase BASE = new PropertyBase("base");
 	public static final PropertyOres ORES = new PropertyOres("ores");
 
 	public BlockOre() {
@@ -103,15 +104,14 @@ public class BlockOre extends BlockBase {
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
 
-		int[] ores = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getOres(pos);
-		int base = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getBase(pos);
-		ArrayList<Integer> oreList = new ArrayList();
-		for (int i : ores) {
-			if (i != 0) {
-				oreList.add(i);
-			}
+		ResourceLocation[] ores = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getOres(pos);
+		ResourceLocation base = OreSavedData.get(SuperTechTweaksMod.proxy.getWorld(world)).getBase(pos);
+		ArrayList<ResourceLocation> oreList = new ArrayList();
+		for (ResourceLocation i : ores) {
+			oreList.add(i);
 		}
-		return extendedBlockState.withProperty(BASE, (byte) base).withProperty(ORES, oreList.toArray(new Integer[0]));
+		return extendedBlockState.withProperty(BASE, (ResourceLocation) base).withProperty(ORES,
+				oreList.toArray(new ResourceLocation[0]));
 	}
 
 	/**
@@ -160,8 +160,8 @@ public class BlockOre extends BlockBase {
 				return true;
 			}
 			boolean metalLeft = false;
-			int[] ores = OreSavedData.get(worldIn).getOres(pos);
-			int base = OreSavedData.get(worldIn).getBase(pos);
+			ResourceLocation[] ores = OreSavedData.get(worldIn).getOres(pos);
+			ResourceLocation base = OreSavedData.get(worldIn).getBase(pos);
 			int tagCount;
 			tagCount = player.getHeldItemMainhand().getEnchantmentTagList() != null
 					? player.getHeldItemMainhand().getEnchantmentTagList().tagCount() : 0;

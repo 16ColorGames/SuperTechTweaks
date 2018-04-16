@@ -11,11 +11,16 @@ import java.util.HashMap;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
+import net.minecraftforge.common.util.Constants;
 
 /**
  *
@@ -24,6 +29,7 @@ import net.minecraft.world.storage.WorldSavedData;
 public class OreSavedData extends WorldSavedData {
 
 	private static final String DATA_NAME = SuperTechTweaksMod.MODID + "_OreData";
+
 	public static OreSavedData get(World world) {
 		// OreSavedData data = (OreSavedData)
 		// world.loadItemData(OreSavedData.class, DATA_NAME);
@@ -38,6 +44,7 @@ public class OreSavedData extends WorldSavedData {
 		}
 		return instance;
 	}
+
 	public static void set(World world, OreSavedData newData) {
 		MapStorage storage = world.getPerWorldStorage();
 		storage.setData(DATA_NAME, newData);
@@ -47,7 +54,7 @@ public class OreSavedData extends WorldSavedData {
 	 * <X,<Y,<Z,Data>>> where Data[0] is the base type of the ore and the
 	 * remaining elements are the ore data
 	 */
-	HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer[]>>> data = new HashMap();
+	HashMap<Integer, HashMap<Integer, HashMap<Integer, ResourceLocation[]>>> data = new HashMap();
 
 	HashMap<Integer, ArrayList<Integer>> generated = new HashMap();
 	// Required constructors
@@ -66,15 +73,15 @@ public class OreSavedData extends WorldSavedData {
 		this.markDirty();
 	}
 
-	public int getBase(BlockPos pos) {
+	public ResourceLocation getBase(BlockPos pos) {
 		return getBase(pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	public int getBase(int x, int y, int z) {
+	public ResourceLocation getBase(int x, int y, int z) {
 		try {
 			return data.get(x).get(y).get(z)[0];
 		} catch (Exception ex) {
-			return Integer.MIN_VALUE;
+			return new ResourceLocation("minecraft:stone");
 		}
 	}
 
@@ -94,17 +101,17 @@ public class OreSavedData extends WorldSavedData {
 		for (int i = 0; i < 16; i++) {// cycle the x range
 			if (data.containsKey(xStart + i)) {
 				NBTTagCompound xTag = new NBTTagCompound();
-				HashMap<Integer, HashMap<Integer, Integer[]>> xData = data.get(xStart + i);
-				xData.forEach((Integer y, HashMap<Integer, Integer[]> yData) -> {
+				HashMap<Integer, HashMap<Integer, ResourceLocation[]>> xData = data.get(xStart + i);
+				xData.forEach((Integer y, HashMap<Integer, ResourceLocation[]> yData) -> {
 					NBTTagCompound yTag = new NBTTagCompound();
-					yData.forEach((Integer z, Integer[] ores) -> {
+					yData.forEach((Integer z, ResourceLocation[] ores) -> {
 						if (z >= zStart && z < zStart + 16) {// if its within
 																// the z range
-							int[] oreArray = new int[ores.length];
+							NBTTagList list = new NBTTagList();
 							for (int i1 = 0; i1 < ores.length; i1++) {
-								oreArray[i1] = ores[i1];
+								list.appendTag(new NBTTagString(ores[i1].toString()));
 							}
-							yTag.setIntArray(z.toString(), oreArray);
+							yTag.setTag(z.toString(), list);
 						}
 					});
 					xTag.setTag(y.toString(), yTag);
@@ -128,14 +135,17 @@ public class OreSavedData extends WorldSavedData {
 			if (data.get(pos.getX()).containsKey(pos.getY())) {
 				NBTTagCompound yTag = new NBTTagCompound();
 				if (data.get(pos.getX()).get(pos.getY()).containsKey(pos.getZ())) {
-					Integer[] get = data.get(pos.getX()).get(pos.getY()).get(pos.getZ());
-					int[] arr = new int[get.length];
-					for (int i = 0; i < get.length; i++) {
-						arr[i] = get[i];
+					ResourceLocation[] get = data.get(pos.getX()).get(pos.getY()).get(pos.getZ());
+					ResourceLocation[] arr = new ResourceLocation[get.length];
+
+					NBTTagList list = new NBTTagList();
+					for (int i1 = 0; i1 < get.length; i1++) {
+						list.appendTag(new NBTTagString(get[i1].toString()));
 					}
-					yTag.setIntArray(pos.getZ() + "", arr);
+					yTag.setTag(pos.getZ() + "", list);
 				} else {
-					yTag.setIntArray(pos.getZ() + "", new int[0]);
+					NBTTagList list = new NBTTagList();
+					yTag.setTag(pos.getZ() + "", list);
 				}
 				xTag.setTag(pos.getY() + "", yTag);
 			}
@@ -144,20 +154,20 @@ public class OreSavedData extends WorldSavedData {
 		return ret;
 	}
 
-	public int[] getOres(BlockPos pos) {
+	public ResourceLocation[] getOres(BlockPos pos) {
 		return getOres(pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	public int[] getOres(int x, int y, int z) {
+	public ResourceLocation[] getOres(int x, int y, int z) {
 		try {
-			Integer[] get = data.get(x).get(y).get(z);
-			int[] ret = new int[get.length - 1];
+			ResourceLocation[] get = data.get(x).get(y).get(z);
+			ResourceLocation[] ret = new ResourceLocation[get.length - 1];
 			for (int i = 1; i < get.length; i++) {
 				ret[i - 1] = get[i];
 			}
 			return ret;
 		} catch (Exception ex) {
-			return new int[0];
+			return new ResourceLocation[0];
 		}
 	}
 
@@ -173,7 +183,13 @@ public class OreSavedData extends WorldSavedData {
 			xTag.getKeySet().forEach((y) -> {
 				NBTTagCompound yTag = xTag.getCompoundTag(y);
 				yTag.getKeySet().forEach((z) -> {
-					int[] dataList = yTag.getIntArray(z);
+
+					NBTTagList tag = yTag.getTagList(z, Constants.NBT.TAG_STRING);
+					ResourceLocation[] dataList = new ResourceLocation[tag.tagCount()];
+
+					for (int i = 0; i < tag.tagCount(); i++) {
+						dataList[i] = new ResourceLocation(tag.getStringTagAt(i));
+					}
 					setData(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), dataList);
 					BlockPos pos = new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z));
 					if (SuperTechTweaksMod.proxy instanceof ClientProxy) {
@@ -189,7 +205,7 @@ public class OreSavedData extends WorldSavedData {
 		this.markDirty();
 	}
 
-	public void setBase(int x, int y, int z, int base) {
+	public void setBase(int x, int y, int z, ResourceLocation base) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());
 		}
@@ -200,7 +216,7 @@ public class OreSavedData extends WorldSavedData {
 			data.get(x).get(y).get(z)[0] = base;
 			return;
 		}
-		data.get(x).get(y).put(z, new Integer[] { base });
+		data.get(x).get(y).put(z, new ResourceLocation[] { base });
 		markDirty();
 	}
 
@@ -213,14 +229,14 @@ public class OreSavedData extends WorldSavedData {
 		}
 	}
 
-	public void setData(int x, int y, int z, int base, int[] ores) {
+	public void setData(int x, int y, int z, ResourceLocation base, ResourceLocation[] ores) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());
 		}
 		if (!data.get(x).containsKey(y)) {
 			data.get(x).put(y, new HashMap());
 		}
-		Integer[] newData = new Integer[ores.length + 1];
+		ResourceLocation[] newData = new ResourceLocation[ores.length + 1];
 		newData[0] = base;
 		for (int i = 0; i < ores.length; i++) {
 			newData[i + 1] = ores[i];
@@ -230,14 +246,14 @@ public class OreSavedData extends WorldSavedData {
 		markDirty();
 	}
 
-	public void setData(int x, int y, int z, int[] dataList) {
+	public void setData(int x, int y, int z, ResourceLocation[] dataList) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());
 		}
 		if (!data.get(x).containsKey(y)) {
 			data.get(x).put(y, new HashMap());
 		}
-		Integer[] newData = new Integer[dataList.length];
+		ResourceLocation[] newData = new ResourceLocation[dataList.length];
 		for (int i = 0; i < dataList.length; i++) {
 			newData[i] = dataList[i];
 		}
@@ -245,23 +261,23 @@ public class OreSavedData extends WorldSavedData {
 		markDirty();
 	}
 
-	public void setOres(BlockPos pos, int[] ores) {
+	public void setOres(BlockPos pos, ResourceLocation[] ores) {
 		setOres(pos.getX(), pos.getY(), pos.getZ(), ores);
 	}
 
-	public void setOres(int x, int y, int z, int[] ores) {
+	public void setOres(int x, int y, int z, ResourceLocation[] ores) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());
 		}
 		if (!data.get(x).containsKey(y)) {
 			data.get(x).put(y, new HashMap());
 		}
-		Integer[] newData = new Integer[ores.length + 1];
+		ResourceLocation[] newData = new ResourceLocation[ores.length + 1];
 		;
 		if (data.get(x).get(y).containsKey(z)) {
 			newData[0] = getBase(x, y, z);
 		} else {
-			newData[0] = 0;
+			newData[0] = new ResourceLocation("minecraft:stone");
 		}
 		for (int i = 0; i < ores.length; i++) {
 			newData[i + 1] = ores[i];
@@ -281,16 +297,18 @@ public class OreSavedData extends WorldSavedData {
 	 */
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
-		data.forEach((Integer x, HashMap<Integer, HashMap<Integer, Integer[]>> xData) -> {
+		data.forEach((Integer x, HashMap<Integer, HashMap<Integer, ResourceLocation[]>> xData) -> {
 			NBTTagCompound xTag = new NBTTagCompound();
-			xData.forEach((Integer y, HashMap<Integer, Integer[]> yData) -> {
+			xData.forEach((Integer y, HashMap<Integer, ResourceLocation[]> yData) -> {
 				NBTTagCompound yTag = new NBTTagCompound();
-				yData.forEach((Integer z, Integer[] ores) -> {
-					int[] oreArray = new int[ores.length];
-					for (int i = 0; i < ores.length; i++) {
-						oreArray[i] = ores[i];
+				yData.forEach((Integer z, ResourceLocation[] ores) -> {
+					ResourceLocation[] oreArray = new ResourceLocation[ores.length];
+
+					NBTTagList list = new NBTTagList();
+					for (int i1 = 0; i1 < ores.length; i1++) {
+						list.appendTag(new NBTTagString(ores[i1].toString()));
 					}
-					yTag.setIntArray(z.toString(), oreArray);
+					yTag.setTag(z.toString(), list);
 				});
 				xTag.setTag(y.toString(), yTag);
 			});
