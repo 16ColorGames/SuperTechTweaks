@@ -52,20 +52,24 @@ public abstract class TileMultiBlock extends TileEntity {
 		masterZ = 0;
 		hasMaster = false;
 		isMaster = false;
+		markDirty();
 	}
 
 	public void setHasMaster(boolean bool) {
 		hasMaster = bool;
+		markDirty();
 	}
 
 	public void setIsMaster(boolean bool) {
 		isMaster = bool;
+		markDirty();
 	}
 
 	public void setMasterCoords(int x, int y, int z) {
 		masterX = x;
 		masterY = y;
 		masterZ = z;
+		markDirty();
 	}
 
 	@Override

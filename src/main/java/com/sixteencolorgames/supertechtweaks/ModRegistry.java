@@ -13,12 +13,12 @@ import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._8_cobal
 import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchViewer;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 
 import net.minecraft.block.Block;
@@ -44,9 +44,9 @@ import net.minecraftforge.registries.RegistryBuilder;
 public class ModRegistry {
 
 	public static final int BASIC_RESEARCHER = 1;
-	public static final int RESEARCH_VIEWER = 2;
+	public static final int RESEARCH_SELECTER = 2;
 	public static BlockBasicResearcher basicResearcherBlock;
-	public static BlockResearchViewer blockResearchViewer;
+	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
 	public static BlockOre superore;
 
@@ -66,10 +66,10 @@ public class ModRegistry {
 		GameRegistry.registerTileEntity(BasicResearcherTileEntity.class,
 				SuperTechTweaksMod.MODID + "_basicresearcherblock");
 
-		blockResearchViewer = new BlockResearchViewer();
+		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
-		GameRegistry.registerTileEntity(ResearchViewerTileEntity.class,
-				SuperTechTweaksMod.MODID + "_researchviewerblock");
+		GameRegistry.registerTileEntity(ResearchSelectorTileEntity.class,
+				SuperTechTweaksMod.MODID + "_researchselectorblock");
 
 		superore = new BlockOre();
 		event.getRegistry().register(superore);

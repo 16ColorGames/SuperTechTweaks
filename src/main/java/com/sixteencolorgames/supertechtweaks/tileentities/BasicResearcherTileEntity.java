@@ -10,6 +10,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class BasicResearcherTileEntity extends TileMultiBlockController {
+	private BlockPos selectorpos;
 	public static final int SIZE = 9;
 
 	// This item handler will hold our nine inventory slots
@@ -29,6 +30,7 @@ public class BasicResearcherTileEntity extends TileMultiBlockController {
 
 	@Override
 	public boolean checkMultiBlockForm() {
+		boolean selectorPresent = false;
 		// Scan a 3x3x3 area, starting with the bottom left corner
 		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
 			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
@@ -43,10 +45,16 @@ public class BasicResearcherTileEntity extends TileMultiBlockController {
 					} else {
 						return false;
 					}
+					if (tile instanceof ResearchSelectorTileEntity) {
+						if (selectorPresent) {// we only want 1 selector
+							return false;
+						}
+						selectorPresent = true;
+					}
 				}
 			}
 		}
-		return true;
+		return selectorPresent;
 	}
 
 	@Override
@@ -107,10 +115,13 @@ public class BasicResearcherTileEntity extends TileMultiBlockController {
 						((TileMultiBlock) tile).setHasMaster(true);
 						((TileMultiBlock) tile).setIsMaster(master);
 					}
+					if (tile instanceof ResearchSelectorTileEntity) {
+						selectorpos = new BlockPos(x, y, z);
+					}
 				}
 			}
 		}
-		System.out.println("multiblock formed");
+		System.out.println("multiblock formed, selector at " + selectorpos);
 	}
 
 	@Override

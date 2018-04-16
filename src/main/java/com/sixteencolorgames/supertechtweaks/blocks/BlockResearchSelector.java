@@ -2,7 +2,7 @@ package com.sixteencolorgames.supertechtweaks.blocks;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -15,17 +15,17 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockResearchViewer extends Block implements ITileEntityProvider {
+public class BlockResearchSelector extends Block implements ITileEntityProvider {
 
-	public BlockResearchViewer() {
+	public BlockResearchSelector() {
 		super(Material.ROCK);
-		setUnlocalizedName(SuperTechTweaksMod.MODID + ".researchviewer");
-		setRegistryName("researchviewerblock");
+		setUnlocalizedName(SuperTechTweaksMod.MODID + ".researchselector");
+		setRegistryName("researchselectorblock");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new ResearchViewerTileEntity();
+		return new ResearchSelectorTileEntity();
 	}
 
 	/**
@@ -39,10 +39,10 @@ public class BlockResearchViewer extends Block implements ITileEntityProvider {
 			return true;
 		}
 		TileEntity te = world.getTileEntity(pos);
-		if (!(te instanceof ResearchViewerTileEntity)) {
+		if (!(te instanceof ResearchSelectorTileEntity)) {
 			return false;
 		}
-		player.openGui(SuperTechTweaksMod.instance, ModRegistry.RESEARCH_VIEWER, world, pos.getX(), pos.getY(),
+		player.openGui(SuperTechTweaksMod.instance, ModRegistry.RESEARCH_SELECTER, world, pos.getX(), pos.getY(),
 				pos.getZ());
 		return true;
 	}

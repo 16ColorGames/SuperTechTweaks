@@ -1,5 +1,7 @@
 tile.superore.name=Super Tech Ore
 tile.supertechtweaks.basicresearcher.name=Basic Research Station
+tile.supertechtweaks.multiwall.name=Multiblock Wall
+tile.supertechtweaks.researchselector.name=Research Selector
 
 item.itemTechComponent.circuitBasic.name=Basic Circuit
 item.itemTechComponent.circuitAdvanced.name=Advanced Circuit

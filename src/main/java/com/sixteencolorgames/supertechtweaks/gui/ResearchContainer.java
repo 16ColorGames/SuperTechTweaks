@@ -1,6 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.gui;
 
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchViewerTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -8,9 +8,9 @@ import net.minecraft.inventory.Container;
 
 public class ResearchContainer extends Container {
 
-	private ResearchViewerTileEntity containerTileEntity;
+	private ResearchSelectorTileEntity containerTileEntity;
 
-	public ResearchContainer(InventoryPlayer inventory, ResearchViewerTileEntity containerTileEntity2) {
+	public ResearchContainer(InventoryPlayer inventory, ResearchSelectorTileEntity containerTileEntity2) {
 		this.containerTileEntity = containerTileEntity2;
 	}
 
@@ -19,7 +19,7 @@ public class ResearchContainer extends Container {
 		return containerTileEntity.canInteractWith(playerIn);
 	}
 
-	public ResearchViewerTileEntity getTileEntity() {
+	public ResearchSelectorTileEntity getTileEntity() {
 		return containerTileEntity;
 	}
 
