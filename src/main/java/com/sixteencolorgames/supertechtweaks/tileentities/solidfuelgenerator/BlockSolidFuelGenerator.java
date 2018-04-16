@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockSolidFuelGenerator extends BlockContainerBase {
 
 	private static boolean keepInventory;
+
 	public static void setState(boolean active, World worldIn, BlockPos pos) {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
