@@ -7,6 +7,7 @@ import java.util.Random;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyBase;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
@@ -30,6 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -97,6 +99,25 @@ public class BlockOre extends BlockBase {
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		World worldObject = SuperTechTweaksMod.proxy.getWorld(world);
 		List<ItemStack> ret = new ArrayList<>();
+		ResourceLocation[] ores = OreSavedData.get(worldObject).getOres(pos);
+		ResourceLocation base = OreSavedData.get(worldObject).getBase(pos);
+		byte type = 0;
+		if (base.getResourcePath().contains("nether")) {
+			type = -1;
+		} else if (base.getResourcePath().contains("end")) {
+			type = 1;
+		}
+		Random rand = worldObject.rand;
+		for (int i = 0; i < ores.length; i++) {
+			Material material = GameRegistry.findRegistry(Material.class).getValue(ores[i]);
+			ret.add(material.getDrops(type));
+			for (int j = 0; j < fortune; j++) {
+				if (rand.nextDouble() < .25) {
+					ret.add(material.getDrops(type));
+				}
+			}
+		}
+
 		return ret;
 	}
 
