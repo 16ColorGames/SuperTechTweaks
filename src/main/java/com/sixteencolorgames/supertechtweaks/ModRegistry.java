@@ -10,16 +10,18 @@ import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._6_obsid
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._7_ardite;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._8_cobalt;
 
-import com.sixteencolorgames.supertechtweaks.blocks.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
-import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
+import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -45,10 +47,12 @@ public class ModRegistry {
 
 	public static final int BASIC_RESEARCHER = 1;
 	public static final int RESEARCH_SELECTER = 2;
+	public static final int SOLID_GENERATOR = 3;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
 	public static BlockOre superore;
+	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -63,7 +67,7 @@ public class ModRegistry {
 
 		basicResearcherBlock = new BlockBasicResearcher();
 		event.getRegistry().register(basicResearcherBlock);
-		GameRegistry.registerTileEntity(BasicResearcherTileEntity.class,
+		GameRegistry.registerTileEntity(TileBasicResearcher.class,
 				SuperTechTweaksMod.MODID + "_basicresearcherblock");
 
 		blockResearchViewer = new BlockResearchSelector();
@@ -77,6 +81,11 @@ public class ModRegistry {
 		blockMultiWall = new BlockMultiWall();
 		event.getRegistry().register(blockMultiWall);
 		GameRegistry.registerTileEntity(TileMultiWall.class, SuperTechTweaksMod.MODID + "_tilemultiwall");
+
+		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
+		event.getRegistry().register(blockSolidFuelGenerator);
+		GameRegistry.registerTileEntity(TileSolidFuelGenerator.class,
+				SuperTechTweaksMod.MODID + "_tilesolidfuelgenerator");
 	}
 
 	@SubscribeEvent
@@ -87,6 +96,7 @@ public class ModRegistry {
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 	}
 
 	@SubscribeEvent

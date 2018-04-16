@@ -1,6 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.WorldServer;
@@ -77,7 +77,6 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 			tileEntity.markDirty();
 			break;
 		}
-		// TODO update TE
 		return;
 	}
 }

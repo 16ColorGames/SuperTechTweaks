@@ -1,11 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.proxy;
 
-import com.sixteencolorgames.supertechtweaks.gui.GuiResearchPicker;
-import com.sixteencolorgames.supertechtweaks.gui.ResearchContainer;
-import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherContainer;
-import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherGui;
-import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.ContainerBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.GuiBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.GuiResearchPicker;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchContainer;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.ContainerSolidFuelGenerator;
+import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.GuiSolidFuelGenerator;
+import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -19,10 +22,15 @@ public class GuiProxy implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		BlockPos pos = new BlockPos(x, y, z);
 		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof BasicResearcherTileEntity) {
-			BasicResearcherTileEntity containerTileEntity = (BasicResearcherTileEntity) te;
-			return new BasicResearcherGui(containerTileEntity,
-					new BasicResearcherContainer(player.inventory, containerTileEntity));
+		if (te instanceof TileBasicResearcher) {
+			TileBasicResearcher containerTileEntity = (TileBasicResearcher) te;
+			return new GuiBasicResearcher(containerTileEntity,
+					new ContainerBasicResearcher(player.inventory, containerTileEntity));
+		}
+		if (te instanceof TileSolidFuelGenerator) {
+			TileSolidFuelGenerator containerTileEntity = (TileSolidFuelGenerator) te;
+			return new GuiSolidFuelGenerator(containerTileEntity,
+					new ContainerSolidFuelGenerator(player.inventory, containerTileEntity));
 		}
 		if (te instanceof ResearchSelectorTileEntity) {
 			ResearchSelectorTileEntity containerTileEntity = (ResearchSelectorTileEntity) te;
@@ -36,8 +44,11 @@ public class GuiProxy implements IGuiHandler {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		BlockPos pos = new BlockPos(x, y, z);
 		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof BasicResearcherTileEntity) {
-			return new BasicResearcherContainer(player.inventory, (BasicResearcherTileEntity) te);
+		if (te instanceof TileBasicResearcher) {
+			return new ContainerBasicResearcher(player.inventory, (TileBasicResearcher) te);
+		}
+		if (te instanceof TileSolidFuelGenerator) {
+			return new ContainerSolidFuelGenerator(player.inventory, (TileSolidFuelGenerator) te);
 		}
 		if (te instanceof ResearchSelectorTileEntity) {
 			return new ResearchContainer(player.inventory, (ResearchSelectorTileEntity) te);

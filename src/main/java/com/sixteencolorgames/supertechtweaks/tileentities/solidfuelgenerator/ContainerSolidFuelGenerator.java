@@ -1,4 +1,4 @@
-package com.sixteencolorgames.supertechtweaks.tileentities;
+package com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator;
 
 import javax.annotation.Nullable;
 
@@ -11,19 +11,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class BasicResearcherContainer extends Container {
+public class ContainerSolidFuelGenerator extends Container {
 
-	private BasicResearcherTileEntity te;
+	private TileSolidFuelGenerator te;
 
-	public BasicResearcherContainer(IInventory playerInventory, BasicResearcherTileEntity te) {
+	public ContainerSolidFuelGenerator(IInventory playerInventory, TileSolidFuelGenerator te) {
 		this.te = te;
-
-		// This container references items out of our own inventory (the 9 slots
-		// we hold ourselves)
-		// as well as the slots from the player inventory so that the user can
-		// transfer items between
-		// both inventories. The two calls below make sure that slots are
-		// defined for both inventories.
 		addOwnSlots();
 		addPlayerSlots(playerInventory);
 	}
@@ -75,12 +68,11 @@ public class BasicResearcherContainer extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index < BasicResearcherTileEntity.SIZE) {
-				if (!this.mergeItemStack(itemstack1, BasicResearcherTileEntity.SIZE, this.inventorySlots.size(),
-						true)) {
+			if (index < TileSolidFuelGenerator.SIZE) {
+				if (!this.mergeItemStack(itemstack1, TileSolidFuelGenerator.SIZE, this.inventorySlots.size(), true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 0, BasicResearcherTileEntity.SIZE, false)) {
+			} else if (!this.mergeItemStack(itemstack1, 0, TileSolidFuelGenerator.SIZE, false)) {
 				return null;
 			}
 

@@ -1,8 +1,7 @@
-package com.sixteencolorgames.supertechtweaks.blocks;
+package com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.tileentities.BasicResearcherTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -32,14 +31,14 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 	 * before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		BasicResearcherTileEntity tile = (BasicResearcherTileEntity) worldIn.getTileEntity(pos);
+		TileBasicResearcher tile = (TileBasicResearcher) worldIn.getTileEntity(pos);
 		tile.resetStructure();
 		super.breakBlock(worldIn, pos, state);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new BasicResearcherTileEntity();
+		return new TileBasicResearcher();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -59,7 +58,7 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 			return true;
 		}
 		TileEntity te = world.getTileEntity(pos);
-		if (!(te instanceof BasicResearcherTileEntity)) {
+		if (!(te instanceof TileBasicResearcher)) {
 			return false;
 		}
 		player.openGui(SuperTechTweaksMod.instance, ModRegistry.BASIC_RESEARCHER, world, pos.getX(), pos.getY(),

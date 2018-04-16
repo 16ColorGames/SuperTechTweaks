@@ -1,4 +1,6 @@
-package com.sixteencolorgames.supertechtweaks.tileentities;
+package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
+
+import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

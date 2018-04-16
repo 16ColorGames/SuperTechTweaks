@@ -1,8 +1,7 @@
-package com.sixteencolorgames.supertechtweaks.blocks;
+package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;

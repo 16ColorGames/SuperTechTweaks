@@ -1,18 +1,18 @@
-package com.sixteencolorgames.supertechtweaks.tileentities;
+package com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
-public class BasicResearcherGui extends GuiContainer {
+public class GuiSolidFuelGenerator extends GuiContainer {
 	public static final int WIDTH = 180;
 	public static final int HEIGHT = 152;
 
 	private static final ResourceLocation background = new ResourceLocation(SuperTechTweaksMod.MODID,
-			"textures/gui/basicresearcher.png");
+			"textures/gui/solidgenerator.png");
 
-	public BasicResearcherGui(BasicResearcherTileEntity tileEntity, BasicResearcherContainer container) {
+	public GuiSolidFuelGenerator(TileSolidFuelGenerator tileEntity, ContainerSolidFuelGenerator container) {
 		super(container);
 
 		xSize = WIDTH;

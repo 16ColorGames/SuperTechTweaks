@@ -1,6 +1,4 @@
-package com.sixteencolorgames.supertechtweaks.gui;
-
-import com.sixteencolorgames.supertechtweaks.tileentities.ResearchSelectorTileEntity;
+package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

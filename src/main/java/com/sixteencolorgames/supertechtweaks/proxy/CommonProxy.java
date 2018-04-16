@@ -90,12 +90,9 @@ public abstract class CommonProxy {
 	}
 
 	public void registerItemRenderer(Item item, int meta, String id) {
-
 	}
 
 	public void registerModels(Material mat) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {

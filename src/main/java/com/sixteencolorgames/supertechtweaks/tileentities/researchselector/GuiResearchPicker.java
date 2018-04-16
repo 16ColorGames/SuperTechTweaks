@@ -1,4 +1,4 @@
-package com.sixteencolorgames.supertechtweaks.gui;
+package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
 
 import java.awt.Color;
 import java.io.IOException;

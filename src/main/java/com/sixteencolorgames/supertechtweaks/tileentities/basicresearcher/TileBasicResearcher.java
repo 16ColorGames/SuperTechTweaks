@@ -1,4 +1,8 @@
-package com.sixteencolorgames.supertechtweaks.tileentities;
+package com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher;
+
+import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
+import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlockController;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,9 +13,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class BasicResearcherTileEntity extends TileMultiBlockController {
-	private BlockPos selectorpos;
+public class TileBasicResearcher extends TileMultiBlockController {
 	public static final int SIZE = 9;
+	private BlockPos selectorpos;
 
 	// This item handler will hold our nine inventory slots
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
@@ -19,7 +23,7 @@ public class BasicResearcherTileEntity extends TileMultiBlockController {
 		protected void onContentsChanged(int slot) {
 			// We need to tell the tile entity that something has changed so
 			// that the chest contents is persisted
-			BasicResearcherTileEntity.this.markDirty();
+			TileBasicResearcher.this.markDirty();
 		}
 	};
 
