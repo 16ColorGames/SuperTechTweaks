@@ -76,8 +76,7 @@ public class ContainerBasicResearcher extends Container {
 			itemstack = itemstack1.copy();
 
 			if (index < TileBasicResearcher.SIZE) {
-				if (!this.mergeItemStack(itemstack1, TileBasicResearcher.SIZE, this.inventorySlots.size(),
-						true)) {
+				if (!this.mergeItemStack(itemstack1, TileBasicResearcher.SIZE, this.inventorySlots.size(), true)) {
 					return null;
 				}
 			} else if (!this.mergeItemStack(itemstack1, 0, TileBasicResearcher.SIZE, false)) {

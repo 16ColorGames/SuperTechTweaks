@@ -41,6 +41,7 @@ public class GuiResearchPicker extends GuiScreen {
 		GL11.glScissor((int) (x * scaleW), (int) (client.displayHeight - (y * scaleH)), (int) (w * scaleW),
 				(int) (h * scaleH));
 	}
+
 	private EntityPlayer player;
 	private int xSizeOfTexture = 256, ySizeOfTexture = 168, scrollButtonY = 0, top, bottom, mouseX, mouseY, slotHeight,
 			topScrollBar, bottomScrollBar;

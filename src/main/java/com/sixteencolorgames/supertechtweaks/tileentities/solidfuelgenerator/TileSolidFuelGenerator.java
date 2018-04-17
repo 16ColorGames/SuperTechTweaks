@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -125,6 +124,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		energy = compound.getInteger("energy");
 		capacity = compound.getInteger("capacity");
 		totalBurnTime = compound.getInteger("totalBurnTime");
+		maxExtract = compound.getInteger("maxExtract");
 	}
 
 	@Override
@@ -183,6 +183,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		compound.setInteger("energy", this.energy);
 		compound.setInteger("capacity", this.capacity);
 		compound.setInteger("totalBurnTime", this.totalBurnTime);
+		compound.setInteger("maxExtract", this.maxExtract);
 		return compound;
 	}
 }

@@ -18,6 +18,8 @@ import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
+import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
@@ -53,6 +55,7 @@ public class ModRegistry {
 	public static BlockMultiWall blockMultiWall;
 	public static BlockOre superore;
 	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
+	public static BlockMultiPowerInput blockMultiPowerInput;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -67,8 +70,7 @@ public class ModRegistry {
 
 		basicResearcherBlock = new BlockBasicResearcher();
 		event.getRegistry().register(basicResearcherBlock);
-		GameRegistry.registerTileEntity(TileBasicResearcher.class,
-				SuperTechTweaksMod.MODID + "_basicresearcherblock");
+		GameRegistry.registerTileEntity(TileBasicResearcher.class, SuperTechTweaksMod.MODID + "_basicresearcherblock");
 
 		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
@@ -81,6 +83,10 @@ public class ModRegistry {
 		blockMultiWall = new BlockMultiWall();
 		event.getRegistry().register(blockMultiWall);
 		GameRegistry.registerTileEntity(TileMultiWall.class, SuperTechTweaksMod.MODID + "_tilemultiwall");
+
+		blockMultiPowerInput = new BlockMultiPowerInput();
+		event.getRegistry().register(blockMultiWall);
+		GameRegistry.registerTileEntity(TileMultiPowerInput.class, SuperTechTweaksMod.MODID + "_tilemultipowerinput");
 
 		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
 		event.getRegistry().register(blockSolidFuelGenerator);
@@ -96,7 +102,10 @@ public class ModRegistry {
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
-		event.getRegistry().register(new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
+		event.getRegistry()
+				.register(new ItemBlock(blockMultiPowerInput).setRegistryName(blockMultiPowerInput.getRegistryName()));
+		event.getRegistry().register(
+				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 	}
 
 	@SubscribeEvent

@@ -11,10 +11,10 @@ package com.sixteencolorgames.supertechtweaks;
  */
 public class Pair {
 
-    Object left, right;
+	Object left, right;
 
-    public Pair(Object o1, Object o2) {
-        left = o1;
-        right = o2;
-    }
+	public Pair(Object o1, Object o2) {
+		left = o1;
+		right = o2;
+	}
 }
