@@ -5,6 +5,7 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,8 +23,8 @@ public class MaterialItem extends ItemBase {
 	public static final int DIRTY = 10;
 	public static final int FOIL = 11;
 	public static final int TINY = 12;
-	public static final int ORE = 50;
 
+	public static final int ORE = 50;
 	public static final int NETHER_ORE = 51;
 	public static final int END_ORE = 52;
 	Material material;
@@ -34,6 +35,16 @@ public class MaterialItem extends ItemBase {
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 		this.setCreativeTab(CreativeTabs.MISC); // items will appear on the
+	}
+
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+			return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+		}
+		return String.format(super.getItemStackDisplayName(stack),
+				I18n.canTranslate("supertechtweaks.entry." + material.getName())
+						? I18n.translateToLocal("supertechtweaks.entry." + material.getName()) : material.getName());
 	}
 
 	public Material getMaterial() {
@@ -89,59 +100,53 @@ public class MaterialItem extends ItemBase {
 	public String getUnlocalizedName(ItemStack stack) {
 		int metadata = stack.getMetadata();
 		if (metadata == TINY) {
-			return "item.itemMaterialObject.dustTiny" + material.getName();
+			return "item.supertechtweaks.dustTiny";
 		}
 		if (metadata == FOIL) {
-			return "item.itemMaterialObject.foil" + material.getName();
+			return "item.supertechtweaks.foil";
 		}
 		if (metadata == DIRTY) {
-			return "item.itemMaterialObject.dustDirty" + material.getName();
+			return "item.supertechtweaks.dustDirty";
 		}
 		if (metadata == WIRE) {
-			return "item.itemMaterialObject.wire" + material.getName();
+			return "item.supertechtweaks.wire";
 		}
 		if (metadata == SHARD) {
-			return "item.itemMaterialObject.shard" + material.getName();
+			return "item.supertechtweaks.shard";
 		}
 		if (metadata == CRYSTAL) {
-			return "item.itemMaterialObject.crystal" + material.getName();
+			return "item.supertechtweaks.crystal";
 		}
 		if (metadata == CLUMP) {
-			return "item.itemMaterialObject.clump" + material.getName();
+			return "item.supertechtweaks.clump";
 		}
 		if (metadata == ROD) {
-			return "item.itemMaterialObject.rod" + material.getName();
+			return "item.supertechtweaks.rod";
 		}
 		if (metadata == PLATE) {
-			return "item.itemMaterialObject.plate" + material.getName();
+			return "item.supertechtweaks.plate";
 		}
 		if (metadata == NUGGET) {
-			return "item.itemMaterialObject.nugget" + material.getName();
+			return "item.supertechtweaks.nugget";
 		}
 		if (metadata == GEAR) {
-			return "item.itemMaterialObject.gear" + material.getName();
+			return "item.supertechtweaks.gear";
 		}
 		if (metadata == DUST) {
-			return "item.itemMaterialObject.dust" + material.getName();
+			return "item.supertechtweaks.dust";
 		}
 		if (metadata == INGOT) {
-			return "item.itemMaterialObject.ingot" + material.getName();
+			return "item.supertechtweaks.ingot";
 		}
 		if (metadata == ORE) {
-			return "item.itemMaterialObject.ore" + material.getName();
+			return "item.supertechtweaks.ore";
 		}
 		if (metadata == NETHER_ORE) {
-			return "item.itemMaterialObject.nether" + material.getName();
+			return "item.supertechtweaks.nether";
 		}
 		if (metadata == END_ORE) {
-			return "item.itemMaterialObject.end" + material.getName();
+			return "item.supertechtweaks.end";
 		}
-		return "item.itemMaterialObject.ERROR_" + metadata;// We somehow
-															// got a
-															// material
-															// outside
-															// of the
-															// preset
-															// types
+		return "item.itemMaterialObject.ERROR_" + metadata;
 	}
 }

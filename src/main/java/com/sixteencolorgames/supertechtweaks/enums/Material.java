@@ -7,6 +7,7 @@ import java.util.Map;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
+import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 
 import net.minecraft.block.Block;
@@ -52,7 +53,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.mine = mine;
 		block = new BlockMaterial(this);
 
-		itemBlock = new ItemBlock(block);
+		itemBlock = new MaterialItemBlock(block, this);
 		itemBlock.setRegistryName(block.getRegistryName());
 
 		itemMaterial = new MaterialItem(this);
