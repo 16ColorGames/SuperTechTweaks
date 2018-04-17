@@ -13,6 +13,7 @@ item.itemTechComponent.powerUnitSmall.name=Small Power Unit
 
 
 #generic titles
+item.supertechtweaks.blade.name=%s Blade
 item.supertechtweaks.clump.name=%s Clump
 item.supertechtweaks.coin.name=%s Coin
 item.supertechtweaks.crystal.name=%s Crystal

@@ -189,5 +189,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("foil" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.TINY);
 		OreDictionary.registerOre("dustTiny" + getName(), subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.COIN);
+		OreDictionary.registerOre("coin" + getName(), subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.BLADE);
+		OreDictionary.registerOre("blade" + getName(), subItemStack);
 	}
 }
