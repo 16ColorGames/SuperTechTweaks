@@ -23,6 +23,7 @@ public class MaterialItem extends ItemBase {
 	public static final int DIRTY = 10;
 	public static final int FOIL = 11;
 	public static final int TINY = 12;
+	public static final int COIN = 13;
 
 	public static final int ORE = 50;
 	public static final int NETHER_ORE = 51;
@@ -87,6 +88,8 @@ public class MaterialItem extends ItemBase {
 		subItems.add(subItemStack);
 		subItemStack = new ItemStack(this, 1, TINY);
 		subItems.add(subItemStack);
+		subItemStack = new ItemStack(this, 1, COIN);
+		subItems.add(subItemStack);
 		subItemStack = new ItemStack(this, 1, ORE);
 		subItems.add(subItemStack);
 		subItemStack = new ItemStack(this, 1, NETHER_ORE);
@@ -137,6 +140,9 @@ public class MaterialItem extends ItemBase {
 		}
 		if (metadata == INGOT) {
 			return "item.supertechtweaks.ingot";
+		}
+		if (metadata == COIN) {
+			return "item.supertechtweaks.coin";
 		}
 		if (metadata == ORE) {
 			return "item.supertechtweaks.ore";

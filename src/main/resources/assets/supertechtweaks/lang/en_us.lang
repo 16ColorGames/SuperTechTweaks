@@ -13,22 +13,23 @@ item.itemTechComponent.powerUnitSmall.name=Small Power Unit
 
 
 #generic titles
-item.supertechtweaks.ingot.name=%s Ingot
-item.supertechtweaks.dust.name=%s Dust
-item.supertechtweaks.gear.name=%s Gear
-item.supertechtweaks.nugget.name=%s Nugget
-item.supertechtweaks.plate.name=%s Plate
-item.supertechtweaks.rod.name=%s Rod
 item.supertechtweaks.clump.name=%s Clump
+item.supertechtweaks.coin.name=%s Coin
 item.supertechtweaks.crystal.name=%s Crystal
-item.supertechtweaks.shard.name=%s Shard
-item.supertechtweaks.wire.name=%s Wire
+item.supertechtweaks.dust.name=%s Dust
 item.supertechtweaks.dustDirty.name=Dirty %s Dust
 item.supertechtweaks.dustTiny.name=Tiny %s Dust
-item.supertechtweaks.foil.name=%s Foil
-item.supertechtweaks.ore.name=%s Ore
-item.supertechtweaks.nether.name=Nether %s Ore
 item.supertechtweaks.end.name=End %s Ore
+item.supertechtweaks.foil.name=%s Foil
+item.supertechtweaks.gear.name=%s Gear
+item.supertechtweaks.ingot.name=%s Ingot
+item.supertechtweaks.nether.name=Nether %s Ore
+item.supertechtweaks.nugget.name=%s Nugget
+item.supertechtweaks.ore.name=%s Ore
+item.supertechtweaks.plate.name=%s Plate
+item.supertechtweaks.rod.name=%s Rod
+item.supertechtweaks.shard.name=%s Shard
+item.supertechtweaks.wire.name=%s Wire
 tile.supertechtweaks.block.name=Block of %s
 
 #specialized names, mostly multiple words
