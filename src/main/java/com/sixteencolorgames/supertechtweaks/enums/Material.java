@@ -42,15 +42,42 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	 */
 	private int mine;
 
+	/**
+	 * density measured in g/cm3 at room temperature
+	 */
+	private double density;
+	/**
+	 * Electrical resistance measured in nΩ·m (at 20 °C)
+	 */
+	private double resistance;
+	/**
+	 * thermal expansion measured in µm/(m·K) (at 25 °C)
+	 */
+	private double expansion;
+	/**
+	 * Shear modulus measured in GPa
+	 */
+	private int shear;
+	/**
+	 * thermal conductivity measured in W/(m·K)
+	 */
+	private double conductivity;
+
 	private BlockMaterial block;
 	private ItemBlock itemBlock;
 	private MaterialItem itemMaterial;
 
-	public Material(String name, int color, int harvest, int mine) {
+	private  Material(String name, int color, int harvest, int mine, double density, double resistance, double expansion,
+			int shear, double conductivity) {
 		this.name = name;
 		this.color = color;
 		this.harvest = harvest;
 		this.mine = mine;
+		this.density = density;
+		this.resistance = resistance;
+		this.expansion = expansion;
+		this.shear = shear;
+		this.conductivity = conductivity;
 		block = new BlockMaterial(this);
 
 		itemBlock = new MaterialItemBlock(block, this);
@@ -67,13 +94,15 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	 * @param color
 	 * @param harvest
 	 */
-	public Material(String name, String color, int harvest) {
-		this(name, color, harvest, -1);
+	public Material(String name, String color, int harvest, double density, double resistance, double expansion,
+			int shear, double conductivity) {
+		this(name, color, harvest, -1, density, resistance, expansion, shear, conductivity);
 	}
 
-	public Material(String name, String color, int harvest, int mine) {
+	public Material(String name, String color, int harvest, int mine, double density, double resistance,
+			double expansion, int shear, double conductivity) {
 
-		this(name, Color.decode(color).getRGB(), harvest, mine);
+		this(name, Color.decode(color).getRGB(), harvest, mine, density, resistance, expansion, shear, conductivity);
 	}
 
 	public void addBasicSmelting() {

@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "supertechtweaks:solidgenerator" },
+        "facing=south": { "model": "supertechtweaks:solidgenerator", "y": 180 },
+        "facing=west":  { "model": "supertechtweaks:solidgenerator", "y": 270 },
+        "facing=east":  { "model": "supertechtweaks:solidgenerator", "y": 90 }
+    }
+}

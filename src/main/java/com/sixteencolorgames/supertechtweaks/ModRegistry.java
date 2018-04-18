@@ -85,7 +85,7 @@ public class ModRegistry {
 		GameRegistry.registerTileEntity(TileMultiWall.class, SuperTechTweaksMod.MODID + "_tilemultiwall");
 
 		blockMultiPowerInput = new BlockMultiPowerInput();
-		event.getRegistry().register(blockMultiWall);
+		event.getRegistry().register(blockMultiPowerInput);
 		GameRegistry.registerTileEntity(TileMultiPowerInput.class, SuperTechTweaksMod.MODID + "_tilemultipowerinput");
 
 		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
@@ -110,215 +110,138 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerMaterials(RegistryEvent.Register<Material> event) {
-		Material material = new Material("Antimony", "0xFADA5E", 0);
+		Material material = new Material("Antimony", "0xFADA5E", 0, 6.697, 417, 11, 20, 24.4);
 		material.registerMaterial();
-		material = new Material("Bismuth", "0xed7d92", 0);
+		material = new Material("Bismuth", "0xed7d92", 0, 9.78, 1.29, 13.4, 12, 7.97);
 		material.registerMaterial();
-		material = new Material("Cadmium", "0xed872d", 0);
+		material = new Material("Cadmium", "0xed872d", 0, 8.65, 72.7, 30.8, 19, 96.6);
 		material.registerMaterial();
-		material = new Material("Mercury", "0x751f27", 0);
+		material = new Material("Mercury", "0x751f27", 0, 13.546, 961, 60.4, 0, 8.3);
 		material.registerMaterial();
-		material = new Material("Copper", "0xb4713d", 1, _2_copper);
+		material = new Material("Copper", "0xb4713d", 1, _2_copper, 8.96, 16.78, 16.5, 48, 401);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Zinc", "0xbac4c8", 1);
+		material = new Material("Zinc", "0xbac4c8", 1, 7.14, 59, 30.2, 43, 116);
 		material.registerMaterial();
-		material = new Material("Coal", "0x060607", 1) {
+		material = new Material("Coal", "0x060607", 1, 2.09, 30000, 6, 6, 293) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.COAL, 1, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Monazit", "0x82c59c", 1);
-		material.registerMaterial();
-		material = new Material("Iron", "0xd3ad90", 2, _3_iron);
+		material = new Material("Iron", "0xd3ad90", 2, _3_iron, 7.874, 96.1, 11.8, 82, 80.4);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Chromium", "0x18391e", 2);
+		material = new Material("Chromium", "0x18391e", 2, 7.19, 125, 4.9, 115, 93.9);
 		material.registerMaterial();
-		material = new Material("Aluminum", "0xe0d9cd", 2);
+		material = new Material("Aluminum", "0xe0d9cd", 2, 2.7, 28.2, 23.1, 26, 237);
 		material.registerMaterial();
-		material = new Material("Silver", "0xb5b5bd", 2, _1_flint);
+		material = new Material("Silver", "0xb5b5bd", 2, _1_flint, 10.49, 15.87, 18.9, 30, 429);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Tellurium", "0xb5b5bd", 2);
+		material = new Material("Tellurium", "0xb5b5bd", 2, 6.24, 10000, 18, 16, 2.5);
 		material.registerMaterial();
-		material = new Material("Lapis", "0x000094", 2) {
+		material = new Material("Lapis", "0x000094", 2, 2.8, 999999, 6, 200, 293) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.DYE, 5, 4);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Tin", "0x726a78", 3);
+		material = new Material("Tin", "0x726a78", 3, 7.265, 115, 22, 18, 66.8);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Gold", "0xcccc33", 3);
+		material = new Material("Gold", "0xcccc33", 3, 19.3, 22.14, 14.2, 27, 318);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Lead", "0x474c4d", 3, _1_flint);
+		material = new Material("Lead", "0x474c4d", 3, _1_flint, 11.34, 208, 28.9, 5, 35.3);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Redstone", "0xd43c2c", 3) {
+		material = new Material("Redstone", "0xd43c2c", 3, 8.96, 16.78, 16.5, 48, 401) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.REDSTONE, 4, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Sulfur", "0xedff21", 3) {
+		material = new Material("Sulfur", "0xedff21", 3, 2.07, 2 * Math.pow(10, 15), 0, 0, .205) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(this.getMaterialItem(), 1, MaterialItem.DUST);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Nickel", "0xccd3d8", 3);
+		material = new Material("Nickel", "0xccd3d8", 3, 8.908, 69.3, 13.4, 76, 90.9);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Osmium", "0x9090a3", 3);
+		material = new Material("Osmium", "0x9090a3", 3, 22.59, 81.2, 5.1, 222, 87.6);
 		material.registerMaterial();
-		material = new Material("ColdIron", "0x5f6c81", 3);
-		material.registerMaterial();
-		material = new Material("Diamond", "0xb9f2ff", 4) {
+		material = new Material("Diamond", "0xb9f2ff", 4, 3.52, 999999, 100, 455, 1800) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.DIAMOND, 1, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Emerald", "0x50c878", 4) {
+		material = new Material("Emerald", "0x50c878", 4, 2.76, 999999, 100, 150, 1800) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.EMERALD, 1, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Ruby", "0x9b111e", 4) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				if (OreDictionary.doesOreNameExist("gemRuby")) {
-					return OreDictionary.getOres("gemRuby").get(0);
-				} else {
-					return super.getDrops(base);
-				}
-			}
-		};
+		material = new Material("Manganese", "0x242d36", 4, 7.21, 1440, 21.7, 0, 7.81);
 		material.registerMaterial();
-		material = new Material("Sapphire", "0x297bc1", 4) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				if (OreDictionary.doesOreNameExist("gemSapphire")) {
-					return OreDictionary.getOres("gemSapphire").get(0);
-				} else {
-					return super.getDrops(base);
-				}
-			}
-		};
+		material = new Material("Uranium", "0x329832", 6, 19.1, 280, 13.9, 111, 27.5);
 		material.registerMaterial();
-		material = new Material("Amethyst", "0x642552", 4) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				if (OreDictionary.doesOreNameExist("gemAmethyst")) {
-					return OreDictionary.getOres("gemAmethyst").get(0);
-				} else {
-					return super.getDrops(base);
-				}
-			}
-		};
+		material = new Material("Platinum", "0xb8b7b2", 6, 21.45, 105, 8.8, 61, 71.6);
 		material.registerMaterial();
-		material = new Material("Manganese", "0x242d36", 4);
+		material = new Material("Iridium", "0xe0e2dd", 7, 22.56, 47.1, 6.4, 210, 147);
 		material.registerMaterial();
-		material = new Material("Ardite", "0xd94925", 6, _7_ardite);
+		material = new Material("Titanium", "0x323230", 7, 4.506, 420, 8.6, 44, 21.9);
 		material.registerMaterial();
-		material = new Material("Uranium", "0x329832", 6);
+		material = new Material("Stone", "0x8B8D7A", -1, _0_stone, 1.6, 999999, 2.7, 30, 12.83);
 		material.registerMaterial();
-		material = new Material("Platinum", "0xb8b7b2", 6);
+		material = new Material("Netherrack", "0x800000", -1, _0_stone, 1.24, 999999, 2.7, 30, 14.87);
 		material.registerMaterial();
-		material = new Material("Yellorium", "0xffce00", 6);
+		material = new Material("Wood", "0x4f2412", -1, _0_stone, .75, 10000, 30, 13, .15);
 		material.registerMaterial();
-		material = new Material("Draconium", "0xd2a8d4", 6);
+		material = new Material("Electrum", "0x928729", 2, _1_flint, 14.2, 33.5, 20, 35, 400);
 		material.registerMaterial();
-		material = new Material("Cobalt", "0x0071b6", 7, _8_cobalt);
+		material = new Material("Brass", "0xE4AD5B", 2, _2_copper, 8.78, 59.92, 20.5, 40, 109);
 		material.registerMaterial();
-		material = new Material("Iridium", "0xe0e2dd", 7);
+		material = new Material("Constantan", "0xE0A050", 3, _3_iron, 8.885, 490, 14.9, 62, 21.2);
 		material.registerMaterial();
-		material = new Material("Titanium", "0x323230", 7);
+		material = new Material("Bronze", "0xE69E2F", 4, _4_bronze, 8.73, 111.86, 18.2, 44, 26);
 		material.registerMaterial();
-		material = new Material("Stone", "0x8B8D7A", -1, _0_stone);
+		material = new Material("Steel", "0xdfdfdf", 5, _5_diamond, 7.9, 169, 72, 79, 50.2);
 		material.registerMaterial();
-		material = new Material("Netherrack", "0x800000", -1, _0_stone);
-		material.registerMaterial();
-		material = new Material("Wood", "0x000000", -1, _0_stone);
-		material.registerMaterial();
-		material = new Material("Bone", "0xFFF9ED", -1, _1_flint);
-		material.registerMaterial();
-		material = new Material("Flint", "0x6E6460", 0, _1_flint) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.FLINT, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Electrum", "0x928729", 2, _1_flint);
-		material.registerMaterial();
-		material = new Material("Brass", "0xE4AD5B", 2, _2_copper);
-		material.registerMaterial();
-		material = new Material("Constantan", "0xE0A050", 3, _3_iron);
-		material.registerMaterial();
-		material = new Material("Endstone", "0xDCDEA4", 1, _3_iron);
-		material.registerMaterial();
-		material = new Material("Bronze", "0xE69E2F", 4, _4_bronze);
-		material.registerMaterial();
-		material = new Material("Steel", "0xdfdfdf", 5, _5_diamond);
-		material.registerMaterial();
-		material = new Material("Pigiron", "0xff9999", 5, _5_diamond);
-		material.registerMaterial();
-		material = new Material("Obsidian", "0x3d354b", 3, _3_iron) {
+		material = new Material("Obsidian", "0x3d354b", 3, _3_iron, 2.4, 9999999, 2.9, 12, .8) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Blocks.OBSIDIAN, 1, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Mithril", "0xAEBBDB", 5, _6_obsidian);
+		material = new Material("Mithril", "0xAEBBDB", 5, _6_obsidian, 2.3, 14.3, 20, 200, 187);
 		material.registerMaterial();
-		material = new Material("NetherQuartz", "0xdddddd", 1) {
+		material = new Material("NetherQuartz", "0xdddddd", 1, 2.329, 23000, 2.6, 72, 149) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.QUARTZ, 1, 0);
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Adamantine", "0xb30000", 8, 9);
+		material = new Material("Adamantine", "0xb30000", 8, 9, 24, 400, 1, 9001, 50);
 		material.registerMaterial();
-		material = new Material("AluBrass", "0xCAA585", 1);
+		material = new Material("AluBrass", "0xCAA585", 1, 7.78, 115, 17.8, 30, 65);
 		material.registerMaterial();
-		material = new Material("Magma", "0x000000", -1);
+		material = new Material("Invar", "0xD0C0B3", 3, 8.1, 80, 7.3, 326, 13);
 		material.registerMaterial();
-		material = new Material("Resonating", "0xFF4500", 2);
+		material = new Material("Nichrome", "0x858F80", 3, 8.4, 125, 14, 100, 11.3);
 		material.registerMaterial();
-		material = new Material("BlackQuartz", "0x1A1A1A", 2) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				if (OreDictionary.doesOreNameExist("gemQuartzBlack")) {
-					return OreDictionary.getOres("gemQuartzBlack").get(0);
-				} else {
-					return super.getDrops(base);
-				}
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Invar", "0xD0C0B3", 3);
-		material.registerMaterial();
-		material = new Material("Nichrome", "0x858F80", 3);
-		material.registerMaterial();
-		material = new Material("Osmiridium", "0x191970", 7);
-		material.registerMaterial();
-		material = new Material("Signalum", "0x800000", 7);
-		material.registerMaterial();
-		material = new Material("StainlessSteel", "0xE0DFDB", 2);
+		material = new Material("StainlessSteel", "0xE0DFDB", 2, 8, 7200, 17.3, 86, 16.2);
 		material.registerMaterial();
 	}
 
