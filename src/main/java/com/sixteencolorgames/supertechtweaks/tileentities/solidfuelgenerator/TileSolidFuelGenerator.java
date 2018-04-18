@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -85,6 +87,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		}
 		if (capability == CapabilityEnergy.ENERGY) {
 			return (T) this;
+
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -109,7 +112,11 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 			return true;
 		}
 		if (capability == CapabilityEnergy.ENERGY) {
-			return true;
+			IBlockState blockState = this.getWorld().getBlockState(this.pos);
+			Comparable<?> comparable = blockState.getProperties().get(BlockSolidFuelGenerator.FACING);
+			if (!comparable.equals(facing)) {
+				return true;
+			}
 		}
 		return super.hasCapability(capability, facing);
 	}
@@ -151,7 +158,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 				}
 				burnTime--;
 			}
-
+			attemptPowerPush();
 			if (burnTime <= 0 && getEnergyStored() < getMaxEnergyStored()) {
 				final ItemStack fuelStack = this.itemStackHandler.getStackInSlot(0);
 				if (fuelStack != null && !fuelStack.isEmpty()) {
@@ -171,6 +178,19 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 						needsUpdate = true;
 					}
 				}
+			}
+		}
+	}
+
+	private void attemptPowerPush() {
+		for (EnumFacing face : EnumFacing.VALUES) {
+			BlockPos offset = this.pos.offset(face);
+			TileEntity tile = world.getTileEntity(offset);
+			if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+				int attempt = Math.min(this.maxExtract, this.getEnergyStored());
+				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+				int receiveEnergy = energy.receiveEnergy(attempt, false);
+				this.extractEnergy(receiveEnergy, false);
 			}
 		}
 	}
