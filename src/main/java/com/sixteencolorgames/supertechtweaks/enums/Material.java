@@ -67,7 +67,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	private ItemBlock itemBlock;
 	private MaterialItem itemMaterial;
 
-	private  Material(String name, int color, int harvest, int mine, double density, double resistance, double expansion,
+	private Material(String name, int color, int harvest, int mine, double density, double resistance, double expansion,
 			int shear, double conductivity) {
 		this.name = name;
 		this.color = color;
@@ -84,7 +84,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		itemBlock.setRegistryName(block.getRegistryName());
 
 		itemMaterial = new MaterialItem(this);
-
+		System.out.println("Calculated for: " + name + "," + (1 / resistance) + ","
+				+ Math.floor((1 / resistance) * conductivity * 32) + ","
+				+ Math.floor((1 / conductivity) * 100 * density));
 	}
 
 	/**

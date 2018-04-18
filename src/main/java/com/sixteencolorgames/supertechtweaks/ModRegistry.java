@@ -7,8 +7,6 @@ import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._3_iron;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._4_bronze;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._5_diamond;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._6_obsidian;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._7_ardite;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._8_cobalt;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
@@ -18,6 +16,8 @@ import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
+import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
@@ -40,7 +40,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
@@ -56,6 +55,7 @@ public class ModRegistry {
 	public static BlockOre superore;
 	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 	public static BlockMultiPowerInput blockMultiPowerInput;
+	public static BlockCable blockCable;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -88,6 +88,10 @@ public class ModRegistry {
 		event.getRegistry().register(blockMultiPowerInput);
 		GameRegistry.registerTileEntity(TileMultiPowerInput.class, SuperTechTweaksMod.MODID + "_tilemultipowerinput");
 
+		blockCable = new BlockCable();
+		event.getRegistry().register(blockCable);
+		GameRegistry.registerTileEntity(TileCable.class, SuperTechTweaksMod.MODID + "_tilecable");
+
 		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
 		event.getRegistry().register(blockSolidFuelGenerator);
 		GameRegistry.registerTileEntity(TileSolidFuelGenerator.class,
@@ -104,6 +108,7 @@ public class ModRegistry {
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockMultiPowerInput).setRegistryName(blockMultiPowerInput.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
 		event.getRegistry().register(
 				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 	}
@@ -112,7 +117,7 @@ public class ModRegistry {
 	public static void registerMaterials(RegistryEvent.Register<Material> event) {
 		Material material = new Material("Antimony", "0xFADA5E", 0, 6.697, 417, 11, 20, 24.4);
 		material.registerMaterial();
-		material = new Material("Bismuth", "0xed7d92", 0, 9.78, 1.29, 13.4, 12, 7.97);
+		material = new Material("Bismuth", "0xed7d92", 0, 9.78, 1290, 13.4, 12, 7.97);
 		material.registerMaterial();
 		material = new Material("Cadmium", "0xed872d", 0, 8.65, 72.7, 30.8, 19, 96.6);
 		material.registerMaterial();
@@ -158,7 +163,7 @@ public class ModRegistry {
 		material = new Material("Lead", "0x474c4d", 3, _1_flint, 11.34, 208, 28.9, 5, 35.3);
 		material.registerMaterial();
 		material.addBasicSmelting();
-		material = new Material("Redstone", "0xd43c2c", 3, 8.96, 16.78, 16.5, 48, 401) {
+		material = new Material("Redstone", "0xd43c2c", 3, 8.96, 16.78, 16.5, 48, 200) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.REDSTONE, 4, 0);
@@ -207,7 +212,7 @@ public class ModRegistry {
 		material.registerMaterial();
 		material = new Material("Wood", "0x4f2412", -1, _0_stone, .75, 10000, 30, 13, .15);
 		material.registerMaterial();
-		material = new Material("Electrum", "0x928729", 2, _1_flint, 14.2, 33.5, 20, 35, 400);
+		material = new Material("Electrum", "0x928729", 2, _1_flint, 14.2, 24.67, 20, 35, 400);
 		material.registerMaterial();
 		material = new Material("Brass", "0xE4AD5B", 2, _2_copper, 8.78, 59.92, 20.5, 40, 109);
 		material.registerMaterial();
@@ -224,7 +229,7 @@ public class ModRegistry {
 			}
 		};
 		material.registerMaterial();
-		material = new Material("Mithril", "0xAEBBDB", 5, _6_obsidian, 2.3, 14.3, 20, 200, 187);
+		material = new Material("Mithril", "0xAEBBDB", 5, _6_obsidian, 2.3, 14.3, 20, 200, 521);
 		material.registerMaterial();
 		material = new Material("NetherQuartz", "0xdddddd", 1, 2.329, 23000, 2.6, 72, 149) {
 			@Override

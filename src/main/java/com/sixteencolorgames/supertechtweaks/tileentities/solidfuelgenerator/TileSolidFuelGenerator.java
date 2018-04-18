@@ -7,6 +7,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
@@ -47,6 +49,19 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		energy = 0;
 		capacity = 10000;
 		maxExtract = 128;
+	}
+
+	private void attemptPowerPush() {
+		for (EnumFacing face : EnumFacing.VALUES) {
+			BlockPos offset = this.pos.offset(face);
+			TileEntity tile = world.getTileEntity(offset);
+			if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+				int attempt = Math.min(this.maxExtract, this.getEnergyStored());
+				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+				int receiveEnergy = energy.receiveEnergy(attempt, false);
+				this.extractEnergy(receiveEnergy, false);
+			}
+		}
 	}
 
 	@Override
@@ -107,6 +122,20 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	}
 
 	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		// Prepare a packet for syncing our TE to the client. Since we only have
+		// to sync the stack
+		// and that's all we have we just write our entire NBT here. If you have
+		// a complex
+		// tile entity that doesn't need to have all information on the client
+		// you can write
+		// a more optimal NBT here.
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		this.writeToNBT(nbtTag);
+		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+	}
+
+	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return true;
@@ -119,6 +148,13 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 			}
 		}
 		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		// Here we get the packet from the server and read it into our client
+		// side tile entity
+		this.readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
@@ -178,19 +214,6 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 						needsUpdate = true;
 					}
 				}
-			}
-		}
-	}
-
-	private void attemptPowerPush() {
-		for (EnumFacing face : EnumFacing.VALUES) {
-			BlockPos offset = this.pos.offset(face);
-			TileEntity tile = world.getTileEntity(offset);
-			if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				int attempt = Math.min(this.maxExtract, this.getEnergyStored());
-				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				int receiveEnergy = energy.receiveEnergy(attempt, false);
-				this.extractEnergy(receiveEnergy, false);
 			}
 		}
 	}

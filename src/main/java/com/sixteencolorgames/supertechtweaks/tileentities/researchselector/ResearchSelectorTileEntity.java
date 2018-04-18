@@ -4,6 +4,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class ResearchSelectorTileEntity extends TileMultiBlock {
@@ -16,6 +18,27 @@ public class ResearchSelectorTileEntity extends TileMultiBlock {
 
 	public ResourceLocation getSelected() {
 		return selected;
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		// Prepare a packet for syncing our TE to the client. Since we only have
+		// to sync the stack
+		// and that's all we have we just write our entire NBT here. If you have
+		// a complex
+		// tile entity that doesn't need to have all information on the client
+		// you can write
+		// a more optimal NBT here.
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		this.writeToNBT(nbtTag);
+		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		// Here we get the packet from the server and read it into our client
+		// side tile entity
+		this.readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
