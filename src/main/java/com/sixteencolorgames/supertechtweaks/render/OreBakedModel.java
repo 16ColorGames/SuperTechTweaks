@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sixteencolorgames.supertechtweaks.render;
 
 import java.awt.Color;
@@ -31,10 +26,6 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-/**
- *
- * @author oa10712
- */
 public class OreBakedModel implements IBakedModel {
 
 	public static final ModelResourceLocation BAKED_MODEL = new ModelResourceLocation(
@@ -83,7 +74,7 @@ public class OreBakedModel implements IBakedModel {
 
 	@Override
 	public ItemOverrideList getOverrides() {
-		return null;
+		return ItemOverrideList.NONE;
 	}
 
 	@Override

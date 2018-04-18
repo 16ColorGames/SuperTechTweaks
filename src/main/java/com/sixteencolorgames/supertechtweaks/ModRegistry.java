@@ -60,8 +60,15 @@ public class ModRegistry {
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
 	@SideOnly(Side.CLIENT)
+	public static void initItemModels() {
+		blockCable.initItemModel();
+	}
+
+	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		basicResearcherBlock.initModel();
+
+		blockCable.initModel();
 	}
 
 	@SubscribeEvent
@@ -96,6 +103,7 @@ public class ModRegistry {
 		event.getRegistry().register(blockSolidFuelGenerator);
 		GameRegistry.registerTileEntity(TileSolidFuelGenerator.class,
 				SuperTechTweaksMod.MODID + "_tilesolidfuelgenerator");
+
 	}
 
 	@SubscribeEvent
@@ -111,6 +119,7 @@ public class ModRegistry {
 		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
 		event.getRegistry().register(
 				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
+
 	}
 
 	@SubscribeEvent
