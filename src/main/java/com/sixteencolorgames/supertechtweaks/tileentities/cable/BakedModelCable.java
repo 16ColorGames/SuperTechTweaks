@@ -33,7 +33,7 @@ public class BakedModelCable implements IBakedModel {
 	public BakedModelCable(IModelState state, VertexFormat format,
 			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		this.format = format;
-		sprite = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/cabletexture"));
+		sprite = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/blockcable"));
 	}
 
 	private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite) {
@@ -78,7 +78,6 @@ public class BakedModelCable implements IBakedModel {
 		Boolean up = extendedBlockState.getValue(BlockCable.UP);
 		Boolean down = extendedBlockState.getValue(BlockCable.DOWN);
 		List<BakedQuad> quads = new ArrayList<>();
-		double o = .4;
 
 		// For each side we either cap it off if there is no similar block
 		// adjacent on that side

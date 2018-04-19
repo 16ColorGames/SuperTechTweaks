@@ -15,8 +15,10 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
@@ -68,6 +70,19 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		state = state.getActualState(source, pos);
+		float minX = canConnect(source, pos, EnumFacing.WEST) ? 0.0F : minSize;
+		float minY = canConnect(source, pos, EnumFacing.DOWN) ? 0.0F : minSize;
+		float minZ = canConnect(source, pos, EnumFacing.NORTH) ? 0.0F : minSize;
+		float maxX = canConnect(source, pos, EnumFacing.EAST) ? 1.0F : maxSize;
+		float maxY = canConnect(source, pos, EnumFacing.UP) ? 1.0F : maxSize;
+		float maxZ = canConnect(source, pos, EnumFacing.SOUTH) ? 1.0F : maxSize;
+		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY,
+				(double) maxZ);
+	}
+
+	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
 
@@ -80,6 +95,10 @@ public class BlockCable extends BlockContainer {
 
 		return extendedBlockState.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(WEST, west)
 				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down);
+	}
+
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
 	}
 
 	// see for more info
@@ -122,23 +141,6 @@ public class BlockCable extends BlockContainer {
 	public boolean isBlockNormalCube(IBlockState blockState) {
 		return false;
 	}
-
-	// @Override
-	// public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess
-	// source, BlockPos pos) {
-	// state = state.getActualState(source, pos);
-	// float minSize = 0.3125F;
-	// float maxSize = 0.6875F;
-	// float minX = state.getValue(WEST) ? 0.0F : minSize;
-	// float minY = state.getValue(DOWN) ? 0.0F : minSize;
-	// float minZ = state.getValue(NORTH) ? 0.0F : minSize;
-	// float maxX = state.getValue(EAST) ? 1.0F : maxSize;
-	// float maxY = state.getValue(UP) ? 1.0F : maxSize;
-	// float maxZ = state.getValue(SOUTH) ? 1.0F : maxSize;
-	// return new AxisAlignedBB((double) minX, (double) minY, (double) minZ,
-	// (double) maxX, (double) maxY,
-	// (double) maxZ);
-	// }
 
 	@Override
 	public boolean isOpaqueCube(IBlockState blockState) {
