@@ -67,7 +67,10 @@ public class ModRegistry {
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		basicResearcherBlock.initModel();
-
+		blockResearchViewer.initModel();
+		blockMultiWall.initModel();
+		blockSolidFuelGenerator.initModel();
+		blockMultiPowerInput.initModel();
 		blockCable.initModel();
 	}
 
