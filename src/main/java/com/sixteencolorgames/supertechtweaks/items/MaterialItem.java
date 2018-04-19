@@ -56,8 +56,7 @@ public class MaterialItem extends ItemBase {
 	@Override
 	public int getMetadata(int damage) {
 		return damage;
-	} // add a subitem for each item we want to appear in the creative tab
-		// in this case - a chunk of each metal
+	} 
 
 	@SideOnly(Side.CLIENT)
 	@Override

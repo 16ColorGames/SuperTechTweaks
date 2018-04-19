@@ -16,7 +16,7 @@ public class ItemBase extends Item {
 
 	public ItemBase(String name) {
 		this.name = name;
-		setUnlocalizedName(name);
+		setUnlocalizedName(SuperTechTweaksMod.MODID + "." + name);
 		setRegistryName(name);
 	}
 

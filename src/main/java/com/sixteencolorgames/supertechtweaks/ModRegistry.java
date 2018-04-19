@@ -12,6 +12,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
@@ -57,6 +58,8 @@ public class ModRegistry {
 	public static BlockMultiPowerInput blockMultiPowerInput;
 	public static BlockCable blockCable;
 
+	public static ItemTechComponent itemTechComponent;
+
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
 	@SideOnly(Side.CLIENT)
@@ -72,6 +75,7 @@ public class ModRegistry {
 		blockSolidFuelGenerator.initModel();
 		blockMultiPowerInput.initModel();
 		blockCable.initModel();
+		itemTechComponent.registerModels();
 	}
 
 	@SubscribeEvent
@@ -123,6 +127,9 @@ public class ModRegistry {
 		event.getRegistry().register(
 				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 
+		itemTechComponent = new ItemTechComponent();
+		event.getRegistry().register(itemTechComponent);
+		itemTechComponent.setupDictionary();
 	}
 
 	@SubscribeEvent

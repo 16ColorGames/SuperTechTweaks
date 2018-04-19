@@ -2,14 +2,17 @@ tile.superore.name=Super Tech Ore
 tile.supertechtweaks.basicresearcher.name=Basic Research Station
 tile.supertechtweaks.multiwall.name=Multiblock Wall
 tile.supertechtweaks.researchselector.name=Research Selector
+tile.supertechtweaks.blockcable.name=Cabling
+tile.supertechtweaks.solidgenerator.name=Solid Fuel Generator
+tile.supertechtweaks.multipowerinput.name=Power Input
 
-item.itemTechComponent.circuitBasic.name=Basic Circuit
-item.itemTechComponent.circuitAdvanced.name=Advanced Circuit
-item.itemTechComponent.circuitElite.name=Elite Circuit
-item.itemTechComponent.circuitUltimate.name=Ultimate Circuit
-item.itemTechComponent.casingBasic.name=Basic Casing
-item.itemTechComponent.heatingElement.name=Heating Element
-item.itemTechComponent.powerUnitSmall.name=Small Power Unit
+item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit
+item.supertechtweaks.itemTechComponent.circuitAdvanced.name=Advanced Circuit
+item.supertechtweaks.itemTechComponent.circuitElite.name=Elite Circuit
+item.supertechtweaks.itemTechComponent.circuitUltimate.name=Ultimate Circuit
+item.supertechtweaks.itemTechComponent.casingBasic.name=Basic Casing
+item.supertechtweaks.itemTechComponent.heatingElement.name=Heating Element
+item.supertechtweaks.itemTechComponent.powerUnitSmall.name=Small Power Unit
 
 
 #generic titles

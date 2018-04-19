@@ -67,7 +67,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		return getTransferRate() * 6;
 	}
 
-	private int getTransferRate() {
+	public int getTransferRate() {
 		// TODO Auto-generated method stub
 		return (int) Math.floor((1 / mat.getResistance()) * mat.getConductivity() * 32);
 	}
@@ -160,7 +160,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 		if (acceptors.size() > 0) {
 			int drain = Math.min(power, getTransferRate());
-			int energyShare = drain / acceptors.size();
+			int energyShare = (int) Math.ceil(drain / acceptors.size());
 			int remainingEnergy = drain;
 
 			if (energyShare > 0) {
