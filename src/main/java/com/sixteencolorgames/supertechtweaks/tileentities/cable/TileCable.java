@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 //TODO handle material differences
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public int power = 0;
-	private int transferRate = 100;
+	private int transferRate = 1000;
 	private Material mat;
 
 	@Override
@@ -128,7 +128,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		// }
 
 		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		ArrayList<TileCable> cables = new ArrayList<TileCable>();
 
 		for (EnumFacing face : EnumFacing.VALUES) {
 			BlockPos offPos = getPos().offset(face);
@@ -139,7 +138,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			} else if (tile instanceof TileCable) {
 				TileCable cable = (TileCable) tile;
 				if (power > cable.power) {
-					cables.add(cable);
+					acceptors.add(cable);
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
 				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
@@ -147,23 +146,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 					acceptors.add(energyTile);
 				}
 
-			}
-		}
-
-		if (cables.size() > 0) {
-			int drain = Math.min(power, transferRate);
-			int energyShare = drain / cables.size();
-			int remainingEnergy = drain;
-
-			if (energyShare > 0) {
-				for (TileCable cable : cables) {
-					// Push energy to connected cables
-					int move = cable.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-					if (move > 0) {
-						remainingEnergy -= move;
-					}
-				}
-				extractEnergy(drain - remainingEnergy, false);
 			}
 		}
 
@@ -196,4 +178,5 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 		return compound;
 	}
+
 }
