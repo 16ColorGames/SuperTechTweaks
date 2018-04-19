@@ -36,7 +36,7 @@ public abstract class BlockContainerBase extends BlockContainer implements ItemM
 
 		this.name = name;
 
-		setUnlocalizedName(name);
+		setUnlocalizedName("supertechtweaks." + name);
 		setRegistryName(name);
 
 		// setCreativeTab(SuperTechTweaksMod.creativeTab);

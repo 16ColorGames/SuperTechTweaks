@@ -20,8 +20,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 //TODO handle material differences
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public int power = 0;
-	private int transferRate = 1000;
 	private Material mat;
+
+	public TileCable() {
+		mat = GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation("supertechtweaks:Copper"));
+	}
 
 	@Override
 	public boolean canExtract() {
@@ -39,7 +42,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return 0;
 		}
 
-		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
+		int energyExtracted = Math.min(getEnergyStored(), Math.min(getTransferRate(), maxExtract));
 		if (!simulate)
 			power -= energyExtracted;
 		return energyExtracted;
@@ -61,7 +64,12 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int getMaxEnergyStored() {
-		return this.transferRate * 6;
+		return getTransferRate() * 6;
+	}
+
+	private int getTransferRate() {
+		// TODO Auto-generated method stub
+		return (int) Math.floor((1 / mat.getResistance()) * mat.getConductivity() * 32);
 	}
 
 	@Override
@@ -109,7 +117,8 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return 0;
 		}
 
-		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
+		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(),
+				Math.min(getTransferRate(), maxReceive));
 		if (!simulate)
 			power += energyReceived;
 		return energyReceived;
@@ -150,7 +159,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 
 		if (acceptors.size() > 0) {
-			int drain = Math.min(power, transferRate);
+			int drain = Math.min(power, getTransferRate());
 			int energyShare = drain / acceptors.size();
 			int remainingEnergy = drain;
 

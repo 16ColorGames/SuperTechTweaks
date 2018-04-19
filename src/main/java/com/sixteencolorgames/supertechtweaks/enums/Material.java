@@ -134,6 +134,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return color;
 	}
 
+	public double getConductivity() {
+		return conductivity;
+	}
+
 	public ItemStack getDrops(byte base) {
 		switch (base) {// Switch based on base block
 		case -1:// NetherRack and similar
@@ -163,6 +167,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 	public String getName() {
 		return name;
+	}
+
+	public double getResistance() {
+		return resistance;
 	}
 
 	public void registerMaterial() {

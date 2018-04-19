@@ -41,6 +41,7 @@ public class BakedModelCable implements IBakedModel {
 
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(format);
 		builder.setTexture(sprite);
+
 		putVertex(builder, normal, v1.x, v1.y, v1.z, 0, 0);
 		putVertex(builder, normal, v2.x, v2.y, v2.z, 0, 16);
 		putVertex(builder, normal, v3.x, v3.y, v3.z, 16, 16);
@@ -68,6 +69,7 @@ public class BakedModelCable implements IBakedModel {
 
 		if (side != null) {
 			return Collections.emptyList();
+
 		}
 
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
