@@ -2,6 +2,8 @@ package com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator;
 
 import javax.annotation.Nonnull;
 
+import com.sixteencolorgames.supertechtweaks.blocks.BlockContainerBase;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -142,7 +144,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		}
 		if (capability == CapabilityEnergy.ENERGY) {
 			IBlockState blockState = this.getWorld().getBlockState(this.pos);
-			Comparable<?> comparable = blockState.getProperties().get(BlockSolidFuelGenerator.FACING);
+			Comparable<?> comparable = blockState.getProperties().get(BlockContainerBase.FACING);
 			if (!comparable.equals(facing)) {
 				return true;
 			}

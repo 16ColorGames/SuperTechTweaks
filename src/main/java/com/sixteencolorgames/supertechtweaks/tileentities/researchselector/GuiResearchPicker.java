@@ -13,6 +13,7 @@ import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -91,8 +92,8 @@ public class GuiResearchPicker extends GuiScreen {
 			this.scrollDistance = 0.0F;
 		}
 
-		if (this.scrollDistance > (float) scrollMax) {
-			this.scrollDistance = (float) scrollMax;
+		if (this.scrollDistance > scrollMax) {
+			this.scrollDistance = scrollMax;
 		}
 	}
 
@@ -160,11 +161,11 @@ public class GuiResearchPicker extends GuiScreen {
 					int dir = Mouse.getDY();
 					System.out.println("HEYO!");
 					if (dir > 0) {
-						this.scrollDistance -= (float) (this.slotHeight * 2 / 3);
+						this.scrollDistance -= this.slotHeight * 2 / 3;
 						this.initialMouseClickY = -2.0F;
 						this.applyScrollLimits();
 					} else if (dir < 0) {
-						this.scrollDistance += (float) (this.slotHeight * 2 / 3);
+						this.scrollDistance += this.slotHeight * 2 / 3;
 						this.initialMouseClickY = -2.0F;
 						this.applyScrollLimits();
 					}
@@ -201,7 +202,7 @@ public class GuiResearchPicker extends GuiScreen {
 					}
 
 					if (scrollValid) {
-						this.initialMouseClickY = (float) mouseY;
+						this.initialMouseClickY = mouseY;
 					} else {
 						this.initialMouseClickY = -2.0F;
 					}
@@ -209,8 +210,8 @@ public class GuiResearchPicker extends GuiScreen {
 					this.initialMouseClickY = -2.0F;
 				}
 			} else if (this.initialMouseClickY >= 0.0F) {
-				this.scrollDistance -= ((float) mouseY - this.initialMouseClickY) * this.scrollFactor;
-				this.initialMouseClickY = (float) mouseY;
+				this.scrollDistance -= (mouseY - this.initialMouseClickY) * this.scrollFactor;
+				this.initialMouseClickY = mouseY;
 			}
 		} else {
 			while (Mouse.next()) {
@@ -223,7 +224,7 @@ public class GuiResearchPicker extends GuiScreen {
 						scroll = 1;
 					}
 
-					this.scrollDistance += (float) (scroll * this.slotHeight / 2);
+					this.scrollDistance += scroll * this.slotHeight / 2;
 				}
 			}
 
@@ -233,14 +234,14 @@ public class GuiResearchPicker extends GuiScreen {
 		var10 = this.top - (int) this.scrollDistance;
 
 		// cut out nonvisible stuff
-		this.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
+		GuiResearchPicker.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
 		for (int i = 0; i < listLength; ++i) {
 			var19 = var10 + i * this.slotHeight + 0;
 			var13 = this.slotHeight - 4;
 
 			if (var19 <= this.bottom && var19 + var13 >= this.top) {
 				if (research.getValues().get(i).getRegistryName().equals(selected)) {
-					this.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
+					Gui.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
 				}
 
 				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145,

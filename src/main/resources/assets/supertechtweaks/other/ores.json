@@ -130,7 +130,7 @@
     "maxHeight":255,
     "properties":{
       "clusterVariance":3,
-      "perChunk":20
+      "perChunk":40
     },
     "dimensions":[
       -1

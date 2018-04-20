@@ -65,6 +65,7 @@ public class BlockOre extends BlockBase {
 	// };
 	// ModelLoader.setCustomStateMapper(this, ignoreState);
 	// }
+	@Override
 	@Deprecated // Forge: State sensitive version
 	protected boolean canSilkHarvest() {
 		return false;
@@ -132,8 +133,7 @@ public class BlockOre extends BlockBase {
 		for (ResourceLocation i : ores) {
 			oreList.add(i);
 		}
-		return extendedBlockState.withProperty(BASE, (ResourceLocation) base).withProperty(ORES,
-				oreList.toArray(new ResourceLocation[0]));
+		return extendedBlockState.withProperty(BASE, base).withProperty(ORES, oreList.toArray(new ResourceLocation[0]));
 	}
 
 	/**

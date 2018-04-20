@@ -20,6 +20,7 @@ public abstract class BlockMulti extends Block implements ITileEntityProvider {
 	 * Called serverside after this block is replaced with another in Chunk, but
 	 * before the Tile Entity is updated
 	 */
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileMultiBlock tile = (TileMultiBlock) worldIn.getTileEntity(pos);
 		TileMultiBlockController master = (TileMultiBlockController) worldIn

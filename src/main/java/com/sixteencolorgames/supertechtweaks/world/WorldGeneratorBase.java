@@ -10,6 +10,7 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,9 +32,6 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	public int chance;// Chance per chunk to generate an instance
 	private String name;// The identifying name for this generator
 	public ArrayList<Integer> dims;
-	public final ResourceLocation STONE = new ResourceLocation("minecraft:blocks/stone");
-	public final ResourceLocation NETHERRACK = new ResourceLocation("minecraft:blocks/netherrack");
-	public final ResourceLocation ENDSTONE = new ResourceLocation("minecraft:blocks/endstone");
 
 	public WorldGeneratorBase(Map<Material, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
@@ -74,6 +72,8 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	abstract boolean generate(World world, Random random, BlockPos pos);
 
 	public boolean generateOre(World world, BlockPos pos) {
+		ResourceLocation tex = new ResourceLocation(Minecraft.getMinecraft().getBlockRendererDispatcher()
+				.getModelForState(world.getBlockState(pos)).getParticleTexture().getIconName());
 		if (Config.stone.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Material k, Double v) -> {
@@ -85,7 +85,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			for (int i = 0; i < newOres.length; i++) {
 				newOres[i] = oresAdded.get(i);
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), STONE, newOres);
+			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), tex, newOres);
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (Config.nether.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
@@ -98,7 +98,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			for (int i = 0; i < newOres.length; i++) {
 				newOres[i] = oresAdded.get(i);
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), NETHERRACK, newOres);
+			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), tex, newOres);
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (Config.end.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
@@ -111,7 +111,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			for (int i = 0; i < newOres.length; i++) {
 				newOres[i] = oresAdded.get(i);
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), ENDSTONE, newOres);
+			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), tex, newOres);
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (world.getBlockState(pos).getBlock() == ModRegistry.superore) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();

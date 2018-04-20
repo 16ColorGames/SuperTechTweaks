@@ -83,8 +83,7 @@ public class BlockCable extends BlockContainer {
 		float maxX = canConnect(source, pos, EnumFacing.EAST) ? 1.0F : maxSize;
 		float maxY = canConnect(source, pos, EnumFacing.UP) ? 1.0F : maxSize;
 		float maxZ = canConnect(source, pos, EnumFacing.SOUTH) ? 1.0F : maxSize;
-		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY,
-				(double) maxZ);
+		return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
 	}
 
 	@Override
@@ -102,6 +101,7 @@ public class BlockCable extends BlockContainer {
 				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down);
 	}
 
+	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}

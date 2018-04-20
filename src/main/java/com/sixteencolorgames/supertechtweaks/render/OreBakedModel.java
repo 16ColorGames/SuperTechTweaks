@@ -32,9 +32,6 @@ public class OreBakedModel implements IBakedModel {
 			SuperTechTweaksMod.MODID + ":superore");
 
 	private TextureAtlasSprite[] ore1;
-	private TextureAtlasSprite stone;
-	private TextureAtlasSprite nether;
-	private TextureAtlasSprite end;
 	private VertexFormat format;
 
 	private Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter;
@@ -47,10 +44,6 @@ public class OreBakedModel implements IBakedModel {
 		for (int i = 0; i < 7 || i < ore1.length; i++) {
 			ore1[i] = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/ore" + (i + 1)));
 		}
-		stone = bakedTextureGetter.apply(new ResourceLocation("minecraft", "blocks/stone"));
-		nether = bakedTextureGetter.apply(new ResourceLocation("minecraft", "blocks/netherrack"));
-		end = bakedTextureGetter.apply(new ResourceLocation("minecraft", "blocks/endstone"));
-
 	}
 
 	private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite, Color color,

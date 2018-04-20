@@ -146,10 +146,10 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 	@Override
 	public void randomDisplayTick(IBlockState worldIn, World pos, BlockPos state, Random rand) {
 		if (this.isBurning) {
-			EnumFacing enumfacing = (EnumFacing) worldIn.getValue(FACING);
-			double d0 = (double) state.getX() + 0.5D;
-			double d1 = (double) state.getY() + rand.nextDouble() * 6.0D / 16.0D;
-			double d2 = (double) state.getZ() + 0.5D;
+			EnumFacing enumfacing = worldIn.getValue(FACING);
+			double d0 = state.getX() + 0.5D;
+			double d1 = state.getY() + rand.nextDouble() * 6.0D / 16.0D;
+			double d2 = state.getZ() + 0.5D;
 			double d3 = 0.52D;
 			double d4 = rand.nextDouble() * 0.6D - 0.3D;
 
@@ -179,7 +179,7 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 			IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
 			IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
 			IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
-			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing = state.getValue(FACING);
 
 			if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
 				enumfacing = EnumFacing.SOUTH;

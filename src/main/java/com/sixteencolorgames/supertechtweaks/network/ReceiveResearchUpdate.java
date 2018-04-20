@@ -26,6 +26,7 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 	 * @param message
 	 *            The message
 	 */
+	@Override
 	public IMessage onMessage(final ResearchUpdatePacket message, MessageContext ctx) {
 		if (ctx.side != Side.SERVER) {
 			System.err.println("ResearchUpdatePacket received on wrong side:" + ctx.side);
@@ -57,6 +58,7 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 		// messageHandlerOnServer.processMessage(message, sendingPlayer)
 		final WorldServer playerWorldServer = sendingPlayer.getServerWorld();
 		playerWorldServer.addScheduledTask(new Runnable() {
+			@Override
 			public void run() {
 				processMessage(message, sendingPlayer);
 			}

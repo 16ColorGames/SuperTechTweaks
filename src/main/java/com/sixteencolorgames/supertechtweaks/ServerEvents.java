@@ -41,15 +41,7 @@ public class ServerEvents {
 
 	private void handleOreUpdate(EntityPlayerMP e, int newChunkX, int newChunkZ) {
 		if (e.world != null) {
-			if (!sentChunks.get(e.getUniqueID()).contains(new Pair(newChunkX, newChunkZ))) {// Check
-																							// if
-																							// we
-																							// have
-																							// sent
-																							// this
-																							// chunk
-																							// data
-																							// already
+			if (!sentChunks.get(e.getUniqueID()).contains(new Pair(newChunkX, newChunkZ))) {
 				UpdateOresPacket packet = new UpdateOresPacket(OreSavedData.get(e.world), newChunkX, newChunkZ);
 				PacketHandler.INSTANCE.sendTo(packet, e);
 				sentChunks.get(e.getUniqueID()).add(new Pair(newChunkX, newChunkZ));
@@ -61,8 +53,8 @@ public class ServerEvents {
 	public void onPlayerEnterChunk(EntityEvent.EnteringChunk e) {
 		if (e.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP en = (EntityPlayerMP) e.getEntity();
-			for (int x = -1; x < 2; x++) {
-				for (int z = -1; z < 2; z++) {
+			for (int x = -3; x < 4; x++) {
+				for (int z = -3; z < 4; z++) {
 					handleOreUpdate((EntityPlayerMP) e.getEntity(), e.getEntity().chunkCoordX + x,
 							e.getEntity().chunkCoordZ + z);// sent the player
 															// the nearby chunks
@@ -119,10 +111,12 @@ public class ServerEvents {
 	public void onPlayerLogin(EntityJoinWorldEvent e) {
 		if (e.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
-			sentChunks.put(player.getUniqueID(), new ArrayList());// add the
-																	// player to
-																	// the chunk
-																	// tracker
+			sentChunks.put(player.getUniqueID(), new ArrayList());
+			for (int x = -4; x < 5; x++) {
+				for (int z = -4; z < 5; z++) {
+					handleOreUpdate(player, player.chunkCoordX + x, player.chunkCoordZ + z);
+				}
+			}
 		}
 	}
 
