@@ -56,7 +56,7 @@ public class MaterialItem extends ItemBase {
 	@Override
 	public int getMetadata(int damage) {
 		return damage;
-	} 
+	}
 
 	@SideOnly(Side.CLIENT)
 	@Override

@@ -15,6 +15,7 @@ import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -174,10 +175,7 @@ public class BlockOre extends BlockBase {
 			boolean willHarvest) {
 		if (!worldIn.isRemote) {
 			if (player.isCreative()) {// If the player is in creative...
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());// ...remove
-																			// the
-																			// block
-																			// itself
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 				return true;
 			}
 			boolean metalLeft = false;
@@ -194,11 +192,39 @@ public class BlockOre extends BlockBase {
 					fortune = compound.getShort("lvl");
 				}
 			}
+			byte type = 0;
+			if (base.getResourcePath().contains("nether")) {
+				type = -1;
+			} else if (base.getResourcePath().contains("end")) {
+				type = 1;
+			}
+			for (int i = 0; i < ores.length; i++) {
+				Material material = GameRegistry.findRegistry(Material.class).getValue(ores[i]);
+				if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
+						.getHarvestLevel(player.getHeldItemMainhand(), "pickaxe", player, state)) {
+					worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+							material.getDrops(type)));
+					for (int j = 0; j < fortune; j++) {
+						if (RANDOM.nextDouble() < .25) {
+							worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+									material.getDrops(type)));
+						}
+					}
+					ores[i] = null;
+				} else {
+					metalLeft = true;
+				}
+
+			}
+			ores = removeNulls(ores);
 			OreSavedData.get(worldIn).setOres(pos, ores);
 			willHarvest = metalLeft;
 			if (!metalLeft) {// When we have removel all of the ore from the
 								// block...
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());// ...remove
+																			// the
+																			// block
+																			// itself
 			}
 			worldIn.notifyBlockUpdate(pos, state, state, 2);
 
@@ -208,6 +234,16 @@ public class BlockOre extends BlockBase {
 			return !metalLeft;
 		}
 		return true;
+	}
+
+	private ResourceLocation[] removeNulls(ResourceLocation[] ores) {
+		ArrayList<ResourceLocation> temp = new ArrayList();
+		for (int i = 0; i < ores.length; i++) {
+			if (ores[i] != null) {
+				temp.add(ores[i]);
+			}
+		}
+		return temp.toArray(new ResourceLocation[0]);
 	}
 
 	@Override

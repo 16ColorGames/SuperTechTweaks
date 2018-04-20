@@ -2,10 +2,8 @@ package com.sixteencolorgames.supertechtweaks.tileentities.cable;
 
 import javax.annotation.Nullable;
 
-import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -51,23 +49,6 @@ public class BlockCable extends BlockContainer {
 		super(Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".blockcable");
 		setRegistryName("blockcable");
-	}
-
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (playerIn.isSneaking()) {
-			return false;
-		} else {
-			if (!worldIn.isRemote) {
-				if (worldIn.getTileEntity(pos) instanceof TileCable) {
-					TileCable te = (TileCable) worldIn.getTileEntity(pos);
-					playerIn.sendMessage(new TextComponentString("Transfer Rate: " + te.getTransferRate() + ", current power: " + te.power));
-				}
-			}
-		}
-		return true;
-
 	}
 
 	private boolean canConnect(IBlockAccess world, BlockPos pos, EnumFacing facing) {
@@ -169,6 +150,24 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public boolean isOpaqueCube(IBlockState blockState) {
 		return false;
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (playerIn.isSneaking()) {
+			return false;
+		} else {
+			if (!worldIn.isRemote) {
+				if (worldIn.getTileEntity(pos) instanceof TileCable) {
+					TileCable te = (TileCable) worldIn.getTileEntity(pos);
+					playerIn.sendMessage(new TextComponentString(
+							"Transfer Rate: " + te.getTransferRate() + ", current power: " + te.power));
+				}
+			}
+		}
+		return true;
+
 	}
 
 	// @Override

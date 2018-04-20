@@ -13,11 +13,11 @@ public class TileMultiPowerInput extends TileMultiBlock implements IEnergyStorag
 	protected int energy;
 	protected int capacity;
 	protected int maxReceive;
-	
-	public TileMultiPowerInput(){
-		energy=0;
-		capacity=10000;
-		maxReceive=1000;
+
+	public TileMultiPowerInput() {
+		energy = 0;
+		capacity = 10000;
+		maxReceive = 1000;
 	}
 
 	@Override

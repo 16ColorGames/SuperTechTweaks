@@ -272,7 +272,7 @@ public class OreSavedData extends WorldSavedData {
 			data.get(x).put(y, new HashMap());
 		}
 		ResourceLocation[] newData = new ResourceLocation[ores.length + 1];
-		;
+
 		if (data.get(x).get(y).containsKey(z)) {
 			newData[0] = getBase(x, y, z);
 		} else {
