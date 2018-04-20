@@ -61,10 +61,11 @@ public class ToolDictIngredientFactory implements IIngredientFactory {
 
 		@Override
 		public boolean apply(@Nullable ItemStack input) {
-			if (input == null)
+			if (input == null) {
 				return false;
+			}
 
-			if (this.type.isInstance(input.getItem())) {
+			if (type.isInstance(input.getItem())) {
 				return true;
 			}
 			return false;

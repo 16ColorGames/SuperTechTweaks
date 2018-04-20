@@ -72,17 +72,18 @@ public class TileMultiPowerInput extends TileMultiBlock implements IEnergyStorag
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
-		if (!simulate)
+		if (!simulate) {
 			energy += energyReceived;
+		}
 		return energyReceived;
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		compound.setInteger("energy", this.energy);
-		compound.setInteger("capacity", this.capacity);
-		compound.setInteger("maxRecieve", this.maxReceive);
+		compound.setInteger("energy", energy);
+		compound.setInteger("capacity", capacity);
+		compound.setInteger("maxRecieve", maxReceive);
 		return compound;
 	}
 

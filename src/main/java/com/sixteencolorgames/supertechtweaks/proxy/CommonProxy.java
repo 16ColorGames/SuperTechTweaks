@@ -61,7 +61,7 @@ public abstract class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent e) {
 
-		ModWorldGeneration generator = new ModWorldGeneration();
+		new ModWorldGeneration();
 		for (File gen : configFolder.listFiles()) {
 			if (gen.getName().contains(".json")) {
 				try {

@@ -22,11 +22,11 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 	}
 
 	public ItemStack getDisplay() {
-		return this.display;
+		return display;
 	}
 
 	public int getEnergyRequired() {
-		return this.energyRequired;
+		return energyRequired;
 	}
 
 	public Research getParent() {
@@ -37,11 +37,11 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 	}
 
 	public int getRequirementCount() {
-		return this.requirements.size();
+		return requirements.size();
 	}
 
 	public NonNullList<ResourceLocation> getRequirements() {
-		return this.requirements;
+		return requirements;
 	}
 
 	public String getTitle() {
@@ -49,12 +49,12 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 	}
 
 	public Research setDisplay(ItemStack st) {
-		this.display = st;
+		display = st;
 		return this;
 	}
 
 	public Research setEnergyRequired(int req) {
-		this.energyRequired = req;
+		energyRequired = req;
 		return this;
 	}
 

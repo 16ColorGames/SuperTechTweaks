@@ -12,6 +12,6 @@ public class BlockMaterial extends BlockBase {
 	}
 
 	public Material getSuperMaterial() {
-		return this.material;
+		return material;
 	}
 }

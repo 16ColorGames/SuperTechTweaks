@@ -13,7 +13,6 @@ import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -116,13 +115,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	public void clientPrep() {
 		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.itemLocation);
 		ModelLoader.setCustomModelResourceLocation(itemBlock, 0, ClientProxy.blockLocation);
-		ModelLoader.setCustomStateMapper(block, new IStateMapper() {
-			@Override
-			public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
-				final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
-				loc.put(blockIn.getDefaultState(), ClientProxy.blockLocation);
-				return loc;
-			}
+		ModelLoader.setCustomStateMapper(block, blockIn -> {
+			final Map<IBlockState, ModelResourceLocation> loc = new HashMap<IBlockState, ModelResourceLocation>();
+			loc.put(blockIn.getDefaultState(), ClientProxy.blockLocation);
+			return loc;
 		});
 	}
 

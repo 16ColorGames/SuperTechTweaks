@@ -17,9 +17,9 @@ public class ItemTechComponent extends ItemBase {
 
 	public ItemTechComponent() {
 		super("itemTechComponent");
-		this.setMaxDamage(0);
-		this.setHasSubtypes(true);
-		this.setCreativeTab(CreativeTabs.MISC); // items will appear on the
+		setMaxDamage(0);
+		setHasSubtypes(true);
+		setCreativeTab(CreativeTabs.MISC); // items will appear on the
 	}
 
 	@Override

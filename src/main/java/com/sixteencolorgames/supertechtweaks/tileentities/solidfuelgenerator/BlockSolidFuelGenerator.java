@@ -58,7 +58,7 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 
 	public BlockSolidFuelGenerator(boolean isBurning) {
 		super(Material.ROCK, "solidgenerator");
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.isBurning = isBurning;
 	}
 
@@ -124,7 +124,7 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.setDefaultFacing(worldIn, pos, state);
+		setDefaultFacing(worldIn, pos, state);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 
 		if (stack.hasDisplayName()) {
-			TileEntity tileentity = worldIn.getTileEntity(pos);
+			worldIn.getTileEntity(pos);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class BlockSolidFuelGenerator extends BlockContainerBase {
 	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void randomDisplayTick(IBlockState worldIn, World pos, BlockPos state, Random rand) {
-		if (this.isBurning) {
+		if (isBurning) {
 			EnumFacing enumfacing = worldIn.getValue(FACING);
 			double d0 = state.getX() + 0.5D;
 			double d1 = state.getY() + rand.nextDouble() * 6.0D / 16.0D;

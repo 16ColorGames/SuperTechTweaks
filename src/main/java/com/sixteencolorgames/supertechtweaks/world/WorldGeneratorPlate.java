@@ -32,7 +32,7 @@ public class WorldGeneratorPlate extends WorldGeneratorBase {
 
 	private boolean generatePlate(World worldIn, Random rand, BlockPos position) {
 		int height = rand.nextInt(maxY - minY) + minY;
-		BlockPos start = position.add(0, height, 0);
+		position.add(0, height, 0);
 		int x = position.getX();
 		int z = position.getZ();
 		int r = size;

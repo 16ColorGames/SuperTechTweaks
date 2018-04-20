@@ -46,7 +46,7 @@ public class ResearchUpdatePacket implements IMessage {
 	/**
 	 * Called by the network code once it has received the message bytes over
 	 * the network. Used to read the ByteBuf contents into your member variables
-	 * 
+	 *
 	 * @param buf
 	 */
 	@Override
@@ -77,11 +77,11 @@ public class ResearchUpdatePacket implements IMessage {
 	}
 
 	public BlockPos getBlockPos() {
-		return this.blockPos;
+		return blockPos;
 	}
 
 	public int getMessageType() {
-		return this.messageType;
+		return messageType;
 	}
 
 	public ResourceLocation getSelected() {
@@ -105,13 +105,14 @@ public class ResearchUpdatePacket implements IMessage {
 	 * Called by the network code. Used to write the contents of your message
 	 * member variables into the ByteBuf, ready for transmission over the
 	 * network.
-	 * 
+	 *
 	 * @param buf
 	 */
 	@Override
 	public void toBytes(ByteBuf buf) {
-		if (!messageIsValid)
+		if (!messageIsValid) {
 			return;
+		}
 		buf.writeInt(blockPos.getX());
 		buf.writeInt(blockPos.getY());
 		buf.writeInt(blockPos.getZ());

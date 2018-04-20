@@ -26,7 +26,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Thanks to cmchenry from the forge forums for the basics of this class.
- * 
+ *
  * @author oa10712
  *
  */
@@ -56,10 +56,10 @@ public class GuiResearchPicker extends GuiScreen {
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
 		this.player = player;
 		this.researchContainer = researchContainer;
-		this.scrollDistance = 0;
-		this.initialMouseClickY = 0;
+		scrollDistance = 0;
+		initialMouseClickY = 0;
 		lastMouseY = 0;
-		this.slotHeight = 30;
+		slotHeight = 30;
 		research = GameRegistry.findRegistry(Research.class);
 		if (research.containsKey(researchContainer.getTileEntity().getSelected())) {
 			selected = researchContainer.getTileEntity().getSelected();
@@ -78,41 +78,41 @@ public class GuiResearchPicker extends GuiScreen {
 	}
 
 	private void applyScrollLimits() {
-		int posX = (this.width - xSizeOfTexture) / 2;
-		int posY = (this.height - ySizeOfTexture) / 2;
+		int posY = (height - ySizeOfTexture) / 2;
 		int top = posY + 25;
 		int bottom = posY + 140;
-		int scrollMax = getSize() * this.slotHeight - (bottom - top - 4);
+		int scrollMax = getSize() * slotHeight - (bottom - top - 4);
 
 		if (scrollMax < 0) {
 			scrollMax /= 2;
 		}
 
-		if (this.scrollDistance < 0.0F) {
-			this.scrollDistance = 0.0F;
+		if (scrollDistance < 0.0F) {
+			scrollDistance = 0.0F;
 		}
 
-		if (this.scrollDistance > scrollMax) {
-			this.scrollDistance = scrollMax;
+		if (scrollDistance > scrollMax) {
+			scrollDistance = scrollMax;
 		}
 	}
 
 	/**
 	 * Draws an ItemStack.
-	 * 
+	 *
 	 * The z index is increased by 32 (and not decreased afterwards), and the
 	 * item is then rendered at z=200.
 	 */
 	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
 		GlStateManager.translate(0.0F, 0.0F, 32.0F);
-		this.zLevel = 200.0F;
-		this.itemRender.zLevel = 200.0F;
+		zLevel = 200.0F;
+		itemRender.zLevel = 200.0F;
 		FontRenderer font = stack.getItem().getFontRenderer(stack);
-		if (font == null)
+		if (font == null) {
 			font = fontRenderer;
-		this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-		this.zLevel = 0.0F;
-		this.itemRender.zLevel = 0.0F;
+		}
+		itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+		zLevel = 0.0F;
+		itemRender.zLevel = 0.0F;
 	}
 
 	@Override
@@ -120,98 +120,92 @@ public class GuiResearchPicker extends GuiScreen {
 		drawDefaultBackground();
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine
-				.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/researchpicker.png"));
+		mc.renderEngine.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/researchpicker.png"));
 
-		int posX = (this.width - xSizeOfTexture) / 2;
-		int posY = (this.height - ySizeOfTexture) / 2;
+		int posX = (width - xSizeOfTexture) / 2;
+		int posY = (height - ySizeOfTexture) / 2;
 
 		drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
-		this.mouseX = x;
-		this.mouseY = y;
-		int bottomOffset = 140;
-		int topOffset = 35;
-		this.top = posY + 10;
-		this.bottom = posY + 170;
-		this.topScrollBar = posY + 10;
-		this.bottomScrollBar = posY + 170;
-		int listLength = this.getSize();
+		mouseX = x;
+		mouseY = y;
+		top = posY + 10;
+		bottom = posY + 170;
+		topScrollBar = posY + 10;
+		bottomScrollBar = posY + 170;
+		int listLength = getSize();
 		int scrollBarXStart = posX + 235;
 		int scrollBarXEnd = scrollBarXStart + 12;
 		int boxLeft = posX + 50;
 		int boxRight = scrollBarXStart - 1;
 		int var10;
-		int var11;
 		int var13;
 		int var19;
 
 		if (Mouse.isButtonDown(0)) {
-			if (this.initialMouseClickY == -1.0F) {
+			if (initialMouseClickY == -1.0F) {
 				boolean scrollValid = true;
 				if (mouseX >= scrollBarXStart && mouseX <= scrollBarXEnd) {
 					int function = -(posY - y) - 16;
 					if (function < 0) {
-						this.scrollButtonY = 0;
+						scrollButtonY = 0;
 						return;
 					} else if (function > 132) {
-						this.scrollButtonY = 133;
+						scrollButtonY = 133;
 						return;
 					}
-					this.scrollButtonY = function;
+					scrollButtonY = function;
 					int dir = Mouse.getDY();
 					System.out.println("HEYO!");
 					if (dir > 0) {
-						this.scrollDistance -= this.slotHeight * 2 / 3;
-						this.initialMouseClickY = -2.0F;
-						this.applyScrollLimits();
+						scrollDistance -= slotHeight * 2 / 3;
+						initialMouseClickY = -2.0F;
+						applyScrollLimits();
 					} else if (dir < 0) {
-						this.scrollDistance += this.slotHeight * 2 / 3;
-						this.initialMouseClickY = -2.0F;
-						this.applyScrollLimits();
+						scrollDistance += slotHeight * 2 / 3;
+						initialMouseClickY = -2.0F;
+						applyScrollLimits();
 					}
 				}
-				if (mouseY >= this.topScrollBar && mouseY <= this.bottomScrollBar) {
-					var10 = mouseY - this.top - 0 + (int) this.scrollDistance - 4;
-					var11 = var10 / this.slotHeight;
+				if (mouseY >= topScrollBar && mouseY <= bottomScrollBar) {
+					var10 = mouseY - top - 0 + (int) scrollDistance - 4;
 					if (mouseX >= boxLeft && mouseX <= boxRight && var10 < 0) {
 						scrollValid = false;
 					}
 
 					if (mouseX >= scrollBarXStart && mouseX <= scrollBarXEnd) {
-						this.scrollFactor = -.4F;
-						var19 = this.getContentHeight() - (this.bottom - this.top - 4);
+						scrollFactor = -.4F;
+						var19 = getContentHeight() - (bottom - top - 4);
 
 						if (var19 < 1) {
 							var19 = 1;
 						}
 
-						var13 = (int) ((float) ((this.bottom - this.top) * (this.bottom - this.top))
-								/ (float) this.getContentHeight());
+						var13 = (int) ((float) ((bottom - top) * (bottom - top)) / (float) getContentHeight());
 
 						if (var13 < 32) {
 							var13 = 32;
 						}
 
-						if (var13 > this.bottom - this.top - 8) {
-							var13 = this.bottom - this.top - 8;
+						if (var13 > bottom - top - 8) {
+							var13 = bottom - top - 8;
 						}
 
-						this.scrollFactor /= (float) (this.bottom - this.top - var13) / (float) var19;
+						scrollFactor /= (float) (bottom - top - var13) / (float) var19;
 					} else {
-						this.scrollFactor = .4F;
+						scrollFactor = .4F;
 					}
 
 					if (scrollValid) {
-						this.initialMouseClickY = mouseY;
+						initialMouseClickY = mouseY;
 					} else {
-						this.initialMouseClickY = -2.0F;
+						initialMouseClickY = -2.0F;
 					}
 				} else {
-					this.initialMouseClickY = -2.0F;
+					initialMouseClickY = -2.0F;
 				}
-			} else if (this.initialMouseClickY >= 0.0F) {
-				this.scrollDistance -= (mouseY - this.initialMouseClickY) * this.scrollFactor;
-				this.initialMouseClickY = mouseY;
+			} else if (initialMouseClickY >= 0.0F) {
+				scrollDistance -= (mouseY - initialMouseClickY) * scrollFactor;
+				initialMouseClickY = mouseY;
 			}
 		} else {
 			while (Mouse.next()) {
@@ -224,55 +218,52 @@ public class GuiResearchPicker extends GuiScreen {
 						scroll = 1;
 					}
 
-					this.scrollDistance += scroll * this.slotHeight / 2;
+					scrollDistance += scroll * slotHeight / 2;
 				}
 			}
 
-			this.initialMouseClickY = -1.0F;
+			initialMouseClickY = -1.0F;
 		}
-		this.applyScrollLimits();
-		var10 = this.top - (int) this.scrollDistance;
+		applyScrollLimits();
+		var10 = top - (int) scrollDistance;
 
 		// cut out nonvisible stuff
 		GuiResearchPicker.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
 		for (int i = 0; i < listLength; ++i) {
-			var19 = var10 + i * this.slotHeight + 0;
-			var13 = this.slotHeight - 4;
+			var19 = var10 + i * slotHeight + 0;
+			var13 = slotHeight - 4;
 
-			if (var19 <= this.bottom && var19 + var13 >= this.top) {
+			if (var19 <= bottom && var19 + var13 >= top) {
 				if (research.getValues().get(i).getRegistryName().equals(selected)) {
 					Gui.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
 				}
 
-				this.drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145,
-						var19 + slotHeight / 2 - 4, Color.white.getRGB());
-				this.drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8,
-						"");
+				drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145, var19 + slotHeight / 2 - 4,
+						Color.white.getRGB());
+				drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
 			}
 		}
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
-		var19 = this.getContentHeight() - (this.bottomScrollBar - this.topScrollBar - 4);
+		var19 = getContentHeight() - (bottomScrollBar - topScrollBar - 4);
 
 		if (var19 > 0) {
-			var13 = (this.bottomScrollBar - this.topScrollBar) * (this.bottomScrollBar - this.topScrollBar)
-					/ this.getContentHeight();
+			var13 = (bottomScrollBar - topScrollBar) * (bottomScrollBar - topScrollBar) / getContentHeight();
 
 			if (var13 < 32) {
 				var13 = 32;
 			}
 
-			if (var13 > this.bottomScrollBar - this.topScrollBar - 8) {
-				var13 = this.bottomScrollBar - this.topScrollBar - 8;
+			if (var13 > bottomScrollBar - topScrollBar - 8) {
+				var13 = bottomScrollBar - topScrollBar - 8;
 			}
 
-			int scrollY = (int) this.scrollDistance * (this.bottomScrollBar - this.topScrollBar - var13) / var19
-					+ this.topScrollBar;
+			int scrollY = (int) scrollDistance * (bottomScrollBar - topScrollBar - var13) / var19 + topScrollBar;
 
-			if (scrollY < this.topScrollBar) {
-				scrollY = this.topScrollBar;
+			if (scrollY < topScrollBar) {
+				scrollY = topScrollBar;
 			}
-			this.mc.renderEngine
+			mc.renderEngine
 					.bindTexture(new ResourceLocation(SuperTechTweaksMod.MODID, "textures/gui/researchpicker.png"));
 			this.drawTexturedModalRect(scrollBarXStart, scrollY, xSizeOfTexture - 25, ySizeOfTexture, 12, 16);
 		}
@@ -285,7 +276,7 @@ public class GuiResearchPicker extends GuiScreen {
 	}
 
 	private int getContentHeight() {
-		return research.getValues().size() * this.slotHeight;
+		return research.getValues().size() * slotHeight;
 	}
 
 	private int getSize() {
@@ -294,26 +285,26 @@ public class GuiResearchPicker extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		this.buttonList.clear();
+		buttonList.clear();
 
-		int posX = (this.width - xSizeOfTexture) / 2;
-		int posY = (this.height - ySizeOfTexture) / 2;
+		int posX = (width - xSizeOfTexture) / 2;
+		int posY = (height - ySizeOfTexture) / 2;
 
-		this.buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Select"));
+		buttonList.add(new GuiButton(0, posX + 7, posY + 135, 100, 20, "Select"));
 	}
 
 	@Override
 	public void mouseClicked(int x, int y, int z) throws IOException {
-		int var10 = this.top - (int) this.scrollDistance;
+		int var10 = top - (int) scrollDistance;
 
-		int posX = (this.width - xSizeOfTexture) / 2;
+		int posX = (width - xSizeOfTexture) / 2;
 		for (int i = 0; i < getSize(); ++i) {
-			int var19 = var10 + i * this.slotHeight + 0;
-			int var13 = this.slotHeight - 4;
+			int var19 = var10 + i * slotHeight + 0;
+			int var13 = slotHeight - 4;
 
-			if (var19 <= this.bottom && var19 + var13 >= this.top) {
+			if (var19 <= bottom && var19 + var13 >= top) {
 
-				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + this.slotHeight) {
+				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + slotHeight) {
 					System.out.println(research.getValues().get(i).getTitle());
 					selected = research.getValues().get(i).getRegistryName();
 					return;

@@ -63,11 +63,11 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 					int l = j - p_77573_3_;
 					Ingredient ingredient = Ingredient.EMPTY;
 
-					if (k >= 0 && l >= 0 && k < this.width && l < this.height) {
+					if (k >= 0 && l >= 0 && k < width && l < height) {
 						if (p_77573_4_) {
-							ingredient = this.input.get(this.width - k - 1 + l * this.width);
+							ingredient = input.get(width - k - 1 + l * width);
 						} else {
-							ingredient = this.input.get(k + l * this.width);
+							ingredient = input.get(k + l * width);
 						}
 					}
 
@@ -137,13 +137,13 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 
 		@Override
 		public boolean matches(InventoryCrafting inv, World worldIn) {
-			for (int i = 0; i <= inv.getWidth() - this.width; ++i) {
-				for (int j = 0; j <= inv.getHeight() - this.height; ++j) {
-					if (this.checkMatch(inv, i, j, true)) {
+			for (int i = 0; i <= inv.getWidth() - width; ++i) {
+				for (int j = 0; j <= inv.getHeight() - height; ++j) {
+					if (checkMatch(inv, i, j, true)) {
 						return true;
 					}
 
-					if (this.checkMatch(inv, i, j, false)) {
+					if (checkMatch(inv, i, j, false)) {
 						return true;
 					}
 				}
@@ -159,11 +159,13 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 
 		Map<Character, Ingredient> ingMap = Maps.newHashMap();
 		for (Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "key").entrySet()) {
-			if (entry.getKey().length() != 1)
+			if (entry.getKey().length() != 1) {
 				throw new JsonSyntaxException(
 						"Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
-			if (" ".equals(entry.getKey()))
+			}
+			if (" ".equals(entry.getKey())) {
 				throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
+			}
 
 			ingMap.put(entry.getKey().toCharArray()[0], CraftingHelper.getIngredient(entry.getValue(), context));
 		}
@@ -171,14 +173,16 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 		ingMap.put(' ', Ingredient.EMPTY);
 		JsonArray patternJ = JsonUtils.getJsonArray(json, "pattern");
 
-		if (patternJ.size() == 0)
+		if (patternJ.size() == 0) {
 			throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
+		}
 
 		String[] pattern = new String[patternJ.size()];
 		for (int x = 0; x < pattern.length; ++x) {
 			String line = JsonUtils.getString(patternJ.get(x), "pattern[" + x + "]");
-			if (x > 0 && pattern[0].length() != line.length())
+			if (x > 0 && pattern[0].length() != line.length()) {
 				throw new JsonSyntaxException("Invalid pattern: each row must  be the same width");
+			}
 			pattern[x] = line;
 		}
 
@@ -195,16 +199,18 @@ public class AddNBTRecipeFactory implements IRecipeFactory {
 		for (String line : pattern) {
 			for (char chr : line.toCharArray()) {
 				Ingredient ing = ingMap.get(chr);
-				if (ing == null)
+				if (ing == null) {
 					throw new JsonSyntaxException(
 							"Pattern references symbol '" + chr + "' but it's not defined in the key");
+				}
 				primer.input.set(x++, ing);
 				keys.remove(chr);
 			}
 		}
 
-		if (!keys.isEmpty())
+		if (!keys.isEmpty()) {
 			throw new JsonSyntaxException("Key defines symbols that aren't used in pattern: " + keys);
+		}
 
 		return new AddNBTRecipe(new ResourceLocation(SuperTechTweaksMod.MODID, "addNBT_crafting"), primer,
 				JsonUtils.getString(json, "nbt"), JsonUtils.getString(json, "tooltip"));

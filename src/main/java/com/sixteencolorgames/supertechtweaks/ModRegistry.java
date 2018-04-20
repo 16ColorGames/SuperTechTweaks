@@ -41,7 +41,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
@@ -192,7 +191,7 @@ public class ModRegistry {
 		material = new Material("Sulfur", "0xedff21", 3, 2.07, 2 * Math.pow(10, 15), 0, 0, .205) {
 			@Override
 			public ItemStack getDrops(byte base) {
-				return new ItemStack(this.getMaterialItem(), 1, MaterialItem.DUST);
+				return new ItemStack(getMaterialItem(), 1, MaterialItem.DUST);
 			}
 		};
 		material.registerMaterial();
@@ -201,7 +200,7 @@ public class ModRegistry {
 		material.addBasicSmelting();
 		material = new Material("Osmium", "0x9090a3", 3, 22.59, 81.2, 5.1, 222, 87.6);
 		material.registerMaterial();
-		material = new Material("Diamond", "0xb9f2ff", 4, 3.52, 999999, 100, 455, 1800) {
+		material = new Material("Diamond", "0xb9f2ff", 3, 3.52, 999999, 100, 455, 1800) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.DIAMOND, 1, 0);
@@ -271,10 +270,10 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerRegistry(RegistryEvent.NewRegistry event) {
-		IForgeRegistry builder = new RegistryBuilder().setType(Material.class)
+		new RegistryBuilder().setType(Material.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "MaterialRegistry")).setIDRange(0, 256)
 				.create();
-		builder = new RegistryBuilder().setType(Research.class)
+		new RegistryBuilder().setType(Research.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
 				.create();
 	}

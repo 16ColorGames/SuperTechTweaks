@@ -34,9 +34,9 @@ public class MaterialItem extends ItemBase {
 	public MaterialItem(Material material) {
 		super("item" + material.getName());
 		this.material = material;
-		this.setMaxDamage(0);
-		this.setHasSubtypes(true);
-		this.setCreativeTab(CreativeTabs.MISC); // items will appear on the
+		setMaxDamage(0);
+		setHasSubtypes(true);
+		setCreativeTab(CreativeTabs.MISC); // items will appear on the
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class MaterialItem extends ItemBase {
 	}
 
 	public Material getMaterial() {
-		return this.material;
+		return material;
 	}
 
 	@Override

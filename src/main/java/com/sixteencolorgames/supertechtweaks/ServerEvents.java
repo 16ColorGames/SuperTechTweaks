@@ -20,7 +20,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -52,7 +51,7 @@ public class ServerEvents {
 	@SubscribeEvent
 	public void onPlayerEnterChunk(EntityEvent.EnteringChunk e) {
 		if (e.getEntity() instanceof EntityPlayerMP) {
-			EntityPlayerMP en = (EntityPlayerMP) e.getEntity();
+			e.getEntity();
 			for (int x = -3; x < 4; x++) {
 				for (int z = -3; z < 4; z++) {
 					handleOreUpdate((EntityPlayerMP) e.getEntity(), e.getEntity().chunkCoordX + x,
@@ -60,7 +59,7 @@ public class ServerEvents {
 															// the nearby chunks
 															// on startup
 
-					MinecraftServer server = e.getEntity().getServer();
+					e.getEntity().getServer();
 
 					OreSavedData get = OreSavedData.get(e.getEntity().world);
 					Chunk chunk = e.getEntity().world.getChunkFromChunkCoords(x, z);

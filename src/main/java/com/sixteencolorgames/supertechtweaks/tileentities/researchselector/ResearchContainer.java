@@ -9,7 +9,7 @@ public class ResearchContainer extends Container {
 	private ResearchSelectorTileEntity containerTileEntity;
 
 	public ResearchContainer(InventoryPlayer inventory, ResearchSelectorTileEntity containerTileEntity2) {
-		this.containerTileEntity = containerTileEntity2;
+		containerTileEntity = containerTileEntity2;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public abstract class TileMultiBlockController extends TileMultiBlock implements
 
 	/**
 	 * Runs the required checks to see if a valid multiblock exists
-	 * 
+	 *
 	 * @return if the structure is valid
 	 */
 	public abstract boolean checkMultiBlockForm();
@@ -31,8 +31,9 @@ public abstract class TileMultiBlockController extends TileMultiBlock implements
 				masterTick();
 			} else {
 				// Constantly check if structure is formed until it is.
-				if (checkMultiBlockForm())
+				if (checkMultiBlockForm()) {
 					setupStructure();
+				}
 			}
 		}
 	}

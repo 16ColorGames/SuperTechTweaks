@@ -22,7 +22,7 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 	/**
 	 * Called when a message is received of the appropriate type. CALLED BY THE
 	 * NETWORK THREAD
-	 * 
+	 *
 	 * @param message
 	 *            The message
 	 */
@@ -57,12 +57,7 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 		// In this case, the task is to call
 		// messageHandlerOnServer.processMessage(message, sendingPlayer)
 		final WorldServer playerWorldServer = sendingPlayer.getServerWorld();
-		playerWorldServer.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				processMessage(message, sendingPlayer);
-			}
-		});
+		playerWorldServer.addScheduledTask(() -> processMessage(message, sendingPlayer));
 
 		return null;
 	}

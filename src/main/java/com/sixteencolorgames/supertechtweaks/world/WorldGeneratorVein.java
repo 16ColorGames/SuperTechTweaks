@@ -60,13 +60,13 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 		Vec3d dir = DIRS[rand.nextInt(DIRS.length)];
 		for (int i = 0; i < size * (int) params.getOrDefault("branchLength", 5); i++) {
 			BlockPos check = new BlockPos(pos);
-			for (BlockPos adj : this.facing(check)) {
+			for (BlockPos adj : facing(check)) {
 				super.generateOre(world, adj);
 			}
-			while (pos.y + dir.y > this.maxY) {
+			while (pos.y + dir.y > maxY) {
 				dir = DIRS[rand.nextInt(DIRS.length)];
 			}
-			while (pos.y + dir.y < this.minY) {
+			while (pos.y + dir.y < minY) {
 				dir = DIRS[rand.nextInt(DIRS.length)];
 			}
 			pos = pos.add(dir);

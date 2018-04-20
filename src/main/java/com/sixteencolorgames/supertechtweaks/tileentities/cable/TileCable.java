@@ -43,8 +43,9 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 
 		int energyExtracted = Math.min(getEnergyStored(), Math.min(getTransferRate(), maxExtract));
-		if (!simulate)
+		if (!simulate) {
 			power -= energyExtracted;
+		}
 		return energyExtracted;
 	}
 
@@ -59,7 +60,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int getEnergyStored() {
-		return this.power;
+		return power;
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		// you can write
 		// a more optimal NBT here.
 		NBTTagCompound nbtTag = new NBTTagCompound();
-		this.writeToNBT(nbtTag);
+		writeToNBT(nbtTag);
 		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
 	}
 
@@ -98,7 +99,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		// Here we get the packet from the server and read it into our client
 		// side tile entity
-		this.readFromNBT(packet.getNbtCompound());
+		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
@@ -119,8 +120,9 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(),
 				Math.min(getTransferRate(), maxReceive));
-		if (!simulate)
+		if (!simulate) {
 			power += energyReceived;
+		}
 		return energyReceived;
 	}
 

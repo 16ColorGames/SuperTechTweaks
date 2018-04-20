@@ -42,11 +42,11 @@ public class UpdateOresPacket implements IMessage {
 	}
 
 	public UpdateOresPacket(OreSavedData get, BlockPos pos) {
-		this.tag = get.getForPos(pos);
+		tag = get.getForPos(pos);
 	}
 
 	public UpdateOresPacket(OreSavedData data, int chunkX, int chunkZ) {
-		this.tag = data.getForChunk(chunkX, chunkZ);
+		tag = data.getForChunk(chunkX, chunkZ);
 	}
 
 	@Override

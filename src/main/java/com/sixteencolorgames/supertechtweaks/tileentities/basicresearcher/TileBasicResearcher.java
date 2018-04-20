@@ -36,9 +36,9 @@ public class TileBasicResearcher extends TileMultiBlockController {
 	public boolean checkMultiBlockForm() {
 		boolean selectorPresent = false;
 		// Scan a 3x3x3 area, starting with the bottom left corner
-		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
-			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
-				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+		for (int x = getPos().getX() - 1; x < getPos().getX() + 2; x++) {
+			for (int y = getPos().getY() - 1; y < getPos().getY() + 2; y++) {
+				for (int z = getPos().getZ() - 1; z < getPos().getZ() + 2; z++) {
 					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 					// Make sure tile isn't null, is an instance of the same
 					// Tile, and isn't already a part of a multiblock
@@ -93,12 +93,13 @@ public class TileBasicResearcher extends TileMultiBlockController {
 
 	@Override
 	public void resetStructure() {
-		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
-			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
-				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+		for (int x = getPos().getX() - 1; x < getPos().getX() + 2; x++) {
+			for (int y = getPos().getY() - 1; y < getPos().getY() + 2; y++) {
+				for (int z = getPos().getZ() - 1; z < getPos().getZ() + 2; z++) {
 					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-					if (tile != null && (tile instanceof TileMultiBlock))
+					if (tile != null && (tile instanceof TileMultiBlock)) {
 						((TileMultiBlock) tile).reset();
+					}
 				}
 			}
 		}
@@ -106,16 +107,14 @@ public class TileBasicResearcher extends TileMultiBlockController {
 
 	@Override
 	public void setupStructure() {
-		for (int x = this.getPos().getX() - 1; x < this.getPos().getX() + 2; x++) {
-			for (int y = this.getPos().getY() - 1; y < this.getPos().getY() + 2; y++) {
-				for (int z = this.getPos().getZ() - 1; z < this.getPos().getZ() + 2; z++) {
+		for (int x = getPos().getX() - 1; x < getPos().getX() + 2; x++) {
+			for (int y = getPos().getY() - 1; y < getPos().getY() + 2; y++) {
+				for (int z = getPos().getZ() - 1; z < getPos().getZ() + 2; z++) {
 					TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 					// Check if block is center block
-					boolean master = (x == this.getPos().getX() && y == this.getPos().getY()
-							&& z == this.getPos().getZ());
+					boolean master = (x == getPos().getX() && y == getPos().getY() && z == getPos().getZ());
 					if (tile != null && (tile instanceof TileMultiBlock)) {
-						((TileMultiBlock) tile).setMasterCoords(this.getPos().getX(), this.getPos().getY(),
-								this.getPos().getZ());
+						((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 						((TileMultiBlock) tile).setHasMaster(true);
 						((TileMultiBlock) tile).setIsMaster(master);
 					}

@@ -22,7 +22,7 @@ public class ContainerSolidFuelGenerator extends Container {
 	}
 
 	private void addOwnSlots() {
-		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		int x = 9;
 		int y = 6;
 
@@ -41,7 +41,7 @@ public class ContainerSolidFuelGenerator extends Container {
 			for (int col = 0; col < 9; ++col) {
 				int x = 9 + col * 18;
 				int y = row * 18 + 70;
-				this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
+				addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
 			}
 		}
 
@@ -49,7 +49,7 @@ public class ContainerSolidFuelGenerator extends Container {
 		for (int row = 0; row < 9; ++row) {
 			int x = 9 + row * 18;
 			int y = 58 + 70;
-			this.addSlotToContainer(new Slot(playerInventory, row, x, y));
+			addSlotToContainer(new Slot(playerInventory, row, x, y));
 		}
 	}
 
@@ -62,17 +62,17 @@ public class ContainerSolidFuelGenerator extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 		ItemStack itemstack = null;
-		Slot slot = this.inventorySlots.get(index);
+		Slot slot = inventorySlots.get(index);
 
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
 			if (index < TileSolidFuelGenerator.SIZE) {
-				if (!this.mergeItemStack(itemstack1, TileSolidFuelGenerator.SIZE, this.inventorySlots.size(), true)) {
+				if (!mergeItemStack(itemstack1, TileSolidFuelGenerator.SIZE, inventorySlots.size(), true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 0, TileSolidFuelGenerator.SIZE, false)) {
+			} else if (!mergeItemStack(itemstack1, 0, TileSolidFuelGenerator.SIZE, false)) {
 				return null;
 			}
 

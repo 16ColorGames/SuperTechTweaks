@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 /**
  * Helper class for mod items.
- * 
+ *
  * @author oa10712
  *
  */

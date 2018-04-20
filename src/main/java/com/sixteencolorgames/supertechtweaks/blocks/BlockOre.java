@@ -49,7 +49,7 @@ public class BlockOre extends BlockBase {
 
 	public BlockOre() {
 		super(net.minecraft.block.material.Material.ROCK, "superore");
-		this.setHardness(3.0f);
+		setHardness(3.0f);
 	}
 
 	// @SideOnly(Side.CLIENT)
@@ -110,8 +110,8 @@ public class BlockOre extends BlockBase {
 			type = 1;
 		}
 		Random rand = worldObject.rand;
-		for (int i = 0; i < ores.length; i++) {
-			Material material = GameRegistry.findRegistry(Material.class).getValue(ores[i]);
+		for (ResourceLocation ore : ores) {
+			Material material = GameRegistry.findRegistry(Material.class).getValue(ore);
 			ret.add(material.getDrops(type));
 			for (int j = 0; j < fortune; j++) {
 				if (rand.nextDouble() < .25) {
@@ -238,9 +238,9 @@ public class BlockOre extends BlockBase {
 
 	private ResourceLocation[] removeNulls(ResourceLocation[] ores) {
 		ArrayList<ResourceLocation> temp = new ArrayList();
-		for (int i = 0; i < ores.length; i++) {
-			if (ores[i] != null) {
-				temp.add(ores[i]);
+		for (ResourceLocation ore : ores) {
+			if (ore != null) {
+				temp.add(ore);
 			}
 		}
 		return temp.toArray(new ResourceLocation[0]);

@@ -83,7 +83,7 @@ public abstract class BlockContainerBase extends BlockContainer implements ItemM
 			enumfacing = EnumFacing.NORTH;
 		}
 
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
 	@Override

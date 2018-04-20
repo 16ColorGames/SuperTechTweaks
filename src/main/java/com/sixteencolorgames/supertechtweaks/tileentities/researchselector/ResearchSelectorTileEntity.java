@@ -30,7 +30,7 @@ public class ResearchSelectorTileEntity extends TileMultiBlock {
 		// you can write
 		// a more optimal NBT here.
 		NBTTagCompound nbtTag = new NBTTagCompound();
-		this.writeToNBT(nbtTag);
+		writeToNBT(nbtTag);
 		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
 	}
 
@@ -38,7 +38,7 @@ public class ResearchSelectorTileEntity extends TileMultiBlock {
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		// Here we get the packet from the server and read it into our client
 		// side tile entity
-		this.readFromNBT(packet.getNbtCompound());
+		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override

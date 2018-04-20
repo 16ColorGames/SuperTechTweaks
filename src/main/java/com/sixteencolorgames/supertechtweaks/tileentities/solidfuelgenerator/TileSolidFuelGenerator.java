@@ -55,13 +55,13 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 
 	private void attemptPowerPush() {
 		for (EnumFacing face : EnumFacing.VALUES) {
-			BlockPos offset = this.pos.offset(face);
+			BlockPos offset = pos.offset(face);
 			TileEntity tile = world.getTileEntity(offset);
 			if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				int attempt = Math.min(this.maxExtract, this.getEnergyStored());
+				int attempt = Math.min(maxExtract, getEnergyStored());
 				IEnergyStorage energy = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
 				int receiveEnergy = energy.receiveEnergy(attempt, false);
-				this.extractEnergy(receiveEnergy, false);
+				extractEnergy(receiveEnergy, false);
 			}
 		}
 	}
@@ -84,8 +84,9 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
 		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
-		if (!simulate)
+		if (!simulate) {
 			energy -= energyExtracted;
+		}
 		return energyExtracted;
 	}
 
@@ -133,7 +134,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		// you can write
 		// a more optimal NBT here.
 		NBTTagCompound nbtTag = new NBTTagCompound();
-		this.writeToNBT(nbtTag);
+		writeToNBT(nbtTag);
 		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
 	}
 
@@ -143,7 +144,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 			return true;
 		}
 		if (capability == CapabilityEnergy.ENERGY) {
-			IBlockState blockState = this.getWorld().getBlockState(this.pos);
+			IBlockState blockState = getWorld().getBlockState(pos);
 			Comparable<?> comparable = blockState.getProperties().get(BlockContainerBase.FACING);
 			if (!comparable.equals(facing)) {
 				return true;
@@ -156,7 +157,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		// Here we get the packet from the server and read it into our client
 		// side tile entity
-		this.readFromNBT(packet.getNbtCompound());
+		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
@@ -187,9 +188,6 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	@Override
 	public void update() {
 		if (!world.isRemote) {
-			boolean needsUpdate = false;
-			boolean sendBurnTimePacket = false;
-
 			if (burnTime > 0) {
 				if (getEnergyStored() < getMaxEnergyStored()) {
 					setEnergyStored(getEnergyStored() + getPowerGenPerTick());
@@ -198,7 +196,7 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 			}
 			attemptPowerPush();
 			if (burnTime <= 0 && getEnergyStored() < getMaxEnergyStored()) {
-				final ItemStack fuelStack = this.itemStackHandler.getStackInSlot(0);
+				final ItemStack fuelStack = itemStackHandler.getStackInSlot(0);
 				if (fuelStack != null && !fuelStack.isEmpty()) {
 					burnTime = getBurnTime(fuelStack);
 					if (burnTime > 0) {
@@ -213,7 +211,6 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 							}
 						}
 						markDirty();
-						needsUpdate = true;
 					}
 				}
 			}
@@ -224,11 +221,11 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setTag("items", itemStackHandler.serializeNBT());
-		compound.setInteger("burnTime", this.burnTime);
-		compound.setInteger("energy", this.energy);
-		compound.setInteger("capacity", this.capacity);
-		compound.setInteger("totalBurnTime", this.totalBurnTime);
-		compound.setInteger("maxExtract", this.maxExtract);
+		compound.setInteger("burnTime", burnTime);
+		compound.setInteger("energy", energy);
+		compound.setInteger("capacity", capacity);
+		compound.setInteger("totalBurnTime", totalBurnTime);
+		compound.setInteger("maxExtract", maxExtract);
 		return compound;
 	}
 }

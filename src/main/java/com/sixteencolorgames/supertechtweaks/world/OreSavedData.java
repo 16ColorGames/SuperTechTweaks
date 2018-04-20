@@ -69,7 +69,7 @@ public class OreSavedData extends WorldSavedData {
 	public void clearData() {
 		data = new HashMap();
 		generated = new HashMap();
-		this.markDirty();
+		markDirty();
 	}
 
 	public ResourceLocation getBase(BlockPos pos) {
@@ -107,8 +107,8 @@ public class OreSavedData extends WorldSavedData {
 						if (z >= zStart && z < zStart + 16) {// if its within
 																// the z range
 							NBTTagList list = new NBTTagList();
-							for (int i1 = 0; i1 < ores.length; i1++) {
-								list.appendTag(new NBTTagString(ores[i1].toString()));
+							for (ResourceLocation ore : ores) {
+								list.appendTag(new NBTTagString(ore.toString()));
 							}
 							yTag.setTag(z.toString(), list);
 						}
@@ -135,11 +135,9 @@ public class OreSavedData extends WorldSavedData {
 				NBTTagCompound yTag = new NBTTagCompound();
 				if (data.get(pos.getX()).get(pos.getY()).containsKey(pos.getZ())) {
 					ResourceLocation[] get = data.get(pos.getX()).get(pos.getY()).get(pos.getZ());
-					ResourceLocation[] arr = new ResourceLocation[get.length];
-
 					NBTTagList list = new NBTTagList();
-					for (int i1 = 0; i1 < get.length; i1++) {
-						list.appendTag(new NBTTagString(get[i1].toString()));
+					for (ResourceLocation element : get) {
+						list.appendTag(new NBTTagString(element.toString()));
 					}
 					yTag.setTag(pos.getZ() + "", list);
 				} else {
@@ -201,7 +199,7 @@ public class OreSavedData extends WorldSavedData {
 				});
 			});
 		});
-		this.markDirty();
+		markDirty();
 	}
 
 	public void setBase(int x, int y, int z, ResourceLocation base) {
@@ -301,11 +299,9 @@ public class OreSavedData extends WorldSavedData {
 			xData.forEach((Integer y, HashMap<Integer, ResourceLocation[]> yData) -> {
 				NBTTagCompound yTag = new NBTTagCompound();
 				yData.forEach((Integer z, ResourceLocation[] ores) -> {
-					ResourceLocation[] oreArray = new ResourceLocation[ores.length];
-
 					NBTTagList list = new NBTTagList();
-					for (int i1 = 0; i1 < ores.length; i1++) {
-						list.appendTag(new NBTTagString(ores[i1].toString()));
+					for (ResourceLocation ore : ores) {
+						list.appendTag(new NBTTagString(ore.toString()));
 					}
 					yTag.setTag(z.toString(), list);
 				});
