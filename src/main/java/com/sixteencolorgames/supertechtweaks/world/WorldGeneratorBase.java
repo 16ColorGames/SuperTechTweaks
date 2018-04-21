@@ -64,7 +64,8 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
 		if (dims.contains(world.provider.getDimension())) {
-			BlockPos pos = new BlockPos(chunkX * 16 + world.rand.nextInt(16), 0, chunkZ * 16 + world.rand.nextInt(16));
+			BlockPos pos = new BlockPos(chunkX * 16 + world.rand.nextInt(8) + 4, 0,
+					chunkZ * 16 + world.rand.nextInt(8) + 4);
 			generate(world, random, pos);
 		}
 	}

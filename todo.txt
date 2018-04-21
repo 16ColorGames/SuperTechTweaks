@@ -1,5 +1,5 @@
-Nuclear energy
-bulk furnaces
-ore refining
-oil and fuel energy generation
-quarry
+//TODO Nuclear energy
+//TODO bulk furnaces
+//TODO ore refining
+//TODO oil and fuel energy generation
+//feature quarry

@@ -69,7 +69,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	}
 
 	public int getTransferRate() {
-		// TODO Auto-generated method stub
 		return (int) Math.floor((1 / mat.getResistance()) * mat.getConductivity() * 32);
 	}
 

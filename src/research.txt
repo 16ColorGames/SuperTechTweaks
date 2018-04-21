@@ -1,0 +1,11 @@
+digraph g{
+	"Combustion"
+	"Automation" -> "Electronics" -> "Solar Energy"
+	"Logistics"
+	"Electronics" -> "Automation 2" -> "Engines"
+	"Steel" -> "Engines"
+	"Steel" -> "Advanded Ore Refining"
+	"Steel" -> "Solar Energy"
+	"Steel" -> "Oil Processing" -> "Plastics"
+	"Optics" -> "Solar Energy"
+}
