@@ -10,7 +10,6 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -73,8 +72,8 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	abstract boolean generate(World world, Random random, BlockPos pos);
 
 	public boolean generateOre(World world, BlockPos pos) {
-		ResourceLocation tex = new ResourceLocation(Minecraft.getMinecraft().getBlockRendererDispatcher()
-				.getModelForState(world.getBlockState(pos)).getParticleTexture().getIconName());
+		ResourceLocation name = world.getBlockState(pos).getBlock().getRegistryName();
+		ResourceLocation tex = new ResourceLocation(name.getResourceDomain(), "blocks/" + name.getResourcePath());
 		if (Config.stone.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Material k, Double v) -> {

@@ -4,8 +4,10 @@ digraph g{
 	"Logistics"
 	"Electronics" -> "Automation 2" -> "Engines"
 	"Steel" -> "Engines"
-	"Steel" -> "Advanded Ore Refining"
 	"Steel" -> "Solar Energy"
 	"Steel" -> "Oil Processing" -> "Plastics"
 	"Optics" -> "Solar Energy"
+	"Metallurgy" ->	"Advanced Copper Processing" -> "Advanced Copper Processing 2" -> "Advanced Copper Processing 3"
+	"Metallurgy" -> "Advanced Iron Processing" -> "Advanced Iron Processing 2" -> "Advanced Iron Processing 3"
+	"Advanced Iron Processing" -> "Steel"
 }
