@@ -1,6 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
-import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.WorldServer;
@@ -68,7 +68,7 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 		switch (message.getMessageType()) {
 		case ResearchUpdatePacket.SELECTION_UPDATE:
 			System.out.println("updating entity: " + message.getBlockPos() + " to " + message.getSelected());
-			ResearchSelectorTileEntity tileEntity = (ResearchSelectorTileEntity) sendingPlayer.getEntityWorld()
+			TileResearchSelector tileEntity = (TileResearchSelector) sendingPlayer.getEntityWorld()
 					.getTileEntity(message.getBlockPos());
 			tileEntity.setSelected(message.getSelected());
 			tileEntity.markDirty();

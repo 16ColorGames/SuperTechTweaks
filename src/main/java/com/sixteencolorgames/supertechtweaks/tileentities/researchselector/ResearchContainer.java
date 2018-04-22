@@ -6,9 +6,9 @@ import net.minecraft.inventory.Container;
 
 public class ResearchContainer extends Container {
 
-	private ResearchSelectorTileEntity containerTileEntity;
+	private TileResearchSelector containerTileEntity;
 
-	public ResearchContainer(InventoryPlayer inventory, ResearchSelectorTileEntity containerTileEntity2) {
+	public ResearchContainer(InventoryPlayer inventory, TileResearchSelector containerTileEntity2) {
 		containerTileEntity = containerTileEntity2;
 	}
 
@@ -17,7 +17,7 @@ public class ResearchContainer extends Container {
 		return containerTileEntity.canInteractWith(playerIn);
 	}
 
-	public ResearchSelectorTileEntity getTileEntity() {
+	public TileResearchSelector getTileEntity() {
 		return containerTileEntity;
 	}
 

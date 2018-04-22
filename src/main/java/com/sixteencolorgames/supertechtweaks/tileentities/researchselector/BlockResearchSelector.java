@@ -29,7 +29,7 @@ public class BlockResearchSelector extends Block implements ITileEntityProvider 
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new ResearchSelectorTileEntity();
+		return new TileResearchSelector();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -49,7 +49,7 @@ public class BlockResearchSelector extends Block implements ITileEntityProvider 
 			return true;
 		}
 		TileEntity te = world.getTileEntity(pos);
-		if (!(te instanceof ResearchSelectorTileEntity)) {
+		if (!(te instanceof TileResearchSelector)) {
 			return false;
 		}
 		player.openGui(SuperTechTweaksMod.instance, ModRegistry.RESEARCH_SELECTER, world, pos.getX(), pos.getY(),

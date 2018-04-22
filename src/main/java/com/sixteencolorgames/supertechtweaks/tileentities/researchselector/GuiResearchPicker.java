@@ -34,7 +34,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  *
  */
 public class GuiResearchPicker extends GuiScreen {
-
+	// FIXME re-logging causes the selected research to clear on the gui; the
+	// server remembers it just fine
 	public static void scissor(int x, int y, int w, int h) {
 
 		Minecraft client = Minecraft.getMinecraft();
@@ -70,7 +71,7 @@ public class GuiResearchPicker extends GuiScreen {
 			researched.add(tagList.getStringTagAt(i));
 		}
 		for (Research r : values) {// only display the valid
-												// researches
+									// researches
 			for (int j = 0; j < r.getRequirementCount(); j++) {
 				if (!researched.contains(r.getRequirements().get(j).toString())) {
 					values.remove(r);

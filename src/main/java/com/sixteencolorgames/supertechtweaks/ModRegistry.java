@@ -22,7 +22,7 @@ import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
-import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchSelectorTileEntity;
+import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
@@ -87,7 +87,7 @@ public class ModRegistry {
 
 		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
-		GameRegistry.registerTileEntity(ResearchSelectorTileEntity.class,
+		GameRegistry.registerTileEntity(TileResearchSelector.class,
 				SuperTechTweaksMod.MODID + "_researchselectorblock");
 
 		superore = new BlockOre();
