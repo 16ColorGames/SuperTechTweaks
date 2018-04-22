@@ -302,8 +302,10 @@ public class ModRegistry {
 				new Research("metallurgy").setTitle("Metallurgy").setDisplay(new ItemStack(Items.BLAZE_POWDER)));
 		event.getRegistry()
 				.register(new Research("advancediron1").setTitle("Advanced Iron Processing 1")
-						.setDisplay(new ItemStack(Items.IRON_INGOT))
-						.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+								MaterialItem.INGOT))
+				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
 		event.getRegistry()
 				.register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
 						.setDisplay(new ItemStack(
@@ -334,7 +336,11 @@ public class ModRegistry {
 								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
 								MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
-		event.getRegistry().register(new Research("steel").setTitle("Steel").setDisplay(new ItemStack(Items.IRON_INGOT))
+		event.getRegistry()
+				.register(new Research("steel").setTitle("Steel")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:steel")).getMaterialItem(), 1,
+								MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancediron1")));
 		event.getRegistry()
 				.register(new Research("solarenergy").setTitle("Solar Energy").setDisplay(new ItemStack(Blocks.TORCH))
