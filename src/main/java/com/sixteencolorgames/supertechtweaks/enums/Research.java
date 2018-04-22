@@ -69,4 +69,5 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 		this.title = title;
 		return this;
 	}
+
 }

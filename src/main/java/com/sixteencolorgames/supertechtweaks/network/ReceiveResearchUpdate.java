@@ -1,6 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
+import com.sixteencolorgames.supertechtweaks.world.ResearchSavedData;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.WorldServer;
@@ -72,6 +73,9 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 					.getTileEntity(message.getBlockPos());
 			tileEntity.setSelected(message.getSelected());
 			tileEntity.markDirty();
+			if (message.getUnlocked()) {
+				ResearchSavedData.get(sendingPlayer.world).playerUnlockResearch(sendingPlayer, message.getSelected());
+			}
 			break;
 		}
 		return;

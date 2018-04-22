@@ -114,8 +114,10 @@ public class TileBasicResearcher extends TileMultiBlockController {
 		if (compound.hasKey("items")) {
 			itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
 		}
-		int[] arr = compound.getIntArray("selector");
-		selectorpos = new BlockPos(arr[0], arr[1], arr[2]);
+		if (compound.hasKey("selector")) {
+			int[] arr = compound.getIntArray("selector");
+			selectorpos = new BlockPos(arr[0], arr[1], arr[2]);
+		}
 	}
 
 	@Override
@@ -158,7 +160,9 @@ public class TileBasicResearcher extends TileMultiBlockController {
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setTag("items", itemStackHandler.serializeNBT());
-		compound.setIntArray("selector", new int[] { selectorpos.getX(), selectorpos.getY(), selectorpos.getZ() });
+		if (selectorpos != null) {
+			compound.setIntArray("selector", new int[] { selectorpos.getX(), selectorpos.getY(), selectorpos.getZ() });
+		}
 		return compound;
 	}
 

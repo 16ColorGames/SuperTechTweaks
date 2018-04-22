@@ -3,6 +3,7 @@
       "tool_dict":"com.sixteencolorgames.supertechtweaks.recipe.ToolDictIngredientFactory"
    },
    "recipes":{
-      "addNBT":"com.sixteencolorgames.supertechtweaks.recipe.AddNBTRecipeFactory"
+      "addNBT":"com.sixteencolorgames.supertechtweaks.recipe.AddNBTRecipeFactory",
+	  "researchCrafting": "com.sixteencolorgames.supertechtweaks.recipe.ResearchCraftingFactory"
    }
 }

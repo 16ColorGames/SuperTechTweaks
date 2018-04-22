@@ -12,6 +12,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
+import com.sixteencolorgames.supertechtweaks.world.ResearchSavedData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -22,9 +23,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -66,6 +65,7 @@ public class GuiResearchPicker extends GuiScreen {
 
 	private List<Research> values;
 
+	// FIXME doesn't display properly researched items
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
 		this.player = player;
 		this.researchContainer = researchContainer;
@@ -74,15 +74,10 @@ public class GuiResearchPicker extends GuiScreen {
 		lastMouseY = 0;
 		slotHeight = 30;
 		values = cloneList(GameRegistry.findRegistry(Research.class).getValues());
-		ArrayList<String> researched = new ArrayList();
-		NBTTagList tagList = player.getEntityData().getTagList("researched", Constants.NBT.TAG_STRING);
-		for (int i = 0; i < tagList.tagCount(); i++) {
-			researched.add(tagList.getStringTagAt(i));
-		}
 		for (Research r : cloneList(values)) {// only display the valid
 			// researches
 			for (int j = 0; j < r.getRequirementCount(); j++) {
-				if (!researched.contains(r.getRequirements().get(j).toString())) {
+				if (!ResearchSavedData.get(player.world).getPlayerHasResearch(player, r.getRequirements().get(j))) {
 					values.remove(r);
 				}
 			}
@@ -97,9 +92,12 @@ public class GuiResearchPicker extends GuiScreen {
 		if (button.id == 0) {
 			System.out.println("clicked the select button, selected " + selected);
 			researchContainer.getTileEntity().setSelected(selected);
-			ResearchUpdatePacket airstrikeMessageToServer = new ResearchUpdatePacket(
-					ResearchUpdatePacket.SELECTION_UPDATE, selected, researchContainer.getTileEntity().getPos());
-			CommonProxy.simpleNetworkWrapper.sendToServer(airstrikeMessageToServer);
+			ResearchUpdatePacket researchUpdatePacket = new ResearchUpdatePacket(ResearchUpdatePacket.SELECTION_UPDATE,
+					selected, researchContainer.getTileEntity().getPos());
+			if (player.isCreative()) {
+				researchUpdatePacket.setUnlock(true);
+			}
+			CommonProxy.simpleNetworkWrapper.sendToServer(researchUpdatePacket);
 		}
 	}
 
@@ -251,19 +249,19 @@ public class GuiResearchPicker extends GuiScreen {
 		}
 		applyScrollLimits();
 		var10 = top - (int) scrollDistance;
-		// TODO render selected info
+		// TODO render selected unlocks
 
 		if (!selected.equals(new ResourceLocation("none:none"))) {
 			Research value = GameRegistry.findRegistry(Research.class).getValue(selected);
 			fontRenderer.drawSplitString(value.getTitle(), posX + 5, posY + 5, 100, Color.black.getRGB());
 			if (value.getDependentCount() != 0) {
-				fontRenderer.drawString("Dependents:", posX + 5, posY + fontRenderer.FONT_HEIGHT + 5,
+				fontRenderer.drawString("Dependents:", posX + 5, posY + fontRenderer.FONT_HEIGHT * 2 + 5,
 						Color.black.getRGB());
-				int rowC = 2;
+				int rowC = 3;
 				for (int i = 0; i < value.getDependentCount(); i++) {
 					List<String> split = fontRenderer.listFormattedStringToWidth(
 							GameRegistry.findRegistry(Research.class).getValue(value.getDependents().get(i)).getTitle(),
-							90);
+							100);
 					for (int j = 0; j < split.size(); j++) {
 						if (j == 0) {
 							fontRenderer.drawString(split.get(j), posX + 15,
@@ -352,6 +350,7 @@ public class GuiResearchPicker extends GuiScreen {
 			if (var19 <= bottom && var19 + var13 >= top) {
 
 				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + slotHeight) {
+
 					System.out.println(values.get(i).getTitle());
 					selected = values.get(i).getRegistryName();
 					return;

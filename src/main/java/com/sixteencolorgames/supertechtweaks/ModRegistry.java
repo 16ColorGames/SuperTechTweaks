@@ -305,6 +305,30 @@ public class ModRegistry {
 						.setDisplay(new ItemStack(Items.IRON_INGOT))
 						.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
 		event.getRegistry()
+				.register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+								MaterialItem.DUST))
+				.addRequirement(new ResourceLocation("supertechtweaks:advancediron1")));
+		event.getRegistry()
+				.register(new Research("advancediron3").setTitle("Advanced Iron Processing 3")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+								MaterialItem.CLUMP))
+				.addRequirement(new ResourceLocation("supertechtweaks:advancediron2")));
+		event.getRegistry()
+				.register(new Research("advancedcopper2").setTitle("Advanced Copper Processing 2")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+								MaterialItem.DUST))
+				.addRequirement(new ResourceLocation("supertechtweaks:advancedcopper1")));
+		event.getRegistry()
+				.register(new Research("advancedcopper3").setTitle("Advanced Copper Processing 3")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+								MaterialItem.CLUMP))
+				.addRequirement(new ResourceLocation("supertechtweaks:advancedcopper2")));
+		event.getRegistry()
 				.register(new Research("advancedcopper1").setTitle("Advanced Copper Processing 1")
 						.setDisplay(new ItemStack(
 								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
@@ -324,6 +348,16 @@ public class ModRegistry {
 		event.getRegistry()
 				.register(new Research("automation2").setTitle("Automation 2").setDisplay(new ItemStack(Blocks.TORCH))
 						.addRequirement(new ResourceLocation("supertechtweaks:electronics")));
+		event.getRegistry().register(new Research("oilprocessing").setTitle("Oil Processing")
+				.setDisplay(new ItemStack(Blocks.WATER)).addRequirement(new ResourceLocation("supertechtweaks:steel")));
+		event.getRegistry()
+				.register(new Research("advancedstorage").setTitle("Advanced Storage")
+						.setDisplay(new ItemStack(Blocks.ENDER_CHEST))
+						.addRequirement(new ResourceLocation("supertechtweaks:steel")));
+		event.getRegistry()
+				.register(new Research("plastics").setTitle("Plastics")
+						.setDisplay(new ItemStack(Items.COMMAND_BLOCK_MINECART))
+						.addRequirement(new ResourceLocation("supertechtweaks:oilprocessing")));
 	}
 
 	@SubscribeEvent

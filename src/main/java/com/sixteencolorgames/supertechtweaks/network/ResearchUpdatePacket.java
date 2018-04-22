@@ -29,6 +29,7 @@ public class ResearchUpdatePacket implements IMessage {
 	private int messageType;
 
 	private boolean messageIsValid;
+	private boolean unlock;
 
 	// for use by the message handler only.
 	public ResearchUpdatePacket() {
@@ -61,6 +62,7 @@ public class ResearchUpdatePacket implements IMessage {
 			switch (messageType) {
 			case SELECTION_UPDATE:
 				selected = new ResourceLocation(readStringFromBuffer(buf), readStringFromBuffer(buf));
+				unlock = buf.readBoolean();
 				break;
 			}
 
@@ -88,6 +90,11 @@ public class ResearchUpdatePacket implements IMessage {
 		return selected;
 	}
 
+	public boolean getUnlocked() {
+		// TODO Auto-generated method stub
+		return unlock;
+	}
+
 	public boolean isMessageValid() {
 		return messageIsValid;
 	}
@@ -99,6 +106,11 @@ public class ResearchUpdatePacket implements IMessage {
 			ret += buf.readChar();
 		}
 		return ret;
+	}
+
+	public void setUnlock(boolean b) {
+		unlock = b;
+
 	}
 
 	/**
@@ -121,6 +133,7 @@ public class ResearchUpdatePacket implements IMessage {
 		case SELECTION_UPDATE:
 			writeStringToBuffer(buf, selected.getResourceDomain());
 			writeStringToBuffer(buf, selected.getResourcePath());
+			buf.writeBoolean(unlock);
 			break;
 		}
 

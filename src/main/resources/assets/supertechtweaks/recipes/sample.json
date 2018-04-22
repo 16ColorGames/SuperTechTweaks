@@ -1,0 +1,24 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XX",
+    "X#"
+  ],
+  "key": {
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item": "supertechtweaks:itemTechComponent",
+    "data": 2
+  },
+  "requiredResearch": [
+	"supertechtweaks:automation"
+  ]
+}

@@ -282,16 +282,7 @@ public class OreSavedData extends WorldSavedData {
 		data.get(x).get(y).put(z, newData);
 		markDirty();
 	}
-	// WorldSavedData methods
 
-	/**
-	 * This is where you save any data that you don't want to lose when the tile
-	 * entity unloads In this case, we only need to store the gem colour. For
-	 * examples with other types of data, see MBE20
-	 *
-	 * @param parentNBTTagCompound
-	 * @return
-	 */
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound parentNBTTagCompound) {
 		data.forEach((Integer x, HashMap<Integer, HashMap<Integer, ResourceLocation[]>> xData) -> {
