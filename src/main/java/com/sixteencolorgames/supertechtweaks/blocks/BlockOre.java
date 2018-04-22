@@ -52,19 +52,6 @@ public class BlockOre extends BlockBase {
 		setHardness(3.0f);
 	}
 
-	// @SideOnly(Side.CLIENT)
-	// public void initModel() {
-	// // To make sure that our baked model model is chosen for all states we
-	// use this custom state mapper:
-	// StateMapperBase ignoreState = new StateMapperBase() {
-	// @Override
-	// protected ModelResourceLocation getModelResourceLocation(IBlockState
-	// iBlockState) {
-	// return OreBakedModel.BAKED_MODEL;
-	// }
-	// };
-	// ModelLoader.setCustomStateMapper(this, ignoreState);
-	// }
 	@Override
 	@Deprecated // Forge: State sensitive version
 	protected boolean canSilkHarvest() {
@@ -76,6 +63,19 @@ public class BlockOre extends BlockBase {
 		IProperty[] listedProperties = new IProperty[0]; // no listed properties
 		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { BASE, ORES };
 		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
+	}
+
+	@Override
+	@Deprecated
+	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
+		float hard = 1;
+		for (ResourceLocation rs : OreSavedData.get(worldIn).getOres(pos)) {
+			float t = ((float) GameRegistry.findRegistry(Material.class).getValue(rs).getDensity() / 2.0f);
+			if (t > hard) {
+				hard = t;
+			}
+		}
+		return hard;
 	}
 
 	@SideOnly(Side.CLIENT)

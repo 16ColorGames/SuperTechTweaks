@@ -134,6 +134,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return conductivity;
 	}
 
+	public double getDensity() {
+		return density;
+	}
+
 	public ItemStack getDrops(byte base) {
 		switch (base) {// Switch based on base block
 		case -1:// NetherRack and similar

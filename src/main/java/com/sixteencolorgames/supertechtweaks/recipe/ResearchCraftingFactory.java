@@ -39,7 +39,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 public class ResearchCraftingFactory implements IRecipeFactory {
 	public static class ResearchCraftingRecipe extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
 			implements IRecipe {
-		// TODO: SRG names for non-dev environment
+		// XXX SRG names for non-dev environment
 		/*
 		 * private static final Field eventHandlerField =
 		 * ReflectionHelper.findField(InventoryCrafting.class, "field_70465_c");

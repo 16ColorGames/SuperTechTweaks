@@ -92,7 +92,6 @@ public class ResearchUpdatePacket implements IMessage {
 	}
 
 	public boolean getUnlocked() {
-		// TODO Auto-generated method stub
 		return unlock;
 	}
 
