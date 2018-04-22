@@ -73,7 +73,7 @@ public class ServerEvents {
 	public void onPlayerUnWatchChunk(ChunkWatchEvent.UnWatch e) {
 		int x = e.getChunkInstance().x;
 		int z = e.getChunkInstance().z;
-		if (sentChunks.get(e.getPlayer().getUniqueID()).contains(new Pair(x, z))) {
+		if (sentChunks.containsKey(e.getPlayer().getUniqueID())) {
 			sentChunks.get(e.getPlayer().getUniqueID()).remove(new Pair(x, z));
 		}
 	}

@@ -2,6 +2,8 @@ package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -20,9 +22,10 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Thanks to cmchenry from the forge forums for the basics of this class.
@@ -48,10 +51,10 @@ public class GuiResearchPicker extends GuiScreen {
 			topScrollBar, bottomScrollBar;
 	private float scrollDistance, initialMouseClickY = -2.0F, scrollFactor;
 	private int lastMouseY;
-	private IForgeRegistry<Research> research;
 	private ResourceLocation selected = new ResourceLocation("none:none");
 
 	private ResearchContainer researchContainer;
+	private List<Research> values;
 
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
 		this.player = player;
@@ -60,10 +63,30 @@ public class GuiResearchPicker extends GuiScreen {
 		initialMouseClickY = 0;
 		lastMouseY = 0;
 		slotHeight = 30;
-		research = GameRegistry.findRegistry(Research.class);
-		if (research.containsKey(researchContainer.getTileEntity().getSelected())) {
+		values = cloneList(GameRegistry.findRegistry(Research.class).getValues());
+		ArrayList<String> researched = new ArrayList();
+		NBTTagList tagList = player.getEntityData().getTagList("researched", Constants.NBT.TAG_STRING);
+		for (int i = 0; i < tagList.tagCount(); i++) {
+			researched.add(tagList.getStringTagAt(i));
+		}
+		for (Research r : values) {// only display the valid
+												// researches
+			for (int j = 0; j < r.getRequirementCount(); j++) {
+				if (!researched.contains(r.getRequirements().get(j).toString())) {
+					values.remove(r);
+				}
+			}
+		}
+		if (values.contains(researchContainer.getTileEntity().getSelected())) {
 			selected = researchContainer.getTileEntity().getSelected();
 		}
+	}
+
+	public static List<Research> cloneList(List<Research> list) {
+		List<Research> clone = new ArrayList<Research>(list.size());
+		for (Research item : list)
+			clone.add(item);
+		return clone;
 	}
 
 	@Override
@@ -81,7 +104,7 @@ public class GuiResearchPicker extends GuiScreen {
 		int posY = (height - ySizeOfTexture) / 2;
 		int top = posY + 25;
 		int bottom = posY + 140;
-		int scrollMax = getSize() * slotHeight - (bottom - top - 4);
+		int scrollMax = values.size() * slotHeight - (bottom - top - 4);
 
 		if (scrollMax < 0) {
 			scrollMax /= 2;
@@ -132,7 +155,6 @@ public class GuiResearchPicker extends GuiScreen {
 		bottom = posY + 170;
 		topScrollBar = posY + 10;
 		bottomScrollBar = posY + 170;
-		int listLength = getSize();
 		int scrollBarXStart = posX + 235;
 		int scrollBarXEnd = scrollBarXStart + 12;
 		int boxLeft = posX + 50;
@@ -229,18 +251,18 @@ public class GuiResearchPicker extends GuiScreen {
 
 		// cut out nonvisible stuff
 		GuiResearchPicker.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
-		for (int i = 0; i < listLength; ++i) {
+		for (int i = 0; i < values.size(); ++i) {
 			var19 = var10 + i * slotHeight + 0;
 			var13 = slotHeight - 4;
 
 			if (var19 <= bottom && var19 + var13 >= top) {
-				if (research.getValues().get(i).getRegistryName().equals(selected)) {
+				if (values.get(i).getRegistryName().equals(selected)) {
 					Gui.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
 				}
 
-				drawString(fontRenderer, research.getValues().get(i).getTitle(), posX + 145, var19 + slotHeight / 2 - 4,
+				drawString(fontRenderer, values.get(i).getTitle(), posX + 145, var19 + slotHeight / 2 - 4,
 						Color.white.getRGB());
-				drawItemStack(research.getValues().get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
+				drawItemStack(values.get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
 			}
 		}
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -276,11 +298,7 @@ public class GuiResearchPicker extends GuiScreen {
 	}
 
 	private int getContentHeight() {
-		return research.getValues().size() * slotHeight;
-	}
-
-	private int getSize() {
-		return research.getValues().size();
+		return values.size() * slotHeight;
 	}
 
 	@Override
@@ -298,15 +316,15 @@ public class GuiResearchPicker extends GuiScreen {
 		int var10 = top - (int) scrollDistance;
 
 		int posX = (width - xSizeOfTexture) / 2;
-		for (int i = 0; i < getSize(); ++i) {
+		for (int i = 0; i < values.size(); ++i) {
 			int var19 = var10 + i * slotHeight + 0;
 			int var13 = slotHeight - 4;
 
 			if (var19 <= bottom && var19 + var13 >= top) {
 
 				if (x > posX + 125 && x < posX + 225 && y > var19 && y < var19 + slotHeight) {
-					System.out.println(research.getValues().get(i).getTitle());
-					selected = research.getValues().get(i).getRegistryName();
+					System.out.println(values.get(i).getTitle());
+					selected = values.get(i).getRegistryName();
 					return;
 				}
 			}

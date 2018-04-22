@@ -221,10 +221,7 @@ public class BlockOre extends BlockBase {
 			willHarvest = metalLeft;
 			if (!metalLeft) {// When we have removel all of the ore from the
 								// block...
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());// ...remove
-																			// the
-																			// block
-																			// itself
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			}
 			worldIn.notifyBlockUpdate(pos, state, state, 2);
 

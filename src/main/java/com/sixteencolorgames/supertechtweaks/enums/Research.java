@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -9,11 +10,12 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 public class Research extends IForgeRegistryEntry.Impl<Research> {
 	private NonNullList<ResourceLocation> requirements = NonNullList.create();
 	private int energyRequired = 1000;
-	private ItemStack display;
+	private ItemStack display = new ItemStack(Blocks.DIRT);
 	private String title;
 
 	public Research(String string) {
 		this.setRegistryName(string);
+		title = string;
 	}
 
 	public Research addRequirement(ResourceLocation req) {

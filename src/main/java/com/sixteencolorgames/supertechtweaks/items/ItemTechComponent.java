@@ -14,6 +14,13 @@ import net.minecraftforge.oredict.OreDictionary;
  * @author oa10712
  */
 public class ItemTechComponent extends ItemBase {
+	public final static int BASIC_CIRCUIT = 0;
+	public final static int ADVANCED_CIRCUIT = 1;
+	public final static int ELITE_CIRCUIT = 2;
+	public final static int ULTIMATE_CIRCUIT = 3;
+	public final static int BASIC_CASING = 4;
+	public final static int SMALL_POWER_UNIT = 5;
+	public final static int HEATING_UNIT = 6;
 
 	public ItemTechComponent() {
 		super("itemTechComponent");
@@ -41,19 +48,19 @@ public class ItemTechComponent extends ItemBase {
 	public String getUnlocalizedName(ItemStack stack) {
 		int metadata = stack.getMetadata();
 		switch (metadata) {
-		case 0:
+		case BASIC_CIRCUIT:
 			return super.getUnlocalizedName() + ".circuitBasic";
-		case 1:
+		case ADVANCED_CIRCUIT:
 			return super.getUnlocalizedName() + ".circuitAdvanced";
-		case 2:
+		case ELITE_CIRCUIT:
 			return super.getUnlocalizedName() + ".circuitElite";
-		case 3:
+		case ULTIMATE_CIRCUIT:
 			return super.getUnlocalizedName() + ".circuitUltimate";
-		case 4:
+		case BASIC_CASING:
 			return super.getUnlocalizedName() + ".casingBasic";
-		case 5:
+		case SMALL_POWER_UNIT:
 			return super.getUnlocalizedName() + ".powerUnitSmall";
-		case 6:
+		case HEATING_UNIT:
 			return super.getUnlocalizedName() + ".heatingElement";
 		default:
 			return super.getUnlocalizedName();
@@ -61,29 +68,29 @@ public class ItemTechComponent extends ItemBase {
 	}
 
 	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0,
+		ModelLoader.setCustomModelResourceLocation(this, BASIC_CIRCUIT,
 				new ModelResourceLocation("supertechtweaks:itemBasicCircuit", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 1,
+		ModelLoader.setCustomModelResourceLocation(this, ADVANCED_CIRCUIT,
 				new ModelResourceLocation("supertechtweaks:itemAdvancedCircuit", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 2,
+		ModelLoader.setCustomModelResourceLocation(this, ELITE_CIRCUIT,
 				new ModelResourceLocation("supertechtweaks:itemEliteCircuit", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 3,
+		ModelLoader.setCustomModelResourceLocation(this, ULTIMATE_CIRCUIT,
 				new ModelResourceLocation("supertechtweaks:itemUltimateCircuit", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 4,
+		ModelLoader.setCustomModelResourceLocation(this, BASIC_CASING,
 				new ModelResourceLocation("supertechtweaks:itemCasingBasic", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 5,
+		ModelLoader.setCustomModelResourceLocation(this, SMALL_POWER_UNIT,
 				new ModelResourceLocation("supertechtweaks:itemPowerUnitSmall", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 6,
+		ModelLoader.setCustomModelResourceLocation(this, HEATING_UNIT,
 				new ModelResourceLocation("supertechtweaks:itemHeatingElement", "inventory"));
 	}
 
 	public void setupDictionary() {
-		OreDictionary.registerOre("circuitBasic", new ItemStack(this, 1, 0));
-		OreDictionary.registerOre("circuitAdvanced", new ItemStack(this, 1, 1));
-		OreDictionary.registerOre("circuitElite", new ItemStack(this, 1, 2));
-		OreDictionary.registerOre("circuitUltimate", new ItemStack(this, 1, 3));
-		OreDictionary.registerOre("casingBasic", new ItemStack(this, 1, 4));
-		OreDictionary.registerOre("powerUnitSmall", new ItemStack(this, 1, 5));
-		OreDictionary.registerOre("heatingElement", new ItemStack(this, 1, 6));
+		OreDictionary.registerOre("circuitBasic", new ItemStack(this, 1, BASIC_CIRCUIT));
+		OreDictionary.registerOre("circuitAdvanced", new ItemStack(this, 1, ADVANCED_CIRCUIT));
+		OreDictionary.registerOre("circuitElite", new ItemStack(this, 1, ELITE_CIRCUIT));
+		OreDictionary.registerOre("circuitUltimate", new ItemStack(this, 1, ULTIMATE_CIRCUIT));
+		OreDictionary.registerOre("casingBasic", new ItemStack(this, 1, BASIC_CASING));
+		OreDictionary.registerOre("powerUnitSmall", new ItemStack(this, 1, SMALL_POWER_UNIT));
+		OreDictionary.registerOre("heatingElement", new ItemStack(this, 1, HEATING_UNIT));
 	}
 }
