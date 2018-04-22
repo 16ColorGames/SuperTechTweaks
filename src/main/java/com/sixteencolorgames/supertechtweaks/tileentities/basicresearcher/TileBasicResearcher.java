@@ -73,6 +73,21 @@ public class TileBasicResearcher extends TileMultiBlockController {
 		return super.getCapability(capability, facing);
 	}
 
+	public BlockPos getSelectorpos() {
+		return selectorpos;
+	}
+
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(pos, 3, getUpdateTag());
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -85,17 +100,6 @@ public class TileBasicResearcher extends TileMultiBlockController {
 	public void masterTick() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		return this.writeToNBT(new NBTTagCompound());
 	}
 
 	@Override
@@ -156,10 +160,6 @@ public class TileBasicResearcher extends TileMultiBlockController {
 		compound.setTag("items", itemStackHandler.serializeNBT());
 		compound.setIntArray("selector", new int[] { selectorpos.getX(), selectorpos.getY(), selectorpos.getZ() });
 		return compound;
-	}
-
-	public BlockPos getSelectorpos() {
-		return selectorpos;
 	}
 
 }

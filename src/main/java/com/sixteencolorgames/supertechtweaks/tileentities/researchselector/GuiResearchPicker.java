@@ -34,6 +34,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  *
  */
 public class GuiResearchPicker extends GuiScreen {
+	public static List<Research> cloneList(List<Research> list) {
+		List<Research> clone = new ArrayList<Research>(list.size());
+		for (Research item : list) {
+			clone.add(item);
+		}
+		return clone;
+	}
+
 	// FIXME re-logging causes the selected research to clear on the gui; the
 	// server remembers it just fine
 	public static void scissor(int x, int y, int w, int h) {
@@ -52,9 +60,10 @@ public class GuiResearchPicker extends GuiScreen {
 			topScrollBar, bottomScrollBar;
 	private float scrollDistance, initialMouseClickY = -2.0F, scrollFactor;
 	private int lastMouseY;
-	private ResourceLocation selected = new ResourceLocation("none:none");
 
+	private ResourceLocation selected = new ResourceLocation("none:none");
 	private ResearchContainer researchContainer;
+
 	private List<Research> values;
 
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
@@ -70,8 +79,8 @@ public class GuiResearchPicker extends GuiScreen {
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			researched.add(tagList.getStringTagAt(i));
 		}
-		for (Research r : values) {// only display the valid
-									// researches
+		for (Research r : cloneList(values)) {// only display the valid
+			// researches
 			for (int j = 0; j < r.getRequirementCount(); j++) {
 				if (!researched.contains(r.getRequirements().get(j).toString())) {
 					values.remove(r);
@@ -81,13 +90,6 @@ public class GuiResearchPicker extends GuiScreen {
 		if (values.contains(researchContainer.getTileEntity().getSelected())) {
 			selected = researchContainer.getTileEntity().getSelected();
 		}
-	}
-
-	public static List<Research> cloneList(List<Research> list) {
-		List<Research> clone = new ArrayList<Research>(list.size());
-		for (Research item : list)
-			clone.add(item);
-		return clone;
 	}
 
 	@Override
@@ -249,6 +251,32 @@ public class GuiResearchPicker extends GuiScreen {
 		}
 		applyScrollLimits();
 		var10 = top - (int) scrollDistance;
+		// TODO render selected info
+
+		if (!selected.equals(new ResourceLocation("none:none"))) {
+			Research value = GameRegistry.findRegistry(Research.class).getValue(selected);
+			fontRenderer.drawSplitString(value.getTitle(), posX + 5, posY + 5, 100, Color.black.getRGB());
+			if (value.getDependentCount() != 0) {
+				fontRenderer.drawString("Dependents:", posX + 5, posY + fontRenderer.FONT_HEIGHT + 5,
+						Color.black.getRGB());
+				int rowC = 2;
+				for (int i = 0; i < value.getDependentCount(); i++) {
+					List<String> split = fontRenderer.listFormattedStringToWidth(
+							GameRegistry.findRegistry(Research.class).getValue(value.getDependents().get(i)).getTitle(),
+							90);
+					for (int j = 0; j < split.size(); j++) {
+						if (j == 0) {
+							fontRenderer.drawString(split.get(j), posX + 15,
+									posY + fontRenderer.FONT_HEIGHT * (rowC) + 5, Color.black.getRGB());
+						} else {
+							fontRenderer.drawString(split.get(j), posX + 25,
+									posY + fontRenderer.FONT_HEIGHT * (rowC) + 5, Color.black.getRGB());
+						}
+						rowC++;
+					}
+				}
+			}
+		}
 
 		// cut out nonvisible stuff
 		GuiResearchPicker.scissor(posX + 125, bottom - 12, 100, bottom - top - 12);
@@ -260,9 +288,9 @@ public class GuiResearchPicker extends GuiScreen {
 				if (values.get(i).getRegistryName().equals(selected)) {
 					Gui.drawRect(posX + 125, var19, posX + 125 + 100, var19 + slotHeight, 0xffa4a1a1);
 				}
-
-				drawString(fontRenderer, values.get(i).getTitle(), posX + 145, var19 + slotHeight / 2 - 4,
+				fontRenderer.drawSplitString(values.get(i).getTitle(), posX + 145, var19 + slotHeight / 2 - 4, 75,
 						Color.white.getRGB());
+
 				drawItemStack(values.get(i).getDisplay(), posX + 125, var19 + slotHeight / 2 - 8, "");
 			}
 		}

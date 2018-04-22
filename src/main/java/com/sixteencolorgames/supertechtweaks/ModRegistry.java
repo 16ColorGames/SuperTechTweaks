@@ -41,6 +41,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
@@ -280,6 +281,7 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
+		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
 		event.getRegistry()
 				.register(new Research("automation").setEnergyRequired(1000)
 						.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1, ItemTechComponent.SMALL_POWER_UNIT))
@@ -291,6 +293,37 @@ public class ModRegistry {
 										ItemTechComponent.BASIC_CIRCUIT))
 								.setTitle("Basic Electrinics").setEnergyRequired(1000)
 								.addRequirement(new ResourceLocation("supertechtweaks:automation")));
+		event.getRegistry().register(new Research("optics").setTitle("Optics").setDisplay(new ItemStack(Blocks.TORCH)));
+		event.getRegistry()
+				.register(new Research("combustion").setTitle("Combustion").setDisplay(new ItemStack(Items.GUNPOWDER)));
+		event.getRegistry()
+				.register(new Research("logistics").setTitle("Logistics").setDisplay(new ItemStack(Blocks.HOPPER)));
+		event.getRegistry().register(
+				new Research("metallurgy").setTitle("Metallurgy").setDisplay(new ItemStack(Items.BLAZE_POWDER)));
+		event.getRegistry()
+				.register(new Research("advancediron1").setTitle("Advanced Iron Processing 1")
+						.setDisplay(new ItemStack(Items.IRON_INGOT))
+						.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
+		event.getRegistry()
+				.register(new Research("advancedcopper1").setTitle("Advanced Copper Processing 1")
+						.setDisplay(new ItemStack(
+								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+								MaterialItem.INGOT))
+				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
+		event.getRegistry().register(new Research("steel").setTitle("Steel").setDisplay(new ItemStack(Items.IRON_INGOT))
+				.addRequirement(new ResourceLocation("supertechtweaks:advancediron1")));
+		event.getRegistry()
+				.register(new Research("solarenergy").setTitle("Solar Energy").setDisplay(new ItemStack(Blocks.TORCH))
+						.addRequirement(new ResourceLocation("supertechtweaks:optics"))
+						.addRequirement(new ResourceLocation("supertechtweaks:electronics")));
+		event.getRegistry()
+				.register(new Research("engines").setTitle("Engines").setDisplay(new ItemStack(Blocks.LIT_FURNACE))
+						.addRequirement(new ResourceLocation("supertechtweaks:steel"))
+						.addRequirement(new ResourceLocation("supertechtweaks:combustion"))
+						.addRequirement(new ResourceLocation("automation2")));
+		event.getRegistry()
+				.register(new Research("automation2").setTitle("Automation 2").setDisplay(new ItemStack(Blocks.TORCH))
+						.addRequirement(new ResourceLocation("supertechtweaks:electronics")));
 	}
 
 	@SubscribeEvent

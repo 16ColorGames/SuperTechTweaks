@@ -4,11 +4,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Research extends IForgeRegistryEntry.Impl<Research> {
 	private NonNullList<ResourceLocation> requirements = NonNullList.create();
+	private NonNullList<ResourceLocation> dependents = NonNullList.create();
 	private int energyRequired = 1000;
 	private ItemStack display = new ItemStack(Blocks.DIRT);
 	private String title;
@@ -18,9 +18,21 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 		title = string;
 	}
 
+	public void addDependent(Research res) {
+		dependents.add(res.getRegistryName());
+	}
+
 	public Research addRequirement(ResourceLocation req) {
 		requirements.add(req);
 		return this;
+	}
+
+	public int getDependentCount() {
+		return dependents.size();
+	}
+
+	public NonNullList<ResourceLocation> getDependents() {
+		return dependents;
 	}
 
 	public ItemStack getDisplay() {
@@ -29,13 +41,6 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 
 	public int getEnergyRequired() {
 		return energyRequired;
-	}
-
-	public Research getParent() {
-		if (getRequirementCount() != 0) {
-			return GameRegistry.findRegistry(Research.class).getValue(requirements.get(0));
-		}
-		return null;
 	}
 
 	public int getRequirementCount() {

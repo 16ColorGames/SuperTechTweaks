@@ -9,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Proxy functions common to both the client and server side
@@ -74,7 +76,17 @@ public abstract class CommonProxy {
 			}
 		}
 		System.out.println("Generators Loaded");
-
+		IForgeRegistry<Research> research = GameRegistry.findRegistry(Research.class);
+		research.forEach((res) -> {
+			res.getRequirements().forEach((req) -> {
+				Research req2 = research.getValue(req);
+				if (req2 != null) {
+					req2.addDependent(res);
+				} else {
+					System.out.println("Missing research registration: " + req);
+				}
+			});
+		});
 	}
 
 	public void preInit(FMLPreInitializationEvent e) {

@@ -17,6 +17,10 @@ public abstract class TileMultiBlock extends TileEntity {
 		return (tile != null && (tile instanceof TileMultiBlockController));
 	}
 
+	public TileMultiBlock getMaster() {
+		return (TileMultiBlock) world.getTileEntity(new BlockPos(masterX, masterY, masterZ));
+	}
+
 	public int getMasterX() {
 		return masterX;
 	}
@@ -29,6 +33,17 @@ public abstract class TileMultiBlock extends TileEntity {
 		return masterZ;
 	}
 
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(pos, 3, getUpdateTag());
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
+
 	public boolean hasMaster() {
 		return hasMaster;
 	}
@@ -37,8 +52,10 @@ public abstract class TileMultiBlock extends TileEntity {
 		return isMaster;
 	}
 
-	public TileMultiBlock getMaster() {
-		return (TileMultiBlock) world.getTileEntity(new BlockPos(masterX, masterY, masterZ));
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		super.onDataPacket(net, pkt);
+		handleUpdateTag(pkt.getNbtCompound());
 	}
 
 	@Override
@@ -78,23 +95,6 @@ public abstract class TileMultiBlock extends TileEntity {
 		masterY = y;
 		masterZ = z;
 		markDirty();
-	}
-
-	@Override
-	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		return this.writeToNBT(new NBTTagCompound());
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		super.onDataPacket(net, pkt);
-		handleUpdateTag(pkt.getNbtCompound());
 	}
 
 	@Override
