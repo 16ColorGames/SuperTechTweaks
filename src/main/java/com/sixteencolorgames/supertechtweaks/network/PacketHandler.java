@@ -5,6 +5,7 @@
  */
 package com.sixteencolorgames.supertechtweaks.network;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -23,16 +24,32 @@ public class PacketHandler {
 		return packetId++;
 	}
 
+	public static String readStringFromBuffer(ByteBuf buf) {
+		int len = buf.readInt();
+		String ret = "";
+		for (int i = 0; i < len; i++) {
+			ret += buf.readChar();
+		}
+		return ret;
+	}
+
 	public static void registerMessages() {
-		// Register messages which are sent from the client to the server here:
-		// if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 		INSTANCE.registerMessage(UpdateOresPacket.Handler.class, UpdateOresPacket.class, nextID(), Side.CLIENT);
-		// }
+		INSTANCE.registerMessage(UpdateResearchUnlocksPacket.Handler.class, UpdateResearchUnlocksPacket.class, nextID(),
+				Side.CLIENT);
+
 	}
 
 	public static void registerMessages(String channelName) {
 		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
 		registerMessages();
+	}
+
+	public static void writeStringToBuffer(ByteBuf buf, String str) {
+		buf.writeInt(str.length());
+		for (int i = 0; i < str.length(); i++) {
+			buf.writeChar(str.charAt(i));
+		}
 	}
 
 	public PacketHandler() {

@@ -61,7 +61,8 @@ public class ResearchUpdatePacket implements IMessage {
 			messageType = buf.readInt();
 			switch (messageType) {
 			case SELECTION_UPDATE:
-				selected = new ResourceLocation(readStringFromBuffer(buf), readStringFromBuffer(buf));
+				selected = new ResourceLocation(PacketHandler.readStringFromBuffer(buf),
+						PacketHandler.readStringFromBuffer(buf));
 				unlock = buf.readBoolean();
 				break;
 			}
@@ -99,15 +100,6 @@ public class ResearchUpdatePacket implements IMessage {
 		return messageIsValid;
 	}
 
-	private String readStringFromBuffer(ByteBuf buf) {
-		int len = buf.readInt();
-		String ret = "";
-		for (int i = 0; i < len; i++) {
-			ret += buf.readChar();
-		}
-		return ret;
-	}
-
 	public void setUnlock(boolean b) {
 		unlock = b;
 
@@ -131,8 +123,8 @@ public class ResearchUpdatePacket implements IMessage {
 		buf.writeInt(messageType);
 		switch (messageType) {
 		case SELECTION_UPDATE:
-			writeStringToBuffer(buf, selected.getResourceDomain());
-			writeStringToBuffer(buf, selected.getResourcePath());
+			PacketHandler.writeStringToBuffer(buf, selected.getResourceDomain());
+			PacketHandler.writeStringToBuffer(buf, selected.getResourcePath());
 			buf.writeBoolean(unlock);
 			break;
 		}
@@ -149,10 +141,4 @@ public class ResearchUpdatePacket implements IMessage {
 				+ selected.toString() + "]";
 	}
 
-	private void writeStringToBuffer(ByteBuf buf, String str) {
-		buf.writeInt(str.length());
-		for (int i = 0; i < str.length(); i++) {
-			buf.writeChar(str.charAt(i));
-		}
-	}
 }

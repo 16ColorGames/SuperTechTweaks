@@ -65,7 +65,6 @@ public class GuiResearchPicker extends GuiScreen {
 
 	private List<Research> values;
 
-	// FIXME doesn't display properly researched items
 	public GuiResearchPicker(EntityPlayer player, ResearchContainer researchContainer) {
 		this.player = player;
 		this.researchContainer = researchContainer;

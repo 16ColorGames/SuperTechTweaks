@@ -80,12 +80,12 @@ public class ServerEvents {
 
 	@SubscribeEvent
 	public void onPlayerWatchChunk(ChunkWatchEvent.Watch e) {
-		int x = e.getChunkInstance().x;
-		int z = e.getChunkInstance().z;
+		int x = e.getChunk().x;
+		int z = e.getChunk().z;
 		handleOreUpdate(e.getPlayer(), x, z);
 
 		OreSavedData get = OreSavedData.get(e.getPlayer().world);
-		Chunk chunk = e.getChunkInstance();
+		Chunk chunk = e.getPlayer().world.getChunkFromChunkCoords(x, z);
 		NBTTagCompound forChunk = get.getForChunk(x, z);
 
 		World world = e.getPlayer().world;

@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
+import com.sixteencolorgames.supertechtweaks.network.UpdateResearchUnlocksPacket;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -51,6 +54,13 @@ public class ResearchSavedData extends WorldSavedData {
 		return researched.get(player.getUniqueID()).contains(research);
 	}
 
+	public NonNullList<ResourceLocation> getPlayerResearched(EntityPlayer player) {
+		if (!researched.containsKey(player.getUniqueID())) {
+			researched.put(player.getUniqueID(), NonNullList.create());
+		}
+		return researched.get(player.getUniqueID());
+	}
+
 	public void playerUnlockResearch(EntityPlayer player, ResourceLocation selected) {
 		if (!researched.containsKey(player.getUniqueID())) {
 			researched.put(player.getUniqueID(), NonNullList.create());
@@ -59,6 +69,8 @@ public class ResearchSavedData extends WorldSavedData {
 			researched.get(player.getUniqueID()).add(selected);
 		}
 		markDirty();
+		UpdateResearchUnlocksPacket packet = new UpdateResearchUnlocksPacket(player);
+		PacketHandler.INSTANCE.sendTo(packet, (EntityPlayerMP) player);
 		System.out.println("Unlocking " + selected + " for " + player.getName());
 	}
 
@@ -76,6 +88,10 @@ public class ResearchSavedData extends WorldSavedData {
 			}
 			researched.put(from, locs);
 		});
+	}
+
+	public void readFromUpdate(UUID id, NonNullList<ResourceLocation> locs) {
+		researched.put(id, locs);
 	}
 
 	@Override

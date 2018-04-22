@@ -40,6 +40,14 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 	public static class ResearchCraftingRecipe extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
 			implements IRecipe {
 		// TODO: SRG names for non-dev environment
+		/*
+		 * private static final Field eventHandlerField =
+		 * ReflectionHelper.findField(InventoryCrafting.class, "field_70465_c");
+		 * private static final Field containerPlayerPlayerField =
+		 * ReflectionHelper.findField(ContainerPlayer.class, "field_82862_h");
+		 * private static final Field slotCraftingPlayerField =
+		 * ReflectionHelper.findField(SlotCrafting.class, "field_75238_b");
+		 */
 		private static final Field eventHandlerField = ReflectionHelper.findField(InventoryCrafting.class,
 				"eventHandler");
 		private static final Field containerPlayerPlayerField = ReflectionHelper.findField(ContainerPlayer.class,
@@ -47,6 +55,7 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 		private static final Field slotCraftingPlayerField = ReflectionHelper.findField(SlotCrafting.class, "player");
 
 		private static EntityPlayer findPlayer(InventoryCrafting inv) {
+
 			try {
 				Container container = (Container) eventHandlerField.get(inv);
 				if (container instanceof ContainerPlayer) {
@@ -129,7 +138,8 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 		public boolean matches(InventoryCrafting inv, World worldIn) {
 			for (ResourceLocation req : research) {
 				EntityPlayer player = findPlayer(inv);
-				if (!ResearchSavedData.get(player.world).getPlayerHasResearch(player, req)) {
+				if (player == null || player.world == null
+						|| !ResearchSavedData.get(player.world).getPlayerHasResearch(player, req)) {
 					return false;
 				}
 
