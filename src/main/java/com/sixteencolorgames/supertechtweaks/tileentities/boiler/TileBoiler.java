@@ -14,11 +14,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -56,6 +58,22 @@ public class TileBoiler extends TileMultiBlockController {
 		water.setCanDrain(false);
 	}
 
+	private void attemptSteamPush() {
+		for (EnumFacing face : EnumFacing.VALUES) {
+			BlockPos offset = pos.add(0, 1, 0).offset(face);
+			TileEntity tile = world.getTileEntity(offset);
+			if (tile != null
+					&& tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face.getOpposite())) {
+				int attempt = Math.min(getMaxExtract(), steam.getFluidAmount());
+				IFluidHandler otherTank = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+						face.getOpposite());
+				int receiveSteam = otherTank.fill(new FluidStack(ModRegistry.steam, attempt), true);
+				steam.drain(receiveSteam, true);
+			}
+		}
+
+	}
+
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		// If we are too far away from this tile entity you cannot use it
 		return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
@@ -87,6 +105,11 @@ public class TileBoiler extends TileMultiBlockController {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
 		}
 		return super.getCapability(capability, facing);
+	}
+
+	private int getMaxExtract() {
+		// TODO base this off something
+		return 200;
 	}
 
 	public FluidTank getSteam() {
@@ -135,6 +158,7 @@ public class TileBoiler extends TileMultiBlockController {
 						}
 					}
 				}
+				attemptSteamPush();
 			}
 		}
 

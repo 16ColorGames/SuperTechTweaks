@@ -8,6 +8,7 @@ import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.BlockColor;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.ModelLoaderCable;
+import com.sixteencolorgames.supertechtweaks.tileentities.pipe.ModelLoaderPipe;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -103,6 +104,7 @@ public class ClientProxy extends CommonProxy {
 		// ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
 		ModelLoaderRegistry.registerLoader(new BakedModelLoader());
 		ModelLoaderRegistry.registerLoader(new ModelLoaderCable());
+		ModelLoaderRegistry.registerLoader(new ModelLoaderPipe());
 	}
 
 	@Override

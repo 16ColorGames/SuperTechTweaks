@@ -26,6 +26,10 @@ import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
+import com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput.BlockMultiPowerOutput;
+import com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput.TileMultiPowerOutput;
+import com.sixteencolorgames.supertechtweaks.tileentities.pipe.BlockPipe;
+import com.sixteencolorgames.supertechtweaks.tileentities.pipe.TilePipe;
 import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.BlockPressureTank;
 import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.TilePressureTank;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
@@ -71,7 +75,9 @@ public class ModRegistry {
 	public static BlockOre superore;
 	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 	public static BlockMultiPowerInput blockMultiPowerInput;
+	public static BlockMultiPowerOutput blockMultiPowerOutput;
 	public static BlockCable blockCable;
+	public static BlockPipe blockPipe;
 	public static BlockBoiler blockBoiler;
 	public static BlockPressureTank blockPressureTank;
 
@@ -119,6 +125,7 @@ public class ModRegistry {
 	@SideOnly(Side.CLIENT)
 	public static void initItemModels() {
 		blockCable.initItemModel();
+		blockPipe.initItemModel();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -130,7 +137,9 @@ public class ModRegistry {
 		blockMultiWall.initModel();
 		blockSolidFuelGenerator.initModel();
 		blockMultiPowerInput.initModel();
+		blockMultiPowerOutput.initModel();
 		blockCable.initModel();
+		blockPipe.initModel();
 		itemTechComponent.registerModels();
 	}
 
@@ -166,9 +175,17 @@ public class ModRegistry {
 		event.getRegistry().register(blockMultiPowerInput);
 		GameRegistry.registerTileEntity(TileMultiPowerInput.class, SuperTechTweaksMod.MODID + "_tilemultipowerinput");
 
+		blockMultiPowerOutput = new BlockMultiPowerOutput();
+		event.getRegistry().register(blockMultiPowerOutput);
+		GameRegistry.registerTileEntity(TileMultiPowerOutput.class, SuperTechTweaksMod.MODID + "_tilemultipoweroutput");
+
 		blockCable = new BlockCable();
 		event.getRegistry().register(blockCable);
 		GameRegistry.registerTileEntity(TileCable.class, SuperTechTweaksMod.MODID + "_tilecable");
+
+		blockPipe = new BlockPipe();
+		event.getRegistry().register(blockPipe);
+		GameRegistry.registerTileEntity(TilePipe.class, SuperTechTweaksMod.MODID + "_tilepipe");
 
 		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
 		event.getRegistry().register(blockSolidFuelGenerator);
@@ -190,7 +207,10 @@ public class ModRegistry {
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockMultiPowerInput).setRegistryName(blockMultiPowerInput.getRegistryName()));
+		event.getRegistry().register(
+				new ItemBlock(blockMultiPowerOutput).setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockPipe).setRegistryName(blockPipe.getRegistryName()));
 		event.getRegistry().register(
 				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 
