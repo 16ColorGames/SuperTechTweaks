@@ -237,7 +237,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 		super.writeToNBT(compound);
 		compound.setInteger("energy", energy);
 		compound.setInteger("capacity", capacity);
-		compound.setInteger("maxRecieve", maxExtract);
+		compound.setInteger("maxExport", maxExtract);
 		compound.setInteger("facing", facing.ordinal());
 		return compound;
 	}

@@ -101,11 +101,25 @@ public class BlockMultiWall extends BlockMulti {
 				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
 	private boolean isMulti(IBlockAccess world, BlockPos pos, EnumFacing facing) {
 		TileEntity tileEntity = getTileEntitySafely(world, pos.offset(facing));
 		if (tileEntity != null) {
 			return tileEntity instanceof TileMultiBlock;
 		}
+		return false;
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks
+	 * for render
+	 */
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 

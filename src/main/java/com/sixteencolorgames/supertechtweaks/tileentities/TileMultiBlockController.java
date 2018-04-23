@@ -26,15 +26,18 @@ public abstract class TileMultiBlockController extends TileMultiBlock implements
 
 	@Override
 	public void update() {
-		if (!world.isRemote) {
-			if (hasMaster()) {
-				masterTick();
-			} else {
-				// Constantly check if structure is formed until it is.
-				if (checkMultiBlockForm()) {
-					setupStructure();
-				}
+
+		if (world.isRemote) {
+			return;
+		}
+		if (hasMaster()) {
+			masterTick();
+		} else {
+			// Constantly check if structure is formed until it is.
+			if (checkMultiBlockForm()) {
+				setupStructure();
 			}
+
 		}
 	}
 }
