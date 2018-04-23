@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "supertechtweaks:blockboiler" },
+        "facing=south": { "model": "supertechtweaks:blockboiler", "y": 180 },
+        "facing=west":  { "model": "supertechtweaks:blockboiler", "y": 270 },
+        "facing=east":  { "model": "supertechtweaks:blockboiler", "y": 90 }
+    }
+}

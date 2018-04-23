@@ -8,6 +8,9 @@ import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._4_bronz
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._5_diamond;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._6_obsidian;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
@@ -17,16 +20,22 @@ import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.BlockBoiler;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
+import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.BlockPressureTank;
+import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.TilePressureTank;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -36,6 +45,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -46,10 +59,12 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
 public class ModRegistry {
+	final static String fluidTexturePrefix = SuperTechTweaksMod.MODID + ":blocks/fluid_";
 
 	public static final int BASIC_RESEARCHER = 1;
 	public static final int RESEARCH_SELECTER = 2;
 	public static final int SOLID_GENERATOR = 3;
+	public static final int BOILER = 4;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
@@ -57,10 +72,49 @@ public class ModRegistry {
 	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 	public static BlockMultiPowerInput blockMultiPowerInput;
 	public static BlockCable blockCable;
+	public static BlockBoiler blockBoiler;
+	public static BlockPressureTank blockPressureTank;
+
+	public static Fluid steam = createFluid("steam", true,
+			fluid -> fluid.setLuminosity(10).setDensity(-1600).setViscosity(100).setGaseous(true),
+			fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.CLAY)));
 
 	public static ItemTechComponent itemTechComponent;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
+
+	/**
+	 * Create a {@link Fluid} and its {@link IFluidBlock}, or use the existing
+	 * ones if a fluid has already been registered with the same name.
+	 *
+	 * @param name
+	 *            The name of the fluid
+	 * @param hasFlowIcon
+	 *            Does the fluid have a flow icon?
+	 * @param fluidPropertyApplier
+	 *            A function that sets the properties of the {@link Fluid}
+	 * @param blockFactory
+	 *            A function that creates the {@link IFluidBlock}
+	 * @return The fluid and block
+	 */
+	private static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon,
+			Consumer<Fluid> fluidPropertyApplier, Function<Fluid, T> blockFactory) {
+
+		final ResourceLocation still = new ResourceLocation(fluidTexturePrefix + name + "_still");
+		final ResourceLocation flowing = hasFlowIcon ? new ResourceLocation(fluidTexturePrefix + name + "_flow")
+				: still;
+
+		Fluid fluid = new Fluid(name, still, flowing);
+		final boolean useOwnFluid = FluidRegistry.registerFluid(fluid);
+
+		if (useOwnFluid) {
+			fluidPropertyApplier.accept(fluid);
+		} else {
+			fluid = FluidRegistry.getFluid(name);
+		}
+
+		return fluid;
+	}
 
 	@SideOnly(Side.CLIENT)
 	public static void initItemModels() {
@@ -70,6 +124,8 @@ public class ModRegistry {
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		basicResearcherBlock.initModel();
+		blockBoiler.initModel();
+		blockPressureTank.initModel();
 		blockResearchViewer.initModel();
 		blockMultiWall.initModel();
 		blockSolidFuelGenerator.initModel();
@@ -86,6 +142,10 @@ public class ModRegistry {
 		event.getRegistry().register(basicResearcherBlock);
 		GameRegistry.registerTileEntity(TileBasicResearcher.class, SuperTechTweaksMod.MODID + "_basicresearcherblock");
 
+		blockBoiler = new BlockBoiler();
+		event.getRegistry().register(blockBoiler);
+		GameRegistry.registerTileEntity(TileBoiler.class, SuperTechTweaksMod.MODID + "_tileboiler");
+
 		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
 		GameRegistry.registerTileEntity(TileResearchSelector.class,
@@ -97,6 +157,10 @@ public class ModRegistry {
 		blockMultiWall = new BlockMultiWall();
 		event.getRegistry().register(blockMultiWall);
 		GameRegistry.registerTileEntity(TileMultiWall.class, SuperTechTweaksMod.MODID + "_tilemultiwall");
+
+		blockPressureTank = new BlockPressureTank();
+		event.getRegistry().register(blockPressureTank);
+		GameRegistry.registerTileEntity(TilePressureTank.class, SuperTechTweaksMod.MODID + "_tilepressuretank");
 
 		blockMultiPowerInput = new BlockMultiPowerInput();
 		event.getRegistry().register(blockMultiPowerInput);
@@ -117,6 +181,9 @@ public class ModRegistry {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry()
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
+		event.getRegistry()
+				.register(new ItemBlock(blockPressureTank).setRegistryName(blockPressureTank.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockBoiler).setRegistryName(blockBoiler.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));

@@ -94,6 +94,7 @@ public class ClientProxy extends CommonProxy {
 			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, m.getBlock());
 		});
 		ModRegistry.initItemModels();
+		System.out.println(ModRegistry.steam);
 	}
 
 	@Override

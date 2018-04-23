@@ -3,6 +3,9 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.ContainerBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.GuiBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.ContainerBoiler;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.GuiBoiler;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.GuiResearchPicker;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchContainer;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
@@ -37,6 +40,11 @@ public class GuiProxy implements IGuiHandler {
 			ResearchContainer researchContainer = new ResearchContainer(player.inventory, containerTileEntity);
 			return new GuiResearchPicker(player, researchContainer);
 		}
+		if (te instanceof TileBoiler) {
+			TileBoiler containerTileEntity = (TileBoiler) te;
+			ContainerBoiler researchContainer = new ContainerBoiler(player.inventory, containerTileEntity);
+			return new GuiBoiler(containerTileEntity, researchContainer);
+		}
 		return null;
 	}
 
@@ -52,6 +60,9 @@ public class GuiProxy implements IGuiHandler {
 		}
 		if (te instanceof TileResearchSelector) {
 			return new ResearchContainer(player.inventory, (TileResearchSelector) te);
+		}
+		if (te instanceof TileBoiler) {
+			return new ContainerBoiler(player.inventory, (TileBoiler) te);
 		}
 		return null;
 	}

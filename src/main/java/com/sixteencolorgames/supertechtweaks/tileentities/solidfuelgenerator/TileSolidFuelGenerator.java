@@ -37,7 +37,6 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 	protected int capacity;
 	protected int maxExtract;
 
-	// This item handler will hold our nine inventory slots
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
 		@Override
 		protected void onContentsChanged(int slot) {
@@ -167,9 +166,9 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 			itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
 		}
 		burnTime = compound.getInteger("burnTime");
+		totalBurnTime = compound.getInteger("totalBurnTime");
 		energy = compound.getInteger("energy");
 		capacity = compound.getInteger("capacity");
-		totalBurnTime = compound.getInteger("totalBurnTime");
 		maxExtract = compound.getInteger("maxExtract");
 	}
 
@@ -222,9 +221,9 @@ public class TileSolidFuelGenerator extends TileEntity implements IEnergyStorage
 		super.writeToNBT(compound);
 		compound.setTag("items", itemStackHandler.serializeNBT());
 		compound.setInteger("burnTime", burnTime);
+		compound.setInteger("totalBurnTime", totalBurnTime);
 		compound.setInteger("energy", energy);
 		compound.setInteger("capacity", capacity);
-		compound.setInteger("totalBurnTime", totalBurnTime);
 		compound.setInteger("maxExtract", maxExtract);
 		return compound;
 	}

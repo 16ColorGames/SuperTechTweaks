@@ -49,7 +49,6 @@ public class BlockOre extends BlockBase {
 
 	public BlockOre() {
 		super(net.minecraft.block.material.Material.ROCK, "superore");
-		setHardness(3.0f);
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class BlockOre extends BlockBase {
 	@Override
 	@Deprecated
 	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
-		float hard = 1;
+		float hard = 1.5f;
 		for (ResourceLocation rs : OreSavedData.get(worldIn).getOres(pos)) {
 			float t = ((float) GameRegistry.findRegistry(Material.class).getValue(rs).getDensity() / 2.0f);
 			if (t > hard) {
