@@ -2,7 +2,7 @@
     "parent": "block/orientable",
     "textures": {
         "top": "supertechtweaks:blocks/powerinput",
-        "front": "blocks/furnace_front_off",
-        "side": "supertechtweaks:blocks/powerinput"
+        "front": "supertechtweaks:blocks/boiler_front_off",
+        "side": "supertechtweaks:blocks/boilerside"
     }
 }

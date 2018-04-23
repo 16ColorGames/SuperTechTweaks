@@ -2,9 +2,10 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "blocks/furnace_top"
+      "end": "blocks/furnace_top",
+	  "side": "supertechtweaks:blocks/pressuretank"
     },
-    "model": "cube_all",
+    "model": "cube_column",
     "uvlock": true
   },
   "variants": {
