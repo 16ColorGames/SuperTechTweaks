@@ -1,4 +1,8 @@
 {
+  "variants": {
+    "inventory": [{
+            "model":"supertechtweaks:multi/cube"}]
+  },
    "multipart":[
       {
          "when":{

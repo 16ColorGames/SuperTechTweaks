@@ -80,7 +80,6 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			}
 			return true;
 		}
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -105,12 +104,14 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 
 	@Override
 	public void masterTick() {
-		// TODO Auto-generated method stub
 		if (steamInternal.getFluidAmount() > 0 && energy < capacity) {
 			FluidStack drain = steamInternal.drainInternal(20, true);
 			energy += Math.min(drain.amount, (capacity - energy));
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, getPos().getX(), getPos().getY() + 1, getPos().getZ(),
-					Math.random() - .5, Math.random() * 2, Math.random() - .5);
+			double motionX = world.rand.nextGaussian() * 0.02D;
+			double motionY = world.rand.nextGaussian() * 0.02D + .05;
+			double motionZ = world.rand.nextGaussian() * 0.02D;
+			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, getPos().getX(), getPos().getY() + 1, getPos().getZ(),
+					motionX, motionY, motionZ);
 		}
 
 	}

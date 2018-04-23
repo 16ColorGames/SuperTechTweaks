@@ -75,8 +75,8 @@ public class BlockPipe extends BlockContainer {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		state = state.getActualState(source, pos);
-		float minSize = 0.2F;
-		float maxSize = 0.8F;
+		float minSize = 0.25F;
+		float maxSize = 0.75F;
 		float minX = canConnect(source, pos, EnumFacing.WEST) ? 0.0F : minSize;
 		float minY = canConnect(source, pos, EnumFacing.DOWN) ? 0.0F : minSize;
 		float minZ = canConnect(source, pos, EnumFacing.NORTH) ? 0.0F : minSize;

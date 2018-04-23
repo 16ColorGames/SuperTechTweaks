@@ -36,8 +36,6 @@ import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.BlockPres
 import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.TilePressureTank;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.BlockSteamEngine;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
 
@@ -77,7 +75,6 @@ public class ModRegistry {
 	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
 	public static BlockOre superore;
-	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 	public static BlockMultiPowerInput blockMultiPowerInput;
 	public static BlockMultiPowerOutput blockMultiPowerOutput;
 	public static BlockMultiFluidInput blockMultiFluidInput;
@@ -142,7 +139,6 @@ public class ModRegistry {
 		blockSteamEngine.initModel();
 		blockResearchViewer.initModel();
 		blockMultiWall.initModel();
-		blockSolidFuelGenerator.initModel();
 		blockMultiFluidInput.initModel();
 		blockMultiPowerInput.initModel();
 		blockMultiPowerOutput.initModel();
@@ -203,11 +199,6 @@ public class ModRegistry {
 		event.getRegistry().register(blockPipe);
 		GameRegistry.registerTileEntity(TilePipe.class, SuperTechTweaksMod.MODID + "_tilepipe");
 
-		blockSolidFuelGenerator = new BlockSolidFuelGenerator(false);
-		event.getRegistry().register(blockSolidFuelGenerator);
-		GameRegistry.registerTileEntity(TileSolidFuelGenerator.class,
-				SuperTechTweaksMod.MODID + "_tilesolidfuelgenerator");
-
 	}
 
 	@SubscribeEvent
@@ -231,8 +222,6 @@ public class ModRegistry {
 				new ItemBlock(blockMultiPowerOutput).setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockPipe).setRegistryName(blockPipe.getRegistryName()));
-		event.getRegistry().register(
-				new ItemBlock(blockSolidFuelGenerator).setRegistryName(blockSolidFuelGenerator.getRegistryName()));
 
 		itemTechComponent = new ItemTechComponent();
 		event.getRegistry().register(itemTechComponent);

@@ -36,8 +36,8 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 			// BlocksCore.lit_extruder.getDefaultState().withProperty(FACING,
 			// iblockstate.getValue(FACING)), 3);
 		} else {
-			worldIn.setBlockState(pos, ModRegistry.blockSolidFuelGenerator.getDefaultState().withProperty(FACING,
-					iblockstate.getValue(FACING)), 3);
+			worldIn.setBlockState(pos,
+					ModRegistry.blockBoiler.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		}
 
 		if (tileentity != null) {

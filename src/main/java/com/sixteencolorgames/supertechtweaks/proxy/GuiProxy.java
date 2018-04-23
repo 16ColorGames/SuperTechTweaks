@@ -9,9 +9,6 @@ import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.GuiResearchPicker;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.ResearchContainer;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.ContainerSolidFuelGenerator;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.GuiSolidFuelGenerator;
-import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -29,11 +26,6 @@ public class GuiProxy implements IGuiHandler {
 			TileBasicResearcher containerTileEntity = (TileBasicResearcher) te;
 			return new GuiBasicResearcher(containerTileEntity,
 					new ContainerBasicResearcher(player.inventory, containerTileEntity));
-		}
-		if (te instanceof TileSolidFuelGenerator) {
-			TileSolidFuelGenerator containerTileEntity = (TileSolidFuelGenerator) te;
-			return new GuiSolidFuelGenerator(containerTileEntity,
-					new ContainerSolidFuelGenerator(player.inventory, containerTileEntity));
 		}
 		if (te instanceof TileResearchSelector) {
 			TileResearchSelector containerTileEntity = (TileResearchSelector) te;
@@ -54,9 +46,6 @@ public class GuiProxy implements IGuiHandler {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TileBasicResearcher) {
 			return new ContainerBasicResearcher(player.inventory, (TileBasicResearcher) te);
-		}
-		if (te instanceof TileSolidFuelGenerator) {
-			return new ContainerSolidFuelGenerator(player.inventory, (TileSolidFuelGenerator) te);
 		}
 		if (te instanceof TileResearchSelector) {
 			return new ResearchContainer(player.inventory, (TileResearchSelector) te);

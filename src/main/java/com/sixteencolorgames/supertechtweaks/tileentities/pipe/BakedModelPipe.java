@@ -80,7 +80,7 @@ public class BakedModelPipe implements IBakedModel {
 		Boolean up = extendedBlockState.getValue(BlockPipe.UP);
 		Boolean down = extendedBlockState.getValue(BlockPipe.DOWN);
 		List<BakedQuad> quads = new ArrayList<>();
-		double o = .2;
+		double o = .25;
 
 		// For each side we either cap it off if there is no similar block
 		// adjacent on that side

@@ -1,11 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "cube_top",
+    "model": "cube_column",
     "textures": {
-        "top": "blocks/furnace_top",
-        "front": "blocks/furnace_front_off",
-        "side": "blocks/furnace_side"
+        "end": "supertechtweaks:blocks/multiwall",
+        "side": "supertechtweaks:blocks/researchselector"
     }
   },
   "variants": {
