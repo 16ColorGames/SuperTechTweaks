@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -105,6 +106,8 @@ public class ClientProxy extends CommonProxy {
 		ModelLoaderRegistry.registerLoader(new BakedModelLoader());
 		ModelLoaderRegistry.registerLoader(new ModelLoaderCable());
 		ModelLoaderRegistry.registerLoader(new ModelLoaderPipe());
+		OBJLoader.INSTANCE.addDomain(SuperTechTweaksMod.MODID);
+
 	}
 
 	@Override
