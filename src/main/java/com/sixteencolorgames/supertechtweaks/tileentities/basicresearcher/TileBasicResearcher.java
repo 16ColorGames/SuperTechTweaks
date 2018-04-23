@@ -14,12 +14,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TileBasicResearcher extends TileMultiBlockController {
+public class TileBasicResearcher extends TileMultiBlockController implements IEnergyStorage {
 	public static final int SIZE = 9;
 	private BlockPos selectorpos;
+	protected int energy;
+	protected int capacity;
+	protected int maxReceive;
 
 	// This item handler will hold our nine inventory slots
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
@@ -31,9 +35,25 @@ public class TileBasicResearcher extends TileMultiBlockController {
 		}
 	};
 
+	public TileBasicResearcher() {
+		energy = 0;
+		capacity = 10000;
+		maxReceive = 1000;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return false;
+	}
+
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		// If we are too far away from this tile entity you cannot use it
 		return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
+	}
+
+	@Override
+	public boolean canReceive() {
+		return true;
 	}
 
 	@Override
@@ -66,11 +86,26 @@ public class TileBasicResearcher extends TileMultiBlockController {
 	}
 
 	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		return 0;
+	}
+
+	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
 		}
 		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return energy;
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return capacity;
 	}
 
 	public BlockPos getSelectorpos() {
@@ -118,6 +153,18 @@ public class TileBasicResearcher extends TileMultiBlockController {
 			int[] arr = compound.getIntArray("selector");
 			selectorpos = new BlockPos(arr[0], arr[1], arr[2]);
 		}
+		maxReceive = compound.getInteger("maxRecieve");
+		energy = compound.getInteger("energy");
+		capacity = compound.getInteger("capacity");
+	}
+
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+		if (!simulate) {
+			energy += energyReceived;
+		}
+		return energyReceived;
 	}
 
 	@Override
@@ -163,6 +210,9 @@ public class TileBasicResearcher extends TileMultiBlockController {
 		if (selectorpos != null) {
 			compound.setIntArray("selector", new int[] { selectorpos.getX(), selectorpos.getY(), selectorpos.getZ() });
 		}
+		compound.setInteger("energy", energy);
+		compound.setInteger("capacity", capacity);
+		compound.setInteger("maxRecieve", maxReceive);
 		return compound;
 	}
 

@@ -24,6 +24,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.boiler.BlockBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
+import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.BlockMultiFluidInput;
+import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.TileMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput.BlockMultiPowerOutput;
@@ -36,6 +38,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.Block
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.BlockSolidFuelGenerator;
 import com.sixteencolorgames.supertechtweaks.tileentities.solidfuelgenerator.TileSolidFuelGenerator;
+import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.BlockSteamEngine;
+import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -76,10 +80,12 @@ public class ModRegistry {
 	public static BlockSolidFuelGenerator blockSolidFuelGenerator;
 	public static BlockMultiPowerInput blockMultiPowerInput;
 	public static BlockMultiPowerOutput blockMultiPowerOutput;
+	public static BlockMultiFluidInput blockMultiFluidInput;
 	public static BlockCable blockCable;
 	public static BlockPipe blockPipe;
 	public static BlockBoiler blockBoiler;
 	public static BlockPressureTank blockPressureTank;
+	public static BlockSteamEngine blockSteamEngine;
 
 	public static Fluid steam = createFluid("steam", true,
 			fluid -> fluid.setLuminosity(10).setDensity(-1600).setViscosity(100).setGaseous(true),
@@ -133,9 +139,11 @@ public class ModRegistry {
 		basicResearcherBlock.initModel();
 		blockBoiler.initModel();
 		blockPressureTank.initModel();
+		blockSteamEngine.initModel();
 		blockResearchViewer.initModel();
 		blockMultiWall.initModel();
 		blockSolidFuelGenerator.initModel();
+		blockMultiFluidInput.initModel();
 		blockMultiPowerInput.initModel();
 		blockMultiPowerOutput.initModel();
 		blockCable.initModel();
@@ -154,6 +162,10 @@ public class ModRegistry {
 		blockBoiler = new BlockBoiler();
 		event.getRegistry().register(blockBoiler);
 		GameRegistry.registerTileEntity(TileBoiler.class, SuperTechTweaksMod.MODID + "_tileboiler");
+
+		blockSteamEngine = new BlockSteamEngine();
+		event.getRegistry().register(blockSteamEngine);
+		GameRegistry.registerTileEntity(TileSteamEngine.class, SuperTechTweaksMod.MODID + "_tilesteamengine");
 
 		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
@@ -174,6 +186,10 @@ public class ModRegistry {
 		blockMultiPowerInput = new BlockMultiPowerInput();
 		event.getRegistry().register(blockMultiPowerInput);
 		GameRegistry.registerTileEntity(TileMultiPowerInput.class, SuperTechTweaksMod.MODID + "_tilemultipowerinput");
+
+		blockMultiFluidInput = new BlockMultiFluidInput();
+		event.getRegistry().register(blockMultiFluidInput);
+		GameRegistry.registerTileEntity(TileMultiFluidInput.class, SuperTechTweaksMod.MODID + "_tilemultifluidinput");
 
 		blockMultiPowerOutput = new BlockMultiPowerOutput();
 		event.getRegistry().register(blockMultiPowerOutput);
@@ -202,11 +218,15 @@ public class ModRegistry {
 				.register(new ItemBlock(blockPressureTank).setRegistryName(blockPressureTank.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockBoiler).setRegistryName(blockBoiler.getRegistryName()));
 		event.getRegistry()
+				.register(new ItemBlock(blockSteamEngine).setRegistryName(blockSteamEngine.getRegistryName()));
+		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockMultiPowerInput).setRegistryName(blockMultiPowerInput.getRegistryName()));
+		event.getRegistry()
+				.register(new ItemBlock(blockMultiFluidInput).setRegistryName(blockMultiFluidInput.getRegistryName()));
 		event.getRegistry().register(
 				new ItemBlock(blockMultiPowerOutput).setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
