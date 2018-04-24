@@ -21,14 +21,16 @@ public class Config {
 	public static ArrayList<IBlockState> nether;
 	public static ArrayList<IBlockState> end;
 	public static boolean removeVanilla;
+	public static boolean debug;
 	public static String extraDrop;
 
 	private static void initGeneralConfig(Configuration cfg) {
 		cfg.addCustomCategoryComment(CATEGORY_GENERAL, "General configuration");
 		// cfg.getBoolean() will get the value in the config if it is already
 		// specified there. If not it will create the value.
-		removeVanilla = cfg.getBoolean("removeVanilla", CATEGORY_GENERAL, false,
+		removeVanilla = cfg.getBoolean("removeVanilla", CATEGORY_GENERAL, true,
 				"If vanilla generation should be removed");
+		removeVanilla = cfg.getBoolean("debug", CATEGORY_GENERAL, false, "If debug info should be printed to the log");
 		// extraDrop = cfg.getString("extraDrop", CATEGORY_GENERAL, "null", "the
 		// name of the additional block that an ore should drop when broken.");
 		// gets a string list from the config or creates one with default values

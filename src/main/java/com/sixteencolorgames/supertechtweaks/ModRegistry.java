@@ -446,7 +446,7 @@ public class ModRegistry {
 				.register(new Research("engines").setTitle("Engines").setDisplay(new ItemStack(Blocks.LIT_FURNACE))
 						.addRequirement(new ResourceLocation("supertechtweaks:steel"))
 						.addRequirement(new ResourceLocation("supertechtweaks:combustion"))
-						.addRequirement(new ResourceLocation("automation2")));
+						.addRequirement(new ResourceLocation("supertechtweaks:automation2")));
 		event.getRegistry()
 				.register(new Research("automation2").setTitle("Automation 2").setDisplay(new ItemStack(Blocks.TORCH))
 						.addRequirement(new ResourceLocation("supertechtweaks:electronics")));

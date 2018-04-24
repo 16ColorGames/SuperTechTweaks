@@ -78,6 +78,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 					}
 				}
 			}
+			facing = face;
 			return true;
 		}
 		return false;
@@ -95,6 +96,10 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 	@Override
 	public int getEnergyStored() {
 		return energy;
+	}
+
+	public EnumFacing getFacing() {
+		return facing;
 	}
 
 	@Override
@@ -170,6 +175,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 				}
 			}
 		}
+		facing = EnumFacing.DOWN;
 	}
 
 	@Override

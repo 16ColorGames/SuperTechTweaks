@@ -83,9 +83,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		itemBlock.setRegistryName(block.getRegistryName());
 
 		itemMaterial = new MaterialItem(this);
-		System.out.println("Calculated for: " + name + "," + (1 / resistance) + ","
-				+ Math.floor((1 / resistance) * conductivity * 32) + ","
-				+ Math.floor((1 / conductivity) * 100 * density));
 	}
 
 	/**

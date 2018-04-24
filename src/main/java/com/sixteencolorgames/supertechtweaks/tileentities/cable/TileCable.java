@@ -161,7 +161,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 		if (acceptors.size() > 0) {
 			int drain = Math.min(power, getTransferRate());
-			int energyShare = (int) Math.ceil(drain / acceptors.size());
+			int energyShare = (int) Math.ceil(((double) drain) / ((double) acceptors.size()));
 			int remainingEnergy = drain;
 
 			if (energyShare > 0) {

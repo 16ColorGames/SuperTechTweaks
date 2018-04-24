@@ -1,8 +1,12 @@
 {
     "variants": {
-        "facing=north": { "model": "supertechtweaks:blockboiler" },
-        "facing=south": { "model": "supertechtweaks:blockboiler", "y": 180 },
-        "facing=west":  { "model": "supertechtweaks:blockboiler", "y": 270 },
-        "facing=east":  { "model": "supertechtweaks:blockboiler", "y": 90 }
+        "facing=north,part=false": { "model": "supertechtweaks:blockboiler" },
+        "facing=south,part=false": { "model": "supertechtweaks:blockboiler", "y": 180 },
+        "facing=west,part=false":  { "model": "supertechtweaks:blockboiler", "y": 270 },
+        "facing=east,part=false":  { "model": "supertechtweaks:blockboiler", "y": 90 },
+        "facing=south,part=true": { "model": "supertechtweaks:boiler.obj" },
+        "facing=north,part=true": { "model": "supertechtweaks:boiler.obj", "y": 180 },
+        "facing=east,part=true":  { "model": "supertechtweaks:boiler.obj", "y": 270 },
+        "facing=west,part=true":  { "model": "supertechtweaks:boiler.obj", "y": 90 }
     }
 }

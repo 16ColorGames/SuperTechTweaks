@@ -1,15 +1,23 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "end": "supertechtweaks:blocks/fluidoutput",
-	  "side": "supertechtweaks:blocks/pressuretank"
-    },
-    "model": "cube_column",
-    "uvlock": true
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
+   "variants":{
+      "inventory":[
+         {
+            "textures":{
+               "end":"supertechtweaks:blocks/fluidoutput",
+               "side":"supertechtweaks:blocks/pressuretank"
+            },
+            "model":"cube_column"
+         }
+      ],
+      "part=false":{
+         "textures":{
+            "end":"supertechtweaks:blocks/fluidoutput",
+            "side":"supertechtweaks:blocks/pressuretank"
+         },
+         "model":"cube_column"
+      },
+	   "part=true":{
+		  "model":"supertechtweaks:empty.obj"
+	   }
+   }
 }

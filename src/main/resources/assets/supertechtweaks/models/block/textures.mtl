@@ -1,0 +1,11 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl steamengine
+map_Kd supertechtweaks:blocks/steamengine
+
+newmtl multiwall
+map_Kd supertechtweaks:blocks/multiwall
+
+newmtl boilerfront
+map_Kd supertechtweaks:blocks/boiler_front_off

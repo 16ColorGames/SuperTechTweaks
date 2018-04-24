@@ -136,7 +136,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 
 		if (acceptors.size() > 0) {
 			int drain = Math.min(tank.getFluidAmount(), getTransferRate());
-			int fluidShare = (int) Math.ceil(drain / acceptors.size());
+			int fluidShare = (int) Math.ceil(((double) drain) / ((double) acceptors.size()));
 			int remainingFluid = drain;
 
 			if (fluidShare > 0) {

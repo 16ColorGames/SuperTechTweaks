@@ -16,6 +16,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +32,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class GenerationParser {
 
 	private static Object[] getWeightedOre(JsonObject ore) {
-		System.out.println("    Parsing weighted ore: ");
+		if (Config.debug) {
+			System.out.println("    Parsing weighted ore: ");
+		}
 		double weight;
 		if (ore.has("weight")) {
 			weight = ore.get("weight").getAsDouble();
@@ -39,7 +42,6 @@ public class GenerationParser {
 			weight = 1.0;
 		}
 		String name = ore.get("ore").getAsString();
-		System.out.println("      " + name + " weight: " + weight);
 		return new Object[] { GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(name)), weight };
 	}
 
@@ -51,13 +53,17 @@ public class GenerationParser {
 			if (props.has("clusterVariance") && props.get("clusterVariance").isJsonPrimitive()) {
 				params.put("clusterVariance", props.get("clusterVariance").getAsInt());
 			} else {
-				System.out.println("Invalid/missing entry for clusterVariance, setting to 0");
+				if (Config.debug) {
+					System.out.println("Invalid/missing entry for clusterVariance, setting to 0");
+				}
 				params.put("clusterVariance", 0);
 			}
 			if (props.has("perChunk") && props.get("perChunk").isJsonPrimitive()) {
 				params.put("perChunk", props.get("perChunk").getAsInt());
 			} else {
-				System.out.println("Invalid/missing entry for perChunk, setting to 1");
+				if (Config.debug) {
+					System.out.println("Invalid/missing entry for perChunk, setting to 1");
+				}
 				params.put("perChunk", 1);
 			}
 		} else {
@@ -70,25 +76,37 @@ public class GenerationParser {
 
 	private static Map<Material, Double> parseOres(JsonElement oreElement) {
 		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
-		System.out.println("Parsing ores.");
+		if (Config.debug) {
+			System.out.println("Parsing ores.");
+		}
 		HashMap<Material, Double> ores = new HashMap();
 		if (oreElement.isJsonArray()) {
-			System.out.println("Parsing as array.");
+			if (Config.debug) {
+				System.out.println("Parsing as array.");
+			}
 			JsonArray array = oreElement.getAsJsonArray();
 			for (JsonElement element : array) {
 				if (element.isJsonPrimitive()) {
-					System.out.println("  Ore Found: " + oreElement.getAsString());
+					if (Config.debug) {
+						System.out.println("  Ore Found: " + oreElement.getAsString());
+					}
 					ores.put(mats.getValue(new ResourceLocation(element.getAsString())), 1.0);
 				} else {
-					System.out.println("  Weighted Ore Found:");
+					if (Config.debug) {
+						System.out.println("  Weighted Ore Found:");
+					}
 					Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
 					ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
 				}
 			}
 		} else {
-			System.out.println("Parsing as primative.");
+			if (Config.debug) {
+				System.out.println("Parsing as primative.");
+			}
 			if (oreElement.isJsonPrimitive()) {
-				System.out.println("  Ore Found: " + oreElement.getAsString());
+				if (Config.debug) {
+					System.out.println("  Ore Found: " + oreElement.getAsString());
+				}
 				ores.put(mats.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
 			} else {
 				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
@@ -96,7 +114,9 @@ public class GenerationParser {
 			}
 		}
 		ores.forEach((k, v) -> {
-			System.out.println(k.getName() + ":" + v);
+			if (Config.debug) {
+				System.out.println(k.getName() + ":" + v);
+			}
 		});
 		return ores;
 	}
@@ -116,14 +136,18 @@ public class GenerationParser {
 		try {
 			genList = (JsonObject) parser.parse(new InputStreamReader(new FileInputStream(config), "utf8"));
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException | UnsupportedEncodingException t) {
-			System.err.println("Critical error reading from a world generation file: " + config
-					+ " > Please be sure the file is correct!");
+			if (Config.debug) {
+				System.err.println("Critical error reading from a world generation file: " + config
+						+ " > Please be sure the file is correct!");
+			}
 		}
 		for (Entry<String, JsonElement> genEntry : genList.entrySet()) {
 			String key = genEntry.getKey();// Generator Name
 			JsonObject entry = genEntry.getValue().getAsJsonObject();// Generator
 			// Properties
-			System.out.println("Loading generator: " + key);
+			if (Config.debug) {
+				System.out.println("Loading generator: " + key);
+			}
 
 			String[] required = new String[] { "generator", "minHeight", "maxHeight", "chance" };// ensures
 																									// that
@@ -141,7 +165,9 @@ public class GenerationParser {
 				}
 			}
 			if (!valid) {
-				System.err.println("Generator is missing required tags: " + key);
+				if (Config.debug) {
+					System.err.println("Generator is missing required tags: " + key);
+				}
 				break;
 			}
 			String generatorType = entry.get("generator").getAsString();
