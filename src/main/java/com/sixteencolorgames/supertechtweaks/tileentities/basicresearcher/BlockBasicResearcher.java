@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+//TODO something in here isn't rendering the multiblock
 public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 	public static final PropertyBool PART = PropertyBool.create("part");
 
@@ -76,6 +77,9 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return 0;
+	}	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
 	}
 
 	@SideOnly(Side.CLIENT)

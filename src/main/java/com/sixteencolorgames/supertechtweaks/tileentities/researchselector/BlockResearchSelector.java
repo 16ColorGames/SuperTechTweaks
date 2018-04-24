@@ -38,6 +38,11 @@ public class BlockResearchSelector extends Block implements ITileEntityProvider 
 				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
 	/**
 	 * Called when the block is right clicked by a player.
 	 */

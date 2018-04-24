@@ -1,20 +1,21 @@
 {
-   "defaults":{
-      "model":"cube_all",
-      "textures":{
-         "all":"supertechtweaks:blocks/basicresearcher"
-      }
-   },
    "variants":{
       "part=false":{
+         "model":"cube_all",
+         "textures":{
+            "all":"supertechtweaks:blocks/basicresearcher"
+         }
       },
       "part=true":{
          "model":"supertechtweaks:research.obj"
-      }
-   },
+      },
    "inventory":[
       {
-
+         "model":"cube_all",
+         "textures":{
+            "all":"supertechtweaks:blocks/basicresearcher"
+         }
       }
    ]
+   }
 }

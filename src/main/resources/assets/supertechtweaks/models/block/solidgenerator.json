@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "top": "supertechtweaks:blocks/powerinput",
-        "front": "blocks/furnace_front_off",
-        "side": "supertechtweaks:blocks/powerinput"
-    }
-}
