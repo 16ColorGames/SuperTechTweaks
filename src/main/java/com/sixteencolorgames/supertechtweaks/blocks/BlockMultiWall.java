@@ -3,8 +3,6 @@ package com.sixteencolorgames.supertechtweaks.blocks;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
-import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
-import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -12,13 +10,10 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -109,25 +104,4 @@ public class BlockMultiWall extends BlockMulti {
 		return false;
 	}
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (playerIn.isSneaking()) {
-			return false;
-		} else {
-			if (!worldIn.isRemote) {
-				if (worldIn.getTileEntity(pos) instanceof TileMultiWall) {
-					TileMultiWall te = (TileMultiWall) worldIn.getTileEntity(pos);
-					if (te.hasMaster()) {
-						TileBasicResearcher master = (TileBasicResearcher) te.getMaster();
-						TileResearchSelector selector = (TileResearchSelector) worldIn
-								.getTileEntity(master.getSelectorpos());
-						playerIn.sendMessage(new TextComponentString("Selected: " + selector.getSelected().toString()));
-					}
-				}
-			}
-		}
-		return true;
-
-	}
 }

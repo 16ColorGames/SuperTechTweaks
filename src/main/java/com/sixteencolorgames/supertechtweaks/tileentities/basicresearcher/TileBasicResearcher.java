@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -94,6 +95,9 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
+		}
+		if (capability == CapabilityEnergy.ENERGY) {
+			return (T) this;
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -190,9 +194,8 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 					// Check if block is center block
 					boolean master = (x == getPos().getX() && y == getPos().getY() && z == getPos().getZ());
 					if (tile != null && (tile instanceof TileMultiBlock)) {
-						((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
-						((TileMultiBlock) tile).setHasMaster(true);
 						((TileMultiBlock) tile).setIsMaster(master);
+						((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 					}
 					if (tile instanceof TileResearchSelector) {
 						selectorpos = new BlockPos(x, y, z);

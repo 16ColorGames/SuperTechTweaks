@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -72,16 +73,9 @@ public abstract class TileMultiBlock extends TileEntity {
 	}
 
 	public void reset() {
-		masterX = 0;
-		masterY = 0;
-		masterZ = 0;
+		setMasterCoords(0, 0, 0);
 		hasMaster = false;
 		isMaster = false;
-		markDirty();
-	}
-
-	public void setHasMaster(boolean bool) {
-		hasMaster = bool;
 		markDirty();
 	}
 
@@ -94,7 +88,15 @@ public abstract class TileMultiBlock extends TileEntity {
 		masterX = x;
 		masterY = y;
 		masterZ = z;
+		if (x == y && z == 0 && x == 0) {
+			hasMaster = false;
+		} else {
+			hasMaster = true;
+		}
 		markDirty();
+		IBlockState iblockstate = world.getBlockState(pos);
+		final int FLAGS = 3; // I'm not sure what these flags do, exactly.
+		world.notifyBlockUpdate(pos, iblockstate, iblockstate, FLAGS);
 	}
 
 	@Override

@@ -193,11 +193,9 @@ public class TileBoiler extends TileMultiBlockController {
 	public void setupStructure() {
 		TileEntity tile = world.getTileEntity(getPos().add(0, 1, 0));
 		if (tile != null && (tile instanceof TileMultiBlock)) {
-			((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
-			((TileMultiBlock) tile).setHasMaster(true);
 			((TileMultiBlock) tile).setIsMaster(false);
+			((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 		}
-		setHasMaster(true);
 		setIsMaster(true);
 		setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 

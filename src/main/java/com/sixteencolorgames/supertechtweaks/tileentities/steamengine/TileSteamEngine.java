@@ -226,11 +226,9 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			contained.add((TileMultiBlock) behind2);
 			contained.add((TileMultiBlock) behind3);
 			contained.forEach((multi) -> {
-				multi.setHasMaster(true);
 				multi.setIsMaster(false);
 				multi.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			});
-			setHasMaster(true);
 			setIsMaster(true);
 			setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			System.out.println("Structure formed in " + face);
