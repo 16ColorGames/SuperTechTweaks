@@ -17,6 +17,7 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
+import com.sixteencolorgames.supertechtweaks.items.ItemTool;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
@@ -84,9 +85,6 @@ public class ModRegistry {
 	public static BlockPressureTank blockPressureTank;
 	public static BlockSteamEngine blockSteamEngine;
 
-	public static ItemBase itemHammer;
-	public static ItemBase itemPliers;
-	public static ItemBase itemDrawPlate;
 	public static ItemTechComponent itemTechComponent;
 
 	public static Fluid steam = createFluid("steam", true,
@@ -132,9 +130,6 @@ public class ModRegistry {
 	public static void initItemModels() {
 		blockCable.initItemModel();
 		blockPipe.initItemModel();
-		itemHammer.registerItemModel();
-		itemPliers.registerItemModel();
-		itemDrawPlate.registerItemModel();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -232,13 +227,6 @@ public class ModRegistry {
 		itemTechComponent = new ItemTechComponent();
 		event.getRegistry().register(itemTechComponent);
 		itemTechComponent.setupDictionary();
-
-		itemHammer = new ItemBase("hammer");
-		event.getRegistry().register(itemHammer);
-		itemPliers = new ItemBase("pliers");
-		event.getRegistry().register(itemPliers);
-		itemDrawPlate = new ItemBase("drawplate");
-		event.getRegistry().register(itemDrawPlate);
 	}
 
 	@SubscribeEvent

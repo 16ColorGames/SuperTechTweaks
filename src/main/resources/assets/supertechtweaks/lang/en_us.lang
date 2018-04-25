@@ -20,9 +20,6 @@ item.supertechtweaks.itemTechComponent.circuitUltimate.name=Ultimate Circuit
 item.supertechtweaks.itemTechComponent.casingBasic.name=Basic Casing
 item.supertechtweaks.itemTechComponent.heatingElement.name=Heating Element
 item.supertechtweaks.itemTechComponent.powerUnitSmall.name=Small Power Unit
-item.supertechtweaks.hammer.name=Hammer
-item.supertechtweaks.pliers.name=Pliers
-item.supertechtweaks.drawplate.name=Draw Plate
 
 
 #generic titles
@@ -45,6 +42,9 @@ item.supertechtweaks.rod.name=%s Rod
 item.supertechtweaks.shard.name=%s Shard
 item.supertechtweaks.wire.name=%s Wire
 tile.supertechtweaks.block.name=Block of %s
+item.supertechtweaks.hammer.name=%s Hammer
+item.supertechtweaks.pliers.name=%s Pliers
+item.supertechtweaks.drawPlate.name=%s Draw Plate
 
 #specialized names, mostly multiple words
 supertechtweaks.entry.StainlessSteel=Stainless Steel

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
+import com.sixteencolorgames.supertechtweaks.items.ItemTool;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
@@ -16,11 +17,15 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Material extends IForgeRegistryEntry.Impl<Material> {
@@ -229,5 +234,35 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("coin" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.BLADE);
 		OreDictionary.registerOre("blade" + getName(), subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.HAMMER);
+		OreDictionary.registerOre("hammer" + getName(), subItemStack);
+		OreDictionary.registerOre("toolHammer", subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.PLIERS);
+		OreDictionary.registerOre("pliers" + getName(), subItemStack);
+		OreDictionary.registerOre("toolPliers", subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.DRAW_PLATE);
+		OreDictionary.registerOre("drawplate" + getName(), subItemStack);
+		OreDictionary.registerOre("toolDrawPlate", subItemStack);
+
+		// register hammer
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapedOreRecipe(new ResourceLocation("hammers"),
+						new ItemStack(this.getMaterialItem(), 1, MaterialItem.HAMMER),
+						new Object[] { new String[] { " x ", " sx", "s  " }, 'x', new OreIngredient("ingot" + name),
+								's', new OreIngredient("stickWood") }).setRegistryName(SuperTechTweaksMod.MODID,
+										"hammer" + this.name));
+
+		// register pliers
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapedOreRecipe(new ResourceLocation("pliers"),
+						new ItemStack(this.getMaterialItem(), 1, MaterialItem.PLIERS),
+						new Object[] { new String[] { "x x", " p ", "s s" }, 'x', new OreIngredient("ingot" + name),
+								'p', new OreIngredient("plate" + name), 's', new OreIngredient("stickWood") })
+										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + this.name));
+
+	}
+
+	public int getShear() {
+		return shear;
 	}
 }

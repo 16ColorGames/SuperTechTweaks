@@ -6,7 +6,8 @@
       "ore": "ingotIron"
     },
     {
-		"item":"supertechtweaks:hammer"
+      "type": "forge:ore_dict",
+      "ore": "toolHammer"
     }
   ],
   "result": {

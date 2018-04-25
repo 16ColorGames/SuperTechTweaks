@@ -46,7 +46,7 @@ public class MetalColor implements IItemColor {
 
 				default:
 					// oops! should never get here.
-					return Color.BLACK.getRGB();
+					return Color.WHITE.getRGB();
 
 				}
 			} else {
@@ -54,11 +54,11 @@ public class MetalColor implements IItemColor {
 				case 0:
 					return metal.getColor();
 				default:
-					return Color.BLACK.getRGB();
+					return Color.WHITE.getRGB();
 				}
 			}
 		} catch (Exception ex) {
-			return Color.BLACK.getRGB();
+			return Color.WHITE.getRGB();
 		}
 	}
 }

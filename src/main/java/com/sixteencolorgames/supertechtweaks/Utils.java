@@ -13,6 +13,9 @@ import java.io.OutputStream;
 
 import org.apache.logging.log4j.core.util.Loader;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 /**
  *
  * @author oa10712
@@ -35,4 +38,19 @@ public class Utils {
 
 		copyFileUsingStream(source, new File(dest));
 	}
+
+	public static void setNBTInt(ItemStack stack, String key, int val) {
+		getTag(stack).setInteger(key, val);
+	}
+
+	public static int getNBTInt(ItemStack stack, String key) {
+		return stack.hasTagCompound() ? getTag(stack).getInteger(key) : 0;
+	}
+
+	public static NBTTagCompound getTag(ItemStack stack) {
+		if (!stack.hasTagCompound())
+			stack.setTagCompound(new NBTTagCompound());
+		return stack.getTagCompound();
+	}
+
 }
