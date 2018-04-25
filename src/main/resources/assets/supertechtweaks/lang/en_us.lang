@@ -20,6 +20,9 @@ item.supertechtweaks.itemTechComponent.circuitUltimate.name=Ultimate Circuit
 item.supertechtweaks.itemTechComponent.casingBasic.name=Basic Casing
 item.supertechtweaks.itemTechComponent.heatingElement.name=Heating Element
 item.supertechtweaks.itemTechComponent.powerUnitSmall.name=Small Power Unit
+item.supertechtweaks.hammer.name=Hammer
+item.supertechtweaks.pliers.name=Pliers
+item.supertechtweaks.drawplate.name=Draw Plate
 
 
 #generic titles

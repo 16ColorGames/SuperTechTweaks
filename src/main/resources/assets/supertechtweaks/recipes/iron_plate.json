@@ -1,0 +1,16 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    {
+		"item":"supertechtweaks:hammer"
+    }
+  ],
+  "result": {
+    "item": "supertechtweaks:itemIron",
+    "data": 4
+  }
+}

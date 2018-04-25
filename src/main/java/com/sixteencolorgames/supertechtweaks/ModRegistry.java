@@ -15,6 +15,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
@@ -69,8 +70,7 @@ public class ModRegistry {
 
 	public static final int BASIC_RESEARCHER = 1;
 	public static final int RESEARCH_SELECTER = 2;
-	public static final int SOLID_GENERATOR = 3;
-	public static final int BOILER = 4;
+	public static final int BOILER = 3;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
@@ -84,11 +84,14 @@ public class ModRegistry {
 	public static BlockPressureTank blockPressureTank;
 	public static BlockSteamEngine blockSteamEngine;
 
+	public static ItemBase itemHammer;
+	public static ItemBase itemPliers;
+	public static ItemBase itemDrawPlate;
+	public static ItemTechComponent itemTechComponent;
+
 	public static Fluid steam = createFluid("steam", true,
 			fluid -> fluid.setLuminosity(10).setDensity(-1600).setViscosity(100).setGaseous(true),
 			fluid -> new BlockFluidClassic(fluid, new MaterialLiquid(MapColor.CLAY)));
-
-	public static ItemTechComponent itemTechComponent;
 
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
@@ -129,6 +132,9 @@ public class ModRegistry {
 	public static void initItemModels() {
 		blockCable.initItemModel();
 		blockPipe.initItemModel();
+		itemHammer.registerItemModel();
+		itemPliers.registerItemModel();
+		itemDrawPlate.registerItemModel();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -226,6 +232,13 @@ public class ModRegistry {
 		itemTechComponent = new ItemTechComponent();
 		event.getRegistry().register(itemTechComponent);
 		itemTechComponent.setupDictionary();
+
+		itemHammer = new ItemBase("hammer");
+		event.getRegistry().register(itemHammer);
+		itemPliers = new ItemBase("pliers");
+		event.getRegistry().register(itemPliers);
+		itemDrawPlate = new ItemBase("drawplate");
+		event.getRegistry().register(itemDrawPlate);
 	}
 
 	@SubscribeEvent
