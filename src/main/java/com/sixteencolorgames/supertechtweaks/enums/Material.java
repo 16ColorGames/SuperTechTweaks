@@ -1,12 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
-import java.awt.Color;
+import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._0_stone;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
+import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
@@ -30,6 +32,119 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Material extends IForgeRegistryEntry.Impl<Material> {
+	public ItemStack customDrops = null;
+
+	public static class MaterialBuilder {
+		Material building;
+
+		public MaterialBuilder(String name) {
+			building = new Material(name, 0x000000, -1, _0_stone, 5.0, 999999, 10, 30, 15, 200, 150);
+		}
+
+		public Material build() {
+			building.block = new BlockMaterial(building);
+
+			building.itemBlock = new MaterialItemBlock(building.block, building);
+			building.itemBlock.setRegistryName(building.block.getRegistryName());
+
+			building.itemMaterial = new MaterialItem(building);
+			return building;
+		}
+
+		/**
+		 * Bulk Modulus measured in GPa.
+		 *
+		 * This is how much pressure applied inward this material can withstand.
+		 */
+		public MaterialBuilder setBulkModulus(int mod) {
+			building.bulk = mod;
+			return this;
+		}
+
+		/**
+		 * The RGB code for the color of this
+		 */
+		public MaterialBuilder setColor(int color) {
+			building.color = color;
+			return this;
+		}
+
+		/**
+		 * density measured in g/cm3 at room temperature
+		 */
+		public MaterialBuilder setDensity(double density) {
+			building.density = density;
+			return this;
+		}
+
+		/**
+		 * Electrical resistance measured in nΩ·m (at 20 °C)
+		 */
+		public MaterialBuilder setElectricalResistance(double resistance) {
+			building.resistance = resistance;
+			return this;
+		}
+
+		/**
+		 * The harvest level of this
+		 */
+		public MaterialBuilder setHarvestLevel(int level) {
+			building.harvest = level;
+			return this;
+		}
+
+		/**
+		 * Shear modulus measured in GPa
+		 *
+		 * This is how much pressure applied sideways this material can
+		 * withstand.
+		 */
+		public MaterialBuilder setShearModulus(int shear) {
+			building.shear = shear;
+			return this;
+		}
+
+		/**
+		 * thermal conductivity measured in W/(m·K)
+		 */
+		public MaterialBuilder setThermalConductivity(double conductivity) {
+			building.conductivity = conductivity;
+			return this;
+		}
+
+		/**
+		 * thermal expansion measured in µm/(m·K) (at 25 °C)
+		 */
+		public MaterialBuilder setThermalExpansion(double expansion) {
+			building.expansion = expansion;
+			return this;
+		}
+
+		/**
+		 * Level that a tool made of this can mine
+		 */
+		public MaterialBuilder setToolLevel(int level) {
+			building.mine = level;
+			return this;
+		}
+
+		/**
+		 * Young's modulus measured in GPa
+		 *
+		 * This is how much pressure applied outward this material can
+		 * withstand.
+		 */
+		public MaterialBuilder setYoungsModulus(int mod) {
+			building.young = mod;
+			return this;
+		}
+
+		public MaterialBuilder setCustomDrops(ItemStack itemStack) {
+			building.customDrops = itemStack;
+			return this;
+		}
+	}
+
 	/**
 	 * The oreDict name of the metal
 	 */
@@ -42,11 +157,11 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	 * The harvest level of this
 	 */
 	private int harvest;
+
 	/**
 	 * Level that a tool made of this can mine
 	 */
 	private int mine;
-
 	/**
 	 * density measured in g/cm3 at room temperature
 	 */
@@ -63,17 +178,32 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	 * Shear modulus measured in GPa
 	 */
 	private int shear;
+
 	/**
 	 * thermal conductivity measured in W/(m·K)
 	 */
 	private double conductivity;
+	/**
+	 * Young's modulus measured in GPa
+	 *
+	 * This is how much pressure applied outward this material can withstand.
+	 */
+	private int young;
+	/**
+	 * Bulk Modulus measured in GPa.
+	 *
+	 * This is how much pressure applied inward this material can withstand.
+	 */
+	private int bulk;
 
 	private BlockMaterial block;
+
 	private ItemBlock itemBlock;
+
 	private MaterialItem itemMaterial;
 
 	private Material(String name, int color, int harvest, int mine, double density, double resistance, double expansion,
-			int shear, double conductivity) {
+			int shear, double conductivity, int young, int bulk) {
 		this.name = name;
 		this.color = color;
 		this.harvest = harvest;
@@ -83,30 +213,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.expansion = expansion;
 		this.shear = shear;
 		this.conductivity = conductivity;
-		block = new BlockMaterial(this);
-
-		itemBlock = new MaterialItemBlock(block, this);
-		itemBlock.setRegistryName(block.getRegistryName());
-
-		itemMaterial = new MaterialItem(this);
-	}
-
-	/**
-	 *
-	 * @param name
-	 *            The ore dictionary name
-	 * @param color
-	 * @param harvest
-	 */
-	public Material(String name, String color, int harvest, double density, double resistance, double expansion,
-			int shear, double conductivity) {
-		this(name, color, harvest, -1, density, resistance, expansion, shear, conductivity);
-	}
-
-	public Material(String name, String color, int harvest, int mine, double density, double resistance,
-			double expansion, int shear, double conductivity) {
-
-		this(name, Color.decode(color).getRGB(), harvest, mine, density, resistance, expansion, shear, conductivity);
+		this.young = young;
+		this.bulk = bulk;
 	}
 
 	public void addBasicSmelting() {
@@ -129,6 +237,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return block;
 	}
 
+	public int getBulk() {
+		return bulk;
+	}
+
 	public int getColor() {
 		return color;
 	}
@@ -142,13 +254,17 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	public ItemStack getDrops(byte base) {
-		switch (base) {// Switch based on base block
-		case -1:// NetherRack and similar
-			return new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
-		case 1:// Endstone and similar
-			return new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
-		default:// Stone and unspecified
-			return new ItemStack(itemMaterial, 1, MaterialItem.ORE);
+		if (customDrops == null) {
+			switch (base) {// Switch based on base block
+			case -1:// NetherRack and similar
+				return new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
+			case 1:// Endstone and similar
+				return new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
+			default:// Stone and unspecified
+				return new ItemStack(itemMaterial, 1, MaterialItem.ORE);
+			}
+		} else {
+			return customDrops;
 		}
 	}
 
@@ -182,6 +298,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 	public int getTransferRate() {
 		return (int) Math.floor((1 / getResistance()) * getConductivity() * 32);
+	}
+
+	public int getYoungs() {
+		return young;
 	}
 
 	public void registerMaterial() {

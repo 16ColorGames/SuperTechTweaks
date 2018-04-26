@@ -14,6 +14,7 @@ import java.util.function.Function;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
@@ -296,139 +297,166 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerMaterials(RegistryEvent.Register<Material> event) {
-		Material material = new Material("Antimony", "0xFADA5E", 0, 6.697, 417, 11, 20, 24.4);
-		material.registerMaterial();
-		material = new Material("Bismuth", "0xed7d92", 0, 9.78, 1290, 13.4, 12, 7.97);
-		material.registerMaterial();
-		material = new Material("Cadmium", "0xed872d", 0, 8.65, 72.7, 30.8, 19, 96.6);
-		material.registerMaterial();
-		material = new Material("Mercury", "0x751f27", 0, 13.546, 961, 60.4, 0, 8.3);
-		material.registerMaterial();
-		material = new Material("Copper", "0xb4713d", 1, _2_copper, 8.96, 16.78, 16.5, 48, 401);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Zinc", "0xbac4c8", 1, 7.14, 59, 30.2, 43, 116);
-		material.registerMaterial();
-		material = new Material("Coal", "0x060607", 1, 2.09, 30000, 6, 6, 293) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.COAL, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Iron", "0xd3ad90", 2, _3_iron, 7.874, 96.1, 11.8, 82, 80.4);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Chromium", "0x18391e", 2, 7.19, 125, 4.9, 115, 93.9);
-		material.registerMaterial();
-		material = new Material("Aluminum", "0xe0d9cd", 2, 2.7, 28.2, 23.1, 26, 237);
-		material.registerMaterial();
-		material = new Material("Silver", "0xb5b5bd", 2, _1_flint, 10.49, 15.87, 18.9, 30, 429);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Tellurium", "0xb5b5bd", 2, 6.24, 10000, 18, 16, 2.5);
-		material.registerMaterial();
-		material = new Material("Lapis", "0x000094", 2, 2.8, 999999, 6, 200, 293) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.DYE, 5, 4);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Tin", "0x726a78", 3, 7.265, 115, 22, 18, 66.8);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Gold", "0xcccc33", 3, 19.3, 22.14, 14.2, 27, 318);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Lead", "0x474c4d", 3, _1_flint, 11.34, 208, 28.9, 5, 35.3);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Redstone", "0xd43c2c", 3, 8.96, 16.78, 16.5, 48, 200) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.REDSTONE, 4, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Sulfur", "0xedff21", 3, 2.07, 2 * Math.pow(10, 15), 0, 0, .205) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(getMaterialItem(), 1, MaterialItem.DUST);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Nickel", "0xccd3d8", 3, 8.908, 69.3, 13.4, 76, 90.9);
-		material.registerMaterial();
-		material.addBasicSmelting();
-		material = new Material("Osmium", "0x9090a3", 3, 22.59, 81.2, 5.1, 222, 87.6);
-		material.registerMaterial();
-		material = new Material("Diamond", "0xb9f2ff", 3, 3.52, 999999, 100, 455, 1800) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.DIAMOND, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Emerald", "0x50c878", 4, 2.76, 999999, 100, 150, 1800) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.EMERALD, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Manganese", "0x242d36", 4, 7.21, 1440, 21.7, 0, 7.81);
-		material.registerMaterial();
-		material = new Material("Uranium", "0x329832", 6, 19.1, 280, 13.9, 111, 27.5);
-		material.registerMaterial();
-		material = new Material("Platinum", "0xb8b7b2", 6, 21.45, 105, 8.8, 61, 71.6);
-		material.registerMaterial();
-		material = new Material("Iridium", "0xe0e2dd", 7, 22.56, 47.1, 6.4, 210, 147);
-		material.registerMaterial();
-		material = new Material("Titanium", "0x323230", 7, 4.506, 420, 8.6, 44, 21.9);
-		material.registerMaterial();
-		material = new Material("Stone", "0x8B8D7A", -1, _0_stone, 1.6, 999999, 2.7, 30, 12.83);
-		material.registerMaterial();
-		material = new Material("Netherrack", "0x800000", -1, _0_stone, 1.24, 999999, 2.7, 30, 14.87);
-		material.registerMaterial();
-		material = new Material("Wood", "0x4f2412", -1, _0_stone, .75, 10000, 30, 13, .15);
-		material.registerMaterial();
-		material = new Material("Electrum", "0x928729", 2, _1_flint, 14.2, 24.67, 20, 35, 400);
-		material.registerMaterial();
-		material = new Material("Brass", "0xE4AD5B", 2, _2_copper, 8.78, 59.92, 20.5, 40, 109);
-		material.registerMaterial();
-		material = new Material("Constantan", "0xE0A050", 3, _3_iron, 8.885, 490, 14.9, 62, 21.2);
-		material.registerMaterial();
-		material = new Material("Bronze", "0xE69E2F", 4, _4_bronze, 8.73, 111.86, 18.2, 44, 26);
-		material.registerMaterial();
-		material = new Material("Steel", "0xdfdfdf", 5, _5_diamond, 7.9, 169, 72, 79, 50.2);
-		material.registerMaterial();
-		material = new Material("Obsidian", "0x3d354b", 3, _3_iron, 2.4, 9999999, 2.9, 12, .8) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Blocks.OBSIDIAN, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Mithril", "0xAEBBDB", 5, _6_obsidian, 2.3, 14.3, 20, 200, 521);
-		material.registerMaterial();
-		material = new Material("NetherQuartz", "0xdddddd", 1, 2.329, 23000, 2.6, 72, 149) {
-			@Override
-			public ItemStack getDrops(byte base) {
-				return new ItemStack(Items.QUARTZ, 1, 0);
-			}
-		};
-		material.registerMaterial();
-		material = new Material("Adamantine", "0xb30000", 8, 9, 24, 400, 1, 9001, 50);
-		material.registerMaterial();
-		material = new Material("AluBrass", "0xCAA585", 1, 7.78, 115, 17.8, 30, 65);
-		material.registerMaterial();
-		material = new Material("Invar", "0xD0C0B3", 3, 8.1, 80, 7.3, 326, 13);
-		material.registerMaterial();
-		material = new Material("Nichrome", "0x858F80", 3, 8.4, 125, 14, 100, 11.3);
-		material.registerMaterial();
-		material = new Material("StainlessSteel", "0xE0DFDB", 2, 8, 7200, 17.3, 86, 16.2);
-		material.registerMaterial();
+		new MaterialBuilder("Antimony").setColor(0xfada5e).setDensity(6.697).setThermalExpansion(11)
+				.setThermalConductivity(24.4).setElectricalResistance(417).setYoungsModulus(55).setShearModulus(20)
+				.setBulkModulus(42).setHarvestLevel(_3_iron).build().registerMaterial();
+		new MaterialBuilder("Bismuth").setColor(0xed7d92).setDensity(9.78).setThermalExpansion(13.4)
+				.setThermalConductivity(7.97).setElectricalResistance(1290).setYoungsModulus(32).setShearModulus(12)
+				.setBulkModulus(31).setHarvestLevel(_0_stone).build().registerMaterial();
+		new MaterialBuilder("Cadmium").setColor(0xed872d).setDensity(8.65).setThermalExpansion(32.8)
+				.setThermalConductivity(96.6).setElectricalResistance(72.7).setYoungsModulus(50).setShearModulus(19)
+				.setBulkModulus(42).setHarvestLevel(0).build().registerMaterial();
+
+		new MaterialBuilder("Mercury").setColor(0x751f27).setHarvestLevel(0).setDensity(13.546)
+				.setElectricalResistance(961).setThermalExpansion(60.4).setShearModulus(0).setThermalConductivity(8.3)
+				.setBulkModulus(0).setYoungsModulus(0).build().registerMaterial();
+		Material copper = new MaterialBuilder("Copper").setColor(0xb4713d).setDensity(8.96).setThermalExpansion(16.5)
+				.setThermalConductivity(401).setElectricalResistance(16.78).setYoungsModulus(119).setShearModulus(48)
+				.setBulkModulus(140).setHarvestLevel(1).setToolLevel(_2_copper).build();
+		copper.registerMaterial();
+		copper.addBasicSmelting();
+		new MaterialBuilder("Zinc").setColor(0xbac4cb).setDensity(7.14).setThermalExpansion(30.2)
+				.setThermalConductivity(116).setElectricalResistance(59.0).setYoungsModulus(108).setShearModulus(43)
+				.setBulkModulus(70).setHarvestLevel(1).build().registerMaterial();
+
+		new MaterialBuilder("Coal").setColor(0x060607).setHarvestLevel(1).setDensity(2.08)
+				.setCustomDrops(new ItemStack(Items.COAL)).setElectricalResistance(30000).setThermalExpansion(6)
+				.setShearModulus(6).setThermalConductivity(293).setBulkModulus(12).setYoungsModulus(14).build()
+				.registerMaterial();
+
+		Material iron = new MaterialBuilder("Iron").setColor(0xd3ad90).setHarvestLevel(2).setToolLevel(_3_iron)
+				.setThermalExpansion(11.8).setThermalConductivity(80.4).setElectricalResistance(96.1)
+				.setYoungsModulus(211).setShearModulus(82).setBulkModulus(170).setDensity(7.874).build();
+		iron.registerMaterial();
+		iron.addBasicSmelting();
+		new MaterialBuilder("Chromium").setColor(0x18391e).setDensity(7.19).setThermalExpansion(4.9)
+				.setThermalConductivity(93.9).setElectricalResistance(125).setYoungsModulus(279).setShearModulus(115)
+				.setBulkModulus(160).setHarvestLevel(2).build().registerMaterial();
+		new MaterialBuilder("Aluminum").setColor(0xe0d9cd).setDensity(2.7).setThermalExpansion(23.1)
+				.setThermalConductivity(237).setElectricalResistance(28.2).setYoungsModulus(70).setShearModulus(26)
+				.setBulkModulus(79).setHarvestLevel(2).build().registerMaterial();
+
+		Material silver = new MaterialBuilder("Silver").setColor(0xb5b5bd).setDensity(10.49).setThermalExpansion(18.9)
+				.setThermalConductivity(429).setElectricalResistance(15.87).setYoungsModulus(83).setShearModulus(30)
+				.setBulkModulus(100).setHarvestLevel(2).setToolLevel(1).build();
+		silver.registerMaterial();
+		silver.addBasicSmelting();
+		new MaterialBuilder("Tellurium").setColor(0xb5b5bd).setDensity(6.24).setThermalExpansion(18)
+				.setThermalConductivity(2.5).setElectricalResistance(10000).setYoungsModulus(43).setShearModulus(16)
+				.setBulkModulus(65).setHarvestLevel(2).build().registerMaterial();
+
+		new MaterialBuilder("Lapis").setColor(0x000094).setHarvestLevel(2).setDensity(2.8)
+				.setCustomDrops(new ItemStack(Items.DYE, 5, 4)).setElectricalResistance(999999).setThermalExpansion(6)
+				.setShearModulus(200).setThermalConductivity(293).setBulkModulus(170).setYoungsModulus(137).build()
+				.registerMaterial();
+
+		Material tin = new MaterialBuilder("Tin").setColor(0x726a78).setDensity(7.265).setThermalExpansion(22)
+				.setThermalConductivity(66.8).setElectricalResistance(115).setYoungsModulus(50).setShearModulus(18)
+				.setBulkModulus(58).setHarvestLevel(3).build();
+		tin.registerMaterial();
+		tin.addBasicSmelting();
+		Material gold = new MaterialBuilder("Gold").setColor(0xccccc33).setDensity(19.3).setThermalExpansion(14.2)
+				.setThermalConductivity(318).setElectricalResistance(22.14).setYoungsModulus(79).setShearModulus(27)
+				.setBulkModulus(180).setHarvestLevel(3).build();
+		gold.registerMaterial();
+		gold.addBasicSmelting();
+		Material lead = new MaterialBuilder("Lead").setColor(0x474c4d).setDensity(11.34).setThermalExpansion(28.9)
+				.setThermalConductivity(35.3).setElectricalResistance(208).setYoungsModulus(16).setShearModulus(6)
+				.setBulkModulus(46).setHarvestLevel(3).build();
+		lead.registerMaterial();
+		lead.addBasicSmelting();
+		new MaterialBuilder("Redstone").setColor(0xb4713d).setDensity(8.96).setThermalExpansion(16.5)
+				.setThermalConductivity(401).setElectricalResistance(16.78).setYoungsModulus(119).setShearModulus(48)
+				.setBulkModulus(140).setHarvestLevel(2).setCustomDrops(new ItemStack(Items.REDSTONE, 4, 0)).build()
+				.registerMaterial();
+		// TODO make sulfur drop sulfur
+		new MaterialBuilder("Sulfur").setColor(0xedff21).setHarvestLevel(3)
+				.setCustomDrops(new ItemStack(Items.GUNPOWDER)).setDensity(20.7).setElectricalResistance(999999)
+				.setThermalExpansion(0).setShearModulus(0).setThermalConductivity(.205).setBulkModulus(0)
+				.setYoungsModulus(0).build().registerMaterial();
+		Material nickel = new MaterialBuilder("Nickel").setColor(0xccd3d8).setDensity(8.908).setThermalExpansion(13.4)
+				.setThermalConductivity(90.9).setElectricalResistance(69.3).setYoungsModulus(200).setShearModulus(76)
+				.setBulkModulus(180).setHarvestLevel(3).build();
+		nickel.registerMaterial();
+		nickel.addBasicSmelting();
+		new MaterialBuilder("Osmium").setColor(0x9090a3).setDensity(22.59).setThermalExpansion(5.1)
+				.setThermalConductivity(87.6).setElectricalResistance(81.2).setShearModulus(222).setBulkModulus(462)
+				.setYoungsModulus(565).setHarvestLevel(3).build().registerMaterial();
+		new MaterialBuilder("Diamond").setColor(0xb9f2ff).setHarvestLevel(3)
+				.setCustomDrops(new ItemStack(Items.DIAMOND)).setDensity(3.52).setElectricalResistance(999999)
+				.setThermalExpansion(1).setShearModulus(455).setThermalConductivity(1800).setBulkModulus(530)
+				.setYoungsModulus(1100).build().registerMaterial();
+		new MaterialBuilder("Emerald").setColor(0x50c878).setHarvestLevel(4)
+				.setCustomDrops(new ItemStack(Items.EMERALD)).setDensity(2.52).setElectricalResistance(999999)
+				.setThermalExpansion(1).setShearModulus(150).setThermalConductivity(1800).setBulkModulus(1)
+				.setYoungsModulus(287).build().registerMaterial();
+
+		new MaterialBuilder("Manganese").setColor(0x242d36).setDensity(7.21).setThermalExpansion(21.7)
+				.setThermalConductivity(7.81).setElectricalResistance(1440).setYoungsModulus(198).setBulkModulus(120)
+				.setShearModulus(74).setHarvestLevel(4).build().registerMaterial();
+
+		new MaterialBuilder("Uranium").setColor(0x329832).setDensity(19.1).setThermalExpansion(13.9)
+				.setThermalConductivity(27.5).setElectricalResistance(280).setYoungsModulus(208).setShearModulus(111)
+				.setBulkModulus(100).setHarvestLevel(6).build().registerMaterial();
+		new MaterialBuilder("Platinum").setColor(0xb8b7b2).setDensity(21.45).setThermalExpansion(8.8)
+				.setElectricalResistance(105).setThermalConductivity(71.6).setYoungsModulus(168).setShearModulus(61)
+				.setBulkModulus(230).setHarvestLevel(3).build().registerMaterial();
+		new MaterialBuilder("Iridium").setColor(0xe0e2dd).setDensity(22.56).setThermalExpansion(6.4)
+				.setThermalConductivity(147).setElectricalResistance(47.1).setYoungsModulus(528).setShearModulus(210)
+				.setBulkModulus(320).setHarvestLevel(7).build().registerMaterial();
+		new MaterialBuilder("Titanium").setColor(0x323230).setDensity(4.506).setThermalExpansion(8.6)
+				.setThermalConductivity(21.9).setElectricalResistance(420).setYoungsModulus(116).setShearModulus(44)
+				.setBulkModulus(110).setHarvestLevel(7).build().registerMaterial();
+		new MaterialBuilder("Stone").setColor(0x8b8d7a).setHarvestLevel(0).setDensity(1.6)
+				.setElectricalResistance(999999).setThermalExpansion(2.7).setShearModulus(30)
+				.setThermalConductivity(12.83).setBulkModulus(60).setYoungsModulus(47).build().registerMaterial();
+		new MaterialBuilder("Netherrack").setColor(0x800000).setHarvestLevel(0).setDensity(1.24)
+				.setElectricalResistance(999999).setThermalExpansion(2.7).setShearModulus(30)
+				.setThermalConductivity(14.87).setBulkModulus(54).setYoungsModulus(31).build().registerMaterial();
+		new MaterialBuilder("Wood").setColor(0x4f2412).setHarvestLevel(0).setDensity(.75).setElectricalResistance(10000)
+				.setThermalExpansion(30).setShearModulus(13).setThermalConductivity(0.15).setBulkModulus(17)
+				.setYoungsModulus(11).build().registerMaterial();
+		new MaterialBuilder("Electrum").setColor(0x928729).setHarvestLevel(3).setDensity(14.2)
+				.setElectricalResistance(24.67).setThermalExpansion(20).setShearModulus(35).setThermalConductivity(400)
+				.setYoungsModulus(80).setBulkModulus(140).build().registerMaterial();
+		new MaterialBuilder("Brass").setColor(0xe4ad5b).setHarvestLevel(2).setDensity(8.78)
+				.setElectricalResistance(59.92).setThermalExpansion(20.5).setShearModulus(40)
+				.setElectricalResistance(109).setYoungsModulus(112).setBulkModulus(108).build().registerMaterial();
+		new MaterialBuilder("Constantan").setColor(0xe0a050).setHarvestLevel(3).setDensity(8.885)
+				.setElectricalResistance(490).setThermalExpansion(14.9).setShearModulus(62).setThermalConductivity(21.2)
+				.setYoungsModulus(162).setBulkModulus(130).build().registerMaterial();
+		new MaterialBuilder("Bronze").setColor(0xe69e2f).setHarvestLevel(4).setDensity(8.73)
+				.setElectricalResistance(111.86).setThermalExpansion(18.2).setShearModulus(44)
+				.setThermalConductivity(26).setYoungsModulus(107).setBulkModulus(112).build().registerMaterial();
+		new MaterialBuilder("Steel").setColor(0xdfdfdf).setHarvestLevel(5).setDensity(7.9).setElectricalResistance(169)
+				.setThermalExpansion(72).setShearModulus(79).setThermalConductivity(50.2).setBulkModulus(139)
+				.setYoungsModulus(200).build().registerMaterial();
+		new MaterialBuilder("Obsidian").setColor(0x3d354b).setHarvestLevel(3).setDensity(2.4)
+				.setElectricalResistance(999999).setThermalExpansion(2.9).setShearModulus(12)
+				.setThermalConductivity(0.8).setBulkModulus(40).setYoungsModulus(73)
+				.setCustomDrops(new ItemStack(Blocks.OBSIDIAN)).build().registerMaterial();
+
+		new MaterialBuilder("Mithril").setColor(0xaebbdb).setHarvestLevel(5).setDensity(2.3)
+				.setElectricalResistance(14.3).setThermalExpansion(20).setShearModulus(200).setThermalConductivity(521)
+				.setBulkModulus(400).setYoungsModulus(387).build().registerMaterial();
+
+		new MaterialBuilder("Adamantine").setColor(0xb30000).setHarvestLevel(8).setDensity(24)
+				.setElectricalResistance(400).setThermalExpansion(1).setShearModulus(1000).setThermalConductivity(50)
+				.setBulkModulus(1000).setYoungsModulus(1000).build().registerMaterial();
+		new MaterialBuilder("AluBrass").setColor(0xcaa585).setHarvestLevel(1).setDensity(7.78)
+				.setElectricalResistance(115).setThermalExpansion(17.8).setShearModulus(30).setThermalConductivity(65)
+				.setYoungsModulus(120).setBulkModulus(70).build().registerMaterial();
+		new MaterialBuilder("Invar").setColor(0xd0c0b3).setHarvestLevel(3).setDensity(8.1).setElectricalResistance(80)
+				.setThermalExpansion(7.3).setShearModulus(326).setThermalConductivity(13).setBulkModulus(109)
+				.setYoungsModulus(141).build().registerMaterial();
+		new MaterialBuilder("Nichrome").setColor(0x858f80).setHarvestLevel(3).setDensity(8.4)
+				.setElectricalResistance(125).setThermalExpansion(14).setShearModulus(100).setThermalConductivity(11.3)
+				.setBulkModulus(160).setYoungsModulus(200).build().registerMaterial();
+
+		new MaterialBuilder("StainlessSteel").setColor(0xe0dfdb).setHarvestLevel(2).setDensity(8)
+				.setElectricalResistance(7200).setThermalExpansion(17.3).setShearModulus(86)
+				.setThermalConductivity(16.2).setYoungsModulus(198).setBulkModulus(143).build().registerMaterial();
+
 	}
 
 	@SubscribeEvent
