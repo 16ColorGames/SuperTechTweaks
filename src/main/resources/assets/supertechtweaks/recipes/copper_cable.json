@@ -1,0 +1,21 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "wireCopper"
+    }
+  },
+  "result": {
+    "item": "supertechtweaks:blockcable"
+  },
+  "resultNBT" : {
+	"sttMaterial":"supertechtweaks:copper"
+  },
+  "requiredResearch": [
+	"supertechtweaks:logistics"
+  ]
+}

@@ -171,8 +171,9 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 		String mat = stack.getTagCompound().getString("sttMaterial");
 		cable.setMaterial(GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(mat)));
 		cable.markDirty();
-		//TODO figure out why adding facing breaks stuff
-		//worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		// TODO figure out why adding facing breaks stuff
+		// worldIn.setBlockState(pos, state.withProperty(FACING,
+		// placer.getHorizontalFacing().getOpposite()), 2);
 	}
 
 	@Override

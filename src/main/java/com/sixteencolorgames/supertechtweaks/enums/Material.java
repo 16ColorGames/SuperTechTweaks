@@ -389,13 +389,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 		// register cable block
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString("sttMaterial", getRegistryName().toString());
-		ItemStack cableStack = new ItemStack(ModRegistry.blockCable);
-		cableStack.setTagCompound(tag);
-		GameRegistry.findRegistry(IRecipe.class)
-				.register(new ShapedOreRecipe(new ResourceLocation("cable"), cableStack,
-						new Object[] { new String[] { "xxx" }, 'x', new OreIngredient("wire" + name) })
-								.setRegistryName(SuperTechTweaksMod.MODID, "cable" + name));
 
 		// register pipe block
 		tag = new NBTTagCompound();

@@ -26,6 +26,7 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -227,6 +228,14 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 		JsonArray jsonArray = JsonUtils.getJsonArray(json, "requiredResearch");
 		for (int i = 0; i < jsonArray.size(); i++) {
 			reqs.add(new ResourceLocation(jsonArray.get(i).getAsString()));
+		}
+		if (json.has("resultNBT")) {
+			NBTTagCompound resultNBT = new NBTTagCompound();
+			for (Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "resultNBT").entrySet()) {
+				resultNBT.setString(entry.getKey(), entry.getValue().getAsString());
+			}
+			result.setTagCompound(resultNBT);
+
 		}
 		return new ResearchCraftingRecipe(group.isEmpty() ? null : new ResourceLocation(group), result, primer,
 				reqs.toArray(new ResourceLocation[] {}));
