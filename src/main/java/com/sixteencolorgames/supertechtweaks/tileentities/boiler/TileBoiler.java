@@ -3,6 +3,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.boiler;
 import javax.annotation.Nonnull;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlockController;
 import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.TilePressureTank;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -21,6 +23,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -53,8 +56,10 @@ public class TileBoiler extends TileMultiBlockController {
 		}
 	};
 
+	private Material material;
+
 	public TileBoiler() {
-		getSteam().setCanFill(false);
+		steam.setCanFill(false);
 		water.setCanDrain(false);
 	}
 
@@ -107,9 +112,14 @@ public class TileBoiler extends TileMultiBlockController {
 		return super.getCapability(capability, facing);
 	}
 
+	public Material getMaterial() {
+		return material;
+	}
+
 	private int getMaxExtract() {
-		// TODO base this off something
-		return 200;
+		// TODO base this off something, probably the tank pressure?
+		return (int) Math.max(50,
+				((double) steam.getFluidAmount()) / ((double) steam.getCapacity()) * (steam.getCapacity() / 10));
 	}
 
 	public FluidTank getSteam() {
@@ -132,9 +142,8 @@ public class TileBoiler extends TileMultiBlockController {
 		if (!world.isRemote) {
 			if (getSteam().getFluidAmount() < getSteam().getCapacity() && water.getFluidAmount() > 0) {
 				if (burnTime > 0) {
-					// heat at a rate of 10 mb per tick
 
-					FluidStack drain = water.drainInternal(10, true);
+					FluidStack drain = water.drainInternal((int) (10 * Math.log(material.getConductivity())), true);
 					FluidStack fill = new FluidStack(ModRegistry.steam, drain.amount);
 					getSteam().fillInternal(fill, true);
 					burnTime--;
@@ -178,6 +187,8 @@ public class TileBoiler extends TileMultiBlockController {
 		}
 		burnTime = tag.getInteger("burnTime");
 		totalBurnTime = tag.getInteger("totalBurnTime");
+		setMaterial(
+				GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(tag.getString("sttMaterial"))));
 	}
 
 	@Override
@@ -189,12 +200,20 @@ public class TileBoiler extends TileMultiBlockController {
 		reset();
 	}
 
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
 	@Override
 	public void setupStructure() {
 		TileEntity tile = world.getTileEntity(getPos().add(0, 1, 0));
-		if (tile != null && (tile instanceof TileMultiBlock)) {
-			((TileMultiBlock) tile).setIsMaster(false);
-			((TileMultiBlock) tile).setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
+		if (tile != null && (tile instanceof TilePressureTank)) {
+			TilePressureTank tank = ((TilePressureTank) tile);
+			tank.setIsMaster(false);
+			tank.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
+			Material tankMat = tank.getMaterial();
+			steam.setCapacity(tankMat.getYoungs() * 30);
+			water.setCapacity(tankMat.getYoungs() * 30);
 		}
 		setIsMaster(true);
 		setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
@@ -214,6 +233,7 @@ public class TileBoiler extends TileMultiBlockController {
 
 		tag.setInteger("burnTime", burnTime);
 		tag.setInteger("totalBurnTime", totalBurnTime);
+		tag.setString("sttMaterial", material.getRegistryName().toString());
 		return tag;
 	}
 }

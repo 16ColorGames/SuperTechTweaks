@@ -61,8 +61,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 	}
 
 	public int getTransferRate() {
-		// TODO math for max pressure
-		return 100;
+		return mat.getYoungs() * 3;
 	}
 
 	@Override
@@ -106,6 +105,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 
 	public void setMaterial(Material material) {
 		mat = material;
+		tank.setCapacity(mat.getYoungs() * 10);
 	}
 
 	@Override

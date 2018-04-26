@@ -3,14 +3,13 @@ tile.supertechtweaks.basicresearcher.name=Basic Research Station
 tile.supertechtweaks.multiwall.name=Multiblock Wall
 tile.supertechtweaks.researchselector.name=Research Selector
 tile.supertechtweaks.blockcable.name=%s Cabling
-tile.supertechtweaks.solidgenerator.name=Solid Fuel Generator
 tile.supertechtweaks.multipowerinput.name=Power Input (%s)
 tile.supertechtweaks.multipoweroutput.name=Power Output (%s)
 tile.supertechtweaks.multifluidinput.name=Fluid Input
 tile.supertechtweaks.multifluidoutput.name=Fluid Output
-tile.supertechtweaks.blockboiler.name=Solid Fuel Boiler
+tile.supertechtweaks.blockboiler.name=%s Solid Fuel Boiler
 tile.supertechtweaks.blocksteamengine.name=Steam Engine
-tile.supertechtweaks.pressuretank.name=Pressurized Tank
+tile.supertechtweaks.pressuretank.name=Pressurized Tank (%s)
 tile.supertechtweaks.blockpipe.name=%s Pipe
 
 item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit

@@ -1,12 +1,8 @@
 package com.sixteencolorgames.supertechtweaks;
 
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._0_stone;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._1_flint;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._2_copper;
 import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._3_iron;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._4_bronze;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._5_diamond;
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._6_obsidian;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -206,9 +202,42 @@ public class ModRegistry {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry()
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
-		event.getRegistry()
-				.register(new ItemBlock(blockPressureTank).setRegistryName(blockPressureTank.getRegistryName()));
-		event.getRegistry().register(new ItemBlock(blockBoiler).setRegistryName(blockBoiler.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockPressureTank) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockPressureTank.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockBoiler) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockBoiler.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockSteamEngine).setRegistryName(blockSteamEngine.getRegistryName()));
 		event.getRegistry()

@@ -145,14 +145,11 @@ public class MaterialItem extends ItemBase {
 	public int getMaxDamageTool(ItemStack stack) {
 		switch (stack.getMetadata()) {
 		case HAMMER:
-			return material.getShear() * 2;
-		// TODO hammer max
+			return material.getBulk() * 2;
 		case PLIERS:
 			return material.getShear() * 2;
-		// TODO pliers max
 		case DRAW_PLATE:
-			return material.getShear() * 2;
-		// todo draw plate max
+			return material.getShear() + material.getBulk();
 		default:
 			return getMaxDamage();
 		}

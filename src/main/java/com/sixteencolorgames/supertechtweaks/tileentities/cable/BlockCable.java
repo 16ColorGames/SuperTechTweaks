@@ -173,8 +173,9 @@ public class BlockCable extends BlockContainer {
 			if (!worldIn.isRemote) {
 				if (worldIn.getTileEntity(pos) instanceof TileCable) {
 					TileCable te = (TileCable) worldIn.getTileEntity(pos);
-					playerIn.sendMessage(new TextComponentString("Material: " + te.getMaterial().getRegistryName()
-							+ ", Transfer Rate: " + te.getTransferRate() + ", current power: " + te.power));
+					playerIn.sendMessage(new TextComponentString(
+							"Material: " + te.getMaterial().getRegistryName() + ", Transfer Rate: "
+									+ te.getMaterial().getTransferRate() + ", current power: " + te.power));
 				}
 			}
 		}

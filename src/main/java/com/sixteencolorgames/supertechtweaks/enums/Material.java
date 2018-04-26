@@ -8,7 +8,6 @@ import java.util.Map;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
-import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
@@ -32,8 +31,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Material extends IForgeRegistryEntry.Impl<Material> {
-	public ItemStack customDrops = null;
-
 	public static class MaterialBuilder {
 		Material building;
 
@@ -66,6 +63,11 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		 */
 		public MaterialBuilder setColor(int color) {
 			building.color = color;
+			return this;
+		}
+
+		public MaterialBuilder setCustomDrops(ItemStack itemStack) {
+			building.customDrops = itemStack;
 			return this;
 		}
 
@@ -138,12 +140,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 			building.young = mod;
 			return this;
 		}
-
-		public MaterialBuilder setCustomDrops(ItemStack itemStack) {
-			building.customDrops = itemStack;
-			return this;
-		}
 	}
+
+	public ItemStack customDrops = null;
 
 	/**
 	 * The oreDict name of the metal
