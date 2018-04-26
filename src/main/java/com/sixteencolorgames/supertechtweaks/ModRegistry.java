@@ -214,12 +214,44 @@ public class ModRegistry {
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
-		event.getRegistry()
-				.register(new ItemBlock(blockMultiPowerInput).setRegistryName(blockMultiPowerInput.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockMultiPowerInput) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockMultiPowerInput.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockMultiFluidInput).setRegistryName(blockMultiFluidInput.getRegistryName()));
-		event.getRegistry().register(
-				new ItemBlock(blockMultiPowerOutput).setRegistryName(blockMultiPowerOutput.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockMultiPowerOutput) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable) {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {

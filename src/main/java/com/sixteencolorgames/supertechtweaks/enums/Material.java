@@ -180,6 +180,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return shear;
 	}
 
+	public int getTransferRate() {
+		return (int) Math.floor((1 / getResistance()) * getConductivity() * 32);
+	}
+
 	public void registerMaterial() {
 		GameRegistry.findRegistry(Block.class).register(block);
 		GameRegistry.findRegistry(Item.class).register(itemBlock);

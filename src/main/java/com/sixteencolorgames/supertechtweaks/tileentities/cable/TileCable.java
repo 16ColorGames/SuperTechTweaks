@@ -40,7 +40,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 			return 0;
 		}
 
-		int energyExtracted = Math.min(getEnergyStored(), Math.min(getTransferRate(), maxExtract));
+		int energyExtracted = Math.min(getEnergyStored(), Math.min(mat.getTransferRate(), maxExtract));
 		if (!simulate) {
 			power -= energyExtracted;
 		}
@@ -67,11 +67,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 
 	@Override
 	public int getMaxEnergyStored() {
-		return getTransferRate() * 6;
-	}
-
-	public int getTransferRate() {
-		return (int) Math.floor((1 / mat.getResistance()) * mat.getConductivity() * 32);
+		return mat.getTransferRate() * 6;
 	}
 
 	@Override
@@ -120,7 +116,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 
 		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(),
-				Math.min(getTransferRate(), maxReceive));
+				Math.min(mat.getTransferRate(), maxReceive));
 		if (!simulate) {
 			power += energyReceived;
 		}
@@ -166,7 +162,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		}
 
 		if (acceptors.size() > 0) {
-			int drain = Math.min(power, getTransferRate());
+			int drain = Math.min(power, mat.getTransferRate());
 			int energyShare = (int) Math.ceil(((double) drain) / ((double) acceptors.size()));
 			int remainingEnergy = drain;
 

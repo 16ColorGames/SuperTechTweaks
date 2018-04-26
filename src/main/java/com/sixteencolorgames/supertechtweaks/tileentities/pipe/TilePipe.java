@@ -20,7 +20,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-//TODO handle material differences
 public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 	private Material mat;
 	protected FluidTank tank = new FluidTank(5000);

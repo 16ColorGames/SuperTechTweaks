@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput;
 
 import java.util.ArrayList;
 
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
 
@@ -9,12 +10,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
+	private Material material;
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
@@ -25,9 +29,12 @@ public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
 		return super.getCapability(capability, facing);
 	}
 
+	public Material getMaterial() {
+		return material;
+	}
+
 	private int getTransferRate() {
-		// TODO base this off of material
-		return 200;
+		return material.getTransferRate();
 	}
 
 	@Override
@@ -41,6 +48,12 @@ public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
+		setMaterial(GameRegistry.findRegistry(Material.class)
+				.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	@Override
@@ -93,6 +106,7 @@ public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
+		compound.setString("sttMaterial", material.getRegistryName().toString());
 		return compound;
 	}
 
