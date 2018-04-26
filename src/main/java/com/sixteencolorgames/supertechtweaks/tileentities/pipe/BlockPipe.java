@@ -1,20 +1,27 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.pipe;
 
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -32,6 +39,7 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,7 +54,7 @@ public class BlockPipe extends BlockContainer {
 	public static final UnlistedPropertyBlockAvailable DOWN = new UnlistedPropertyBlockAvailable("down");
 
 	public BlockPipe() {
-		super(Material.ROCK);
+		super(net.minecraft.block.material.Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".blockpipe");
 		setRegistryName("blockpipe");
 	}
@@ -99,6 +107,11 @@ public class BlockPipe extends BlockContainer {
 
 		return extendedBlockState.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(WEST, west)
 				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down);
+	}
+
+	@Override
+	public Item getItemDropped(IBlockState meta, Random random, int fortune) {
+		return null;
 	}
 
 	@Override
@@ -168,6 +181,45 @@ public class BlockPipe extends BlockContainer {
 		}
 		return true;
 
+	}
+
+	/**
+	 * Called by ItemBlocks after a block is set in the world, to allow
+	 * post-place logic
+	 */
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+		TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
+		if (!stack.hasTagCompound()) {
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString("sttMaterial", "supertechtweaks:iron");
+			stack.setTagCompound(tag);
+		}
+		String mat = stack.getTagCompound().getString("sttMaterial");
+		pipe.setMaterial(GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(mat)));
+		pipe.markDirty();
+	}
+
+	@Override
+	public boolean removedByPlayer(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player,
+			boolean willHarvest) {
+		if (!worldIn.isRemote) {
+			if (player.isCreative()) {// If the player is in creative...
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+				return true;
+			}
+			ItemStack drop = new ItemStack(this);
+			TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString("sttMaterial", pipe.getMaterial().getRegistryName().toString());
+			drop.setTagCompound(tag);
+
+			worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
+			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		}
+		return true;
 	}
 
 	// @Override

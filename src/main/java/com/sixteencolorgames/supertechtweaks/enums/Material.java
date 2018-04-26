@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
-import com.sixteencolorgames.supertechtweaks.items.ItemTool;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
@@ -18,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -175,17 +176,20 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return resistance;
 	}
 
+	public int getShear() {
+		return shear;
+	}
+
 	public void registerMaterial() {
 		GameRegistry.findRegistry(Block.class).register(block);
 		GameRegistry.findRegistry(Item.class).register(itemBlock);
 		OreDictionary.registerOre("block" + getName(), new ItemStack(block));
 
 		GameRegistry.findRegistry(Item.class).register(itemMaterial);
+		this.setRegistryName(getName());
 
 		registerOreDict();
 		SuperTechTweaksMod.proxy.registerModels(this);
-
-		this.setRegistryName(getName());
 
 		GameRegistry.findRegistry(Material.class).register(this);
 
@@ -247,22 +251,40 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		// register hammer
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapedOreRecipe(new ResourceLocation("hammers"),
-						new ItemStack(this.getMaterialItem(), 1, MaterialItem.HAMMER),
+						new ItemStack(getMaterialItem(), 1, MaterialItem.HAMMER),
 						new Object[] { new String[] { " x ", " sx", "s  " }, 'x', new OreIngredient("ingot" + name),
 								's', new OreIngredient("stickWood") }).setRegistryName(SuperTechTweaksMod.MODID,
-										"hammer" + this.name));
+										"hammer" + name));
 
 		// register pliers
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapedOreRecipe(new ResourceLocation("pliers"),
-						new ItemStack(this.getMaterialItem(), 1, MaterialItem.PLIERS),
+						new ItemStack(getMaterialItem(), 1, MaterialItem.PLIERS),
 						new Object[] { new String[] { "x x", " p ", "s s" }, 'x', new OreIngredient("ingot" + name),
 								'p', new OreIngredient("plate" + name), 's', new OreIngredient("stickWood") })
-										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + this.name));
+										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + name));
 
-	}
+		// register cable block
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString("sttMaterial", getRegistryName().toString());
+		ItemStack cableStack = new ItemStack(ModRegistry.blockCable);
+		cableStack.setTagCompound(tag);
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapedOreRecipe(new ResourceLocation("cable"), cableStack,
+						new Object[] { new String[] { "xxx" }, 'x', new OreIngredient("wire" + name) })
+								.setRegistryName(SuperTechTweaksMod.MODID, "cable" + name));
 
-	public int getShear() {
-		return shear;
+		// register pipe block
+		tag = new NBTTagCompound();
+		tag.setString("sttMaterial", getRegistryName().toString());
+		ItemStack pipeStack = new ItemStack(ModRegistry.blockPipe, 3);
+		pipeStack.setTagCompound(tag);
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(
+						new ShapedOreRecipe(new ResourceLocation("pipe"), pipeStack,
+								new Object[] { new String[] { "xxx", "   ", "xxx" }, 'x',
+										new OreIngredient("plate" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
+												"pipe" + name));
+
 	}
 }

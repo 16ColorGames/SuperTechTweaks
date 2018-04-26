@@ -26,7 +26,6 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 	protected FluidTank tank = new FluidTank(5000);
 
 	public TilePipe() {
-		mat = GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation("supertechtweaks:Copper"));
 	}
 
 	@Override
@@ -51,6 +50,10 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 			return (T) this;
 		}
 		return super.getCapability(capability, facing);
+	}
+
+	public Material getMaterial() {
+		return mat;
 	}
 
 	@Override
@@ -100,6 +103,10 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 			mat = GameRegistry.findRegistry(Material.class)
 					.getValue(new ResourceLocation(compound.getCompoundTag("TilePipe").getString("material")));
 		}
+	}
+
+	public void setMaterial(Material material) {
+		mat = material;
 	}
 
 	@Override

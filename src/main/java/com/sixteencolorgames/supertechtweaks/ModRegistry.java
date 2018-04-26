@@ -15,9 +15,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
-import com.sixteencolorgames.supertechtweaks.items.ItemBase;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
-import com.sixteencolorgames.supertechtweaks.items.ItemTool;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
@@ -52,6 +50,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -221,8 +220,42 @@ public class ModRegistry {
 				.register(new ItemBlock(blockMultiFluidInput).setRegistryName(blockMultiFluidInput.getRegistryName()));
 		event.getRegistry().register(
 				new ItemBlock(blockMultiPowerOutput).setRegistryName(blockMultiPowerOutput.getRegistryName()));
-		event.getRegistry().register(new ItemBlock(blockCable).setRegistryName(blockCable.getRegistryName()));
-		event.getRegistry().register(new ItemBlock(blockPipe).setRegistryName(blockPipe.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockCable) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockCable.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockPipe) {
+			@Override
+			public String getItemStackDisplayName(ItemStack stack) {
+				try {
+					Material material = GameRegistry.findRegistry(Material.class)
+							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
+						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
+					}
+					return String.format(super.getItemStackDisplayName(stack),
+							I18n.canTranslate("supertechtweaks.entry." + material.getName())
+									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
+									: material.getName());
+				} catch (Exception e) {
+					return super.getItemStackDisplayName(stack);
+				}
+			}
+		}.setRegistryName(blockPipe.getRegistryName()));
 
 		itemTechComponent = new ItemTechComponent();
 		event.getRegistry().register(itemTechComponent);

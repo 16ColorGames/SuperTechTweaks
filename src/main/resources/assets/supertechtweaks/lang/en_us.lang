@@ -2,7 +2,7 @@ tile.superore.name=Super Tech Ore
 tile.supertechtweaks.basicresearcher.name=Basic Research Station
 tile.supertechtweaks.multiwall.name=Multiblock Wall
 tile.supertechtweaks.researchselector.name=Research Selector
-tile.supertechtweaks.blockcable.name=Cabling
+tile.supertechtweaks.blockcable.name=%s Cabling
 tile.supertechtweaks.solidgenerator.name=Solid Fuel Generator
 tile.supertechtweaks.multipowerinput.name=Power Input
 tile.supertechtweaks.multipoweroutput.name=Power Output
@@ -11,7 +11,7 @@ tile.supertechtweaks.multifluidoutput.name=Fluid Output
 tile.supertechtweaks.blockboiler.name=Solid Fuel Boiler
 tile.supertechtweaks.blocksteamengine.name=Steam Engine
 tile.supertechtweaks.pressuretank.name=Pressurized Tank
-tile.supertechtweaks.blockpipe.name=Pipe
+tile.supertechtweaks.blockpipe.name=%s Pipe
 
 item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit
 item.supertechtweaks.itemTechComponent.circuitAdvanced.name=Advanced Circuit

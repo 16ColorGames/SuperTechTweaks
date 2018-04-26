@@ -17,13 +17,11 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-//TODO handle material differences
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public int power = 0;
 	private Material mat;
 
 	public TileCable() {
-		mat = GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation("supertechtweaks:Copper"));
 	}
 
 	@Override
@@ -61,6 +59,10 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	@Override
 	public int getEnergyStored() {
 		return power;
+	}
+
+	public Material getMaterial() {
+		return mat;
 	}
 
 	@Override
@@ -125,6 +127,10 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		return energyReceived;
 	}
 
+	public void setMaterial(Material m) {
+		mat = m;
+	}
+
 	@Override
 	public void update() {
 		if (world.isRemote) {
@@ -180,12 +186,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		if (power > 0) {
-			NBTTagCompound data = new NBTTagCompound();
-			data.setInteger("power", getEnergyStored());
-			data.setString("material", mat.getRegistryName().toString());
-			compound.setTag("TileCable", data);
-		}
+		NBTTagCompound data = new NBTTagCompound();
+		data.setInteger("power", getEnergyStored());
+		data.setString("material", mat.getRegistryName().toString());
+		compound.setTag("TileCable", data);
+
 		return compound;
 	}
 

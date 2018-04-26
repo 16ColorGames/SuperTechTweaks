@@ -39,18 +39,19 @@ public class Utils {
 		copyFileUsingStream(source, new File(dest));
 	}
 
-	public static void setNBTInt(ItemStack stack, String key, int val) {
-		getTag(stack).setInteger(key, val);
-	}
-
 	public static int getNBTInt(ItemStack stack, String key) {
 		return stack.hasTagCompound() ? getTag(stack).getInteger(key) : 0;
 	}
 
 	public static NBTTagCompound getTag(ItemStack stack) {
-		if (!stack.hasTagCompound())
+		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
+		}
 		return stack.getTagCompound();
+	}
+
+	public static void setNBTInt(ItemStack stack, String key, int val) {
+		getTag(stack).setInteger(key, val);
 	}
 
 }

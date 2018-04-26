@@ -57,6 +57,69 @@ public class MaterialItem extends ItemBase {
 		setHasSubtypes(true);
 		setCreativeTab(CreativeTabs.MISC); // items will appear on the
 	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+		if (stack.getMetadata() >= HAMMER) {
+			return enchantment == Enchantments.EFFICIENCY || enchantment == Enchantments.UNBREAKING
+					|| enchantment == Enchantments.MENDING;
+		}
+		return super.canApplyAtEnchantingTable(stack, enchantment);
+	}
+
+	private void damageTool(ItemStack stack, int amount, Random rand, @Nullable EntityPlayer player) {
+		if (amount <= 0) {
+			return;
+		}
+
+		int unbreakLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack);
+		for (int i = 0; unbreakLevel > 0 && i < amount; i++) {
+			if (EnchantmentDurability.negateDamage(stack, unbreakLevel, rand)) {
+				amount--;
+			}
+		}
+		if (amount <= 0) {
+			return;
+		}
+
+		String nbtKey = "toolDMG";
+		int curDamage = Utils.getNBTInt(stack, nbtKey);
+		curDamage += amount;
+
+		if (player instanceof EntityPlayerMP) {
+			CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((EntityPlayerMP) player, stack, curDamage);
+		}
+
+		if (curDamage >= getMaxDamageTool(stack)) {
+			if (player != null) {
+				player.renderBrokenItemStack(stack);
+				player.addStat(StatList.getObjectBreakStats(this));
+			}
+			stack.shrink(1);
+			return;
+		}
+		Utils.setNBTInt(stack, nbtKey, curDamage);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getContainerItem(ItemStack stack) {
+		if (stack.getMetadata() >= HAMMER) {
+			ItemStack container = stack.copy();
+			damageTool(container, 1, itemRand, null);
+			return container;
+		}
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		if (stack.getMetadata() >= HAMMER) {
+			return Utils.getNBTInt(stack, "toolDMG") / (double) getMaxDamageTool(stack);
+		}
+		return 0;
+	}
+
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
@@ -69,6 +132,30 @@ public class MaterialItem extends ItemBase {
 
 	public Material getMaterial() {
 		return material;
+	}
+
+	/**
+	 * Return the maxDamage for this ItemStack. Defaults to the maxDamage field
+	 * in this item, but can be overridden here for other sources such as NBT.
+	 *
+	 * @param stack
+	 *            The itemstack that is damaged
+	 * @return the damage value
+	 */
+	public int getMaxDamageTool(ItemStack stack) {
+		switch (stack.getMetadata()) {
+		case HAMMER:
+			return material.getShear() * 2;
+		// TODO hammer max
+		case PLIERS:
+			return material.getShear() * 2;
+		// TODO pliers max
+		case DRAW_PLATE:
+			return material.getShear() * 2;
+		// todo draw plate max
+		default:
+			return getMaxDamage();
+		}
 	}
 
 	@Override
@@ -201,104 +288,16 @@ public class MaterialItem extends ItemBase {
 		return stack.getMetadata() >= HAMMER;
 	}
 
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
-		if (stack.getMetadata() >= HAMMER) {
-			ItemStack container = stack.copy();
-			this.damageTool(container, 1, this.itemRand, null);
-			return container;
-		}
-		return ItemStack.EMPTY;
-	}
-
-	private void damageTool(ItemStack stack, int amount, Random rand, @Nullable EntityPlayer player) {
-		if (amount <= 0)
-			return;
-
-		int unbreakLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack);
-		for (int i = 0; unbreakLevel > 0 && i < amount; i++)
-			if (EnchantmentDurability.negateDamage(stack, unbreakLevel, rand))
-				amount--;
-		if (amount <= 0)
-			return;
-
-		String nbtKey = "toolDMG";
-		int curDamage = Utils.getNBTInt(stack, nbtKey);
-		curDamage += amount;
-
-		if (player instanceof EntityPlayerMP)
-			CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((EntityPlayerMP) player, stack, curDamage);
-
-		if (curDamage >= getMaxDamageTool(stack)) {
-			if (player != null) {
-				player.renderBrokenItemStack(stack);
-				player.addStat(StatList.getObjectBreakStats(this));
-			}
-			stack.shrink(1);
-			return;
-		}
-		Utils.setNBTInt(stack, nbtKey, curDamage);
-	}
-
-	/**
-	 * Return the maxDamage for this ItemStack. Defaults to the maxDamage field
-	 * in this item, but can be overridden here for other sources such as NBT.
-	 *
-	 * @param stack
-	 *            The itemstack that is damaged
-	 * @return the damage value
-	 */
-	public int getMaxDamageTool(ItemStack stack) {
-		switch (stack.getMetadata()) {
-		case HAMMER:
-			return material.getShear() * 2;
-		// TODO hammer max
-		case PLIERS:
-			return material.getShear() * 2;
-		// TODO pliers max
-		case DRAW_PLATE:
-			return material.getShear() * 2;
-		// todo draw plate max
-		default:
-			return getMaxDamage();
-		}
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return true;
-	}
-
-	@Override
-	public boolean isDamaged(ItemStack stack) {
-		return false;
-	}
-
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return stack.getMetadata() >= HAMMER;
 	}
 
 	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		if (stack.getMetadata() >= HAMMER)
-			return enchantment == Enchantments.EFFICIENCY || enchantment == Enchantments.UNBREAKING
-					|| enchantment == Enchantments.MENDING;
-		return super.canApplyAtEnchantingTable(stack, enchantment);
-	}
-
-	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		if (stack.getMetadata() >= HAMMER)
+		if (stack.getMetadata() >= HAMMER) {
 			return (Utils.getNBTInt(stack, "toolDMG") > 0);
+		}
 		return false;
-	}
-
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		if (stack.getMetadata() >= HAMMER)
-			return Utils.getNBTInt(stack, "toolDMG") / (double) getMaxDamageTool(stack);
-		return 0;
 	}
 }
