@@ -47,6 +47,29 @@ public class TileBoiler extends TileMultiBlockController {
 	 */
 	public int totalBurnTime; // This item handler will hold our nine inventory
 								// slots
+
+	public int getField(int id) {
+		switch (id) {
+		case 0:
+			return this.burnTime;
+		case 1:
+			return this.totalBurnTime;
+		default:
+			return 0;
+		}
+	}
+
+	public void setField(int id, int value) {
+		switch (id) {
+		case 0:
+			this.burnTime = value;
+			break;
+		case 1:
+			this.totalBurnTime = value;
+			break;
+		}
+	}
+
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
 		@Override
 		protected void onContentsChanged(int slot) {
@@ -117,7 +140,6 @@ public class TileBoiler extends TileMultiBlockController {
 	}
 
 	private int getMaxExtract() {
-		// TODO base this off something, probably the tank pressure?
 		return (int) Math.max(50,
 				((double) steam.getFluidAmount()) / ((double) steam.getCapacity()) * (steam.getCapacity() / 10));
 	}
@@ -143,7 +165,7 @@ public class TileBoiler extends TileMultiBlockController {
 			if (getSteam().getFluidAmount() < getSteam().getCapacity() && water.getFluidAmount() > 0) {
 				if (burnTime > 0) {
 
-					FluidStack drain = water.drainInternal((int) (10 * Math.log(material.getConductivity())), true);
+					FluidStack drain = water.drainInternal((int) (4 * Math.log(material.getConductivity())), true);
 					FluidStack fill = new FluidStack(ModRegistry.steam, drain.amount);
 					getSteam().fillInternal(fill, true);
 					burnTime--;

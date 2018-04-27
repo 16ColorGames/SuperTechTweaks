@@ -150,7 +150,6 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 			return false;
 		}
 		player.openGui(SuperTechTweaksMod.instance, ModRegistry.BOILER, world, pos.getX(), pos.getY(), pos.getZ());
-		System.out.println(((TileBoiler) te).water.getFluid().getFluid().getName());
 		return true;
 	}
 

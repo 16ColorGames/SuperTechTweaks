@@ -225,9 +225,11 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 
 		ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
 		ArrayList<ResourceLocation> reqs = new ArrayList();
-		JsonArray jsonArray = JsonUtils.getJsonArray(json, "requiredResearch");
-		for (int i = 0; i < jsonArray.size(); i++) {
-			reqs.add(new ResourceLocation(jsonArray.get(i).getAsString()));
+		if (json.has("requiredResearch")) {
+			JsonArray jsonArray = JsonUtils.getJsonArray(json, "requiredResearch");
+			for (int i = 0; i < jsonArray.size(); i++) {
+				reqs.add(new ResourceLocation(jsonArray.get(i).getAsString()));
+			}
 		}
 		if (json.has("resultNBT")) {
 			NBTTagCompound resultNBT = new NBTTagCompound();

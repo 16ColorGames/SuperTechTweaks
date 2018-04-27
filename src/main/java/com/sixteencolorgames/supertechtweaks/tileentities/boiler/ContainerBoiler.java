@@ -4,9 +4,12 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -30,23 +33,18 @@ public class ContainerBoiler extends Container {
 	// TODO center the slot and add fluid displays
 	private void addOwnSlots() {
 		IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		int x = 9;
-		int y = 6;
+		int x = 82;
+		int y = 42;
 
 		// Add our own slots
-		int slotIndex = 0;
-		for (int i = 0; i < itemHandler.getSlots(); i++) {
-			addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
-			slotIndex++;
-			x += 18;
-		}
+		addSlotToContainer(new SlotItemHandler(itemHandler, 0, x, y));
 	}
 
 	private void addPlayerSlots(IInventory playerInventory) {
 		// Slots for the main inventory
 		for (int row = 0; row < 3; ++row) {
 			for (int col = 0; col < 9; ++col) {
-				int x = 9 + col * 18;
+				int x = 10 + col * 18;
 				int y = row * 18 + 70;
 				addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
 			}
@@ -93,4 +91,40 @@ public class ContainerBoiler extends Container {
 		return itemstack;
 	}
 
+	/**
+	 * how many ticks are left for this burn
+	 */
+	public int burnTime = 0;
+	/**
+	 * how many ticks this burn started with
+	 */
+	public int totalBurnTime; // This item handler will hold our nine inventory
+								// slots
+
+	/**
+	 * Looks for changes made in the container, sends them to every listener.
+	 */
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < this.listeners.size(); ++i) {
+			IContainerListener icontainerlistener = this.listeners.get(i);
+
+			if (this.burnTime != this.te.getField(0)) {
+				icontainerlistener.sendWindowProperty(this, 0, this.te.getField(0));
+			}
+
+			if (this.totalBurnTime != this.te.getField(1)) {
+				icontainerlistener.sendWindowProperty(this, 1, this.te.getField(1));
+			}
+		}
+
+		this.burnTime = this.te.getField(0);
+		this.totalBurnTime = this.te.getField(1);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void updateProgressBar(int id, int data) {
+		this.te.setField(id, data);
+	}
 }
