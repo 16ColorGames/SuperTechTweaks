@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
+import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 
@@ -20,11 +21,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType;
@@ -78,6 +81,37 @@ public class ServerEvents {
 		if (e.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
 			sentChunks.put(player.getUniqueID(), new ArrayList());
+
+			if (Config.debug) {
+				HashMap<ResourceLocation, Integer> oreCount = new HashMap();
+				for (int xC = -4; xC < 5; xC++) {
+					for (int zC = -4; zC < 5; zC++) {
+						NBTTagCompound forChunk = OreSavedData.get(e.getWorld()).getForChunk(player.chunkCoordX + xC,
+								player.chunkCoordZ + zC);
+						forChunk.getKeySet().forEach((x) -> {
+							NBTTagCompound xTag = forChunk.getCompoundTag(x);
+							xTag.getKeySet().forEach((y) -> {
+								NBTTagCompound yTag = xTag.getCompoundTag(y);
+								yTag.getKeySet().forEach((z) -> {
+									NBTTagList tag = yTag.getTagList(z, Constants.NBT.TAG_STRING);
+									for (int i = 0; i < tag.tagCount(); i++) {
+										ResourceLocation rl = new ResourceLocation(tag.getStringTagAt(i));
+										if (oreCount.containsKey(rl)) {
+											oreCount.put(rl, oreCount.get(rl) + 1);
+										} else {
+											oreCount.put(rl, 1);
+										}
+									}
+								});
+							});
+						});
+					}
+				}
+				System.out.println("Ores found near login:");
+				oreCount.forEach((mat, count) -> {
+					System.out.println("  " + mat.toString() + ": " + count);
+				});
+			}
 		}
 	}
 

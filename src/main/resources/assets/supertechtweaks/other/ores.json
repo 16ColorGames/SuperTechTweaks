@@ -27,7 +27,7 @@
     "generator":"vein",
     "ore":"Iron",
     "size":3,
-    "chance":4,
+    "chance":2,
     "minHeight":32,
     "maxHeight":100,
     "properties":{
@@ -38,7 +38,7 @@
     "generator":"cluster",
     "ore":"Aluminum",
     "size":30,
-    "chance":15,
+    "chance":10,
     "minHeight":50,
     "maxHeight":70
   },
@@ -52,12 +52,37 @@
       {
         "ore":"Lead",
         "weight":0.7
+      },
+      {
+        "ore":"Bismuth",
+        "weight":0.2
       }
     ],
     "size":10,
     "chance":10,
     "minHeight":32,
     "maxHeight":48
+  },
+  "Stibnite":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Antimony",
+        "weight":1.0
+      },
+      {
+        "ore":"Sulfur",
+        "weight":0.5
+      }
+    ],
+    "size":10,
+    "chance":1,
+    "minHeight":20,
+    "maxHeight":100,
+    "properties":{
+      "clusterVariance":4,
+      "perChunk":2
+    }
   },
   "coal":{
     "generator":"cluster",
@@ -73,7 +98,7 @@
     "maxHeight":200,
     "properties":{
       "clusterVariance":10,
-      "perChunk":20
+      "perChunk":30
     }
   },
   "diamond":{
@@ -85,7 +110,7 @@
       },
       {
         "ore":"Diamond",
-        "weight":0.1
+        "weight":0.2
       }
     ],
     "size":10,
@@ -94,7 +119,7 @@
     "maxHeight":16,
     "properties":{
       "clusterVariance":3,
-      "perChunk":2
+      "perChunk":5
     }
   },
   "Chalcopyrite":{
@@ -241,7 +266,7 @@
       }
     ],
     "size":15,
-    "chance":5,
+    "chance":2,
     "minHeight":10,
     "maxHeight":40,
     "properties":{
@@ -262,7 +287,7 @@
     "maxHeight":12,
     "properties":{
       "clusterVariance":2,
-      "perChunk":3
+      "perChunk":2
     }
   },
   "Quartz":{
@@ -274,7 +299,7 @@
       }
     ],
     "size":5,
-    "chance":4,
+    "chance":1,
     "minHeight":50,
     "maxHeight":140,
     "properties":{
@@ -287,6 +312,10 @@
       {
         "ore":"Tin",
         "weight":1.0
+      },
+      {
+        "ore":"Manganese",
+        "weight":0.1
       }
     ],
     "size":10,
@@ -296,6 +325,27 @@
     "properties":{
       "clusterVariance":2,
       "perChunk":8
+    }
+  },
+  "Rutile":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Titanium",
+        "weight":1.0
+      },
+      {
+        "ore":"Iron",
+        "weight":0.1
+      }
+    ],
+    "size":10,
+    "chance":1,
+    "minHeight":25,
+    "maxHeight":55,
+    "properties":{
+      "clusterVariance":2,
+      "perChunk":3
     }
   },
   "Palladium":{
@@ -340,7 +390,7 @@
     "maxHeight":12,
     "properties":{
       "clusterVariance":3,
-      "perChunk":2
+      "perChunk":7
     }
   },
   "Village":{
@@ -352,14 +402,14 @@
       }
     ],
     "size":7,
-    "chance":20,
+    "chance":10,
     "minHeight":12,
     "maxHeight":30,
     "properties":{
       "clusterVariance":3
     }
   },
-  "Other":{
+  "Radioactive":{
     "generator":"cluster",
     "ore":[
       {
@@ -388,7 +438,7 @@
         "weight":1.0
       },
       {
-        "ore":"Mithril",
+        "ore":"Adamantine",
         "weight":0.3
       }
     ],
