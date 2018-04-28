@@ -17,6 +17,24 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerBoiler extends Container {
 	TileBoiler te;
 
+	/**
+	 * how many ticks are left for this burn
+	 */
+	public int burnTime = 0;
+
+	/**
+	 * how many ticks this burn started with
+	 */
+	public int totalBurnTime;
+
+	public int waterMax = 1;
+
+	public int waterCur = 0;
+
+	public int steamMax = 1;
+
+	public int steamCur = 0;
+
 	public ContainerBoiler(IInventory playerInventory, TileBoiler te) {
 		this.te = te;
 
@@ -30,7 +48,6 @@ public class ContainerBoiler extends Container {
 		addPlayerSlots(playerInventory);
 	}
 
-	// TODO center the slot and add fluid displays
 	private void addOwnSlots() {
 		IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		int x = 82;
@@ -63,6 +80,49 @@ public class ContainerBoiler extends Container {
 		return te.canInteractWith(playerIn);
 	}
 
+	/**
+	 * Looks for changes made in the container, sends them to every listener.
+	 */
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (int i = 0; i < listeners.size(); ++i) {
+			IContainerListener icontainerlistener = listeners.get(i);
+
+			if (burnTime != te.getField(0)) {
+				icontainerlistener.sendWindowProperty(this, 0, te.getField(0));
+			}
+
+			if (totalBurnTime != te.getField(1)) {
+				icontainerlistener.sendWindowProperty(this, 1, te.getField(1));
+			}
+
+			if (waterMax != te.getField(2)) {
+				icontainerlistener.sendWindowProperty(this, 2, te.getField(2));
+			}
+
+			if (waterCur != te.getField(3)) {
+				icontainerlistener.sendWindowProperty(this, 3, te.getField(3));
+			}
+
+			if (steamMax != te.getField(4)) {
+				icontainerlistener.sendWindowProperty(this, 4, te.getField(4));
+			}
+
+			if (steamCur != te.getField(5)) {
+				icontainerlistener.sendWindowProperty(this, 5, te.getField(5));
+			}
+		}
+
+		burnTime = te.getField(0);
+		totalBurnTime = te.getField(1);
+		waterMax = te.getField(2);
+		waterCur = te.getField(3);
+		steamMax = te.getField(4);
+		steamCur = te.getField(5);
+	}
+
 	@Nullable
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
@@ -91,40 +151,9 @@ public class ContainerBoiler extends Container {
 		return itemstack;
 	}
 
-	/**
-	 * how many ticks are left for this burn
-	 */
-	public int burnTime = 0;
-	/**
-	 * how many ticks this burn started with
-	 */
-	public int totalBurnTime; // This item handler will hold our nine inventory
-								// slots
-
-	/**
-	 * Looks for changes made in the container, sends them to every listener.
-	 */
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-
-		for (int i = 0; i < this.listeners.size(); ++i) {
-			IContainerListener icontainerlistener = this.listeners.get(i);
-
-			if (this.burnTime != this.te.getField(0)) {
-				icontainerlistener.sendWindowProperty(this, 0, this.te.getField(0));
-			}
-
-			if (this.totalBurnTime != this.te.getField(1)) {
-				icontainerlistener.sendWindowProperty(this, 1, this.te.getField(1));
-			}
-		}
-
-		this.burnTime = this.te.getField(0);
-		this.totalBurnTime = this.te.getField(1);
-	}
-
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int id, int data) {
-		this.te.setField(id, data);
+		te.setField(id, data);
 	}
 }

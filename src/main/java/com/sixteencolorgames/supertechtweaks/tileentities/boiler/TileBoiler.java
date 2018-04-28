@@ -48,28 +48,6 @@ public class TileBoiler extends TileMultiBlockController {
 	public int totalBurnTime; // This item handler will hold our nine inventory
 								// slots
 
-	public int getField(int id) {
-		switch (id) {
-		case 0:
-			return this.burnTime;
-		case 1:
-			return this.totalBurnTime;
-		default:
-			return 0;
-		}
-	}
-
-	public void setField(int id, int value) {
-		switch (id) {
-		case 0:
-			this.burnTime = value;
-			break;
-		case 1:
-			this.totalBurnTime = value;
-			break;
-		}
-	}
-
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
 		@Override
 		protected void onContentsChanged(int slot) {
@@ -84,6 +62,8 @@ public class TileBoiler extends TileMultiBlockController {
 	public TileBoiler() {
 		steam.setCanFill(false);
 		water.setCanDrain(false);
+		steam.setFluid(new FluidStack(ModRegistry.steam, 0));
+		water.setFluid(new FluidStack(FluidRegistry.WATER, 0));
 	}
 
 	private void attemptSteamPush() {
@@ -133,6 +113,25 @@ public class TileBoiler extends TileMultiBlockController {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
 		}
 		return super.getCapability(capability, facing);
+	}
+
+	public int getField(int id) {
+		switch (id) {
+		case 0:
+			return burnTime;
+		case 1:
+			return totalBurnTime;
+		case 2:
+			return water.getCapacity();
+		case 3:
+			return water.getFluidAmount();
+		case 4:
+			return steam.getCapacity();
+		case 5:
+			return steam.getFluidAmount();
+		default:
+			return 0;
+		}
 	}
 
 	public Material getMaterial() {
@@ -189,8 +188,8 @@ public class TileBoiler extends TileMultiBlockController {
 						}
 					}
 				}
-				attemptSteamPush();
 			}
+			attemptSteamPush();
 		}
 
 	}
@@ -220,6 +219,29 @@ public class TileBoiler extends TileMultiBlockController {
 			((TileMultiBlock) tile).reset();
 		}
 		reset();
+	}
+
+	public void setField(int id, int value) {
+		switch (id) {
+		case 0:
+			burnTime = value;
+			break;
+		case 1:
+			totalBurnTime = value;
+			break;
+		case 2:
+			water.setCapacity(value);
+			break;
+		case 3:
+			water.getFluid().amount = value;
+			break;
+		case 4:
+			steam.setCapacity(value);
+			break;
+		case 5:
+			steam.getFluid().amount = value;
+			break;
+		}
 	}
 
 	public void setMaterial(Material material) {
