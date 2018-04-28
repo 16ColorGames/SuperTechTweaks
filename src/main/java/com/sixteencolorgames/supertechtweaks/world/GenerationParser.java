@@ -40,7 +40,11 @@ public class GenerationParser {
 			weight = 1.0;
 		}
 		String name = ore.get("ore").getAsString();
-		return new Object[] { Material.REGISTRY.getValue(new ResourceLocation(name)), weight };
+		ResourceLocation re = new ResourceLocation(name);
+		if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
+			re = new ResourceLocation("supertechtweaks", name);
+		}
+		return new Object[] { Material.REGISTRY.getValue(re), weight };
 	}
 
 	private static WorldGeneratorBase parseCluster(JsonObject array) {
@@ -87,7 +91,11 @@ public class GenerationParser {
 					if (Config.debug) {
 						System.out.println("  Ore Found: " + oreElement.getAsString());
 					}
-					ores.put(Material.REGISTRY.getValue(new ResourceLocation(element.getAsString())), 1.0);
+					ResourceLocation re = new ResourceLocation(element.getAsString());
+					if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
+						re = new ResourceLocation("supertechtweaks", element.getAsString());
+					}
+					ores.put(Material.REGISTRY.getValue(re), 1.0);
 				} else {
 					if (Config.debug) {
 						System.out.println("  Weighted Ore Found:");
@@ -104,7 +112,11 @@ public class GenerationParser {
 				if (Config.debug) {
 					System.out.println("  Ore Found: " + oreElement.getAsString());
 				}
-				ores.put(Material.REGISTRY.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
+				ResourceLocation re = new ResourceLocation(oreElement.getAsString());
+				if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
+					re = new ResourceLocation("supertechtweaks", oreElement.getAsString());
+				}
+				ores.put(Material.REGISTRY.getValue(re), 1.0);
 			} else {
 				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
 				ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
@@ -112,7 +124,7 @@ public class GenerationParser {
 		}
 		ores.forEach((k, v) -> {
 			if (Config.debug) {
-				System.out.println(k.getName() + ":" + v);
+				System.out.println(k.getRegistryName() + ":" + v);
 			}
 		});
 		return ores;

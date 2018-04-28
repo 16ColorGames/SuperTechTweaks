@@ -1,21 +1,69 @@
 {
+  "cuprite":{
+    "generator":"vein",
+    "ore":[
+      {
+        "ore":"Copper",
+        "weight":1.0
+      },
+      {
+        "ore":"Osmium",
+        "weight":0.01
+      },
+      {
+        "ore":"Cadmium",
+        "weight":0.01
+      }
+    ],
+    "size":2,
+    "chance":3,
+    "minHeight":32,
+    "maxHeight":80,
+    "properties":{
+      "branchLength":5
+    }
+  },
   "hematite":{
     "generator":"vein",
-    "ore":"supertechtweaks:iron",
-    "size":4,
-    "chance":1,
+    "ore":"Iron",
+    "size":3,
+    "chance":4,
     "minHeight":32,
-    "maxHeight":128,
+    "maxHeight":100,
     "properties":{
-      "branchLength":2,
-      "perChunk":3
+      "branchLength":5
     }
+  },
+  "Bauxite":{
+    "generator":"cluster",
+    "ore":"Aluminum",
+    "size":30,
+    "chance":15,
+    "minHeight":50,
+    "maxHeight":70
+  },
+  "galena":{
+    "generator":"plate",
+    "ore":[
+      {
+        "ore":"Silver",
+        "weight":0.7
+      },
+      {
+        "ore":"Lead",
+        "weight":0.7
+      }
+    ],
+    "size":10,
+    "chance":10,
+    "minHeight":32,
+    "maxHeight":48
   },
   "coal":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:coal",
+        "ore":"Coal",
         "weight":1.0
       }
     ],
@@ -32,11 +80,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:coal",
+        "ore":"Coal",
         "weight":1.0
       },
       {
-        "ore":"supertechtweaks:diamond",
+        "ore":"Diamond",
         "weight":0.1
       }
     ],
@@ -46,31 +94,165 @@
     "maxHeight":16,
     "properties":{
       "clusterVariance":3,
-      "perChunk":4
+      "perChunk":2
     }
   },
-  "gold":{
+  "Chalcopyrite":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:gold",
+        "ore":"Copper",
+        "weight":0.75
+      },
+      {
+        "ore":"Iron",
+        "weight":0.75
+      },
+      {
+        "ore":"Sulfur",
         "weight":1.0
+      },
+      {
+        "ore":"Cadmium",
+        "weight":0.01
       }
     ],
-    "size":10,
+    "size":15,
     "chance":1,
-    "minHeight":4,
-    "maxHeight":32,
+    "minHeight":20,
+    "maxHeight":40,
     "properties":{
-      "clusterVariance":3,
-      "perChunk":7
+      "clusterVariance":5,
+      "perChunk":5
+    }
+  },
+  "Chromatite":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Chromium",
+        "weight":0.75
+      },
+      {
+        "ore":"Iron",
+        "weight":0.4
+      }
+    ],
+    "size":15,
+    "chance":1,
+    "minHeight":20,
+    "maxHeight":40,
+    "properties":{
+      "clusterVariance":5
+    }
+  },
+  "Sphalerite":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Zinc",
+        "weight":0.75
+      },
+      {
+        "ore":"Iron",
+        "weight":0.2
+      },
+      {
+        "ore":"Sulfur",
+        "weight":1.0
+      },
+      {
+        "ore":"Cadmium",
+        "weight":0.01
+      }
+    ],
+    "size":15,
+    "chance":1,
+    "minHeight":40,
+    "maxHeight":150,
+    "properties":{
+      "clusterVariance":5,
+      "perChunk":5	  
+    }
+  },
+  "Osmiridium":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Osmium",
+        "weight":0.75
+      },
+      {
+        "ore":"Iridium",
+        "weight":0.25
+      },
+      {
+        "ore":"Platinum",
+        "weight":0.1
+      }
+    ],
+    "size":15,
+    "chance":1,
+    "minHeight":25,
+    "maxHeight":50,
+    "properties":{
+      "clusterVariance":5,
+      "perChunk":3
+    }
+  },
+  "Calaverite":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Gold",
+        "weight":0.9
+      },
+      {
+        "ore":"Tellurium",
+        "weight":0.7
+      },
+      {
+        "ore":"Silver",
+        "weight":0.1
+      }
+    ],
+    "size":15,
+    "chance":5,
+    "minHeight":10,
+    "maxHeight":30,
+    "properties":{
+      "clusterVariance":5
+    }
+  },
+  "Electrum":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Gold",
+        "weight":0.7
+      },
+      {
+        "ore":"Electrum",
+        "weight":0.2
+      },
+      {
+        "ore":"Silver",
+        "weight":0.7
+      }
+    ],
+    "size":15,
+    "chance":5,
+    "minHeight":10,
+    "maxHeight":40,
+    "properties":{
+      "clusterVariance":5
     }
   },
   "Lapis":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:lapis",
+        "ore":"Lapis",
         "weight":1.0
       }
     ],
@@ -80,15 +262,76 @@
     "maxHeight":12,
     "properties":{
       "clusterVariance":2,
-      "perChunk":4
+      "perChunk":3
     }
+  },
+  "Quartz":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Quartz",
+        "weight":1.0
+      }
+    ],
+    "size":5,
+    "chance":4,
+    "minHeight":50,
+    "maxHeight":140,
+    "properties":{
+      "clusterVariance":2
+    }
+  },
+  "Cassiterite":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Tin",
+        "weight":1.0
+      }
+    ],
+    "size":10,
+    "chance":1,
+    "minHeight":40,
+    "maxHeight":130,
+    "properties":{
+      "clusterVariance":2,
+      "perChunk":8
+    }
+  },
+  "Palladium":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Palladium",
+        "weight":1.0
+      }
+    ],
+    "size":10,
+    "chance":1,
+    "minHeight":48,
+    "maxHeight":64,
+    "properties":{
+      "clusterVariance":2,
+      "perChunk":5
+    },
+    "dimensions":[
+      1
+    ]
   },
   "Redstone":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:redstone",
+        "ore":"Redstone",
         "weight":1.0
+      },
+      {
+        "ore":"Nickel",
+        "weight":0.15
+      },
+      {
+        "ore":"Osmium",
+        "weight":0.01
       }
     ],
     "size":7,
@@ -97,30 +340,75 @@
     "maxHeight":12,
     "properties":{
       "clusterVariance":3,
-      "perChunk":10
+      "perChunk":2
     }
   },
   "Village":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:emerald",
+        "ore":"Emerald",
         "weight":1.0
       }
     ],
-    "size":4,
-    "chance":10,
+    "size":7,
+    "chance":20,
     "minHeight":12,
     "maxHeight":30,
     "properties":{
-      "clusterVariance":2
+      "clusterVariance":3
     }
+  },
+  "Other":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Uranium",
+        "weight":1.0
+      },
+      {
+        "ore":"Mithril",
+        "weight":0.3
+      }
+    ],
+    "size":7,
+    "chance":1,
+    "minHeight":10,
+    "maxHeight":30,
+    "properties":{
+      "clusterVariance":3,
+      "perChunk":2
+    }
+  },
+  "Nether Radioactive":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Uranium",
+        "weight":1.0
+      },
+      {
+        "ore":"Mithril",
+        "weight":0.3
+      }
+    ],
+    "size":7,
+    "chance":1,
+    "minHeight":10,
+    "maxHeight":255,
+    "properties":{
+      "clusterVariance":3,
+      "perChunk":5
+    },
+    "dimensions":[
+      -1
+    ]
   },
   "Nether Quartz":{
     "generator":"cluster",
     "ore":[
       {
-        "ore":"supertechtweaks:netherquartz",
+        "ore":"Quartz",
         "weight":1.0
       }
     ],
@@ -130,7 +418,27 @@
     "maxHeight":255,
     "properties":{
       "clusterVariance":3,
-      "perChunk":40
+      "perChunk":20
+    },
+    "dimensions":[
+      -1
+    ]
+  },
+  "Nether Coal":{
+    "generator":"cluster",
+    "ore":[
+      {
+        "ore":"Coal",
+        "weight":1.0
+      }
+    ],
+    "size":20,
+    "chance":1,
+    "minHeight":10,
+    "maxHeight":255,
+    "properties":{
+      "clusterVariance":10,
+      "perChunk":16
     },
     "dimensions":[
       -1

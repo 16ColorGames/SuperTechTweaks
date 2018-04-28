@@ -393,6 +393,9 @@ public class ModRegistry {
 				.setBulkModulus(46).setHarvestLevel(3).build();
 		lead.registerMaterial();
 		lead.addBasicSmelting();
+		new MaterialBuilder("Palladium").setColor(0xced0dd).setHarvestLevel(4).setDensity(12.023)
+				.setThermalExpansion(11.8).setThermalConductivity(71.8).setElectricalResistance(105.4)
+				.setYoungsModulus(121).setShearModulus(44).setBulkModulus(180).build().registerMaterial();
 		new MaterialBuilder("Redstone").setColor(0xd43c2c).setDensity(8.96).setThermalExpansion(16.5)
 				.setThermalConductivity(401).setElectricalResistance(16.78).setYoungsModulus(119).setShearModulus(48)
 				.setBulkModulus(140).setHarvestLevel(2).setCustomDrops(new ItemStack(Items.REDSTONE, 4, 0)).build()
@@ -480,7 +483,10 @@ public class ModRegistry {
 		new MaterialBuilder("Nichrome").setColor(0x858f80).setHarvestLevel(3).setDensity(8.4)
 				.setElectricalResistance(125).setThermalExpansion(14).setShearModulus(100).setThermalConductivity(11.3)
 				.setBulkModulus(160).setYoungsModulus(200).build().registerMaterial();
-
+		new MaterialBuilder("Quartz").setColor(0xdddddd).setHarvestLevel(2).setDensity(2.65)
+				.setElectricalResistance(10000).setThermalConductivity(1.3).setThermalExpansion(12.3)
+				.setShearModulus(55).setBulkModulus(2).setCustomDrops(new ItemStack(Items.QUARTZ)).build()
+				.registerMaterial();
 		new MaterialBuilder("StainlessSteel").setColor(0xe0dfdb).setHarvestLevel(2).setDensity(8)
 				.setElectricalResistance(7200).setThermalExpansion(17.3).setShearModulus(86)
 				.setThermalConductivity(16.2).setYoungsModulus(198).setBulkModulus(143).build().registerMaterial();

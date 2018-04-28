@@ -58,10 +58,8 @@ public class ServerEvents {
 
 	@SubscribeEvent
 	public void handleOreGenEvent(OreGenEvent.GenerateMinable event) {
-		System.out.println("Saw a gen event");
 		if (Config.removeVanilla && vanillaOreGeneration.contains(event.getType())) {
 			event.setResult(Result.DENY);
-			System.out.println("cancelled it");
 		}
 	}
 
