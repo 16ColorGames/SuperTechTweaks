@@ -14,7 +14,6 @@ import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
-import com.sixteencolorgames.supertechtweaks.world.ModWorldGeneration;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
 import net.minecraft.item.Item;
@@ -46,6 +45,7 @@ public abstract class CommonProxy {
 	public static final byte RESEARCH_MESSAGE_ID = 35;
 	public static ArrayList<WorldGeneratorBase> parsed;
 	private File configFolder;
+	private ServerEvents serverEvents;
 
 	public abstract Side getSide();
 
@@ -62,7 +62,6 @@ public abstract class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent e) {
 
-		new ModWorldGeneration();
 		for (File gen : configFolder.listFiles()) {
 			if (gen.getName().contains(".json")) {
 				try {
@@ -99,7 +98,9 @@ public abstract class CommonProxy {
 		configFolder = new File(e.getModConfigurationDirectory().toString() + "/supertechtweaks/");
 		config = new Configuration(new File(configFolder.getPath(), "config.cfg"));
 		Config.readConfig(configFolder);
-		MinecraftForge.EVENT_BUS.register(new ServerEvents());
+		serverEvents = new ServerEvents();
+		MinecraftForge.EVENT_BUS.register(serverEvents);
+		MinecraftForge.ORE_GEN_BUS.register(serverEvents);
 	}
 
 	public void registerItemRenderer(Item item, int meta, String id) {

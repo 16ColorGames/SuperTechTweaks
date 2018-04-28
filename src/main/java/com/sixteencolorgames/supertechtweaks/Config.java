@@ -30,7 +30,7 @@ public class Config {
 		// specified there. If not it will create the value.
 		removeVanilla = cfg.getBoolean("removeVanilla", CATEGORY_GENERAL, true,
 				"If vanilla generation should be removed");
-		removeVanilla = cfg.getBoolean("debug", CATEGORY_GENERAL, false, "If debug info should be printed to the log");
+		debug = cfg.getBoolean("debug", CATEGORY_GENERAL, false, "If debug info should be printed to the log");
 		// extraDrop = cfg.getString("extraDrop", CATEGORY_GENERAL, "null", "the
 		// name of the additional block that an ore should drop when broken.");
 		// gets a string list from the config or creates one with default values
