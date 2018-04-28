@@ -18,7 +18,6 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 	private Material mat;
@@ -98,7 +97,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 		super.readFromNBT(compound);
 		if (compound.hasKey("TilePipe")) {
 			tank.readFromNBT(compound.getCompoundTag("TilePipe"));
-			mat = GameRegistry.findRegistry(Material.class)
+			mat = Material.REGISTRY
 					.getValue(new ResourceLocation(compound.getCompoundTag("TilePipe").getString("material")));
 		}
 	}

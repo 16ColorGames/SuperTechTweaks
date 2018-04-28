@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -109,7 +108,7 @@ public class BlockPressureTank extends BlockMulti {
 			stack.setTagCompound(tag);
 		}
 		String mat = stack.getTagCompound().getString("sttMaterial");
-		cable.setMaterial(GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(mat)));
+		cable.setMaterial(Material.REGISTRY.getValue(new ResourceLocation(mat)));
 		cable.markDirty();
 	}
 

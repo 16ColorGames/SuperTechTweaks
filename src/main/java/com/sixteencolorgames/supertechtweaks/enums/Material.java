@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Material extends IForgeRegistryEntry.Impl<Material> {
@@ -141,6 +142,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 			return this;
 		}
 	}
+
+	public static IForgeRegistry<Material> REGISTRY;
 
 	public ItemStack customDrops = null;
 
@@ -314,7 +317,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		registerOreDict();
 		SuperTechTweaksMod.proxy.registerModels(this);
 
-		GameRegistry.findRegistry(Material.class).register(this);
+		Material.REGISTRY.register(this);
 
 		if (SuperTechTweaksMod.proxy.getSide() == Side.CLIENT) {
 			clientPrep();

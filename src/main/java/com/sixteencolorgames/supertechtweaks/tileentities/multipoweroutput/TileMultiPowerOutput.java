@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
 	private Material material;
@@ -48,8 +47,7 @@ public class TileMultiPowerOutput extends TileMultiBlock implements ITickable {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		setMaterial(GameRegistry.findRegistry(Material.class)
-				.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
+		setMaterial(Material.REGISTRY.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
 	}
 
 	public void setMaterial(Material material) {

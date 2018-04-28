@@ -58,7 +58,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
@@ -206,7 +205,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -224,7 +223,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -248,7 +247,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -268,7 +267,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -286,7 +285,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -304,7 +303,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = GameRegistry.findRegistry(Material.class)
+					Material material = Material.REGISTRY
 							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
@@ -394,7 +393,7 @@ public class ModRegistry {
 				.setBulkModulus(46).setHarvestLevel(3).build();
 		lead.registerMaterial();
 		lead.addBasicSmelting();
-		new MaterialBuilder("Redstone").setColor(0xb4713d).setDensity(8.96).setThermalExpansion(16.5)
+		new MaterialBuilder("Redstone").setColor(0xd43c2c).setDensity(8.96).setThermalExpansion(16.5)
 				.setThermalConductivity(401).setElectricalResistance(16.78).setYoungsModulus(119).setShearModulus(48)
 				.setBulkModulus(140).setHarvestLevel(2).setCustomDrops(new ItemStack(Items.REDSTONE, 4, 0)).build()
 				.registerMaterial();
@@ -493,6 +492,7 @@ public class ModRegistry {
 		new RegistryBuilder().setType(Material.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "MaterialRegistry")).setIDRange(0, 256)
 				.create();
+		Material.REGISTRY = GameRegistry.findRegistry(Material.class);
 		new RegistryBuilder().setType(Research.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
 				.create();
@@ -500,7 +500,6 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
-		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
 		event.getRegistry()
 				.register(new Research("automation").setEnergyRequired(1000)
 						.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1, ItemTechComponent.SMALL_POWER_UNIT))
@@ -519,47 +518,40 @@ public class ModRegistry {
 				.register(new Research("logistics").setTitle("Logistics").setDisplay(new ItemStack(Blocks.HOPPER)));
 		event.getRegistry().register(
 				new Research("metallurgy").setTitle("Metallurgy").setDisplay(new ItemStack(Items.BLAZE_POWDER)));
-		event.getRegistry()
-				.register(new Research("advancediron1").setTitle("Advanced Iron Processing 1")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
-								MaterialItem.INGOT))
+		event.getRegistry().register(new Research("advancediron1").setTitle("Advanced Iron Processing 1")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+						MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
-		event.getRegistry()
-				.register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
-								MaterialItem.DUST))
+		event.getRegistry().register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+						MaterialItem.DUST))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancediron1")));
-		event.getRegistry()
-				.register(new Research("advancediron3").setTitle("Advanced Iron Processing 3")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
-								MaterialItem.CLUMP))
+		event.getRegistry().register(new Research("advancediron3").setTitle("Advanced Iron Processing 3")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
+						MaterialItem.CLUMP))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancediron2")));
-		event.getRegistry()
-				.register(new Research("advancedcopper2").setTitle("Advanced Copper Processing 2")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
-								MaterialItem.DUST))
+		event.getRegistry().register(new Research("advancedcopper2").setTitle("Advanced Copper Processing 2")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+						MaterialItem.DUST))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancedcopper1")));
-		event.getRegistry()
-				.register(new Research("advancedcopper3").setTitle("Advanced Copper Processing 3")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
-								MaterialItem.CLUMP))
+		event.getRegistry().register(new Research("advancedcopper3").setTitle("Advanced Copper Processing 3")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+						MaterialItem.CLUMP))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancedcopper2")));
-		event.getRegistry()
-				.register(new Research("advancedcopper1").setTitle("Advanced Copper Processing 1")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
-								MaterialItem.INGOT))
+		event.getRegistry().register(new Research("advancedcopper1").setTitle("Advanced Copper Processing 1")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:copper")).getMaterialItem(), 1,
+						MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
-		event.getRegistry()
-				.register(new Research("steel").setTitle("Steel")
-						.setDisplay(new ItemStack(
-								mats.getValue(new ResourceLocation("supertechtweaks:steel")).getMaterialItem(), 1,
-								MaterialItem.INGOT))
+		event.getRegistry().register(new Research("steel").setTitle("Steel")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:steel")).getMaterialItem(), 1,
+						MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancediron1")));
 		event.getRegistry()
 				.register(new Research("solarenergy").setTitle("Solar Energy").setDisplay(new ItemStack(Blocks.TORCH))

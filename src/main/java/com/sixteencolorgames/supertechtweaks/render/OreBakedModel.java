@@ -24,7 +24,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class OreBakedModel implements IBakedModel {
 
@@ -104,7 +103,7 @@ public class OreBakedModel implements IBakedModel {
 		// end render back
 
 		for (int i = 0; i < 7 && i < ores.length; i++) {
-			Color firstColor = new Color(GameRegistry.findRegistry(Material.class).getValue(ores[i]).getColor());
+			Color firstColor = new Color(Material.REGISTRY.getValue(ores[i]).getColor());
 			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1),
 					ore1[i], firstColor, 0));
 			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0),

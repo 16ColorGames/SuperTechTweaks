@@ -39,7 +39,6 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -197,7 +196,7 @@ public class BlockPipe extends BlockContainer {
 			stack.setTagCompound(tag);
 		}
 		String mat = stack.getTagCompound().getString("sttMaterial");
-		pipe.setMaterial(GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(mat)));
+		pipe.setMaterial(Material.REGISTRY.getValue(new ResourceLocation(mat)));
 		pipe.markDirty();
 	}
 

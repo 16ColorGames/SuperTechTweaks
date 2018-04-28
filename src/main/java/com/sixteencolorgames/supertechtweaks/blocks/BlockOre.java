@@ -32,7 +32,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -69,7 +68,7 @@ public class BlockOre extends BlockBase {
 	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
 		float hard = 1.5f;
 		for (ResourceLocation rs : OreSavedData.get(worldIn).getOres(pos)) {
-			float t = ((float) GameRegistry.findRegistry(Material.class).getValue(rs).getDensity() / 2.0f);
+			float t = ((float) Material.REGISTRY.getValue(rs).getDensity() / 2.0f);
 			if (t > hard) {
 				hard = t;
 			}
@@ -110,7 +109,7 @@ public class BlockOre extends BlockBase {
 		}
 		Random rand = worldObject.rand;
 		for (ResourceLocation ore : ores) {
-			Material material = GameRegistry.findRegistry(Material.class).getValue(ore);
+			Material material = Material.REGISTRY.getValue(ore);
 			ret.add(material.getDrops(type));
 			for (int j = 0; j < fortune; j++) {
 				if (rand.nextDouble() < .25) {
@@ -198,7 +197,7 @@ public class BlockOre extends BlockBase {
 				type = 1;
 			}
 			for (int i = 0; i < ores.length; i++) {
-				Material material = GameRegistry.findRegistry(Material.class).getValue(ores[i]);
+				Material material = Material.REGISTRY.getValue(ores[i]);
 				if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
 						.getHarvestLevel(player.getHeldItemMainhand(), "pickaxe", player, state)) {
 					worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,

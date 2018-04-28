@@ -20,8 +20,6 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Parses through the config file
@@ -42,7 +40,7 @@ public class GenerationParser {
 			weight = 1.0;
 		}
 		String name = ore.get("ore").getAsString();
-		return new Object[] { GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(name)), weight };
+		return new Object[] { Material.REGISTRY.getValue(new ResourceLocation(name)), weight };
 	}
 
 	private static WorldGeneratorBase parseCluster(JsonObject array) {
@@ -75,7 +73,6 @@ public class GenerationParser {
 	}
 
 	private static Map<Material, Double> parseOres(JsonElement oreElement) {
-		IForgeRegistry<Material> mats = GameRegistry.findRegistry(Material.class);
 		if (Config.debug) {
 			System.out.println("Parsing ores.");
 		}
@@ -90,7 +87,7 @@ public class GenerationParser {
 					if (Config.debug) {
 						System.out.println("  Ore Found: " + oreElement.getAsString());
 					}
-					ores.put(mats.getValue(new ResourceLocation(element.getAsString())), 1.0);
+					ores.put(Material.REGISTRY.getValue(new ResourceLocation(element.getAsString())), 1.0);
 				} else {
 					if (Config.debug) {
 						System.out.println("  Weighted Ore Found:");
@@ -107,7 +104,7 @@ public class GenerationParser {
 				if (Config.debug) {
 					System.out.println("  Ore Found: " + oreElement.getAsString());
 				}
-				ores.put(mats.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
+				ores.put(Material.REGISTRY.getValue(new ResourceLocation(oreElement.getAsString())), 1.0);
 			} else {
 				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
 				ores.put((Material) weightedOre[0], (Double) weightedOre[1]);

@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	public int power = 0;
@@ -104,7 +103,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		super.readFromNBT(compound);
 		if (compound.hasKey("TileCable")) {
 			power = compound.getCompoundTag("TileCable").getInteger("power");
-			mat = GameRegistry.findRegistry(Material.class)
+			mat = Material.REGISTRY
 					.getValue(new ResourceLocation(compound.getCompoundTag("TileCable").getString("material")));
 		}
 	}

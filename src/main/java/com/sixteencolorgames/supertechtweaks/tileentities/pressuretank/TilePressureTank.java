@@ -9,7 +9,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TilePressureTank extends TileMultiBlock {
 	private Material material;
@@ -41,8 +40,7 @@ public class TilePressureTank extends TileMultiBlock {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		setMaterial(GameRegistry.findRegistry(Material.class)
-				.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
+		setMaterial(Material.REGISTRY.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
 	}
 
 	public void setMaterial(Material material) {

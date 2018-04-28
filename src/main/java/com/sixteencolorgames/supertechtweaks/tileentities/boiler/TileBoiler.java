@@ -23,7 +23,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -208,8 +207,7 @@ public class TileBoiler extends TileMultiBlockController {
 		}
 		burnTime = tag.getInteger("burnTime");
 		totalBurnTime = tag.getInteger("totalBurnTime");
-		setMaterial(
-				GameRegistry.findRegistry(Material.class).getValue(new ResourceLocation(tag.getString("sttMaterial"))));
+		setMaterial(Material.REGISTRY.getValue(new ResourceLocation(tag.getString("sttMaterial"))));
 	}
 
 	@Override

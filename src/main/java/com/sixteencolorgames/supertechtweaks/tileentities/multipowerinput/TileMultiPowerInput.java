@@ -8,7 +8,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 //TODO limit power transfer by this blocks material
 public class TileMultiPowerInput extends TileMultiBlock {
@@ -38,8 +37,7 @@ public class TileMultiPowerInput extends TileMultiBlock {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		setMaterial(GameRegistry.findRegistry(Material.class)
-				.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
+		setMaterial(Material.REGISTRY.getValue(new ResourceLocation(compound.getString("sttMaterial"))));
 	}
 
 	public void setMaterial(Material material) {
