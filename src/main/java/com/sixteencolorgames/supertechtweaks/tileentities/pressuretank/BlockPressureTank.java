@@ -6,6 +6,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMulti;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
+import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -102,13 +103,7 @@ public class BlockPressureTank extends BlockMulti {
 			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		TilePressureTank cable = (TilePressureTank) worldIn.getTileEntity(pos);
-		if (!stack.hasTagCompound()) {
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString("sttMaterial", "supertechtweaks:iron");
-			stack.setTagCompound(tag);
-		}
-		String mat = stack.getTagCompound().getString("sttMaterial");
-		cable.setMaterial(Material.REGISTRY.getValue(new ResourceLocation(mat)));
+		cable.setMaterial(ItemHelper.getItemMaterial(stack));
 		cable.markDirty();
 	}
 
@@ -122,9 +117,7 @@ public class BlockPressureTank extends BlockMulti {
 			}
 			ItemStack drop = new ItemStack(this);
 			TilePressureTank cable = (TilePressureTank) worldIn.getTileEntity(pos);
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString("sttMaterial", cable.getMaterial().getRegistryName().toString());
-			drop.setTagCompound(tag);
+			ItemHelper.setItemMaterial(drop, cable.getMaterial());
 
 			worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());

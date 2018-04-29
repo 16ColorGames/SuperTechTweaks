@@ -1,7 +1,10 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
@@ -31,11 +34,13 @@ import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.Block
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.BlockSteamEngine;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
+import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -44,6 +49,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -201,8 +207,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -216,11 +221,23 @@ public class ModRegistry {
 			}
 		}.setRegistryName(blockPressureTank.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockBoiler) {
+			/**
+			 * allows items to add custom lines of information to the mouseover
+			 * description
+			 */
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Boilrate: " + TileBoiler.calcBoilRate(material) + " mb/t");
+
+			}
+
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -243,8 +260,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -263,8 +279,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -281,8 +296,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -299,8 +313,7 @@ public class ModRegistry {
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
-					Material material = Material.REGISTRY
-							.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
+					Material material = ItemHelper.getItemMaterial(stack);
 					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
 						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
 					}
@@ -348,9 +361,9 @@ public class ModRegistry {
 				.setShearModulus(6).setThermalConductivity(293).setBulkModulus(12).setYoungsModulus(14).build()
 				.registerMaterial();
 
-		Material iron = new MaterialBuilder("Iron").setColor(0xd3ad90).setToolLevel(3).setHarvestLevel(2).setThermalExpansion(11.8)
-				.setThermalConductivity(80.4).setElectricalResistance(96.1).setYoungsModulus(211).setShearModulus(82)
-				.setBulkModulus(170).setDensity(7.874).build();
+		Material iron = new MaterialBuilder("Iron").setColor(0xd3ad90).setToolLevel(3).setHarvestLevel(2)
+				.setThermalExpansion(11.8).setThermalConductivity(80.4).setElectricalResistance(96.1)
+				.setYoungsModulus(211).setShearModulus(82).setBulkModulus(170).setDensity(7.874).build();
 		iron.registerMaterial();
 		iron.addBasicSmelting();
 		new MaterialBuilder("Chromium").setColor(0x18391e).setDensity(7.19).setThermalExpansion(4.9)

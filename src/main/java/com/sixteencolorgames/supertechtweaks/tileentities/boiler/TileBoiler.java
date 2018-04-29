@@ -58,6 +58,8 @@ public class TileBoiler extends TileMultiBlockController {
 
 	private Material material;
 
+	private int boilRate = 10;
+
 	public TileBoiler() {
 		steam.setCanFill(false);
 		water.setCanDrain(false);
@@ -163,7 +165,7 @@ public class TileBoiler extends TileMultiBlockController {
 			if (getSteam().getFluidAmount() < getSteam().getCapacity() && water.getFluidAmount() > 0) {
 				if (burnTime > 0) {
 
-					FluidStack drain = water.drainInternal((int) (4 * Math.log(material.getConductivity())), true);
+					FluidStack drain = water.drainInternal(boilRate, true);
 					FluidStack fill = new FluidStack(ModRegistry.steam, drain.amount);
 					getSteam().fillInternal(fill, true);
 					burnTime--;
@@ -244,6 +246,11 @@ public class TileBoiler extends TileMultiBlockController {
 
 	public void setMaterial(Material material) {
 		this.material = material;
+		boilRate = calcBoilRate(material);
+	}
+
+	public static int calcBoilRate(Material mat) {
+		return (int) (2 * Math.log(mat.getConductivity()));
 	}
 
 	@Override

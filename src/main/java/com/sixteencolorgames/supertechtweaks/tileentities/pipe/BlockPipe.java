@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.properties.IProperty;
@@ -190,13 +191,7 @@ public class BlockPipe extends BlockContainer {
 			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
-		if (!stack.hasTagCompound()) {
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString("sttMaterial", "supertechtweaks:iron");
-			stack.setTagCompound(tag);
-		}
-		String mat = stack.getTagCompound().getString("sttMaterial");
-		pipe.setMaterial(Material.REGISTRY.getValue(new ResourceLocation(mat)));
+		pipe.setMaterial(ItemHelper.getItemMaterial(stack));
 		pipe.markDirty();
 	}
 
@@ -210,9 +205,7 @@ public class BlockPipe extends BlockContainer {
 			}
 			ItemStack drop = new ItemStack(this);
 			TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString("sttMaterial", pipe.getMaterial().getRegistryName().toString());
-			drop.setTagCompound(tag);
+			ItemHelper.setItemMaterial(drop, pipe.getMaterial());
 
 			worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());

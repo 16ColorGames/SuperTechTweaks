@@ -9,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
+import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -419,10 +420,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + name));
 
 		// register pipe block
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString("sttMaterial", getRegistryName().toString());
 		ItemStack pipeStack = new ItemStack(ModRegistry.blockPipe, 3);
-		pipeStack.setTagCompound(tag);
+		ItemHelper.setItemMaterial(pipeStack, getRegistryName().toString());
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(
 						new ShapedOreRecipe(new ResourceLocation("pipe"), pipeStack,
