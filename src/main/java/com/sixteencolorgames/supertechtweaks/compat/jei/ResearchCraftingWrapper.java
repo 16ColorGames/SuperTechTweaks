@@ -11,17 +11,45 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraftforge.common.util.Constants;
 
-public class ResearchCraftingWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack> {
+public class ResearchCraftingWrapper implements IRecipeWrapper {
 	private ResearchCraftingRecipe recipe;
 
 	public ResearchCraftingWrapper(ResearchCraftingRecipe recipe) {
 		this.recipe = recipe; // the recipe
 	}
-
+//TODO the lore seems to be added multiple times. Fix that
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setOutput(ItemStack.class, recipe.getRecipeOutput());
+		ItemStack out = recipe.getRecipeOutput();
+		NBTTagCompound tag;
+		if (out.getTagCompound() != null) {
+			tag = out.getTagCompound();
+		} else {
+			tag = new NBTTagCompound();
+		}
+		NBTTagCompound display = tag.getCompoundTag("display");
+		NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
+		if (lore != null) {
+			String[] split = getTooltip().split("\n");
+			for (String s : split) {
+				lore.appendTag(new NBTTagString(s));
+			}
+		} else {
+			lore = new NBTTagList();
+			String[] split = getTooltip().split("\n");
+			for (String s : split) {
+				lore.appendTag(new NBTTagString(s));
+			}
+		}
+		display.setTag("Lore", lore);
+		tag.setTag("display", display);
+		out.setTagCompound(tag);
+		ingredients.setOutput(ItemStack.class, out);
 		List<List<ItemStack>> l = new ArrayList<>();
 		for (Ingredient i : recipe.getIngredients()) {
 			l.add(Arrays.asList(i.getMatchingStacks()));
@@ -30,10 +58,13 @@ public class ResearchCraftingWrapper implements IRecipeWrapper, ITooltipCallback
 		ingredients.setInputLists(ItemStack.class, l);
 	}
 
-	@Override
-	public void onTooltip(int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip) {
-		// TODO Auto-generated method stub
-		tooltip.add("slot: " + slotIndex + " input:" + input);
+	private String getTooltip() {
+		StringBuilder b = new StringBuilder();
+		b.append("Required Research:\n");
+		recipe.research.forEach((rl) -> {
+			b.append(rl.toString() + "\n");
+		});
+		return b.toString();
 	}
 
 }
