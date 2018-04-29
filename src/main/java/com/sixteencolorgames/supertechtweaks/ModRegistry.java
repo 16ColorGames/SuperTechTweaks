@@ -205,6 +205,15 @@ public class ModRegistry {
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockPressureTank) {
 			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Internal Capacity: " + (material.getYoungs() * 30) + " mb");
+
+			}
+
+			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
 					Material material = ItemHelper.getItemMaterial(stack);
@@ -221,16 +230,14 @@ public class ModRegistry {
 			}
 		}.setRegistryName(blockPressureTank.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockBoiler) {
-			/**
-			 * allows items to add custom lines of information to the mouseover
-			 * description
-			 */
 			@Override
 			@SideOnly(Side.CLIENT)
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
 				tooltip.add("Boilrate: " + TileBoiler.calcBoilRate(material) + " mb/t");
+				tooltip.add("Water Capacity: " + TilePressureTank.getMaxCapacity(material) + " mb");
+				tooltip.add("Steam Capacity: Based on Pressure Tank");
 
 			}
 
@@ -277,6 +284,15 @@ public class ModRegistry {
 				.register(new ItemBlock(blockMultiFluidInput).setRegistryName(blockMultiFluidInput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiPowerOutput) {
 			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Max Power Output: " + material.getTransferRate() + " FE/t");
+
+			}
+
+			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
 					Material material = ItemHelper.getItemMaterial(stack);
@@ -294,6 +310,15 @@ public class ModRegistry {
 		}.setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable) {
 			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Max Power Transfer: " + material.getTransferRate() + " FE/t");
+
+			}
+
+			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {
 					Material material = ItemHelper.getItemMaterial(stack);
@@ -310,6 +335,14 @@ public class ModRegistry {
 			}
 		}.setRegistryName(blockCable.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockPipe) {
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Max Fluid Transfer: " + TilePipe.getTransferRate(material) + " mb/t");
+			}
+
 			@Override
 			public String getItemStackDisplayName(ItemStack stack) {
 				try {

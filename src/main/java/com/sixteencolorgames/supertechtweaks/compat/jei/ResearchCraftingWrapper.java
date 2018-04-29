@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.sixteencolorgames.supertechtweaks.recipe.ResearchCraftingFactory.ResearchCraftingRecipe;
 
-import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;

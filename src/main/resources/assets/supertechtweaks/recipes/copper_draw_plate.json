@@ -3,23 +3,18 @@
   "ingredients": [
     {
       "type": "forge:ore_dict",
+      "ore": "plateCopper"
+    },
+    {
+      "type": "forge:ore_dict",
       "ore": "toolHammer"
     },
     {
-      "type": "forge:ore_dict",
-      "ore": "toolPliers"
-    },
-    {
-      "type": "forge:ore_dict",
-      "ore": "toolDrawPlate"
-    },
-    {
-      "type": "forge:ore_dict",
-      "ore": "ingotCopper"
+      "item": "minecraft:flint"
     }
   ],
   "result": {
     "item": "supertechtweaks:itemCopper",
-    "data": 5
+    "data": 102
   }
 }

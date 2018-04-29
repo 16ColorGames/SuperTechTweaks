@@ -1,0 +1,24 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XbX",
+	"bbb",
+	"XbX"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+	"b": {
+      "type": "forge:ore_dict",
+      "ore": "wireIron"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:multipoweroutputblock"
+  },
+  "resultNBT" : {
+	"sttMaterial":"supertechtweaks:iron"
+  }
+}

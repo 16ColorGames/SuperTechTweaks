@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -380,26 +379,23 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		// register block
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(
-						new ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(this.block),
+						new ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(block),
 								new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x',
 										new OreIngredient("ingot" + name), }).setRegistryName(SuperTechTweaksMod.MODID,
 												"ingot_block" + name));
 		// register ingot
-		GameRegistry.findRegistry(IRecipe.class)
-				.register(
-						new ShapedOreRecipe(new ResourceLocation("ingots"),
-								new ItemStack(this.itemMaterial, 1, MaterialItem.INGOT),
-								new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x',
-										new OreIngredient("nugget" + name), }).setRegistryName(SuperTechTweaksMod.MODID,
-												"nugget_ingot" + name));
+		GameRegistry.findRegistry(IRecipe.class).register(
+				new ShapedOreRecipe(new ResourceLocation("ingots"), new ItemStack(itemMaterial, 1, MaterialItem.INGOT),
+						new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x', new OreIngredient("nugget" + name), })
+								.setRegistryName(SuperTechTweaksMod.MODID, "nugget_ingot" + name));
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapelessOreRecipe(new ResourceLocation("nuggets"),
-						new ItemStack(this.itemMaterial, 9, MaterialItem.NUGGET),
+						new ItemStack(itemMaterial, 9, MaterialItem.NUGGET),
 						new Object[] { new OreIngredient("ingot" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
 								"ingot_nugget" + name));
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapelessOreRecipe(new ResourceLocation("ingots"),
-						new ItemStack(this.itemMaterial, 9, MaterialItem.INGOT),
+						new ItemStack(itemMaterial, 9, MaterialItem.INGOT),
 						new Object[] { new OreIngredient("block" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
 								"block_ingot" + name));
 

@@ -181,6 +181,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 	@Override
 	public void setupStructure() {
 		facingLoop: for (EnumFacing face : EnumFacing.HORIZONTALS) {
+			int steamCap = 0;
 			TileEntity behind1 = world.getTileEntity(getPos().offset(face));
 			TileEntity behind2 = world.getTileEntity(getPos().offset(face, 2));
 			TileEntity behind3 = world.getTileEntity(getPos().offset(face, 3));
@@ -229,6 +230,9 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 				multi.setIsMaster(false);
 				multi.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			});
+			steamCap += TilePressureTank.getMaxCapacity(((TilePressureTank) behind1).getMaterial());
+			steamCap += TilePressureTank.getMaxCapacity(((TilePressureTank) behind2).getMaterial());
+			steamInternal.setCapacity(steamCap);
 			setIsMaster(true);
 			setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			System.out.println("Structure formed in " + face);

@@ -30,6 +30,10 @@ public class TileBoiler extends TileMultiBlockController {
 
 	public static final int SIZE = 1;
 
+	public static int calcBoilRate(Material mat) {
+		return (int) (2 * Math.log(mat.getConductivity()));
+	}
+
 	protected FluidTank water = new FluidTank(5000) {
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
@@ -41,6 +45,7 @@ public class TileBoiler extends TileMultiBlockController {
 	 * how many ticks are left for this burn
 	 */
 	public int burnTime = 0;
+
 	/**
 	 * how many ticks this burn started with
 	 */
@@ -249,10 +254,6 @@ public class TileBoiler extends TileMultiBlockController {
 		boilRate = calcBoilRate(material);
 	}
 
-	public static int calcBoilRate(Material mat) {
-		return (int) (2 * Math.log(mat.getConductivity()));
-	}
-
 	@Override
 	public void setupStructure() {
 		TileEntity tile = world.getTileEntity(getPos().add(0, 1, 0));
@@ -261,8 +262,8 @@ public class TileBoiler extends TileMultiBlockController {
 			tank.setIsMaster(false);
 			tank.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			Material tankMat = tank.getMaterial();
-			steam.setCapacity(tankMat.getYoungs() * 30);
-			water.setCapacity(tankMat.getYoungs() * 30);
+			steam.setCapacity(TilePressureTank.getMaxCapacity(tankMat));
+			water.setCapacity(TilePressureTank.getMaxCapacity(material));
 		}
 		setIsMaster(true);
 		setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());

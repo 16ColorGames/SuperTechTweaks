@@ -1,0 +1,22 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XXX",
+	"XfX"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+	"f": {
+		"item": "minecraft:furnace"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:blockboiler"
+  },
+  "resultNBT" : {
+	"sttMaterial":"supertechtweaks:iron"
+  }
+}

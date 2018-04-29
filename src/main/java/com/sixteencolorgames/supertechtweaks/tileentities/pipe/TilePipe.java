@@ -20,7 +20,12 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
+	public static int getTransferRate(Material mat) {
+		return mat.getYoungs() * 3;
+	}
+
 	private Material mat;
+
 	protected FluidTank tank = new FluidTank(5000);
 
 	public TilePipe() {
@@ -57,10 +62,6 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
 		return tank.getTankProperties();
-	}
-
-	public int getTransferRate() {
-		return mat.getYoungs() * 3;
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 		}
 
 		if (acceptors.size() > 0) {
-			int drain = Math.min(tank.getFluidAmount(), getTransferRate());
+			int drain = Math.min(tank.getFluidAmount(), getTransferRate(mat));
 			int fluidShare = (int) Math.ceil(((double) drain) / ((double) acceptors.size()));
 			int remainingFluid = drain;
 
