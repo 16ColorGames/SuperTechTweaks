@@ -22,7 +22,7 @@ public class ResearchCraftingWrapper implements IRecipeWrapper {
 	public ResearchCraftingWrapper(ResearchCraftingRecipe recipe) {
 		this.recipe = recipe; // the recipe
 	}
-//TODO the lore seems to be added multiple times. Fix that
+
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ItemStack out = recipe.getRecipeOutput();
@@ -31,23 +31,25 @@ public class ResearchCraftingWrapper implements IRecipeWrapper {
 			tag = out.getTagCompound();
 		} else {
 			tag = new NBTTagCompound();
-		}
-		NBTTagCompound display = tag.getCompoundTag("display");
-		NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
-		if (lore != null) {
-			String[] split = getTooltip().split("\n");
-			for (String s : split) {
-				lore.appendTag(new NBTTagString(s));
+			if (!getTooltip().equals("Required Research:\n")) {
+				NBTTagCompound display = tag.getCompoundTag("display");
+				NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
+				if (lore != null) {
+					String[] split = getTooltip().split("\n");
+					for (String s : split) {
+						lore.appendTag(new NBTTagString(s));
+					}
+				} else {
+					lore = new NBTTagList();
+					String[] split = getTooltip().split("\n");
+					for (String s : split) {
+						lore.appendTag(new NBTTagString(s));
+					}
+				}
+				display.setTag("Lore", lore);
+				tag.setTag("display", display);
 			}
-		} else {
-			lore = new NBTTagList();
-			String[] split = getTooltip().split("\n");
-			for (String s : split) {
-				lore.appendTag(new NBTTagString(s));
-			}
 		}
-		display.setTag("Lore", lore);
-		tag.setTag("display", display);
 		out.setTagCompound(tag);
 		ingredients.setOutput(ItemStack.class, out);
 		List<List<ItemStack>> l = new ArrayList<>();
