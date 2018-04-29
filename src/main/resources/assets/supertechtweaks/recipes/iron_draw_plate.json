@@ -3,24 +3,18 @@
   "ingredients": [
     {
       "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    {
+      "type": "forge:ore_dict",
       "ore": "toolHammer"
     },
     {
-      "type": "forge:ore_dict",
-      "ore": "toolPliers"
-    },
-    {
-      "type": "forge:ore_dict",
-      "ore": "toolDrawPlate"
-    },
-    {
-      "type": "forge:ore_dict",
-      "ore": "rodIron"
+      "item": "minecraft:flint"
     }
   ],
   "result": {
     "item": "supertechtweaks:itemIron",
-    "data": 9,
-	"count": 2
+    "data": 102
   }
 }

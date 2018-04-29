@@ -15,12 +15,11 @@
     },
     {
       "type": "forge:ore_dict",
-      "ore": "rodIron"
+      "ore": "ingotIron"
     }
   ],
   "result": {
     "item": "supertechtweaks:itemIron",
-    "data": 9,
-	"count": 2
+    "data": 5
   }
 }

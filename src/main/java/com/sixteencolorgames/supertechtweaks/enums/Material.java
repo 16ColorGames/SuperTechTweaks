@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -375,6 +376,32 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("drawplate" + getName(), subItemStack);
 		OreDictionary.registerOre("toolDrawPlate", subItemStack);
 
+		// register block
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(
+						new ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(this.block),
+								new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x',
+										new OreIngredient("ingot" + name), }).setRegistryName(SuperTechTweaksMod.MODID,
+												"ingot_block" + name));
+		// register ingot
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(
+						new ShapedOreRecipe(new ResourceLocation("ingots"),
+								new ItemStack(this.itemMaterial, 1, MaterialItem.INGOT),
+								new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x',
+										new OreIngredient("nugget" + name), }).setRegistryName(SuperTechTweaksMod.MODID,
+												"nugget_ingot" + name));
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapelessOreRecipe(new ResourceLocation("nuggets"),
+						new ItemStack(this.itemMaterial, 9, MaterialItem.NUGGET),
+						new Object[] { new OreIngredient("ingot" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
+								"ingot_nugget" + name));
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapelessOreRecipe(new ResourceLocation("ingots"),
+						new ItemStack(this.itemMaterial, 9, MaterialItem.INGOT),
+						new Object[] { new OreIngredient("block" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
+								"block_ingot" + name));
+
 		// register hammer
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapedOreRecipe(new ResourceLocation("hammers"),
@@ -391,11 +418,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 								'p', new OreIngredient("plate" + name), 's', new OreIngredient("stickWood") })
 										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + name));
 
-		// register cable block
-		NBTTagCompound tag = new NBTTagCompound();
-
 		// register pipe block
-		tag = new NBTTagCompound();
+		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString("sttMaterial", getRegistryName().toString());
 		ItemStack pipeStack = new ItemStack(ModRegistry.blockPipe, 3);
 		pipeStack.setTagCompound(tag);
