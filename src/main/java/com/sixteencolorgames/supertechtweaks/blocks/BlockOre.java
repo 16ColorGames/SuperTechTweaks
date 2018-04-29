@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyBase;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
@@ -48,6 +50,15 @@ public class BlockOre extends BlockBase {
 
 	public BlockOre() {
 		super(net.minecraft.block.material.Material.ROCK, "superore");
+	}
+
+	/**
+	 * Queries the class of tool required to harvest this block, if null is
+	 * returned we assume that anything can harvest this block.
+	 */
+	@Nullable
+	public String getHarvestTool(IBlockState state) {
+		return "pickaxe";
 	}
 
 	@Override

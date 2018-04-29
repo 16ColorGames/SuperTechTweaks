@@ -57,6 +57,7 @@ public class ClientProxy extends CommonProxy {
 	static ModelResourceLocation coinLocation = new ModelResourceLocation("supertechtweaks:itemCoin", "inventory");
 	static ModelResourceLocation bladeLocation = new ModelResourceLocation("supertechtweaks:itemBlade", "inventory");
 	static ModelResourceLocation hammerLocation = new ModelResourceLocation("supertechtweaks:itemHammer", "inventory");
+	static ModelResourceLocation pickaxeLocation = new ModelResourceLocation("supertechtweaks:itemPickaxe", "inventory");
 	static ModelResourceLocation pliersLocation = new ModelResourceLocation("supertechtweaks:itemPliers", "inventory");
 	static ModelResourceLocation drawPlateLocation = new ModelResourceLocation("supertechtweaks:itemDrawPlate",
 			"inventory");
@@ -143,6 +144,7 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.COIN, coinLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.BLADE, bladeLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.HAMMER, hammerLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PICKAXE, pickaxeLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PLIERS, pliersLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DRAW_PLATE, drawPlateLocation);
 	}

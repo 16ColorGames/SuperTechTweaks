@@ -16,7 +16,9 @@ import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,9 +30,11 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 
 /**
  * Proxy functions common to both the client and server side
@@ -61,7 +65,12 @@ public abstract class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent e) {
-
+		IForgeRegistryModifiable recipies = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
+		recipies.remove(new ResourceLocation("minecraft:diamond_pickaxe"));
+		recipies.remove(new ResourceLocation("minecraft:iron_pickaxe"));
+		recipies.remove(new ResourceLocation("minecraft:stone_pickaxe"));
+		recipies.remove(new ResourceLocation("minecraft:wooden_pickaxe"));
+		recipies.remove(new ResourceLocation("minecraft:golden_pickaxe"));
 		for (File gen : configFolder.listFiles()) {
 			if (gen.getName().contains(".json")) {
 				try {

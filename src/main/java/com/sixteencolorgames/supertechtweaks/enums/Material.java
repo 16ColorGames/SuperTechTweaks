@@ -1,7 +1,5 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
-import static com.sixteencolorgames.supertechtweaks.enums.HarvestLevels._0_stone;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +34,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		Material building;
 
 		public MaterialBuilder(String name) {
-			building = new Material(name, 0x000000, -1, _0_stone, 5.0, 999999, 10, 30, 15, 200, 150);
+			building = new Material(name, 0x000000, -1, -1, 5.0, 999999, 10, 30, 15, 200, 150);
 		}
 
 		public Material build() {
@@ -127,7 +125,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		 * Level that a tool made of this can mine
 		 */
 		public MaterialBuilder setToolLevel(int level) {
-			building.mine = level;
+			building.tool = level;
 			return this;
 		}
 
@@ -163,7 +161,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	/**
 	 * Level that a tool made of this can mine
 	 */
-	private int mine;
+	private int tool;
 	/**
 	 * density measured in g/cm3 at room temperature
 	 */
@@ -209,7 +207,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.name = name;
 		this.color = color;
 		this.harvest = harvest;
-		this.mine = mine;
+		this.tool = mine;
 		this.density = density;
 		this.resistance = resistance;
 		this.expansion = expansion;
@@ -282,8 +280,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return itemMaterial;
 	}
 
-	public int getMine() {
-		return mine;
+	public int getToolLevel() {
+		return tool;
 	}
 
 	public String getName() {
@@ -367,6 +365,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.HAMMER);
 		OreDictionary.registerOre("hammer" + getName(), subItemStack);
 		OreDictionary.registerOre("toolHammer", subItemStack);
+		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.PICKAXE);
+		OreDictionary.registerOre("pickaxe" + getName(), subItemStack);
+		OreDictionary.registerOre("toolPickaxe", subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.PLIERS);
 		OreDictionary.registerOre("pliers" + getName(), subItemStack);
 		OreDictionary.registerOre("toolPliers", subItemStack);

@@ -42,6 +42,7 @@ item.supertechtweaks.shard.name=%s Shard
 item.supertechtweaks.wire.name=%s Wire
 tile.supertechtweaks.block.name=Block of %s
 item.supertechtweaks.hammer.name=%s Hammer
+item.supertechtweaks.pickaxe.name=%s Pickaxe
 item.supertechtweaks.pliers.name=%s Pliers
 item.supertechtweaks.drawPlate.name=%s Draw Plate
 

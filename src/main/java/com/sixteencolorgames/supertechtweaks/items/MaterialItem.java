@@ -1,5 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.items;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
@@ -9,17 +11,21 @@ import com.sixteencolorgames.supertechtweaks.Utils;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -47,6 +53,9 @@ public class MaterialItem extends ItemBase {
 	public static final int HAMMER = 100;
 	public static final int PLIERS = 101;
 	public static final int DRAW_PLATE = 102;
+	public static final int PICKAXE = 103;
+	public static final int SHOVEL = 104;
+	public static final int AXE = 105;
 
 	Material material;
 
@@ -58,6 +67,24 @@ public class MaterialItem extends ItemBase {
 		setCreativeTab(CreativeTabs.MISC); // items will appear on the
 	}
 
+	/**
+	 * allows items to add custom lines of information to the mouseover
+	 * description
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		if (stack.getMetadata() >= HAMMER) {
+			if (material.getToolLevel() >= 0) {
+				tooltip.add("Tool Level: " + material.getToolLevel());
+			}
+		}
+		if (stack.getMetadata() == ORE || stack.getMetadata() == NETHER_ORE || stack.getMetadata() == END_ORE) {
+			tooltip.add("Harvest Level: " + material.getHarvest());
+
+		}
+	}
+
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		if (stack.getMetadata() >= HAMMER) {
@@ -67,11 +94,10 @@ public class MaterialItem extends ItemBase {
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
-	private void damageTool(ItemStack stack, int amount, Random rand, @Nullable EntityPlayer player) {
+	private void damageTool(ItemStack stack, int amount, Random rand, @Nullable EntityLivingBase entityLiving) {
 		if (amount <= 0) {
 			return;
 		}
-
 		int unbreakLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack);
 		for (int i = 0; unbreakLevel > 0 && i < amount; i++) {
 			if (EnchantmentDurability.negateDamage(stack, unbreakLevel, rand)) {
@@ -86,14 +112,13 @@ public class MaterialItem extends ItemBase {
 		int curDamage = Utils.getNBTInt(stack, nbtKey);
 		curDamage += amount;
 
-		if (player instanceof EntityPlayerMP) {
-			CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((EntityPlayerMP) player, stack, curDamage);
+		if (entityLiving instanceof EntityPlayerMP) {
+			CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((EntityPlayerMP) entityLiving, stack, curDamage);
 		}
 
 		if (curDamage >= getMaxDamageTool(stack)) {
-			if (player != null) {
-				player.renderBrokenItemStack(stack);
-				player.addStat(StatList.getObjectBreakStats(this));
+			if (entityLiving != null) {
+				entityLiving.renderBrokenItemStack(stack);
 			}
 			stack.shrink(1);
 			return;
@@ -113,11 +138,56 @@ public class MaterialItem extends ItemBase {
 	}
 
 	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		for (String type : getToolClasses(stack)) {
+			if (state.getBlock().isToolEffective(type, state)) {
+				return (float) (Math.log(material.getShear()) + Math.log(material.getBulk()));
+			}
+		}
+		return 1.0F;
+	}
+
+	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		if (stack.getMetadata() >= HAMMER) {
 			return Utils.getNBTInt(stack, "toolDMG") / (double) getMaxDamageTool(stack);
 		}
 		return 0;
+	}
+
+	/**
+	 * Queries the harvest level of this item stack for the specified tool
+	 * class, Returns -1 if this tool is not of the specified type
+	 *
+	 * @param stack
+	 *            This item stack instance
+	 * @param toolClass
+	 *            Tool Class
+	 * @param player
+	 *            The player trying to harvest the given blockstate
+	 * @param blockState
+	 *            The block to harvest
+	 * @return Harvest level, or -1 if not the specified tool type.
+	 */
+	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player,
+			@Nullable IBlockState blockState) {
+		int ret = -1;
+		switch (stack.getMetadata()) {
+		case PICKAXE:
+			ret = toolClass.equalsIgnoreCase("pickaxe") ? material.getToolLevel() : -1;
+			break;
+		case SHOVEL:
+			ret = toolClass.equalsIgnoreCase("shovel") ? material.getToolLevel() : -1;
+			break;
+		case AXE:
+			ret = toolClass.equalsIgnoreCase("axe") ? material.getToolLevel() : -1;
+			break;
+		case HAMMER:
+			ret = toolClass.equalsIgnoreCase("hammer") ? material.getToolLevel() : -1;
+			break;
+		}
+		return ret;
 	}
 
 	@Override
@@ -145,6 +215,7 @@ public class MaterialItem extends ItemBase {
 	public int getMaxDamageTool(ItemStack stack) {
 		switch (stack.getMetadata()) {
 		case HAMMER:
+		case PICKAXE:
 			return material.getBulk() * 2;
 		case PLIERS:
 			return material.getShear() * 2;
@@ -201,14 +272,37 @@ public class MaterialItem extends ItemBase {
 		subItems.add(subItemStack);
 		subItemStack = new ItemStack(this, 1, END_ORE);
 		subItems.add(subItemStack);
+		if (material.getToolLevel() >= 0) {
+			subItemStack = new ItemStack(this, 1, HAMMER);
+			subItems.add(subItemStack);
+			subItemStack = new ItemStack(this, 1, PLIERS);
+			subItems.add(subItemStack);
+			subItemStack = new ItemStack(this, 1, DRAW_PLATE);
+			subItems.add(subItemStack);
+			subItemStack = new ItemStack(this, 1, PICKAXE);
+			subItems.add(subItemStack);
+		}
 
-		subItemStack = new ItemStack(this, 1, HAMMER);
-		subItems.add(subItemStack);
-		subItemStack = new ItemStack(this, 1, PLIERS);
-		subItems.add(subItemStack);
-		subItemStack = new ItemStack(this, 1, DRAW_PLATE);
-		subItems.add(subItemStack);
+	}
 
+	@Override
+	public java.util.Set<String> getToolClasses(ItemStack stack) {
+		HashSet<String> ret = new HashSet<String>();
+		switch (stack.getMetadata()) {
+		case PICKAXE:
+			ret.add("pickaxe");
+			break;
+		case SHOVEL:
+			ret.add("shovel");
+			break;
+		case AXE:
+			ret.add("axe");
+			break;
+		case HAMMER:
+			ret.add("hammer");
+			break;
+		}
+		return ret;
 	}
 
 	@Override
@@ -277,6 +371,9 @@ public class MaterialItem extends ItemBase {
 		if (metadata == DRAW_PLATE) {
 			return "item.supertechtweaks.drawPlate";
 		}
+		if (metadata == PICKAXE) {
+			return "item.supertechtweaks.pickaxe";
+		}
 		return "item.itemMaterialObject.ERROR_" + metadata;
 	}
 
@@ -288,6 +385,20 @@ public class MaterialItem extends ItemBase {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return stack.getMetadata() >= HAMMER;
+	}
+
+	/**
+	 * Called when a Block is destroyed using this Item. Return true to trigger
+	 * the "Use Item" statistic.
+	 */
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
+			EntityLivingBase entityLiving) {
+		if (!worldIn.isRemote && state.getBlockHardness(worldIn, pos) != 0.0D && stack.getMetadata() >= HAMMER) {
+			damageTool(stack, 1, worldIn.rand, entityLiving);
+		}
+
+		return true;
 	}
 
 	@Override
