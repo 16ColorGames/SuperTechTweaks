@@ -348,7 +348,7 @@ public class ModRegistry {
 				.setShearModulus(6).setThermalConductivity(293).setBulkModulus(12).setYoungsModulus(14).build()
 				.registerMaterial();
 
-		Material iron = new MaterialBuilder("Iron").setColor(0xd3ad90).setHarvestLevel(2).setThermalExpansion(11.8)
+		Material iron = new MaterialBuilder("Iron").setColor(0xd3ad90).setToolLevel(3).setHarvestLevel(2).setThermalExpansion(11.8)
 				.setThermalConductivity(80.4).setElectricalResistance(96.1).setYoungsModulus(211).setShearModulus(82)
 				.setBulkModulus(170).setDensity(7.874).build();
 		iron.registerMaterial();
