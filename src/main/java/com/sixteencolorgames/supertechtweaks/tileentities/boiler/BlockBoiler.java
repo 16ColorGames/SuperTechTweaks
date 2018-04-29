@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -146,7 +149,17 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 		if (!(te instanceof TileBoiler)) {
 			return false;
 		}
-		player.openGui(SuperTechTweaksMod.instance, ModRegistry.BOILER, world, pos.getX(), pos.getY(), pos.getZ());
+
+		System.out.println("Active: " + player.getHeldItem(hand).getItem());
+		if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+			TileBoiler bo = (TileBoiler) te;
+			if (bo.water.getCapacity() - bo.water.getFluidAmount() >= 1000) {
+				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+				bo.water.fillInternal(new FluidStack(FluidRegistry.WATER, 1000), true);
+			}
+		} else {
+			player.openGui(SuperTechTweaksMod.instance, ModRegistry.BOILER, world, pos.getX(), pos.getY(), pos.getZ());
+		}
 		return true;
 	}
 
