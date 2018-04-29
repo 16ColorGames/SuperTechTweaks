@@ -57,7 +57,8 @@ public class ClientProxy extends CommonProxy {
 	static ModelResourceLocation coinLocation = new ModelResourceLocation("supertechtweaks:itemCoin", "inventory");
 	static ModelResourceLocation bladeLocation = new ModelResourceLocation("supertechtweaks:itemBlade", "inventory");
 	static ModelResourceLocation hammerLocation = new ModelResourceLocation("supertechtweaks:itemHammer", "inventory");
-	static ModelResourceLocation pickaxeLocation = new ModelResourceLocation("supertechtweaks:itemPickaxe", "inventory");
+	static ModelResourceLocation pickaxeLocation = new ModelResourceLocation("supertechtweaks:itemPickaxe",
+			"inventory");
 	static ModelResourceLocation pliersLocation = new ModelResourceLocation("supertechtweaks:itemPliers", "inventory");
 	static ModelResourceLocation drawPlateLocation = new ModelResourceLocation("supertechtweaks:itemDrawPlate",
 			"inventory");

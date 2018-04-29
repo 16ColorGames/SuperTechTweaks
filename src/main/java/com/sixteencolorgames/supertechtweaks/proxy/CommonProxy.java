@@ -16,7 +16,6 @@ import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;

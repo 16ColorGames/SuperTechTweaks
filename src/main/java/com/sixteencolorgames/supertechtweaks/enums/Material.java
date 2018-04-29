@@ -207,7 +207,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.name = name;
 		this.color = color;
 		this.harvest = harvest;
-		this.tool = mine;
+		tool = mine;
 		this.density = density;
 		this.resistance = resistance;
 		this.expansion = expansion;
@@ -280,10 +280,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return itemMaterial;
 	}
 
-	public int getToolLevel() {
-		return tool;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -294,6 +290,10 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 	public int getShear() {
 		return shear;
+	}
+
+	public int getToolLevel() {
+		return tool;
 	}
 
 	public int getTransferRate() {

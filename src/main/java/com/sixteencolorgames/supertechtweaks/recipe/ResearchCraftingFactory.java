@@ -75,8 +75,8 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 		public final NonNullList<Ingredient> input;
 
 		public final int height, width;
-		protected ItemStack output = ItemStack.EMPTY;
 
+		protected ItemStack output = ItemStack.EMPTY;
 		public final NonNullList<ResourceLocation> research;
 
 		public ResearchCraftingRecipe(ResourceLocation group, @Nonnull ItemStack result, ShapedPrimer primer,
@@ -127,6 +127,12 @@ public class ResearchCraftingFactory implements IRecipeFactory {
 		@Nonnull
 		public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 			return output.copy();
+		}
+
+		@Override
+		@Nonnull
+		public NonNullList<Ingredient> getIngredients() {
+			return input;
 		}
 
 		@Override

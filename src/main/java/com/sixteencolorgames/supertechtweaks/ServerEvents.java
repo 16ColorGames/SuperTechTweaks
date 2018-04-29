@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
-import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 
@@ -26,15 +25,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType;
 import net.minecraftforge.event.world.ChunkWatchEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 /**
@@ -44,7 +41,6 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class ServerEvents {
 
-	HashMap<UUID, ArrayList<Pair>> sentChunks = new HashMap();
 	private static final ArrayList<EventType> vanillaOreGeneration = new ArrayList<EventType>();
 
 	static {
@@ -58,6 +54,8 @@ public class ServerEvents {
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.QUARTZ);
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.EMERALD);
 	}
+
+	HashMap<UUID, ArrayList<Pair>> sentChunks = new HashMap();
 
 	@SubscribeEvent
 	public void handleOreGenEvent(OreGenEvent.GenerateMinable event) {

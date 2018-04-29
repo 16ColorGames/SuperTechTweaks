@@ -52,15 +52,6 @@ public class BlockOre extends BlockBase {
 		super(net.minecraft.block.material.Material.ROCK, "superore");
 	}
 
-	/**
-	 * Queries the class of tool required to harvest this block, if null is
-	 * returned we assume that anything can harvest this block.
-	 */
-	@Nullable
-	public String getHarvestTool(IBlockState state) {
-		return "pickaxe";
-	}
-
 	@Override
 	@Deprecated // Forge: State sensitive version
 	protected boolean canSilkHarvest() {
@@ -143,6 +134,16 @@ public class BlockOre extends BlockBase {
 			oreList.add(i);
 		}
 		return extendedBlockState.withProperty(BASE, base).withProperty(ORES, oreList.toArray(new ResourceLocation[0]));
+	}
+
+	/**
+	 * Queries the class of tool required to harvest this block, if null is
+	 * returned we assume that anything can harvest this block.
+	 */
+	@Override
+	@Nullable
+	public String getHarvestTool(IBlockState state) {
+		return "pickaxe";
 	}
 
 	/**
