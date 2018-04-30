@@ -25,6 +25,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -150,16 +151,22 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 			return false;
 		}
 
-		System.out.println("Active: " + player.getHeldItem(hand).getItem());
-		if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
-			TileBoiler bo = (TileBoiler) te;
-			if (bo.water.getCapacity() - bo.water.getFluidAmount() >= 1000) {
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				bo.water.fillInternal(new FluidStack(FluidRegistry.WATER, 1000), true);
+		TileBoiler bo = (TileBoiler) te;
+		//TODO support other water containers
+		if (bo.hasMaster()) {
+			if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+				if (bo.water.getCapacity() - bo.water.getFluidAmount() >= 1000) {
+					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+					bo.water.fillInternal(new FluidStack(FluidRegistry.WATER, 1000), true);
+				}
+			} else {
+				player.openGui(SuperTechTweaksMod.instance, ModRegistry.BOILER, world, pos.getX(), pos.getY(),
+						pos.getZ());
 			}
 		} else {
-			player.openGui(SuperTechTweaksMod.instance, ModRegistry.BOILER, world, pos.getX(), pos.getY(), pos.getZ());
+			player.sendMessage(new TextComponentString("Invalid multiblock!"));
 		}
+
 		return true;
 	}
 

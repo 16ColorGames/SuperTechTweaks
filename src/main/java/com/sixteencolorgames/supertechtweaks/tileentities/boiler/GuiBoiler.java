@@ -20,7 +20,6 @@ public class GuiBoiler extends GuiContainer {
 		ySize = HEIGHT;
 	}
 
-	// TODO add fluid displays
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		mc.getTextureManager().bindTexture(background);
