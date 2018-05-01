@@ -169,9 +169,7 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 				energy -= extract;
 				ResearchSavedData.get(world).setPlayerResearchProgress(owner_UUID,
 						getSelector().getSelected().toString(), progress + extract);
-				if (progress >= getSelector().getSelectedResearch().getEnergyRequired()) {
-					// TODO send message
-					System.out.println("research completed");
+				if (progress + extract >= getSelector().getSelectedResearch().getEnergyRequired()) {
 					world.getPlayerEntityByUUID(owner_UUID).sendMessage(
 							new TextComponentString("Research Complete: " + getSelector().getSelected().toString()));
 				}
