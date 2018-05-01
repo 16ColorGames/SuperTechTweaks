@@ -1,0 +1,22 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XXX",
+	" s ",
+	" s "
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBronze"
+    },
+	"s": {
+		"type": "forge:ore_dict",
+		"ore": "stickWood"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:itemBronze",
+	"data": 103
+  }
+}

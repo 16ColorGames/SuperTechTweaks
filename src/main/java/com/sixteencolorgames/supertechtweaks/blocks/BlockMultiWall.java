@@ -125,7 +125,7 @@ public class BlockMultiWall extends BlockMulti {
 			TileMultiBlock master = wall.getMaster();
 			if (master instanceof TileBasicResearcher) {
 				TileBasicResearcher res = (TileBasicResearcher) master;
-				player.sendMessage(new TextComponentString("Selected: " + res.getSelector().getSelected().toString()));
+				player.sendMessage(new TextComponentString("Selected: " + res.getSelector().getSelected().toString() + ", Owner: " + res.getOwner().getName()));
 			}
 		}
 		return true;

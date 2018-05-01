@@ -9,7 +9,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 public class Research extends IForgeRegistryEntry.Impl<Research> {
 	private NonNullList<ResourceLocation> requirements = NonNullList.create();
 	private NonNullList<ResourceLocation> dependents = NonNullList.create();
-	private int energyRequired = 1000;
+	private int energyRequired = 10000;
 	private ItemStack display = new ItemStack(Blocks.DIRT);
 	private String title;
 

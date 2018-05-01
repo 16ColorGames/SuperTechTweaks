@@ -425,5 +425,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 										new OreIngredient("plate" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
 												"pipe" + name));
 
+		// register dust to ingot
+		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.DUST),
+				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
+
 	}
 }

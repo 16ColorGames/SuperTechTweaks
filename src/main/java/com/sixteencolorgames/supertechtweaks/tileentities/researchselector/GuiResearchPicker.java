@@ -75,6 +75,9 @@ public class GuiResearchPicker extends GuiScreen {
 		values = cloneList(GameRegistry.findRegistry(Research.class).getValues());
 		for (Research r : cloneList(values)) {// only display the valid
 			// researches
+			if (ResearchSavedData.get(player.world).getPlayerHasResearch(player, r.getRegistryName())) {
+				values.remove(r);
+			}
 			for (int j = 0; j < r.getRequirementCount(); j++) {
 				if (!ResearchSavedData.get(player.world).getPlayerHasResearch(player, r.getRequirements().get(j))) {
 					values.remove(r);

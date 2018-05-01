@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.mojang.authlib.GameProfile;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlockController;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +22,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -41,6 +44,11 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 		}
 	};
 	private UUID owner_UUID;
+
+	public GameProfile getOwner() {
+		return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerProfileCache()
+				.getProfileByUUID(owner_UUID);
+	}
 
 	public TileBasicResearcher() {
 		energy = 0;
@@ -163,6 +171,7 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 						getSelector().getSelected().toString(), progress + extract);
 				if (progress >= getSelector().getSelectedResearch().getEnergyRequired()) {
 					// TODO send message
+					System.out.println("research completed");
 					world.getPlayerEntityByUUID(owner_UUID).sendMessage(
 							new TextComponentString("Research Complete: " + getSelector().getSelected().toString()));
 				}
