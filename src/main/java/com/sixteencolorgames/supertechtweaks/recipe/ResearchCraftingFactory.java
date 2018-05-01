@@ -26,6 +26,7 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
@@ -40,20 +41,22 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 public class ResearchCraftingFactory implements IRecipeFactory {
 	public static class ResearchCraftingRecipe extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
 			implements IRecipe {
-		// XXX SRG names for non-dev environment
-		/*
-		 * private static final Field eventHandlerField =
-		 * ReflectionHelper.findField(InventoryCrafting.class, "field_70465_c");
-		 * private static final Field containerPlayerPlayerField =
-		 * ReflectionHelper.findField(ContainerPlayer.class, "field_82862_h");
-		 * private static final Field slotCraftingPlayerField =
-		 * ReflectionHelper.findField(SlotCrafting.class, "field_75238_b");
-		 */
-		private static final Field eventHandlerField = ReflectionHelper.findField(InventoryCrafting.class,
-				"eventHandler");
-		private static final Field containerPlayerPlayerField = ReflectionHelper.findField(ContainerPlayer.class,
-				"player");
-		private static final Field slotCraftingPlayerField = ReflectionHelper.findField(SlotCrafting.class, "player");
+
+		private static final Field eventHandlerField;
+		private static final Field containerPlayerPlayerField;
+		private static final Field slotCraftingPlayerField;
+
+		static {
+			if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
+				eventHandlerField = ReflectionHelper.findField(InventoryCrafting.class, "eventHandler");
+				containerPlayerPlayerField = ReflectionHelper.findField(ContainerPlayer.class, "player");
+				slotCraftingPlayerField = ReflectionHelper.findField(SlotCrafting.class, "player");
+			} else {
+				slotCraftingPlayerField = ReflectionHelper.findField(SlotCrafting.class, "field_75238_b");
+				containerPlayerPlayerField = ReflectionHelper.findField(ContainerPlayer.class, "field_82862_h");
+				eventHandlerField = ReflectionHelper.findField(InventoryCrafting.class, "field_70465_c");
+			}
+		}
 
 		private static EntityPlayer findPlayer(InventoryCrafting inv) {
 

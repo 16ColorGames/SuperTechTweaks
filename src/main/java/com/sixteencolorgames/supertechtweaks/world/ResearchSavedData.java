@@ -48,7 +48,7 @@ public class ResearchSavedData extends WorldSavedData {
 
 	public boolean getPlayerHasResearch(EntityPlayer player, ResourceLocation research) {
 		Research value = GameRegistry.findRegistry(Research.class).getValue(research);
-		return (progress.getOrDefault(player.getUniqueID(), new HashMap()).getOrDefault(research, 0) >= value
+		return (((int) progress.getOrDefault(player.getUniqueID(), new HashMap()).getOrDefault(research, 0)) >= value
 				.getEnergyRequired());
 	}
 
@@ -57,7 +57,7 @@ public class ResearchSavedData extends WorldSavedData {
 	}
 
 	public int getPlayerResearchProgress(UUID owner_UUID, String string) {
-		return progress.getOrDefault(owner_UUID, new HashMap()).getOrDefault(new ResourceLocation(string), 0);
+		return (int) progress.getOrDefault(owner_UUID, new HashMap()).getOrDefault(new ResourceLocation(string), 0);
 	}
 
 	@Override
