@@ -12,8 +12,10 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -33,6 +35,7 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".basicresearcher");
 		setRegistryName("basicresearcherblock");
 		setDefaultState(blockState.getBaseState().withProperty(PART, false));
+		setHardness(2);
 	}
 
 	/**
@@ -107,5 +110,17 @@ public class BlockBasicResearcher extends Block implements ITileEntityProvider {
 		player.openGui(SuperTechTweaksMod.instance, ModRegistry.BASIC_RESEARCHER, world, pos.getX(), pos.getY(),
 				pos.getZ());
 		return true;
+	}
+
+	/**
+	 * Called by ItemBlocks after a block is set in the world, to allow
+	 * post-place logic
+	 */
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+		TileBasicResearcher researcher = (TileBasicResearcher) worldIn.getTileEntity(pos);
+		researcher.setOwner((EntityPlayer) placer);
 	}
 }

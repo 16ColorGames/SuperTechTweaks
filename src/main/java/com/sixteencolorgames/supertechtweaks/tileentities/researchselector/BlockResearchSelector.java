@@ -25,6 +25,7 @@ public class BlockResearchSelector extends Block implements ITileEntityProvider 
 		super(Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".researchselector");
 		setRegistryName("researchselectorblock");
+		setHardness(2);
 	}
 
 	@Override

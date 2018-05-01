@@ -4,28 +4,24 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateResearchUnlocksPacket;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
-import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ResearchSavedData extends WorldSavedData {
 
 	private static final String DATA_NAME = SuperTechTweaksMod.MODID + "_ResearchData"; // Required
 
 	public static ResearchSavedData get(World world) {
-		// The IS_GLOBAL constant is there for clarity, and should be simplified
-		// into the right branch.
 		MapStorage storage = world.getMapStorage();
 		ResearchSavedData instance = (ResearchSavedData) storage.getOrLoadData(ResearchSavedData.class, DATA_NAME);
 
@@ -33,11 +29,14 @@ public class ResearchSavedData extends WorldSavedData {
 			instance = new ResearchSavedData();
 			storage.setData(DATA_NAME, instance);
 		}
+		instance.world = world;
 		return instance;
 	}
 
+	private World world;
+
 	// constructors
-	HashMap<UUID, NonNullList<ResourceLocation>> researched = new HashMap();
+	HashMap<UUID, HashMap<ResourceLocation, Integer>> progress = new HashMap();
 
 	public ResearchSavedData() {
 		super(DATA_NAME);
@@ -48,62 +47,67 @@ public class ResearchSavedData extends WorldSavedData {
 	}
 
 	public boolean getPlayerHasResearch(EntityPlayer player, ResourceLocation research) {
-		if (!researched.containsKey(player.getUniqueID())) {
-			researched.put(player.getUniqueID(), NonNullList.create());
-		}
-		return researched.get(player.getUniqueID()).contains(research);
+		Research value = GameRegistry.findRegistry(Research.class).getValue(research);
+		return (progress.getOrDefault(player.getUniqueID(), new HashMap()).getOrDefault(research, 0) >= value
+				.getEnergyRequired());
 	}
 
-	public NonNullList<ResourceLocation> getPlayerResearched(EntityPlayer player) {
-		if (!researched.containsKey(player.getUniqueID())) {
-			researched.put(player.getUniqueID(), NonNullList.create());
-		}
-		return researched.get(player.getUniqueID());
+	public HashMap<ResourceLocation, Integer> getPlayerResearched(EntityPlayer player) {
+		return progress.getOrDefault(player.getUniqueID(), new HashMap());
 	}
 
-	public void playerUnlockResearch(EntityPlayer player, ResourceLocation selected) {
-		if (!researched.containsKey(player.getUniqueID())) {
-			researched.put(player.getUniqueID(), NonNullList.create());
-		}
-		if (!researched.get(player.getUniqueID()).contains(selected)) {
-			researched.get(player.getUniqueID()).add(selected);
-		}
-		markDirty();
-		UpdateResearchUnlocksPacket packet = new UpdateResearchUnlocksPacket(player);
-		PacketHandler.INSTANCE.sendTo(packet, (EntityPlayerMP) player);
-		System.out.println("Unlocking " + selected + " for " + player.getName());
+	public int getPlayerResearchProgress(UUID owner_UUID, String string) {
+		return progress.getOrDefault(owner_UUID, new HashMap()).getOrDefault(new ResourceLocation(string), 0);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		researched = new HashMap();
-		nbt.getKeySet().forEach((String id) -> {
-			UUID from = UUID.fromString(id);
-			NonNullList<ResourceLocation> locs = NonNullList.create();
+		progress = new HashMap();
+		nbt.getKeySet().forEach((String playerId) -> {
+			UUID from = UUID.fromString(playerId);
 
-			NBTTagList tagList = nbt.getTagList(id, Constants.NBT.TAG_STRING);
+			NBTTagCompound playerCompound = nbt.getCompoundTag(playerId);
+			HashMap<ResourceLocation, Integer> player = new HashMap();
 
-			for (int i = 0; i < tagList.tagCount(); i++) {
-				locs.add(new ResourceLocation(tagList.getStringTagAt(i)));
-			}
-			researched.put(from, locs);
+			playerCompound.getKeySet().forEach((String resId) -> {
+				player.put(new ResourceLocation(resId), playerCompound.getInteger(resId));
+			});
+
+			progress.put(from, player);
 		});
 	}
 
-	public void readFromUpdate(UUID id, NonNullList<ResourceLocation> locs) {
-		researched.put(id, locs);
+	public void readFromUpdate(UUID id, HashMap<ResourceLocation, Integer> locs) {
+		progress.put(id, locs);
+	}
+
+	public void setPlayerResearchProgress(UUID owner_UUID, String string, int i) {
+		if (progress.containsKey(owner_UUID)) {
+			progress.get(owner_UUID).put(new ResourceLocation(string), i);
+		} else {
+			HashMap<ResourceLocation, Integer> value = new HashMap();
+			value.put(new ResourceLocation(string), i);
+			progress.put(owner_UUID, value);
+		}
+		markDirty();
+		try {
+			UpdateResearchUnlocksPacket packet = new UpdateResearchUnlocksPacket(
+					world.getPlayerEntityByUUID(owner_UUID));
+			PacketHandler.INSTANCE.sendTo(packet, (EntityPlayerMP) world.getPlayerEntityByUUID(owner_UUID));
+		} catch (Exception ex) {
+
+		}
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
-		researched.forEach((UUID id, NonNullList<ResourceLocation> list) -> {
-
-			NBTTagList listSave = new NBTTagList();
-			for (ResourceLocation loc : list) {
-				listSave.appendTag(new NBTTagString(loc.toString()));
-			}
-			compound.setTag(id.toString(), listSave);
+		System.out.println("Saving research");
+		progress.forEach((id, map) -> {
+			NBTTagCompound playerList = new NBTTagCompound();
+			map.forEach((rl, i) -> {
+				playerList.setInteger(rl.toString(), i);
+			});
+			compound.setTag(id.toString(), playerList);
 		});
 		return compound;
 	}

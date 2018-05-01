@@ -20,6 +20,7 @@ public class BlockMultiFluidInput extends Block implements ITileEntityProvider {
 		super(Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".multifluidinput");
 		setRegistryName("multifluidinputblock");
+		setHardness(2);
 	}
 
 	@Override

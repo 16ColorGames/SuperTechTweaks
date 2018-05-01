@@ -54,6 +54,7 @@ public class BlockCable extends BlockContainer {
 		super(net.minecraft.block.material.Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".blockcable");
 		setRegistryName("blockcable");
+		setHardness(2);
 	}
 
 	private boolean canConnect(IBlockAccess world, BlockPos pos, EnumFacing facing) {

@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotTin"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolHammer"
+    }
+  ],
+  "result": {
+    "item": "supertechtweaks:itemTin",
+    "data": 4
+  }
+}

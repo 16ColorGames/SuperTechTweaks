@@ -1,0 +1,23 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "b b",
+	" w ",
+	"b b"
+  ],
+  "key": {
+	"b": {
+      "type": "forge:ore_dict",
+      "ore": "wireIron"
+	},
+	"w": {
+		"item": "supertechtweaks:blockmultiwall"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:multipowerinputblock"
+  },
+  "resultNBT" : {
+	"sttMaterial":"supertechtweaks:iron"
+  }
+}

@@ -238,13 +238,13 @@ public class TileBoiler extends TileMultiBlockController {
 			water.setCapacity(value);
 			break;
 		case 3:
-			water.getFluid().amount = value;
+			water.setFluid(new FluidStack(FluidRegistry.WATER, value));
 			break;
 		case 4:
 			steam.setCapacity(value);
 			break;
 		case 5:
-			steam.getFluid().amount = value;
+			water.setFluid(new FluidStack(ModRegistry.steam, value));
 			break;
 		}
 	}

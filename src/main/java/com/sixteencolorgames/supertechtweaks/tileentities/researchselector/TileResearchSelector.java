@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.researchselector;
 
 import javax.annotation.Nullable;
 
+import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TileResearchSelector extends TileMultiBlock {
 	private ResourceLocation selected = new ResourceLocation("none:none");;
@@ -20,6 +22,10 @@ public class TileResearchSelector extends TileMultiBlock {
 
 	public ResourceLocation getSelected() {
 		return selected;
+	}
+
+	public Research getSelectedResearch() {
+		return GameRegistry.findRegistry(Research.class).getValue(getSelected());
 	}
 
 	@Override

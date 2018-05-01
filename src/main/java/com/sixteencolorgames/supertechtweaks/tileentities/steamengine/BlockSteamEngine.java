@@ -32,6 +32,7 @@ public class BlockSteamEngine extends Block implements ITileEntityProvider {
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".blocksteamengine");
 		this.setRegistryName("blocksteamengine");
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
+		setHardness(2);
 	}
 
 	/**

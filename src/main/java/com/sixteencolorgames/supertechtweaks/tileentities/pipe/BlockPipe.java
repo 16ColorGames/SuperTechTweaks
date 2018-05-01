@@ -54,6 +54,7 @@ public class BlockPipe extends BlockContainer {
 		super(net.minecraft.block.material.Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".blockpipe");
 		setRegistryName("blockpipe");
+		setHardness(2);
 	}
 
 	private boolean canConnect(IBlockAccess world, BlockPos pos, EnumFacing facing) {

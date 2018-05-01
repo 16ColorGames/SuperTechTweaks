@@ -3,6 +3,7 @@ package com.sixteencolorgames.supertechtweaks.blocks;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
+import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -10,10 +11,13 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -30,6 +34,7 @@ public class BlockMultiWall extends BlockMulti {
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".multiwall");
 		setRegistryName("blockmultiwall");
 		setDefaultState(blockState.getBaseState().withProperty(PART, false));
+		setHardness(2);
 
 	}
 
@@ -102,6 +107,28 @@ public class BlockMultiWall extends BlockMulti {
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		// Only execute on the server
+		if (world.isRemote) {
+			return true;
+		}
+		TileEntity te = world.getTileEntity(pos);
+		if (!(te instanceof TileMultiWall)) {
+			return false;
+		}
+		TileMultiWall wall = (TileMultiWall) te;
+		if (wall.hasMaster()) {
+			TileMultiBlock master = wall.getMaster();
+			if (master instanceof TileBasicResearcher) {
+				TileBasicResearcher res = (TileBasicResearcher) master;
+				player.sendMessage(new TextComponentString("Selected: " + res.getSelector().getSelected().toString()));
+			}
+		}
+		return true;
 	}
 
 }

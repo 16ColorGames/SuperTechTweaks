@@ -1,0 +1,36 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    " f ",
+	"lmw",
+	"hcp"
+  ],
+  "key": {
+    "f": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "l": {
+      "item": "minecraft:lava_bucket"
+    },
+    "w": {
+      "item": "minecraft:water_bucket"
+    },
+    "h": {
+      "type": "forge:ore_dict",
+      "ore": "toolHammer"
+    },
+    "p": {
+      "type": "forge:ore_dict",
+      "ore": "toolPliers"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+	"m": {
+		"item": "supertechtweaks:blockmultiwall"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:basicresearcherblock"
+  }
+}

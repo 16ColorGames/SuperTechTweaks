@@ -571,6 +571,11 @@ public class ModRegistry {
 						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
 						MaterialItem.INGOT))
 				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
+		event.getRegistry().register(new Research("bronze1").setTitle("Bronze 1")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:bronze")).getMaterialItem(), 1,
+						MaterialItem.INGOT))
+				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
 		event.getRegistry().register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
 				.setDisplay(new ItemStack(
 						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,

@@ -35,6 +35,7 @@ public class BlockPressureTank extends BlockMulti {
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".pressuretank");
 		setRegistryName("blockpressuretank");
 		setDefaultState(blockState.getBaseState().withProperty(PART, false));
+		setHardness(2);
 
 	}
 

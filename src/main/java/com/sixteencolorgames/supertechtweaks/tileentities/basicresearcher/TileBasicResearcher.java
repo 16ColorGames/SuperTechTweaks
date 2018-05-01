@@ -1,10 +1,13 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher;
 
+import java.util.UUID;
+
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlockController;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
+import com.sixteencolorgames.supertechtweaks.world.ResearchSavedData;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,6 +16,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -21,6 +25,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileBasicResearcher extends TileMultiBlockController implements IEnergyStorage {
 	public static final int SIZE = 9;
+	private static final int MAX_EXTRACT = 200;
 	private BlockPos selectorpos;
 	protected int energy;
 	protected int capacity;
@@ -35,6 +40,7 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 			TileBasicResearcher.this.markDirty();
 		}
 	};
+	private UUID owner_UUID;
 
 	public TileBasicResearcher() {
 		energy = 0;
@@ -112,6 +118,15 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 		return capacity;
 	}
 
+	public TileResearchSelector getSelector() {
+		if (selectorpos == null) {
+			return null;
+		} else {
+			return (TileResearchSelector) world.getTileEntity(selectorpos);
+		}
+
+	}
+
 	public BlockPos getSelectorpos() {
 		return selectorpos;
 	}
@@ -137,7 +152,23 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 
 	@Override
 	public void masterTick() {
-		// TODO Auto-generated method stub
+		if (getEnergyStored() > 0) {
+			int progress = ResearchSavedData.get(world).getPlayerResearchProgress(owner_UUID,
+					getSelector().getSelected().toString());
+			if (progress < getSelector().getSelectedResearch().getEnergyRequired()) {
+				int extract = Math.min(energy,
+						Math.min(MAX_EXTRACT, getSelector().getSelectedResearch().getEnergyRequired() - progress));
+				energy -= extract;
+				ResearchSavedData.get(world).setPlayerResearchProgress(owner_UUID,
+						getSelector().getSelected().toString(), progress + extract);
+				if (progress >= getSelector().getSelectedResearch().getEnergyRequired()) {
+					// TODO send message
+					world.getPlayerEntityByUUID(owner_UUID).sendMessage(
+							new TextComponentString("Research Complete: " + getSelector().getSelected().toString()));
+				}
+			}
+
+		}
 
 	}
 
@@ -160,6 +191,7 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 		maxReceive = compound.getInteger("maxRecieve");
 		energy = compound.getInteger("energy");
 		capacity = compound.getInteger("capacity");
+		owner_UUID = UUID.fromString(compound.getString("owner"));
 	}
 
 	@Override
@@ -183,6 +215,12 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 				}
 			}
 		}
+		selectorpos = null;
+	}
+
+	public void setOwner(EntityPlayer placer) {
+		owner_UUID = placer.getUniqueID();
+
 	}
 
 	@Override
@@ -216,6 +254,7 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 		compound.setInteger("energy", energy);
 		compound.setInteger("capacity", capacity);
 		compound.setInteger("maxRecieve", maxReceive);
+		compound.setString("owner", owner_UUID.toString());
 		return compound;
 	}
 

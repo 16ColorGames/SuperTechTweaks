@@ -28,6 +28,7 @@ public class BlockMultiPowerInput extends Block implements ITileEntityProvider {
 		super(net.minecraft.block.material.Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".multipowerinput");
 		setRegistryName("multipowerinputblock");
+		setHardness(2);
 	}
 
 	@Override

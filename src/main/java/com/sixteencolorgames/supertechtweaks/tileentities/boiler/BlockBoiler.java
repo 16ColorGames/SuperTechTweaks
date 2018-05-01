@@ -64,6 +64,7 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 	public BlockBoiler() {
 		super(net.minecraft.block.material.Material.ROCK, "blockboiler");
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(PART, false));
+		setHardness(2);
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 		}
 
 		TileBoiler bo = (TileBoiler) te;
-		//TODO support other water containers
+		// TODO support other water containers
 		if (bo.hasMaster()) {
 			if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
 				if (bo.water.getCapacity() - bo.water.getFluidAmount() >= 1000) {

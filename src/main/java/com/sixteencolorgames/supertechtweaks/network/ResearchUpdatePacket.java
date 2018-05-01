@@ -29,7 +29,7 @@ public class ResearchUpdatePacket implements IMessage {
 	private int messageType;
 
 	private boolean messageIsValid;
-	private boolean unlock;
+	private boolean unlock = false;
 
 	// for use by the message handler only.
 	public ResearchUpdatePacket() {

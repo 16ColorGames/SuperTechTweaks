@@ -74,7 +74,8 @@ public class ReceiveResearchUpdate implements IMessageHandler<ResearchUpdatePack
 			tileEntity.setSelected(message.getSelected());
 			tileEntity.markDirty();
 			if (message.getUnlocked()) {
-				ResearchSavedData.get(sendingPlayer.world).playerUnlockResearch(sendingPlayer, message.getSelected());
+				ResearchSavedData.get(sendingPlayer.world).setPlayerResearchProgress(sendingPlayer.getUniqueID(),
+						message.getSelected().toString(), Integer.MAX_VALUE);
 			}
 			break;
 		}

@@ -2,7 +2,7 @@
   "type": "supertechtweaks:researchCrafting",
   "pattern": [
     "XbX",
-	"bbb",
+	"bwb",
 	"XbX"
   ],
   "key": {
@@ -12,13 +12,16 @@
     },
 	"b": {
       "type": "forge:ore_dict",
-      "ore": "wireCopper"
+      "ore": "wireIron"
+	},
+	"w": {
+		"item": "supertechtweaks:blockmultiwall"
 	}
   },
   "result": {
     "item": "supertechtweaks:multipoweroutputblock"
   },
   "resultNBT" : {
-	"sttMaterial":"supertechtweaks:copper"
+	"sttMaterial":"supertechtweaks:iron"
   }
 }

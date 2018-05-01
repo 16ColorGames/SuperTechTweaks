@@ -1,21 +1,23 @@
 {
   "type": "supertechtweaks:researchCrafting",
   "pattern": [
-    "XXX"
+    "b b",
+	" w ",
+	"b b"
   ],
   "key": {
-    "X": {
+	"b": {
       "type": "forge:ore_dict",
       "ore": "wireCopper"
-    }
+	},
+	"w": {
+		"item": "supertechtweaks:blockmultiwall"
+	}
   },
   "result": {
-    "item": "supertechtweaks:blockcable"
+    "item": "supertechtweaks:multipowerinputblock"
   },
   "resultNBT" : {
 	"sttMaterial":"supertechtweaks:copper"
-  },
-  "requiredResearch": [
-	"supertechtweaks:logistics"
-  ]
+  }
 }

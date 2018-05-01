@@ -28,6 +28,7 @@ public class BlockMultiPowerOutput extends Block implements ITileEntityProvider 
 		super(net.minecraft.block.material.Material.ROCK);
 		setUnlocalizedName(SuperTechTweaksMod.MODID + ".multipoweroutput");
 		setRegistryName("multipoweroutputblock");
+		setHardness(2);
 	}
 
 	@Override

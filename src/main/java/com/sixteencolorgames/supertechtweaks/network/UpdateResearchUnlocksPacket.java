@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks.network;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
@@ -7,7 +8,6 @@ import com.sixteencolorgames.supertechtweaks.world.ResearchSavedData;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -29,7 +29,7 @@ public class UpdateResearchUnlocksPacket implements IMessage {
 	}
 
 	UUID id;
-	NonNullList<ResourceLocation> locs;
+	HashMap<ResourceLocation, Integer> locs;
 
 	public UpdateResearchUnlocksPacket() {
 	}
@@ -42,10 +42,10 @@ public class UpdateResearchUnlocksPacket implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		id = UUID.fromString(PacketHandler.readStringFromBuffer(buf));
-		locs = NonNullList.create();
+		locs = new HashMap();
 		int len = buf.readInt();
 		for (int i = 0; i < len; i++) {
-			locs.add(new ResourceLocation(PacketHandler.readStringFromBuffer(buf)));
+			locs.put(new ResourceLocation(PacketHandler.readStringFromBuffer(buf)), buf.readInt());
 		}
 	}
 
@@ -53,9 +53,10 @@ public class UpdateResearchUnlocksPacket implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		PacketHandler.writeStringToBuffer(buf, id.toString());
 		buf.writeInt(locs.size());
-		for (ResourceLocation l : locs) {
-			PacketHandler.writeStringToBuffer(buf, l.toString());
-		}
+		locs.forEach((rl, i) -> {
+			PacketHandler.writeStringToBuffer(buf, rl.toString());
+			buf.writeInt(i);
+		});
 	}
 
 }
