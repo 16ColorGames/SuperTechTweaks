@@ -23,6 +23,11 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 		dependents.add(res.getRegistryName());
 	}
 
+	public Research addItemRequirement(ItemStack itemStack) {
+		items.add(itemStack);
+		return this;
+	}
+
 	public Research addRequirement(ResourceLocation req) {
 		requirements.add(req);
 		return this;
@@ -42,6 +47,10 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 
 	public int getEnergyRequired() {
 		return energyRequired;
+	}
+
+	public NonNullList<ItemStack> getItems() {
+		return items;
 	}
 
 	public int getRequirementCount() {

@@ -11,6 +11,7 @@ import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileR
 import com.sixteencolorgames.supertechtweaks.world.ResearchSavedData;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -160,17 +161,64 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 	@Override
 	public void masterTick() {
 		if (getEnergyStored() > 0) {
-			int progress = ResearchSavedData.get(world).getPlayerResearchProgress(owner_UUID,
+			double progress = ResearchSavedData.get(world).getPlayerResearchProgress(owner_UUID,
 					getSelector().getSelected().toString());
 			if (progress < getSelector().getSelectedResearch().getEnergyRequired()) {
-				int extract = Math.min(energy,
+				double extract = Math.min(energy,
 						Math.min(MAX_EXTRACT, getSelector().getSelectedResearch().getEnergyRequired() - progress));
-				energy -= extract;
-				ResearchSavedData.get(world).setPlayerResearchProgress(owner_UUID,
-						getSelector().getSelected().toString(), progress + extract);
-				if (progress + extract >= getSelector().getSelectedResearch().getEnergyRequired()) {
-					world.getPlayerEntityByUUID(owner_UUID).sendMessage(
-							new TextComponentString("Research Complete: " + getSelector().getSelected().toString()));
+				boolean pass = true;
+				for (int i = 0; i < getSelector().getSelectedResearch().getItems().size(); i++) {
+					ItemStack stack = getSelector().getSelectedResearch().getItems().get(i);
+					int n = (int) Math
+							.floor(((progress + extract) / getSelector().getSelectedResearch().getEnergyRequired())
+									* stack.getCount());
+					int o = (int) Math.floor(
+							(progress / getSelector().getSelectedResearch().getEnergyRequired()) * stack.getCount());
+					if (n != o) {
+						boolean hasItem = false;
+						for (int s = 0; s < itemStackHandler.getSlots(); s++) {
+
+							ItemStack stackInSlot = itemStackHandler.getStackInSlot(s);
+							if (stackInSlot.getItem() == stack.getItem()
+									&& stackInSlot.getMetadata() == stack.getMetadata()
+									&& stackInSlot.getCount() >= (n - o)) {
+								hasItem = true;
+								break;
+							}
+						}
+						if (!hasItem) {
+							pass = false;
+						}
+					}
+				}
+				if (pass) {
+					energy -= extract;
+					ResearchSavedData.get(world).setPlayerResearchProgress(owner_UUID,
+							getSelector().getSelected().toString(), (int) (progress + extract));
+					if (progress + extract >= getSelector().getSelectedResearch().getEnergyRequired()) {
+						world.getPlayerEntityByUUID(owner_UUID).sendMessage(new TextComponentString(
+								"Research Complete: " + getSelector().getSelected().toString()));
+					}
+					for (int i = 0; i < getSelector().getSelectedResearch().getItems().size(); i++) {
+						ItemStack stack = getSelector().getSelectedResearch().getItems().get(i);
+						int n = (int) Math
+								.floor(((progress + extract) / getSelector().getSelectedResearch().getEnergyRequired())
+										* stack.getCount());
+						int o = (int) Math.floor((progress / getSelector().getSelectedResearch().getEnergyRequired())
+								* stack.getCount());
+						if (n != o) {
+							for (int s = 0; s < itemStackHandler.getSlots(); s++) {
+
+								ItemStack stackInSlot = itemStackHandler.getStackInSlot(s);
+								if (stackInSlot.getItem() == stack.getItem()
+										&& stackInSlot.getMetadata() == stack.getMetadata()
+										&& stackInSlot.getCount() >= (n - o)) {
+									itemStackHandler.extractItem(s, n - o, false);
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 

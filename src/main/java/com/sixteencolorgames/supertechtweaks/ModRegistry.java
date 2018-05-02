@@ -563,7 +563,8 @@ public class ModRegistry {
 		event.getRegistry()
 				.register(new Research("combustion").setTitle("Combustion").setDisplay(new ItemStack(Items.GUNPOWDER)));
 		event.getRegistry()
-				.register(new Research("logistics").setTitle("Logistics").setDisplay(new ItemStack(Blocks.HOPPER)));
+				.register(new Research("logistics").setTitle("Logistics").setDisplay(new ItemStack(Blocks.HOPPER))
+						.setEnergyRequired(1000).addItemRequirement(new ItemStack(Blocks.DIRT, 4)));
 		event.getRegistry().register(
 				new Research("metallurgy").setTitle("Metallurgy").setDisplay(new ItemStack(Items.BLAZE_POWDER)));
 		event.getRegistry().register(new Research("advancediron1").setTitle("Advanced Iron Processing 1")
