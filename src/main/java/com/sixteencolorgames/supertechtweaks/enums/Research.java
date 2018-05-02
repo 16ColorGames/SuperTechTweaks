@@ -12,6 +12,7 @@ public class Research extends IForgeRegistryEntry.Impl<Research> {
 	private int energyRequired = 10000;
 	private ItemStack display = new ItemStack(Blocks.DIRT);
 	private String title;
+	private NonNullList<ItemStack> items = NonNullList.create();
 
 	public Research(String string) {
 		this.setRegistryName(string);

@@ -218,9 +218,12 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.bulk = bulk;
 	}
 
-	public void addBasicSmelting() {
-		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.ORE),
-				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
+	public void addBasicProcessing() {
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapelessOreRecipe(new ResourceLocation("dusts"),
+						new ItemStack(itemMaterial, 1, MaterialItem.DUST),
+						new Object[] { new OreIngredient("ore" + name), new OreIngredient("toolHammer") })
+								.setRegistryName(SuperTechTweaksMod.MODID, "hammer_ore_" + name));
 	}
 
 	@SideOnly(Side.CLIENT)

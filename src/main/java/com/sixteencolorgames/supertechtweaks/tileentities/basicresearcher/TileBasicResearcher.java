@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -44,11 +43,6 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 		}
 	};
 	private UUID owner_UUID;
-
-	public GameProfile getOwner() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerProfileCache()
-				.getProfileByUUID(owner_UUID);
-	}
 
 	public TileBasicResearcher() {
 		energy = 0;
@@ -124,6 +118,11 @@ public class TileBasicResearcher extends TileMultiBlockController implements IEn
 	@Override
 	public int getMaxEnergyStored() {
 		return capacity;
+	}
+
+	public GameProfile getOwner() {
+		return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerProfileCache()
+				.getProfileByUUID(owner_UUID);
 	}
 
 	public TileResearchSelector getSelector() {

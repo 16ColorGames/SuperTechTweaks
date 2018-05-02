@@ -384,7 +384,7 @@ public class ModRegistry {
 				.setThermalExpansion(16.5).setThermalConductivity(401).setElectricalResistance(16.78)
 				.setYoungsModulus(119).setShearModulus(48).setBulkModulus(140).setHarvestLevel(1).build();
 		copper.registerMaterial();
-		copper.addBasicSmelting();
+		copper.addBasicProcessing();
 		new MaterialBuilder("Zinc").setColor(0xbac4cb).setDensity(7.14).setThermalExpansion(30.2)
 				.setThermalConductivity(116).setElectricalResistance(59.0).setYoungsModulus(108).setShearModulus(43)
 				.setBulkModulus(70).setHarvestLevel(1).build().registerMaterial();
@@ -398,7 +398,7 @@ public class ModRegistry {
 				.setThermalExpansion(11.8).setThermalConductivity(80.4).setElectricalResistance(96.1)
 				.setYoungsModulus(211).setShearModulus(82).setBulkModulus(170).setDensity(7.874).build();
 		iron.registerMaterial();
-		iron.addBasicSmelting();
+		iron.addBasicProcessing();
 		new MaterialBuilder("Chromium").setColor(0x18391e).setDensity(7.19).setThermalExpansion(4.9)
 				.setThermalConductivity(93.9).setElectricalResistance(125).setYoungsModulus(279).setShearModulus(115)
 				.setBulkModulus(160).setHarvestLevel(2).build().registerMaterial();
@@ -410,7 +410,7 @@ public class ModRegistry {
 				.setThermalConductivity(429).setElectricalResistance(15.87).setYoungsModulus(83).setShearModulus(30)
 				.setBulkModulus(100).setHarvestLevel(2).build();
 		silver.registerMaterial();
-		silver.addBasicSmelting();
+		silver.addBasicProcessing();
 		new MaterialBuilder("Tellurium").setColor(0xb5b5bd).setDensity(6.24).setThermalExpansion(18)
 				.setThermalConductivity(2.5).setElectricalResistance(10000).setYoungsModulus(43).setShearModulus(16)
 				.setBulkModulus(65).setHarvestLevel(2).build().registerMaterial();
@@ -424,17 +424,17 @@ public class ModRegistry {
 				.setThermalConductivity(66.8).setElectricalResistance(115).setYoungsModulus(50).setShearModulus(18)
 				.setBulkModulus(58).setHarvestLevel(3).build();
 		tin.registerMaterial();
-		tin.addBasicSmelting();
+		tin.addBasicProcessing();
 		Material gold = new MaterialBuilder("Gold").setColor(0xccccc33).setDensity(19.3).setThermalExpansion(14.2)
 				.setThermalConductivity(318).setElectricalResistance(22.14).setYoungsModulus(79).setShearModulus(27)
 				.setBulkModulus(180).setHarvestLevel(3).build();
 		gold.registerMaterial();
-		gold.addBasicSmelting();
+		gold.addBasicProcessing();
 		Material lead = new MaterialBuilder("Lead").setColor(0x474c4d).setDensity(11.34).setThermalExpansion(28.9)
 				.setThermalConductivity(35.3).setElectricalResistance(208).setYoungsModulus(16).setShearModulus(6)
 				.setBulkModulus(46).setHarvestLevel(3).build();
 		lead.registerMaterial();
-		lead.addBasicSmelting();
+		lead.addBasicProcessing();
 		new MaterialBuilder("Palladium").setColor(0xced0dd).setHarvestLevel(4).setDensity(12.023)
 				.setThermalExpansion(11.8).setThermalConductivity(71.8).setElectricalResistance(105.4)
 				.setYoungsModulus(121).setShearModulus(44).setBulkModulus(180).build().registerMaterial();
@@ -451,7 +451,7 @@ public class ModRegistry {
 				.setThermalConductivity(90.9).setElectricalResistance(69.3).setYoungsModulus(200).setShearModulus(76)
 				.setBulkModulus(180).setHarvestLevel(3).build();
 		nickel.registerMaterial();
-		nickel.addBasicSmelting();
+		nickel.addBasicProcessing();
 		new MaterialBuilder("Osmium").setColor(0x9090a3).setDensity(22.59).setThermalExpansion(5.1)
 				.setThermalConductivity(87.6).setElectricalResistance(81.2).setShearModulus(222).setBulkModulus(462)
 				.setYoungsModulus(565).setHarvestLevel(3).build().registerMaterial();
