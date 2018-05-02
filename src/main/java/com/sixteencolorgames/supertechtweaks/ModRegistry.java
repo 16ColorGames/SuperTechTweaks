@@ -22,6 +22,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.BlockMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.TileMultiFluidInput;
+import com.sixteencolorgames.supertechtweaks.tileentities.multiiteminterface.BlockMultiItemInterface;
+import com.sixteencolorgames.supertechtweaks.tileentities.multiiteminterface.TileMultiItemInterface;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.BlockMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipowerinput.TileMultiPowerInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput.BlockMultiPowerOutput;
@@ -76,6 +78,7 @@ public class ModRegistry {
 	public static BlockMultiPowerInput blockMultiPowerInput;
 	public static BlockMultiPowerOutput blockMultiPowerOutput;
 	public static BlockMultiFluidInput blockMultiFluidInput;
+	public static BlockMultiItemInterface blockMultiItemInterface;
 	public static BlockCable blockCable;
 	public static BlockPipe blockPipe;
 	public static BlockBoiler blockBoiler;
@@ -138,6 +141,7 @@ public class ModRegistry {
 		blockResearchViewer.initModel();
 		blockMultiWall.initModel();
 		blockMultiFluidInput.initModel();
+		blockMultiItemInterface.initModel();
 		blockMultiPowerInput.initModel();
 		blockMultiPowerOutput.initModel();
 		blockCable.initModel();
@@ -184,6 +188,11 @@ public class ModRegistry {
 		blockMultiFluidInput = new BlockMultiFluidInput();
 		event.getRegistry().register(blockMultiFluidInput);
 		GameRegistry.registerTileEntity(TileMultiFluidInput.class, SuperTechTweaksMod.MODID + "_tilemultifluidinput");
+
+		blockMultiItemInterface = new BlockMultiItemInterface();
+		event.getRegistry().register(blockMultiItemInterface);
+		GameRegistry.registerTileEntity(TileMultiItemInterface.class,
+				SuperTechTweaksMod.MODID + "_tilemultiiteminterface");
 
 		blockMultiPowerOutput = new BlockMultiPowerOutput();
 		event.getRegistry().register(blockMultiPowerOutput);
@@ -282,6 +291,8 @@ public class ModRegistry {
 		}.setRegistryName(blockMultiPowerInput.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockMultiFluidInput).setRegistryName(blockMultiFluidInput.getRegistryName()));
+		event.getRegistry().register(
+				new ItemBlock(blockMultiItemInterface).setRegistryName(blockMultiItemInterface.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiPowerOutput) {
 			@Override
 			@SideOnly(Side.CLIENT)
@@ -549,9 +560,11 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
 		event.getRegistry()
-				.register(new Research("automation").setEnergyRequired(1000)
-						.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1, ItemTechComponent.SMALL_POWER_UNIT))
-						.setTitle("Basic Automation"));
+				.register(
+						new Research("automation").setEnergyRequired(1000)
+								.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1,
+										ItemTechComponent.SMALL_POWER_UNIT))
+								.setTitle("Basic Automation").addItemRequirement(new ItemStack(Items.REDSTONE, 4)));
 		event.getRegistry()
 				.register(
 						new Research("electronics")
