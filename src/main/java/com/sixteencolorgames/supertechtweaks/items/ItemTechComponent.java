@@ -21,6 +21,7 @@ public class ItemTechComponent extends ItemBase {
 	public final static int BASIC_CASING = 4;
 	public final static int SMALL_POWER_UNIT = 5;
 	public final static int HEATING_UNIT = 6;
+	public final static int BASIC_RESEARCH = 50;
 
 	public ItemTechComponent() {
 		super("itemTechComponent");
@@ -42,6 +43,7 @@ public class ItemTechComponent extends ItemBase {
 		for (int i = 0; i < 7; i++) {
 			subItems.add(new ItemStack(this, 1, i));
 		}
+		subItems.add(new ItemStack(this, 1, BASIC_RESEARCH));
 	}
 
 	@Override
@@ -62,6 +64,8 @@ public class ItemTechComponent extends ItemBase {
 			return super.getUnlocalizedName() + ".powerUnitSmall";
 		case HEATING_UNIT:
 			return super.getUnlocalizedName() + ".heatingElement";
+		case BASIC_RESEARCH:
+			return super.getUnlocalizedName() + ".basicResearch";
 		default:
 			return super.getUnlocalizedName();
 		}
@@ -82,6 +86,9 @@ public class ItemTechComponent extends ItemBase {
 				new ModelResourceLocation("supertechtweaks:itemPowerUnitSmall", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(this, HEATING_UNIT,
 				new ModelResourceLocation("supertechtweaks:itemHeatingElement", "inventory"));
+
+		ModelLoader.setCustomModelResourceLocation(this, BASIC_RESEARCH,
+				new ModelResourceLocation("supertechtweaks:itemBasicResearch", "inventory"));
 	}
 
 	public void setupDictionary() {

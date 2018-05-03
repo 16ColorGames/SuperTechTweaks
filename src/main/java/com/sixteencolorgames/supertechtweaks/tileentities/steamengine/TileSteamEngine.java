@@ -9,6 +9,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -111,7 +113,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 	public void masterTick() {
 		if (steamInternal.getFluidAmount() > 0 && energy < capacity) {
 			FluidStack drain = steamInternal.drainInternal(20, true);
-			energy += Math.min(drain.amount, (capacity - energy));
+			energy += Math.min(drain.amount * 5, (capacity - energy));
 			double motionX = world.rand.nextGaussian() * 0.02D;
 			double motionY = world.rand.nextGaussian() * 0.02D + .05;
 			double motionZ = world.rand.nextGaussian() * 0.02D;
@@ -239,6 +241,22 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			facing = face;
 			return;
 		}
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
+			return (T) this;
+		}
+		return super.getCapability(capability, facing);
 	}
 
 	@Override

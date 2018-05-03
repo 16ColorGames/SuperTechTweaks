@@ -178,7 +178,7 @@ public class TileBoiler extends TileMultiBlockController {
 				} else {
 					final ItemStack fuelStack = itemStackHandler.getStackInSlot(0);
 					if (fuelStack != null && !fuelStack.isEmpty()) {
-						burnTime = getBurnTime(fuelStack);
+						burnTime = getBurnTime(fuelStack) / 5;
 						if (burnTime > 0) {
 							totalBurnTime = burnTime;
 							ItemStack containedItem = fuelStack.getItem().getContainerItem(fuelStack.splitStack(1));

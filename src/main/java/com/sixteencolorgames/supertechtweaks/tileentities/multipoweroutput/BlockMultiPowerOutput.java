@@ -3,6 +3,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.multipoweroutput;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.Block;
@@ -16,9 +17,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -67,6 +73,33 @@ public class BlockMultiPowerOutput extends Block implements ITileEntityProvider 
 		TileMultiPowerOutput cable = (TileMultiPowerOutput) worldIn.getTileEntity(pos);
 		cable.setMaterial(ItemHelper.getItemMaterial(stack));
 		cable.markDirty();
+	}
+
+	/**
+	 * Called when the block is right clicked by a player.
+	 */
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		// Only execute on the server
+		if (world.isRemote) {
+			return true;
+		}
+		TileMultiBlock te = (TileMultiBlock) world.getTileEntity(pos);
+		if (te.hasMaster()) {
+			IEnergyStorage capability = te.getMaster().getCapability(CapabilityEnergy.ENERGY, side);
+
+			if (capability != null)
+
+				player.sendMessage(new TextComponentString("Controller power: " + capability.getEnergyStored() + "/"
+						+ capability.getMaxEnergyStored() + " FE"));
+			else {
+				player.sendMessage(new TextComponentString("Controller does not support energy"));
+			}
+		} else {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
