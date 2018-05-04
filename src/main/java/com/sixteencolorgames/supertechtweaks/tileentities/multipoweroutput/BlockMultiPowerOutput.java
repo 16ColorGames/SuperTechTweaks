@@ -63,19 +63,6 @@ public class BlockMultiPowerOutput extends Block implements ITileEntityProvider 
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
-	 */
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-			ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		TileMultiPowerOutput cable = (TileMultiPowerOutput) worldIn.getTileEntity(pos);
-		cable.setMaterial(ItemHelper.getItemMaterial(stack));
-		cable.markDirty();
-	}
-
-	/**
 	 * Called when the block is right clicked by a player.
 	 */
 	@Override
@@ -89,17 +76,29 @@ public class BlockMultiPowerOutput extends Block implements ITileEntityProvider 
 		if (te.hasMaster()) {
 			IEnergyStorage capability = te.getMaster().getCapability(CapabilityEnergy.ENERGY, side);
 
-			if (capability != null)
-
+			if (capability != null) {
 				player.sendMessage(new TextComponentString("Controller power: " + capability.getEnergyStored() + "/"
 						+ capability.getMaxEnergyStored() + " FE"));
-			else {
+			} else {
 				player.sendMessage(new TextComponentString("Controller does not support energy"));
 			}
 		} else {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Called by ItemBlocks after a block is set in the world, to allow
+	 * post-place logic
+	 */
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+		TileMultiPowerOutput cable = (TileMultiPowerOutput) worldIn.getTileEntity(pos);
+		cable.setMaterial(ItemHelper.getItemMaterial(stack));
+		cable.markDirty();
 	}
 
 	@Override

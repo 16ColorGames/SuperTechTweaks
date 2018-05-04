@@ -96,6 +96,14 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 	}
 
 	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
+			return (T) this;
+		}
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
 	public int getEnergyStored() {
 		return energy;
 	}
@@ -107,6 +115,14 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 	@Override
 	public int getMaxEnergyStored() {
 		return capacity;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
+			return true;
+		}
+		return super.hasCapability(capability, facing);
 	}
 
 	@Override
@@ -241,22 +257,6 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			facing = face;
 			return;
 		}
-	}
-
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if (capability == CapabilityEnergy.ENERGY && hasMaster()) {
-			return (T) this;
-		}
-		return super.getCapability(capability, facing);
 	}
 
 	@Override

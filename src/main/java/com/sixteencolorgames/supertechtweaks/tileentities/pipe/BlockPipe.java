@@ -166,6 +166,9 @@ public class BlockPipe extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote) {
+			return true;
+		}
 		if (playerIn.isSneaking()) {
 			return false;
 		} else {

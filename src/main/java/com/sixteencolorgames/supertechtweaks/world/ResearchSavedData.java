@@ -47,9 +47,13 @@ public class ResearchSavedData extends WorldSavedData {
 	}
 
 	public boolean getPlayerHasResearch(EntityPlayer player, ResourceLocation research) {
-		Research value = GameRegistry.findRegistry(Research.class).getValue(research);
-		return (((int) progress.getOrDefault(player.getUniqueID(), new HashMap()).getOrDefault(research, 0)) >= value
-				.getEnergyRequired());
+		return this.getPlayerHasResearch(player.getUniqueID(), research);
+	}
+
+	public boolean getPlayerHasResearch(UUID id, ResourceLocation rl) {
+		Research value = GameRegistry.findRegistry(Research.class).getValue(rl);
+		return (((int) progress.getOrDefault(id, new HashMap()).getOrDefault(rl, 0)) >= value.getEnergyRequired());
+
 	}
 
 	public HashMap<ResourceLocation, Integer> getPlayerResearched(EntityPlayer player) {

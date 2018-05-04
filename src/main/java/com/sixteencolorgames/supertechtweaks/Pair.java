@@ -9,12 +9,21 @@ package com.sixteencolorgames.supertechtweaks;
  *
  * @author oa10712
  */
-public class Pair {
+public class Pair<E, F> {
 
-	Object left, right;
+	private E left;
+	private F right;
 
-	public Pair(Object o1, Object o2) {
+	public Pair(E o1, F o2) {
 		left = o1;
 		right = o2;
+	}
+
+	public E getLeft() {
+		return left;
+	}
+
+	public F getRight() {
+		return right;
 	}
 }

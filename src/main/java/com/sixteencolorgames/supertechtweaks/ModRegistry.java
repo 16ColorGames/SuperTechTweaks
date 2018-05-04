@@ -20,6 +20,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.boiler.BlockBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
+import com.sixteencolorgames.supertechtweaks.tileentities.crusher.BlockCrusher;
+import com.sixteencolorgames.supertechtweaks.tileentities.crusher.TileCrusher;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.BlockMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.TileMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multiiteminterface.BlockMultiItemInterface;
@@ -71,6 +73,8 @@ public class ModRegistry {
 	public static final int BASIC_RESEARCHER = 1;
 	public static final int RESEARCH_SELECTER = 2;
 	public static final int BOILER = 3;
+
+	public static final int CRUSHER = 4;
 	public static BlockBasicResearcher basicResearcherBlock;
 	public static BlockResearchSelector blockResearchViewer;
 	public static BlockMultiWall blockMultiWall;
@@ -84,6 +88,7 @@ public class ModRegistry {
 	public static BlockBoiler blockBoiler;
 	public static BlockPressureTank blockPressureTank;
 	public static BlockSteamEngine blockSteamEngine;
+	public static BlockCrusher blockCrusher;
 
 	public static ItemTechComponent itemTechComponent;
 
@@ -137,6 +142,7 @@ public class ModRegistry {
 		basicResearcherBlock.initModel();
 		blockBoiler.initModel();
 		blockPressureTank.initModel();
+		blockCrusher.initModel();
 		blockSteamEngine.initModel();
 		blockResearchViewer.initModel();
 		blockMultiWall.initModel();
@@ -164,6 +170,10 @@ public class ModRegistry {
 		blockSteamEngine = new BlockSteamEngine();
 		event.getRegistry().register(blockSteamEngine);
 		GameRegistry.registerTileEntity(TileSteamEngine.class, SuperTechTweaksMod.MODID + "_tilesteamengine");
+
+		blockCrusher = new BlockCrusher();
+		event.getRegistry().register(blockCrusher);
+		GameRegistry.registerTileEntity(TileCrusher.class, SuperTechTweaksMod.MODID + "_tilecrusher");
 
 		blockResearchViewer = new BlockResearchSelector();
 		event.getRegistry().register(blockResearchViewer);
@@ -268,6 +278,7 @@ public class ModRegistry {
 		}.setRegistryName(blockBoiler.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockSteamEngine).setRegistryName(blockSteamEngine.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockCrusher).setRegistryName(blockCrusher.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(blockResearchViewer).setRegistryName(blockResearchViewer.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(superore).setRegistryName(superore.getRegistryName()));
