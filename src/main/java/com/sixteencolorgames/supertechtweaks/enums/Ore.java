@@ -33,7 +33,7 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 		this.harvest = harvest;
 		this.hardness = hardness;
 		this.color = color;
-		itemOre = new OreItem(string, this);
+		itemOre = new OreItem(this);
 	}
 
 	public int getColor() {
@@ -72,7 +72,6 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	}
 
 	public void registerOre() {
-
 		this.setRegistryName(getName());
 		GameRegistry.findRegistry(Item.class).register(itemOre);
 

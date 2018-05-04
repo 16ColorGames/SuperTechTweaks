@@ -568,7 +568,7 @@ public class ModRegistry {
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
 				.create();
 		new RegistryBuilder().setType(Ore.class).setName(new ResourceLocation(SuperTechTweaksMod.MODID, "OreRegistry"))
-				.create();
+				.setIDRange(0, 512).create();
 		Ore.REGISTRY = GameRegistry.findRegistry(Ore.class);
 	}
 
@@ -665,6 +665,11 @@ public class ModRegistry {
 				.register(new Research("plastics").setTitle("Plastics")
 						.setDisplay(new ItemStack(Items.COMMAND_BLOCK_MINECART))
 						.addRequirement(new ResourceLocation("supertechtweaks:oilprocessing")));
+	}
+
+	@SubscribeEvent
+	public static void registerOres(RegistryEvent.Register<Ore> event) {
+		new Ore("Bauxite", 2, 2, 0x7CFC00).registerOre();
 	}
 
 	@SubscribeEvent

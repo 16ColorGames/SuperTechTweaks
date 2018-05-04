@@ -3,15 +3,15 @@
     "generator":"vein",
     "ore":[
       {
-        "ore":"Copper",
+        "ore":"nativeCopper",
         "weight":1.0
       },
       {
-        "ore":"Osmium",
+        "ore":"nativeOsmium",
         "weight":0.01
       },
       {
-        "ore":"Cadmium",
+        "ore":"nativeCadmium",
         "weight":0.01
       }
     ],
@@ -25,7 +25,7 @@
   },
   "hematite":{
     "generator":"vein",
-    "ore":"Iron",
+    "ore":"nativeIron",
     "size":3,
     "chance":2,
     "minHeight":32,
@@ -36,7 +36,7 @@
   },
   "Bauxite":{
     "generator":"cluster",
-    "ore":"Aluminum",
+    "ore":"nativeAluminum",
     "size":30,
     "chance":10,
     "minHeight":50,
@@ -46,15 +46,15 @@
     "generator":"plate",
     "ore":[
       {
-        "ore":"Silver",
+        "ore":"nativeSilver",
         "weight":0.7
       },
       {
-        "ore":"Lead",
+        "ore":"nativeLead",
         "weight":0.7
       },
       {
-        "ore":"Bismuth",
+        "ore":"nativeBismuth",
         "weight":0.2
       }
     ],
@@ -67,11 +67,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Antimony",
+        "ore":"nativeAntimony",
         "weight":1.0
       },
       {
-        "ore":"Sulfur",
+        "ore":"nativeSulfur",
         "weight":0.5
       }
     ],
@@ -88,7 +88,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Coal",
+        "ore":"nativeCoal",
         "weight":1.0
       }
     ],
@@ -105,11 +105,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Coal",
+        "ore":"nativeCoal",
         "weight":1.0
       },
       {
-        "ore":"Diamond",
+        "ore":"nativeDiamond",
         "weight":0.2
       }
     ],
@@ -126,19 +126,19 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Copper",
+        "ore":"nativeCopper",
         "weight":0.75
       },
       {
-        "ore":"Iron",
+        "ore":"nativeIron",
         "weight":0.75
       },
       {
-        "ore":"Sulfur",
+        "ore":"nativeSulfur",
         "weight":1.0
       },
       {
-        "ore":"Cadmium",
+        "ore":"nativeCadmium",
         "weight":0.01
       }
     ],
@@ -155,11 +155,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Chromium",
+        "ore":"nativeChromium",
         "weight":0.75
       },
       {
-        "ore":"Iron",
+        "ore":"nativeIron",
         "weight":0.4
       }
     ],
@@ -175,19 +175,19 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Zinc",
+        "ore":"nativeZinc",
         "weight":0.75
       },
       {
-        "ore":"Iron",
+        "ore":"nativeIron",
         "weight":0.2
       },
       {
-        "ore":"Sulfur",
+        "ore":"nativeSulfur",
         "weight":1.0
       },
       {
-        "ore":"Cadmium",
+        "ore":"nativeCadmium",
         "weight":0.01
       }
     ],
@@ -204,15 +204,15 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Osmium",
+        "ore":"nativeOsmium",
         "weight":0.75
       },
       {
-        "ore":"Iridium",
+        "ore":"nativeIridium",
         "weight":0.25
       },
       {
-        "ore":"Platinum",
+        "ore":"nativePlatinum",
         "weight":0.1
       }
     ],
@@ -229,15 +229,15 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Gold",
+        "ore":"nativeGold",
         "weight":0.9
       },
       {
-        "ore":"Tellurium",
+        "ore":"nativeTellurium",
         "weight":0.7
       },
       {
-        "ore":"Silver",
+        "ore":"nativeSilver",
         "weight":0.1
       }
     ],
@@ -253,15 +253,15 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Gold",
+        "ore":"nativeGold",
         "weight":0.7
       },
       {
-        "ore":"Electrum",
+        "ore":"nativeElectrum",
         "weight":0.2
       },
       {
-        "ore":"Silver",
+        "ore":"nativeSilver",
         "weight":0.7
       }
     ],
@@ -277,7 +277,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Lapis",
+        "ore":"nativeLapis",
         "weight":1.0
       }
     ],
@@ -294,7 +294,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Quartz",
+        "ore":"nativeQuartz",
         "weight":1.0
       }
     ],
@@ -310,11 +310,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Tin",
+        "ore":"nativeTin",
         "weight":1.0
       },
       {
-        "ore":"Manganese",
+        "ore":"nativeManganese",
         "weight":0.1
       }
     ],
@@ -331,11 +331,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Titanium",
+        "ore":"nativeTitanium",
         "weight":1.0
       },
       {
-        "ore":"Iron",
+        "ore":"nativeIron",
         "weight":0.1
       }
     ],
@@ -352,7 +352,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Palladium",
+        "ore":"nativePalladium",
         "weight":1.0
       }
     ],
@@ -372,15 +372,15 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Redstone",
+        "ore":"nativeRedstone",
         "weight":1.0
       },
       {
-        "ore":"Nickel",
+        "ore":"nativeNickel",
         "weight":0.15
       },
       {
-        "ore":"Osmium",
+        "ore":"nativeOsmium",
         "weight":0.01
       }
     ],
@@ -397,7 +397,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Emerald",
+        "ore":"nativeEmerald",
         "weight":1.0
       }
     ],
@@ -413,11 +413,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Uranium",
+        "ore":"nativeUranium",
         "weight":1.0
       },
       {
-        "ore":"Mithril",
+        "ore":"nativeMithril",
         "weight":0.3
       }
     ],
@@ -434,11 +434,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Uranium",
+        "ore":"nativeUranium",
         "weight":1.0
       },
       {
-        "ore":"Adamantine",
+        "ore":"nativeAdamantine",
         "weight":0.3
       }
     ],
@@ -458,7 +458,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Quartz",
+        "ore":"nativeQuartz",
         "weight":1.0
       }
     ],
@@ -478,7 +478,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"Coal",
+        "ore":"nativeCoal",
         "weight":1.0
       }
     ],

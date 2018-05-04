@@ -24,8 +24,8 @@ public class OreItem extends ItemBase {
 
 	private Ore ore;
 
-	public OreItem(String name, Ore ore) {
-		super(name);
+	public OreItem(Ore ore) {
+		super("itemOre" + ore.getName());
 		this.ore = ore;
 		setMaxDamage(0);
 		setHasSubtypes(true);

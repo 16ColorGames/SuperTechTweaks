@@ -296,7 +296,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	public void registerMaterial() {
-		ore = new Ore(name, harvest, density / 2f, color);
+		ore = new Ore("native" + name, harvest, density / 2f, color);
 		ore.registerOre();
 		GameRegistry.findRegistry(Block.class).register(block);
 		GameRegistry.findRegistry(Item.class).register(itemBlock);
