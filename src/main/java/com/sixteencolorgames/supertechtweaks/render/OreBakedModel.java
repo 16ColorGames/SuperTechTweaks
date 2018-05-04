@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -103,7 +103,7 @@ public class OreBakedModel implements IBakedModel {
 		// end render back
 
 		for (int i = 0; i < 7 && i < ores.length; i++) {
-			Color firstColor = new Color(Material.REGISTRY.getValue(ores[i]).getColor());
+			Color firstColor = new Color(Ore.REGISTRY.getValue(ores[i]).getColor());
 			quads.add(createQuad(new Vec3d(1, 1, 0), new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1),
 					ore1[i], firstColor, 0));
 			quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), new Vec3d(1, 0, 0),

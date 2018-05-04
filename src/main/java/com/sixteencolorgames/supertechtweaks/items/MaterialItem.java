@@ -46,10 +46,6 @@ public class MaterialItem extends ItemBase {
 	public static final int COIN = 13;
 	public static final int BLADE = 14;
 
-	public static final int ORE = 50;
-	public static final int NETHER_ORE = 51;
-	public static final int END_ORE = 52;
-
 	public static final int HAMMER = 100;
 	public static final int PLIERS = 101;
 	public static final int DRAW_PLATE = 102;
@@ -78,10 +74,6 @@ public class MaterialItem extends ItemBase {
 			if (material.getToolLevel() >= 0) {
 				tooltip.add("Tool Level: " + material.getToolLevel());
 			}
-		}
-		if (stack.getMetadata() == ORE || stack.getMetadata() == NETHER_ORE || stack.getMetadata() == END_ORE) {
-			tooltip.add("Harvest Level: " + material.getHarvest());
-
 		}
 	}
 
@@ -266,12 +258,6 @@ public class MaterialItem extends ItemBase {
 		subItemStack = new ItemStack(this, 1, BLADE);
 		subItems.add(subItemStack);
 
-		subItemStack = new ItemStack(this, 1, ORE);
-		subItems.add(subItemStack);
-		subItemStack = new ItemStack(this, 1, NETHER_ORE);
-		subItems.add(subItemStack);
-		subItemStack = new ItemStack(this, 1, END_ORE);
-		subItems.add(subItemStack);
 		if (material.getToolLevel() >= 0) {
 			subItemStack = new ItemStack(this, 1, HAMMER);
 			subItems.add(subItemStack);
@@ -353,15 +339,7 @@ public class MaterialItem extends ItemBase {
 		if (metadata == BLADE) {
 			return "item.supertechtweaks.blade";
 		}
-		if (metadata == ORE) {
-			return "item.supertechtweaks.ore";
-		}
-		if (metadata == NETHER_ORE) {
-			return "item.supertechtweaks.nether";
-		}
-		if (metadata == END_ORE) {
-			return "item.supertechtweaks.end";
-		}
+
 		if (metadata == HAMMER) {
 			return "item.supertechtweaks.hammer";
 		}

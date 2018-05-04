@@ -47,7 +47,7 @@ public class GuiCrusher extends GuiContainer {
 			list.add(container.te.getEnergyStored() + "/" + container.te.getMaxEnergyStored() + " FE");
 			this.drawHoveringText(list, mouseX - i, mouseY - j);
 		}
-		this.renderHoveredToolTip(mouseX - i, mouseY - j);
+		renderHoveredToolTip(mouseX - i, mouseY - j);
 	}
 
 	private int getCookProgressScaled(int pixels) {

@@ -3,10 +3,13 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
+import com.sixteencolorgames.supertechtweaks.items.OreItem;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.BlockColor;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
+import com.sixteencolorgames.supertechtweaks.render.OreColor;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.ModelLoaderCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.pipe.ModelLoaderPipe;
 
@@ -100,6 +103,9 @@ public class ClientProxy extends CommonProxy {
 			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(BlockColor.INSTANCE, m.getItemBlock());
 			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, m.getBlock());
 		});
+		Ore.REGISTRY.getValuesCollection().forEach((o) -> {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(OreColor.INSTANCE, o.getItemOre());
+		});
 		ModRegistry.initItemModels();
 	}
 
@@ -126,9 +132,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerModels(Material mat) {
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.ORE, chunkLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.NETHER_ORE, chunkLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.END_ORE, chunkLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.INGOT, ingotLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DUST, dustLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.GEAR, gearLocation);
@@ -148,5 +151,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PICKAXE, pickaxeLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PLIERS, pliersLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DRAW_PLATE, drawPlateLocation);
+	}
+
+	@Override
+	public void registerModels(Ore ore) {
+		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.NETHER_ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.END_ORE, chunkLocation);
+
 	}
 }

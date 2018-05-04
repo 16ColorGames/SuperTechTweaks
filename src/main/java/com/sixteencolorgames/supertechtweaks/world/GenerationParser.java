@@ -17,7 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.sixteencolorgames.supertechtweaks.Config;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -44,11 +44,11 @@ public class GenerationParser {
 		if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
 			re = new ResourceLocation("supertechtweaks", name);
 		}
-		return new Object[] { Material.REGISTRY.getValue(re), weight };
+		return new Object[] { Ore.REGISTRY.getValue(re), weight };
 	}
 
 	private static WorldGeneratorBase parseCluster(JsonObject array) {
-		Map<Material, Double> ores = parseOres(array.get("ore"));
+		Map<Ore, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
 		if (array.has("properties") && array.get("properties").isJsonObject()) {
 			JsonObject props = array.get("properties").getAsJsonObject();
@@ -76,11 +76,11 @@ public class GenerationParser {
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
 	}
 
-	private static Map<Material, Double> parseOres(JsonElement oreElement) {
+	private static Map<Ore, Double> parseOres(JsonElement oreElement) {
 		if (Config.debug) {
 			System.out.println("Parsing ores.");
 		}
-		HashMap<Material, Double> ores = new HashMap();
+		HashMap<Ore, Double> ores = new HashMap();
 		if (oreElement.isJsonArray()) {
 			if (Config.debug) {
 				System.out.println("Parsing as array.");
@@ -95,13 +95,13 @@ public class GenerationParser {
 					if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
 						re = new ResourceLocation("supertechtweaks", element.getAsString());
 					}
-					ores.put(Material.REGISTRY.getValue(re), 1.0);
+					ores.put(Ore.REGISTRY.getValue(re), 1.0);
 				} else {
 					if (Config.debug) {
 						System.out.println("  Weighted Ore Found:");
 					}
 					Object[] weightedOre = getWeightedOre(element.getAsJsonObject());
-					ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
+					ores.put((Ore) weightedOre[0], (Double) weightedOre[1]);
 				}
 			}
 		} else {
@@ -116,10 +116,10 @@ public class GenerationParser {
 				if (re.getResourceDomain().equalsIgnoreCase("minecraft")) {
 					re = new ResourceLocation("supertechtweaks", oreElement.getAsString());
 				}
-				ores.put(Material.REGISTRY.getValue(re), 1.0);
+				ores.put(Ore.REGISTRY.getValue(re), 1.0);
 			} else {
 				Object[] weightedOre = getWeightedOre(oreElement.getAsJsonObject());
-				ores.put((Material) weightedOre[0], (Double) weightedOre[1]);
+				ores.put((Ore) weightedOre[0], (Double) weightedOre[1]);
 			}
 		}
 		ores.forEach((k, v) -> {
@@ -131,7 +131,7 @@ public class GenerationParser {
 	}
 
 	private static WorldGeneratorBase parsePlate(JsonObject array) {
-		Map<Material, Double> ores = parseOres(array.get("ore"));
+		Map<Ore, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
 		return new WorldGeneratorPlate(ores, array.get("size").getAsInt(), array.get("minHeight").getAsInt(),
 				array.get("maxHeight").getAsInt(), array.get("chance").getAsInt(), params);
@@ -239,7 +239,7 @@ public class GenerationParser {
 	}
 
 	private static WorldGeneratorVein parseVein(JsonObject array) {
-		Map<Material, Double> ores = parseOres(array.get("ore"));
+		Map<Ore, Double> ores = parseOres(array.get("ore"));
 		HashMap<String, Object> params = new HashMap();
 		if (array.has("properties") && array.get("properties").isJsonObject()) {
 			JsonObject props = array.get("properties").getAsJsonObject();

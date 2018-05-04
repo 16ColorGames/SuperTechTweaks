@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyBase;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
@@ -70,7 +70,7 @@ public class BlockOre extends BlockBase {
 	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
 		float hard = 1.5f;
 		for (ResourceLocation rs : OreSavedData.get(worldIn).getOres(pos)) {
-			float t = ((float) Material.REGISTRY.getValue(rs).getDensity() / 2.0f);
+			float t = ((float) Ore.REGISTRY.getValue(rs).getHardness());
 			if (t > hard) {
 				hard = t;
 			}
@@ -111,7 +111,7 @@ public class BlockOre extends BlockBase {
 		}
 		Random rand = worldObject.rand;
 		for (ResourceLocation ore : ores) {
-			Material material = Material.REGISTRY.getValue(ore);
+			Ore material = Ore.REGISTRY.getValue(ore);
 			ret.add(material.getDrops(type));
 			for (int j = 0; j < fortune; j++) {
 				if (rand.nextDouble() < .25) {
@@ -209,15 +209,15 @@ public class BlockOre extends BlockBase {
 				type = 1;
 			}
 			for (int i = 0; i < ores.length; i++) {
-				Material material = Material.REGISTRY.getValue(ores[i]);
-				if (material.getHarvest() <= player.getHeldItemMainhand().getItem()
+				Ore ore = Ore.REGISTRY.getValue(ores[i]);
+				if (ore.getHarvest() <= player.getHeldItemMainhand().getItem()
 						.getHarvestLevel(player.getHeldItemMainhand(), "pickaxe", player, state)) {
 					worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-							material.getDrops(type)));
+							ore.getDrops(type)));
 					for (int j = 0; j < fortune; j++) {
 						if (RANDOM.nextDouble() < .25) {
 							worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-									material.getDrops(type)));
+									ore.getDrops(type)));
 						}
 					}
 					ores[i] = null;

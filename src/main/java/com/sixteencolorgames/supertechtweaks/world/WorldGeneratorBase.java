@@ -8,7 +8,7 @@ import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
-import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -19,8 +19,8 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public abstract class WorldGeneratorBase implements IWorldGenerator {
 
-	public Map<Material, Double> ores;// List of metals in this generator along
-										// with
+	public Map<Ore, Double> ores;// List of metals in this generator along
+									// with
 	// their chance to generate per block
 	public int size;// Size of the generator. This means different things
 	// depending on the implementation
@@ -32,7 +32,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	private String name;// The identifying name for this generator
 	public ArrayList<Integer> dims;
 
-	public WorldGeneratorBase(Map<Material, Double> ores, int size, int min, int max, int chance,
+	public WorldGeneratorBase(Map<Ore, Double> ores, int size, int min, int max, int chance,
 			Map<String, Object> params) {
 		this.ores = ores;
 		this.size = size;
@@ -76,7 +76,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		ResourceLocation tex = new ResourceLocation(name.getResourceDomain(), "blocks/" + name.getResourcePath());
 		if (Config.stone.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
-			ores.forEach((Material k, Double v) -> {
+			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
@@ -89,7 +89,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (Config.nether.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
-			ores.forEach((Material k, Double v) -> {
+			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
@@ -102,7 +102,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (Config.end.contains(world.getBlockState(pos))) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
-			ores.forEach((Material k, Double v) -> {
+			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
@@ -115,7 +115,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (world.getBlockState(pos).getBlock() == ModRegistry.superore) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
-			ores.forEach((Material k, Double v) -> {
+			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
@@ -139,7 +139,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		return name;
 	}
 
-	public Map<Material, Double> getOres() {
+	public Map<Ore, Double> getOres() {
 		return ores;
 	}
 

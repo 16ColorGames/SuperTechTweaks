@@ -203,6 +203,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 	private MaterialItem itemMaterial;
 
+	private Ore ore;
+
 	private Material(String name, int color, int harvest, int mine, double density, double resistance, double expansion,
 			int shear, double conductivity, int young, int bulk) {
 		this.name = name;
@@ -257,21 +259,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return density;
 	}
 
-	public ItemStack getDrops(byte base) {
-		if (customDrops == null) {
-			switch (base) {// Switch based on base block
-			case -1:// NetherRack and similar
-				return new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
-			case 1:// Endstone and similar
-				return new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
-			default:// Stone and unspecified
-				return new ItemStack(itemMaterial, 1, MaterialItem.ORE);
-			}
-		} else {
-			return customDrops;
-		}
-	}
-
 	public int getHarvest() {
 		return harvest;
 	}
@@ -309,6 +296,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	public void registerMaterial() {
+		ore = new Ore(name, harvest, density / 2f, color);
+		ore.registerOre();
 		GameRegistry.findRegistry(Block.class).register(block);
 		GameRegistry.findRegistry(Item.class).register(itemBlock);
 		OreDictionary.registerOre("block" + getName(), new ItemStack(block));
@@ -327,14 +316,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	public void registerOreDict() {
-		ItemStack subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.ORE);
-		OreDictionary.registerOre("ore" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.NETHER_ORE);
-		OreDictionary.registerOre("oreNether" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.END_ORE);
-		OreDictionary.registerOre("oreEnd" + getName(), subItemStack);
-
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.INGOT);
+		ItemStack subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.INGOT);
 		OreDictionary.registerOre("ingot" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.DUST);
 		OreDictionary.registerOre("dust" + getName(), subItemStack);

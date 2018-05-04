@@ -9,6 +9,7 @@ import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
@@ -115,6 +116,9 @@ public abstract class CommonProxy {
 	}
 
 	public void registerModels(Material mat) {
+	}
+
+	public void registerModels(Ore ore) {
 	}
 
 	public RegistryBuilder registryInit(RegistryEvent.NewRegistry e) {

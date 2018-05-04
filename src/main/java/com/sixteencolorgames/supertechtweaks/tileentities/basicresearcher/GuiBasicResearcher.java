@@ -14,7 +14,6 @@ public class GuiBasicResearcher extends GuiContainer {
 
 	public GuiBasicResearcher(TileBasicResearcher tileEntity, ContainerBasicResearcher container) {
 		super(container);
-
 		xSize = WIDTH;
 		ySize = HEIGHT;
 	}

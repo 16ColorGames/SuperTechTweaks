@@ -10,6 +10,7 @@ import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
+import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
@@ -566,6 +567,9 @@ public class ModRegistry {
 		new RegistryBuilder().setType(Research.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "ResearchRegistry")).setIDRange(0, 512)
 				.create();
+		new RegistryBuilder().setType(Ore.class).setName(new ResourceLocation(SuperTechTweaksMod.MODID, "OreRegistry"))
+				.create();
+		Ore.REGISTRY = GameRegistry.findRegistry(Ore.class);
 	}
 
 	@SubscribeEvent
