@@ -32,6 +32,9 @@ public class GuiBoiler extends GuiContainer {
 		this.drawTexturedModalRect(guiLeft + 28, guiTop + 58 - w, WIDTH + 14, 41 - w, 16, w + 1);
 		int s = getSteamTankScaled(41);
 		this.drawTexturedModalRect(guiLeft + 136, guiTop + 58 - s, WIDTH + 30, 41 - s, 16, s + 1);
+		int i = (width - xSize) / 2;
+		int j = (height - ySize) / 2;
+		this.renderHoveredToolTip(mouseX - i, mouseY - j);
 	}
 
 	private int getBurnLeftScaled(int pixels) {
