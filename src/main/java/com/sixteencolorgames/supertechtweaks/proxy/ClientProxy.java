@@ -44,6 +44,8 @@ public class ClientProxy extends CommonProxy {
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
 
 	static ModelResourceLocation chunkLocation = new ModelResourceLocation("supertechtweaks:itemOreChunk", "inventory");
+	static ModelResourceLocation crushedLocation = new ModelResourceLocation("supertechtweaks:itemOreCrushed",
+			"inventory");
 	static ModelResourceLocation ingotLocation = new ModelResourceLocation("supertechtweaks:itemIngot", "inventory");
 	static ModelResourceLocation dustLocation = new ModelResourceLocation("supertechtweaks:itemDust", "inventory");
 	static ModelResourceLocation foilLocation = new ModelResourceLocation("supertechtweaks:itemFoil", "inventory");
@@ -158,6 +160,7 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.ORE, chunkLocation);
 		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.NETHER_ORE, chunkLocation);
 		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.END_ORE, chunkLocation);
+		ModelLoader.setCustomModelResourceLocation(ore.getItemOre(), OreItem.CRUSHED, crushedLocation);
 
 	}
 }

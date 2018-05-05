@@ -9,6 +9,7 @@ tile.supertechtweaks.multifluidinput.name=Fluid Input
 tile.supertechtweaks.multifluidoutput.name=Fluid Output
 tile.supertechtweaks.blockboiler.name=%s Solid Fuel Boiler
 tile.supertechtweaks.blocksteamengine.name=Steam Engine
+tile.supertechtweaks.blockcrusher.name=Mechanical Crusher
 tile.supertechtweaks.pressuretank.name=Pressurized Tank (%s)
 tile.supertechtweaks.blockpipe.name=%s Pipe
 
@@ -45,6 +46,7 @@ item.supertechtweaks.hammer.name=%s Hammer
 item.supertechtweaks.pickaxe.name=%s Pickaxe
 item.supertechtweaks.pliers.name=%s Pliers
 item.supertechtweaks.drawPlate.name=%s Draw Plate
+item.supertechtweaks.crushed.name=Crushed %s Ore
 
 #specialized names, mostly multiple words
 supertechtweaks.entry.StainlessSteel=Stainless Steel

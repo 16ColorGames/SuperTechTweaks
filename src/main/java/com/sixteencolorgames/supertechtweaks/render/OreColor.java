@@ -35,6 +35,8 @@ public class OreColor implements IItemColor {
 					return Color.RED.darker().getRGB();
 				} else if (stack.getMetadata() == OreItem.END_ORE) {
 					return Color.WHITE.getRGB();
+				} else if (stack.getMetadata() == OreItem.CRUSHED) {
+					return metal.getColor();
 				} else {
 					return Color.gray.getRGB();
 				}

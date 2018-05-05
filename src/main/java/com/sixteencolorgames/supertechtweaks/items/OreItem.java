@@ -17,10 +17,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class OreItem extends ItemBase {
 	public static final int ORE = 0;
-
 	public static final int NETHER_ORE = 1;
-
 	public static final int END_ORE = 2;
+
+	public static final int CRUSHED = 10;
 
 	private Ore ore;
 
@@ -68,6 +68,9 @@ public class OreItem extends ItemBase {
 		subItems.add(subItemStack);
 		subItemStack = new ItemStack(this, 1, END_ORE);
 		subItems.add(subItemStack);
+
+		subItemStack = new ItemStack(this, 1, CRUSHED);
+		subItems.add(subItemStack);
 	}
 
 	@Override
@@ -81,6 +84,9 @@ public class OreItem extends ItemBase {
 		}
 		if (metadata == END_ORE) {
 			return "item.supertechtweaks.end";
+		}
+		if (metadata == CRUSHED) {
+			return "item.supertechtweaks.crushed";
 		}
 		return "item.itemOreObject.ERROR_" + metadata;
 	}

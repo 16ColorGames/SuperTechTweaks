@@ -8,6 +8,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
+import com.sixteencolorgames.supertechtweaks.items.OreItem;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
@@ -95,6 +96,11 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 			return this;
 		}
 
+		public MaterialBuilder setNativeHarvest(int i) {
+			building.setNativeHarvest(i);
+			return this;
+		}
+
 		/**
 		 * Shear modulus measured in GPa
 		 *
@@ -145,6 +151,8 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	public static IForgeRegistry<Material> REGISTRY;
 
 	public ItemStack customDrops = null;
+
+	private int nativeHarvest = -1;
 
 	/**
 	 * The oreDict name of the metal
@@ -275,6 +283,13 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return name;
 	}
 
+	/**
+	 * @return the nativeHarvest
+	 */
+	private int getNativeHarvest() {
+		return nativeHarvest;
+	}
+
 	public double getResistance() {
 		return resistance;
 	}
@@ -296,12 +311,16 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	public void registerMaterial() {
+		this.setRegistryName(getName());
+		if (getNativeHarvest() != -1) {
+			new Ore("native" + name, getNativeHarvest(), getDensity() / 2f, color).registerOre();
+		}
+
 		GameRegistry.findRegistry(Block.class).register(block);
 		GameRegistry.findRegistry(Item.class).register(itemBlock);
 		OreDictionary.registerOre("block" + getName(), new ItemStack(block));
 
 		GameRegistry.findRegistry(Item.class).register(itemMaterial);
-		this.setRegistryName(getName());
 
 		registerOreDict();
 		SuperTechTweaksMod.proxy.registerModels(this);
@@ -412,5 +431,32 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.DUST),
 				new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
 
+		if (getNativeHarvest() != -1) {
+			Ore nat = Ore.REGISTRY
+					.getValue(new ResourceLocation(getRegistryName().getResourceDomain(), "native" + name));
+
+			subItemStack = new ItemStack(nat.getItemOre(), 1, OreItem.ORE);
+			OreDictionary.registerOre("ore" + getName(), subItemStack);
+			subItemStack = new ItemStack(nat.getItemOre(), 1, OreItem.END_ORE);
+			OreDictionary.registerOre("oreEnd" + getName(), subItemStack);
+			subItemStack = new ItemStack(nat.getItemOre(), 1, OreItem.NETHER_ORE);
+			OreDictionary.registerOre("oreNether" + getName(), subItemStack);
+
+			GameRegistry.findRegistry(IRecipe.class)
+					.register(new ShapelessOreRecipe(new ResourceLocation("native"),
+							new ItemStack(itemMaterial, 1, MaterialItem.DUST),
+							new Object[] { new OreIngredient("ore" + name), new OreIngredient("toolHammer") })
+									.setRegistryName(SuperTechTweaksMod.MODID, "native_dust_" + name));
+
+		}
+
+	}
+
+	/**
+	 * @param nativeHarvest
+	 *            the nativeHarvest to set
+	 */
+	private void setNativeHarvest(int nativeHarvest) {
+		this.nativeHarvest = nativeHarvest;
 	}
 }
