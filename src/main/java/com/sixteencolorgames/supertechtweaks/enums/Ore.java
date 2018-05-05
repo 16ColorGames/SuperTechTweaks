@@ -21,8 +21,6 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	 */
 	private int color;
 
-	public ItemStack customDrops = null;
-
 	/**
 	 * The harvest level of this
 	 */
@@ -41,17 +39,13 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	}
 
 	public ItemStack getDrops(byte base) {
-		if (customDrops == null) {
-			switch (base) {// Switch based on base block
-			case -1:// NetherRack and similar
-				return new ItemStack(itemOre, 1, OreItem.NETHER_ORE);
-			case 1:// Endstone and similar
-				return new ItemStack(itemOre, 1, OreItem.END_ORE);
-			default:// Stone and unspecified
-				return new ItemStack(itemOre, 1, OreItem.ORE);
-			}
-		} else {
-			return customDrops;
+		switch (base) {// Switch based on base block
+		case -1:// NetherRack and similar
+			return new ItemStack(itemOre, 1, OreItem.NETHER_ORE);
+		case 1:// Endstone and similar
+			return new ItemStack(itemOre, 1, OreItem.END_ORE);
+		default:// Stone and unspecified
+			return new ItemStack(itemOre, 1, OreItem.ORE);
 		}
 	}
 

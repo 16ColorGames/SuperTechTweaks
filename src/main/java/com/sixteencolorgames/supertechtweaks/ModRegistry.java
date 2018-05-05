@@ -559,6 +559,71 @@ public class ModRegistry {
 	}
 
 	@SubscribeEvent
+	public static void registerOres(RegistryEvent.Register<Ore> event) {
+		new Ore("Bauxite", 2, 2, 0x7CFC00).registerOre();
+		new Ore("Coal", 1, 1.04, 0x060607) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.COAL);
+			}
+		}.registerOre();
+		new Ore("NativeCopper", 1, 4.5, 0x060607).registerOre();
+		new Ore("NativeIron", 2, 3.75, 0xd3ad90).registerOre();
+		new Ore("NativeNickel", 3, 4.75, 0xccd3d8).registerOre();
+		new Ore("NativeAluminum", 2, 1.5, 0xe0d9cd).registerOre();
+		new Ore("NativeBismuth", 0, 5.0, 0xed7d92).registerOre();
+		new Ore("NativeCadmium", 0, 4.25, 0xed872d).registerOre();
+		new Ore("NativeAntimony", 3, 3.33, 0xfada5e).registerOre();
+		new Ore("NativeChromium", 2, 3.6, 0x18391e).registerOre();
+		new Ore("NativeManganese", 4, 3.6, 0x242d36).registerOre();
+		new Ore("NativeZinc", 1, 3.55, 0xbac4cb).registerOre();
+		new Ore("NativeSilver", 2, 5.25, 0xb5b5bd).registerOre();
+		new Ore("NativeGold", 3, 10, 0xccccc33).registerOre();
+		new Ore("NativeElectrum", 3, 7, 0x928729).registerOre();
+		new Ore("NativeLead", 3, 5.7, 0x474c4d).registerOre();
+		new Ore("NativeTin", 1, 3.25, 0x726a78).registerOre();
+		new Ore("NativeTellurium", 2, 3.12, 0xb5b5bd).registerOre();
+		new Ore("NativePlatinum", 3, 11.12, 0xb8b7b2).registerOre();
+		new Ore("NativeIridium", 7, 11.25, 0xe0e2dd).registerOre();
+		new Ore("NativeOsmium", 5, 11.25, 0x9090a3).registerOre();
+		new Ore("NativeMithril", 5, 1.25, 0xaebbdb).registerOre();
+		new Ore("NativeTitanium", 7, 2.25, 0x323230).registerOre();
+		new Ore("NativeUranium", 6, 9.75, 0x329832).registerOre();
+		new Ore("NativePalladium", 4, 6, 0xced0dd).registerOre();
+		new Ore("NativeAdamantine", 8, 12, 0xb30000).registerOre();
+		new Ore("Emerald", 4, 1.25, 0x50c878) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.EMERALD);
+			}
+		}.registerOre();
+		new Ore("Lapis", 2, 1.4, 0x000094) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.DYE, (int) (Math.random() * 4 + 2), 4);
+			}
+		}.registerOre();
+		new Ore("Redstone", 2, 1.4, 0x000094) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.REDSTONE, (int) (Math.random() * 4 + 2));
+			}
+		}.registerOre();
+		new Ore("Quartz", 1, 1.3, 0xdddddd) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.QUARTZ);
+			}
+		}.registerOre();
+		new Ore("Diamond", 3, 1.73, 0xb9f2ff) {
+			@Override
+			public ItemStack getDrops(byte base) {
+				return new ItemStack(Items.DIAMOND);
+			}
+		}.registerOre();
+	}
+
+	@SubscribeEvent
 	public static void registerRegistry(RegistryEvent.NewRegistry event) {
 		new RegistryBuilder().setType(Material.class)
 				.setName(new ResourceLocation(SuperTechTweaksMod.MODID, "MaterialRegistry")).setIDRange(0, 256)
@@ -665,11 +730,6 @@ public class ModRegistry {
 				.register(new Research("plastics").setTitle("Plastics")
 						.setDisplay(new ItemStack(Items.COMMAND_BLOCK_MINECART))
 						.addRequirement(new ResourceLocation("supertechtweaks:oilprocessing")));
-	}
-
-	@SubscribeEvent
-	public static void registerOres(RegistryEvent.Register<Ore> event) {
-		new Ore("Bauxite", 2, 2, 0x7CFC00).registerOre();
 	}
 
 	@SubscribeEvent

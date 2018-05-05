@@ -69,10 +69,6 @@
       {
         "ore":"nativeAntimony",
         "weight":1.0
-      },
-      {
-        "ore":"nativeSulfur",
-        "weight":0.5
       }
     ],
     "size":10,
@@ -88,7 +84,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeCoal",
+        "ore":"Coal",
         "weight":1.0
       }
     ],
@@ -105,11 +101,11 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeCoal",
+        "ore":"Coal",
         "weight":1.0
       },
       {
-        "ore":"nativeDiamond",
+        "ore":"Diamond",
         "weight":0.2
       }
     ],
@@ -132,10 +128,6 @@
       {
         "ore":"nativeIron",
         "weight":0.75
-      },
-      {
-        "ore":"nativeSulfur",
-        "weight":1.0
       },
       {
         "ore":"nativeCadmium",
@@ -181,10 +173,6 @@
       {
         "ore":"nativeIron",
         "weight":0.2
-      },
-      {
-        "ore":"nativeSulfur",
-        "weight":1.0
       },
       {
         "ore":"nativeCadmium",
@@ -277,7 +265,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeLapis",
+        "ore":"Lapis",
         "weight":1.0
       }
     ],
@@ -294,7 +282,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeQuartz",
+        "ore":"Quartz",
         "weight":1.0
       }
     ],
@@ -372,7 +360,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeRedstone",
+        "ore":"Redstone",
         "weight":1.0
       },
       {
@@ -397,7 +385,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeEmerald",
+        "ore":"Emerald",
         "weight":1.0
       }
     ],
@@ -458,7 +446,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeQuartz",
+        "ore":"Quartz",
         "weight":1.0
       }
     ],
@@ -478,7 +466,7 @@
     "generator":"cluster",
     "ore":[
       {
-        "ore":"nativeCoal",
+        "ore":"Coal",
         "weight":1.0
       }
     ],
