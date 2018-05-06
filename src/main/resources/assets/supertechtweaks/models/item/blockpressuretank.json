@@ -1,0 +1,7 @@
+{
+   "textures":{
+      "end":"supertechtweaks:blocks/fluidoutput",
+      "side":"supertechtweaks:blocks/pressuretank"
+   },
+   "parent":"block/cube_column"
+}

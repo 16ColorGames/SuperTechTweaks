@@ -1,0 +1,16 @@
+[
+{
+  "modid": "supertechtweaks",
+  "name": "Super Tech Tweaks",
+  "description": "Tweaks and additions originally for the SuperTech Pack. Adds custom ore gen and materials.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Oa10712"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

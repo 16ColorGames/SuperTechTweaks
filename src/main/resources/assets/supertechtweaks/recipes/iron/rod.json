@@ -1,0 +1,25 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolHammer"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolPliers"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolDrawPlate"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  ],
+  "result": {
+    "item": "supertechtweaks:itemIron",
+    "data": 5
+  }
+}

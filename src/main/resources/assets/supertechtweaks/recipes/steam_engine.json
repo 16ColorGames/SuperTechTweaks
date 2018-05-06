@@ -1,0 +1,20 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XXX",
+	"XbX",
+	"XXX"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+	"b": {
+		"item": "supertechtweaks:blockmultiwall"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:blocksteamengine"
+  }
+}

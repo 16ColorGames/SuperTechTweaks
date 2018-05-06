@@ -1,0 +1,23 @@
+{
+   "variants":{
+      "inventory":[
+         {
+            "textures":{
+               "end":"supertechtweaks:blocks/fluidoutput",
+               "side":"supertechtweaks:blocks/pressuretank"
+            },
+            "model":"cube_column"
+         }
+      ],
+      "part=false":{
+         "textures":{
+            "end":"supertechtweaks:blocks/fluidoutput",
+            "side":"supertechtweaks:blocks/pressuretank"
+         },
+         "model":"cube_column"
+      },
+	   "part=true":{
+		  "model":"supertechtweaks:empty.obj"
+	   }
+   }
+}

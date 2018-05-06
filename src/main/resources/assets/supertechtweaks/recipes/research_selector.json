@@ -1,0 +1,31 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "grg",
+	"tmt",
+	"gcg"
+  ],
+  "key": {
+    "g": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "t": {
+      "type": "forge:ore_dict",
+      "ore": "plateTin"
+    },
+    "r": {
+      "type": "forge:ore_dict",
+      "ore": "blockRedstone"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+	"m": {
+		"item": "supertechtweaks:blockmultiwall"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:researchselectorblock"
+  }
+}

@@ -1,0 +1,56 @@
+tile.superore.name=Super Tech Ore
+tile.supertechtweaks.basicresearcher.name=Basic Research Station
+tile.supertechtweaks.multiwall.name=Multiblock Wall
+tile.supertechtweaks.researchselector.name=Research Selector
+tile.supertechtweaks.blockcable.name=%s Cabling
+tile.supertechtweaks.multipowerinput.name=Power Input (%s)
+tile.supertechtweaks.multipoweroutput.name=Power Output (%s)
+tile.supertechtweaks.multifluidinput.name=Fluid Input
+tile.supertechtweaks.multifluidoutput.name=Fluid Output
+tile.supertechtweaks.blockboiler.name=%s Solid Fuel Boiler
+tile.supertechtweaks.blocksteamengine.name=Steam Engine
+tile.supertechtweaks.blockcrusher.name=Mechanical Crusher
+tile.supertechtweaks.pressuretank.name=Pressurized Tank (%s)
+tile.supertechtweaks.blockpipe.name=%s Pipe
+
+item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit
+item.supertechtweaks.itemTechComponent.circuitAdvanced.name=Advanced Circuit
+item.supertechtweaks.itemTechComponent.circuitElite.name=Elite Circuit
+item.supertechtweaks.itemTechComponent.circuitUltimate.name=Ultimate Circuit
+item.supertechtweaks.itemTechComponent.casingBasic.name=Basic Casing
+item.supertechtweaks.itemTechComponent.heatingElement.name=Heating Element
+item.supertechtweaks.itemTechComponent.powerUnitSmall.name=Small Power Unit
+
+
+#generic titles
+item.supertechtweaks.blade.name=%s Blade
+item.supertechtweaks.clump.name=%s Clump
+item.supertechtweaks.coin.name=%s Coin
+item.supertechtweaks.crystal.name=%s Crystal
+item.supertechtweaks.dust.name=%s Dust
+item.supertechtweaks.dustDirty.name=Dirty %s Dust
+item.supertechtweaks.dustTiny.name=Tiny %s Dust
+item.supertechtweaks.end.name=End %s Ore
+item.supertechtweaks.foil.name=%s Foil
+item.supertechtweaks.gear.name=%s Gear
+item.supertechtweaks.ingot.name=%s Ingot
+item.supertechtweaks.nether.name=Nether %s Ore
+item.supertechtweaks.nugget.name=%s Nugget
+item.supertechtweaks.ore.name=%s Ore
+item.supertechtweaks.plate.name=%s Plate
+item.supertechtweaks.rod.name=%s Rod
+item.supertechtweaks.shard.name=%s Shard
+item.supertechtweaks.wire.name=%s Wire
+tile.supertechtweaks.block.name=Block of %s
+item.supertechtweaks.hammer.name=%s Hammer
+item.supertechtweaks.pickaxe.name=%s Pickaxe
+item.supertechtweaks.pliers.name=%s Pliers
+item.supertechtweaks.drawPlate.name=%s Draw Plate
+item.supertechtweaks.crushed.name=Crushed %s Ore
+
+#specialized names, mostly multiple words
+supertechtweaks.entry.StainlessSteel=Stainless Steel
+supertechtweaks.entry.ColdIron=Cold Iron
+supertechtweaks.entry.BlackQuartz=Black Quartz
+supertechtweaks.entry.NetherQuartz=Nether Quartz
+supertechtweaks.entry.AluBrass=Aluminum Brass

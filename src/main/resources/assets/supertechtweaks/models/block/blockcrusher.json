@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "supertechtweaks:blocks/powerinput",
+        "front": "supertechtweaks:blocks/crusher_front",
+        "side": "supertechtweaks:blocks/boilerside"
+    }
+}

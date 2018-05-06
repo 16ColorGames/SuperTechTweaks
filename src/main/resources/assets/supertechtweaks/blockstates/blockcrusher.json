@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "supertechtweaks:blockcrusher" },
+        "facing=south": { "model": "supertechtweaks:blockcrusher", "y": 180 },
+        "facing=west":  { "model": "supertechtweaks:blockcrusher", "y": 270 },
+        "facing=east":  { "model": "supertechtweaks:blockcrusher", "y": 90 }
+    }
+}

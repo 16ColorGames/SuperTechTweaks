@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "inventory": [{
+            "model":"supertechtweaks:multi/cube"}]
+  },
+   "multipart":[
+      {
+         "when":{
+            "part":"false"
+         },
+         "apply":{
+            "model":"supertechtweaks:multi/all_sides.obj",
+            "uvlock":false
+         }
+      }
+   ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XX",
+    "X#"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "dustCopper"
+    },
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "dustTin"
+    }
+  },
+  "result": {
+    "item": "supertechtweaks:itemBronze",
+    "data": 1,
+	"count": 4
+  },
+  "requiredResearch": [
+	"supertechtweaks:bronze1"
+  ]
+}

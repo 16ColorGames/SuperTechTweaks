@@ -1,0 +1,7 @@
+{
+   "textures":{
+      "end":"blocks/furnace_top",
+      "side":"supertechtweaks:blocks/steamengine"
+   },
+   "parent":"block/cube_column"
+}

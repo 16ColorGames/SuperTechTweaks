@@ -19,15 +19,4 @@ build
 
 # other
 eclipse
-saves
-crash-reports
-logs
-/.nb-gradle/
-run/usernamecache.json
-run/usernamecache.json
-run/config/JEI/worldSettings.cfg
-run/config/JEI/worldSettings.cfg
-run/usercache.json
-run/usercache.json
-run/usernamecache.json
-run/mods
+run

@@ -1,0 +1,23 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+    "XXX",
+	"XbX",
+	"XXX"
+  ],
+  "key": {
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "plateBronze"
+    },
+	"b": {
+		"item": "minecraft:bucket"
+	}
+  },
+  "result": {
+    "item": "supertechtweaks:blockpressuretank"
+  },
+  "resultNBT" : {
+	"sttMaterial":"supertechtweaks:bronze"
+  }
+}

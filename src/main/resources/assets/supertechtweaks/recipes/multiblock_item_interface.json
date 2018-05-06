@@ -1,0 +1,18 @@
+{
+  "type": "supertechtweaks:researchCrafting",
+  "pattern": [
+		"X",
+		"C"
+  ],
+  "key": {
+	"X":{
+		"item": "supertechtweaks:blockmultiwall"
+	},
+    "C": {
+		"item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "item": "supertechtweaks:multiiteminterfaceblock"
+  }
+}
