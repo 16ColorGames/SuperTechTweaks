@@ -1,12 +1,13 @@
 package com.sixteencolorgames.supertechtweaks;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {
@@ -17,12 +18,19 @@ public class Config {
 	private static final String CATEGORY_DIMENSIONS = "dimensions";
 
 	// This values below you can access elsewhere in your mod:
-	public static ArrayList<IBlockState> stone;
-	public static ArrayList<IBlockState> nether;
-	public static ArrayList<IBlockState> end;
+	public static HashMap<IBlockState, ResourceLocation> stone;
+	public static HashMap<IBlockState, ResourceLocation> nether;
+	public static HashMap<IBlockState, ResourceLocation> end;
 	public static boolean removeVanilla;
 	public static boolean debug;
 	public static String extraDrop;
+	public static boolean oreOnly;
+
+	private static String[] types;
+
+	private static String[] netherTypes;
+
+	private static String[] endTypes;
 
 	private static void initGeneralConfig(Configuration cfg) {
 		cfg.addCustomCategoryComment(CATEGORY_GENERAL, "General configuration");
@@ -31,53 +39,26 @@ public class Config {
 		removeVanilla = cfg.getBoolean("removeVanilla", CATEGORY_GENERAL, true,
 				"If vanilla generation should be removed");
 		debug = cfg.getBoolean("debug", CATEGORY_GENERAL, false, "If debug info should be printed to the log");
+		oreOnly = cfg.getBoolean("oreOnly", CATEGORY_GENERAL, false,
+				"If the mod should only register items/blocks required for ore generation");
 		// extraDrop = cfg.getString("extraDrop", CATEGORY_GENERAL, "null", "the
 		// name of the additional block that an ore should drop when broken.");
 		// gets a string list from the config or creates one with default values
-		String[] types = cfg.getStringList("stone types", CATEGORY_GENERAL,
-				new String[] { "minecraft:stone", "minecraft:stone:1", "minecraft:stone:3", "minecraft:stone:5" },
+		types = cfg.getStringList("stone types", CATEGORY_GENERAL,
+				new String[] { "minecraft:stone,minecraft:blocks/stone",
+						"minecraft:stone:1,minecraft:blocks/stone_granite",
+						"minecraft:stone:3,minecraft:blocks/stone_diorite",
+						"minecraft:stone:5,minecraft:blocks/stone_andesite" },
 				"possible types of block to replace for stone veins");
-		stone = new ArrayList();
-		for (String type : types) {// Adds the read in stone types to the
-			// 'stone' block type. used for generation
-			String[] split = type.split(":");
-			if (split.length == 3) {// This one is called for items such as
-									// "minecraft:stone:4", which is a specific
-									// type of stone
-				stone.add(
-						Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
-			} else {// This one is called for items without metadata, such as
-					// "minecraft:dirt"
-				stone.add(Block.getBlockFromName(type).getDefaultState());
-			}
-		}
 
-		String[] netherTypes = cfg.getStringList("nether types", CATEGORY_GENERAL,
-				new String[] { "minecraft:netherrack" }, "possible types of block to replace for nether veins");
-		nether = new ArrayList();
-		for (String type : netherTypes) {// Adds the read in nether types to the
-			// 'nether' block type. used for generation
-			String[] split = type.split(":");
-			if (split.length == 3) {
-				nether.add(
-						Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
-			} else {
-				nether.add(Block.getBlockFromName(type).getDefaultState());
-			}
-		}
+		netherTypes = cfg.getStringList("nether types", CATEGORY_GENERAL,
+				new String[] { "minecraft:netherrack,minecraft:blocks/netherrack" },
+				"possible types of block to replace for nether veins");
 
-		String[] endTypes = cfg.getStringList("end types", CATEGORY_GENERAL, new String[] { "minecraft:end_stone" },
+		endTypes = cfg.getStringList("end types", CATEGORY_GENERAL,
+				new String[] { "minecraft:end_stone,minecraft:blocks/end_stone" },
 				"possible types of block to replace for ender veins");
-		end = new ArrayList();
-		for (String type : endTypes) {// Adds the read in nether types to the
-			// 'nether' block type. used for generation
-			String[] split = type.split(":");
-			if (split.length == 3) {
-				end.add(Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])));
-			} else {
-				end.add(Block.getBlockFromName(type).getDefaultState());
-			}
-		}
+
 	}
 
 	private static void initVanillaOres(File configFolder) {
@@ -89,6 +70,50 @@ public class Config {
 				throw new Error("Unable to create vanilla generation json.");
 			}
 		} catch (Throwable t) {
+		}
+	}
+
+	public static void parseTypes() {
+		stone = new HashMap();
+		for (String type : types) {// Adds the read in stone types to the
+			// 'stone' block type. used for generation
+			String[] parts = type.split(",");
+			String[] split = parts[0].split(":");
+			if (split.length == 3) {// This one is called for items such as
+									// "minecraft:stone:4", which is a specific
+									// type of stone
+				stone.put(
+						Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])),
+						new ResourceLocation(parts[1]));
+			} else {// This one is called for items without metadata, such as
+					// "minecraft:dirt"
+				stone.put(Block.getBlockFromName(parts[0]).getDefaultState(), new ResourceLocation(parts[1]));
+			}
+		}
+		nether = new HashMap();
+		for (String type : netherTypes) {// Adds the read in nether types to the
+			// 'nether' block type. used for generation
+			String[] parts = type.split(",");
+			String[] split = parts[0].split(":");
+			if (split.length == 3) {
+				nether.put(
+						Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])),
+						new ResourceLocation(parts[1]));
+			} else {
+				nether.put(Block.getBlockFromName(parts[0]).getDefaultState(), new ResourceLocation(parts[1]));
+			}
+		}
+		end = new HashMap();
+		for (String type : endTypes) {// Adds the read in nether types to the
+			// 'nether' block type. used for generation
+			String[] parts = type.split(",");
+			String[] split = parts[0].split(":");
+			if (split.length == 3) {
+				end.put(Block.getBlockFromName(split[0] + ":" + split[1]).getStateFromMeta(Integer.parseInt(split[2])),
+						new ResourceLocation(parts[1]));
+			} else {
+				end.put(Block.getBlockFromName(parts[0]).getDefaultState(), new ResourceLocation(parts[1]));
+			}
 		}
 	}
 

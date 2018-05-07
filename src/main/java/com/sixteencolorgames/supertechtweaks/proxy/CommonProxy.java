@@ -65,6 +65,9 @@ public abstract class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent e) {
+
+		Config.parseTypes();
+
 		IForgeRegistryModifiable recipies = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
 		recipies.remove(new ResourceLocation("minecraft:diamond_pickaxe"));
 		recipies.remove(new ResourceLocation("minecraft:iron_pickaxe"));
