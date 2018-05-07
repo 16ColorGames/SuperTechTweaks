@@ -1,0 +1,12 @@
+{
+   "type":"supertechtweaks:smelting",
+   "input":{
+      "item":"supertechtweaks:itemorecassiterite",
+      "data":10
+   },
+   "result":{
+      "item":"supertechtweaks:itemTin",
+      "data":0
+   },
+   "xp":0.25
+}

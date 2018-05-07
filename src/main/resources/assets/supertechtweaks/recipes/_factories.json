@@ -4,6 +4,7 @@
    },
    "recipes":{
       "addNBT":"com.sixteencolorgames.supertechtweaks.recipe.AddNBTRecipeFactory",
-	  "researchCrafting": "com.sixteencolorgames.supertechtweaks.recipe.ResearchCraftingFactory"
+	  "researchCrafting": "com.sixteencolorgames.supertechtweaks.recipe.ResearchCraftingFactory",
+	  "smelting": "com.sixteencolorgames.supertechtweaks.recipe.FurnaceRecipeFactory"
    }
 }

@@ -82,6 +82,8 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 		OreDictionary.registerOre("oreNether" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemOre, 1, OreItem.END_ORE);
 		OreDictionary.registerOre("oreEnd" + getName(), subItemStack);
+		subItemStack = new ItemStack(itemOre, 1, OreItem.CRUSHED);
+		OreDictionary.registerOre("crushed" + getName(), subItemStack);
 	}
 
 }

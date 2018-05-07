@@ -562,6 +562,16 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerOres(RegistryEvent.Register<Ore> event) {
 		new Ore("Bauxite", 2, 2, 0x7CFC00).registerOre();
+		new Ore("Bornite", 2, 2.5, 0x8B4513).registerOre();
+		new Ore("Chalcocite", 2, 2.75, 0x2F4F4F).registerOre();
+		new Ore("Cassiterite", 1, 1.5, 0x654321).registerOre();
+		new Ore("Chromite", 2, 1.5, 0xC0C0CC).registerOre();
+		new Ore("Cinnabar", 1, 1.0, 0x8b0017).registerOre();
+		new Ore("Cobaltite", 5, 1.0, 0xd2b48c).registerOre();
+		new Ore("Galena", 4, 5.0, 0xbeb2b2).registerOre();
+		new Ore("Hematite", 3, 2.0, 0x101c1f).registerOre();
+		new Ore("Ilmenite", 6, 6.0, 0x323230).registerOre();
+		new Ore("Sphalerite", 2, 1.7, 0x323230).registerOre();
 		new Ore("Coal", 1, 1.04, 0x060607) {
 			@Override
 			public ItemStack getDrops(byte base) {
@@ -580,7 +590,7 @@ public class ModRegistry {
 				return new ItemStack(Items.DYE, (int) (Math.random() * 4 + 2), 4);
 			}
 		}.registerOre();
-		new Ore("Redstone", 2, 1.4, 0x000094) {
+		new Ore("Redstone", 2, 1.4, 0xa00010) {
 			@Override
 			public ItemStack getDrops(byte base) {
 				return new ItemStack(Items.REDSTONE, (int) (Math.random() * 4 + 2));
