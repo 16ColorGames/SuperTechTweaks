@@ -5,6 +5,8 @@
  */
 package com.sixteencolorgames.supertechtweaks.render;
 
+import java.util.HashMap;
+
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 
 import net.minecraft.client.resources.IResourceManager;

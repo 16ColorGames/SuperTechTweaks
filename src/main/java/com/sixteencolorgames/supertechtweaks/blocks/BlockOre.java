@@ -9,11 +9,16 @@ import javax.annotation.Nullable;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyBase;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyOres;
+import com.sixteencolorgames.supertechtweaks.compat.top.TOPInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.IProbeInfoAccessor;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -43,7 +48,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author oa10712
  *
  */
-public class BlockOre extends BlockBase {
+public class BlockOre extends BlockBase implements IProbeInfoAccessor {
 
 	public static final PropertyBase BASE = new PropertyBase("base");
 	public static final PropertyOres ORES = new PropertyOres("ores");
@@ -257,5 +262,19 @@ public class BlockOre extends BlockBase {
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return true;
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
+
+		if (!world.isRemote) {
+			ResourceLocation[] ores = OreSavedData.get(world).getOres(data.getPos());
+
+			probeInfo.horizontal().text("Ores: " + ores.length);
+			for (ResourceLocation rl : ores) {
+				probeInfo.horizontal().text(rl.toString());
+			}
+		}
 	}
 }

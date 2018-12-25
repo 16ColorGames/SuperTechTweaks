@@ -44,11 +44,25 @@ public class Config {
 		// extraDrop = cfg.getString("extraDrop", CATEGORY_GENERAL, "null", "the
 		// name of the additional block that an ore should drop when broken.");
 		// gets a string list from the config or creates one with default values
-		types = cfg.getStringList("stone types", CATEGORY_GENERAL,
-				new String[] { "minecraft:stone,minecraft:blocks/stone",
-						"minecraft:stone:1,minecraft:blocks/stone_granite",
-						"minecraft:stone:3,minecraft:blocks/stone_diorite",
-						"minecraft:stone:5,minecraft:blocks/stone_andesite" },
+		types = cfg.getStringList("stone types", CATEGORY_GENERAL, new String[] {
+				"minecraft:stone,minecraft:blocks/stone", "minecraft:stone:1,minecraft:blocks/stone_granite",
+				"minecraft:stone:3,minecraft:blocks/stone_diorite", "minecraft:stone:5,minecraft:blocks/stone_andesite",
+				"supertechtweaks:slate,supertechtweaks:blocks/slate",
+				"supertechtweaks:gneiss,supertechtweaks:blocks/gneiss",
+				"supertechtweaks:schist,supertechtweaks:blocks/schist",
+				"supertechtweaks:phyllite,supertechtweaks:blocks/phyllite",
+				"supertechtweaks:amphibolite,supertechtweaks:blocks/amphibolite",
+				"supertechtweaks:shale,supertechtweaks:blocks/shale",
+				"supertechtweaks:marble,supertechtweaks:blocks/marble",
+				"supertechtweaks:basalt,supertechtweaks:blocks/basalt",
+				"supertechtweaks:chert,supertechtweaks:blocks/chert",
+				"supertechtweaks:conglomerate,supertechtweaks:blocks/conglomerate",
+				"supertechtweaks:dolomite,supertechtweaks:blocks/dolomite",
+				"supertechtweaks:gabbro,supertechtweaks:blocks/gabbro",
+				"supertechtweaks:limestone,supertechtweaks:blocks/limestone",
+				"supertechtweaks:pegmatite,supertechtweaks:blocks/pegmatite",
+				"supertechtweaks:rhyolite,supertechtweaks:blocks/rhyolite",
+				"supertechtweaks:scoria,supertechtweaks:blocks/scoria" },
 				"possible types of block to replace for stone veins");
 
 		netherTypes = cfg.getStringList("nether types", CATEGORY_GENERAL,

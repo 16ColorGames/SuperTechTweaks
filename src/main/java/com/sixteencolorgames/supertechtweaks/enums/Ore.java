@@ -1,5 +1,7 @@
 package com.sixteencolorgames.supertechtweaks.enums;
 
+import java.util.ArrayList;
+
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.items.OreItem;
 
@@ -15,6 +17,7 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	private String name;
 	private double hardness;
 	private OreItem itemOre;
+	private ArrayList<String> altNames = new ArrayList();
 
 	/**
 	 * The RGB code for the color of this
@@ -32,6 +35,7 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 		this.hardness = hardness;
 		this.color = color;
 		itemOre = new OreItem(this);
+		altNames.add(string);
 	}
 
 	public int getColor() {
@@ -76,14 +80,21 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	}
 
 	private void registerOreDict() {
-		ItemStack subItemStack = new ItemStack(itemOre, 1, OreItem.ORE);
-		OreDictionary.registerOre("ore" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemOre, 1, OreItem.NETHER_ORE);
-		OreDictionary.registerOre("oreNether" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemOre, 1, OreItem.END_ORE);
-		OreDictionary.registerOre("oreEnd" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemOre, 1, OreItem.CRUSHED);
-		OreDictionary.registerOre("crushed" + getName(), subItemStack);
+		for (String s : altNames) {
+			ItemStack subItemStack = new ItemStack(itemOre, 1, OreItem.ORE);
+			OreDictionary.registerOre("ore" + s, subItemStack);
+			subItemStack = new ItemStack(itemOre, 1, OreItem.NETHER_ORE);
+			OreDictionary.registerOre("oreNether" + s, subItemStack);
+			subItemStack = new ItemStack(itemOre, 1, OreItem.END_ORE);
+			OreDictionary.registerOre("oreEnd" + s, subItemStack);
+			subItemStack = new ItemStack(itemOre, 1, OreItem.CRUSHED);
+			OreDictionary.registerOre("crushed" + s, subItemStack);
+		}
+	}
+
+	public Ore addDictSuffix(String name2) {
+		altNames.add(name2);
+		return this;
 	}
 
 }

@@ -13,9 +13,12 @@ import com.sixteencolorgames.supertechtweaks.render.OreColor;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.ModelLoaderCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.pipe.ModelLoaderPipe;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -93,8 +96,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOre.class, new
-		// TESRBlockOre());
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class ClientProxy extends CommonProxy {
 		ModelLoaderRegistry.registerLoader(new ModelLoaderCable());
 		ModelLoaderRegistry.registerLoader(new ModelLoaderPipe());
 		OBJLoader.INSTANCE.addDomain(SuperTechTweaksMod.MODID);
-
+		// ModelLoaderRegistry.registerLoader(ModelLoaderRock.INSTANCE);
 	}
 
 	@Override

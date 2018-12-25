@@ -313,7 +313,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	public void registerMaterial() {
 		this.setRegistryName(getName());
 		if (getNativeHarvest() != -1) {
-			new Ore("native" + name, getNativeHarvest(), getDensity() / 2f, color).registerOre();
+			new Ore("native" + name, getNativeHarvest(), getDensity() / 2f, color).addDictSuffix(name).registerOre();
 		}
 
 		GameRegistry.findRegistry(Block.class).register(block);
@@ -378,6 +378,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("drawplate" + getName(), subItemStack);
 		OreDictionary.registerOre("toolDrawPlate", subItemStack);
 
+		
 		// register block
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(
@@ -442,9 +443,12 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 			subItemStack = new ItemStack(nat.getItemOre(), 1, OreItem.NETHER_ORE);
 			OreDictionary.registerOre("oreNether" + getName(), subItemStack);
 
+			GameRegistry.addSmelting(new ItemStack(nat.getItemOre(), 1, OreItem.ORE),
+					new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
+			
 			GameRegistry.findRegistry(IRecipe.class)
 					.register(new ShapelessOreRecipe(new ResourceLocation("native"),
-							new ItemStack(itemMaterial, 1, MaterialItem.DUST),
+							new ItemStack(itemMaterial, 2, MaterialItem.DUST),
 							new Object[] { new OreIngredient("ore" + name), new OreIngredient("toolHammer") })
 									.setRegistryName(SuperTechTweaksMod.MODID, "native_dust_" + name));
 

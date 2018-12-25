@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -8,10 +9,14 @@ import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockRock;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockRockSlab;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockRockStairs;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
+import com.sixteencolorgames.supertechtweaks.enums.RockType;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
@@ -42,8 +47,11 @@ import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamE
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStone;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
@@ -55,16 +63,22 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
@@ -91,6 +105,14 @@ public class ModRegistry {
 	public static BlockSteamEngine blockSteamEngine;
 	public static BlockCrusher blockCrusher;
 
+	public static final List<IBlockState> allStones = new ArrayList<IBlockState>();
+	/** stone block replacements that are sedimentary */
+	public static final List<IBlockState> sedimentaryStones = new ArrayList<IBlockState>();
+	/** stone block replacements that are metamorphic */
+	public static final List<IBlockState> metamorphicStones = new ArrayList<IBlockState>();
+	/** stone block replacements that are igneous */
+	public static final List<IBlockState> igneousStones = new ArrayList<IBlockState>();
+
 	public static ItemTechComponent itemTechComponent;
 
 	public static Fluid steam = createFluid("steam", true,
@@ -100,17 +122,14 @@ public class ModRegistry {
 	static ModelResourceLocation fluidLocation = new ModelResourceLocation("supertechtweaks:blockFluid", "inventory");
 
 	/**
-	 * Create a {@link Fluid} and its {@link IFluidBlock}, or use the existing
-	 * ones if a fluid has already been registered with the same name.
+	 * Create a {@link Fluid} and its {@link IFluidBlock}, or use the existing ones
+	 * if a fluid has already been registered with the same name.
 	 *
-	 * @param name
-	 *            The name of the fluid
-	 * @param hasFlowIcon
-	 *            Does the fluid have a flow icon?
-	 * @param fluidPropertyApplier
-	 *            A function that sets the properties of the {@link Fluid}
-	 * @param blockFactory
-	 *            A function that creates the {@link IFluidBlock}
+	 * @param name                 The name of the fluid
+	 * @param hasFlowIcon          Does the fluid have a flow icon?
+	 * @param fluidPropertyApplier A function that sets the properties of the
+	 *                             {@link Fluid}
+	 * @param blockFactory         A function that creates the {@link IFluidBlock}
 	 * @return The fluid and block
 	 */
 	private static <T extends Block & IFluidBlock> Fluid createFluid(String name, boolean hasFlowIcon,
@@ -122,7 +141,6 @@ public class ModRegistry {
 
 		Fluid fluid = new Fluid(name, still, flowing);
 		final boolean useOwnFluid = FluidRegistry.registerFluid(fluid);
-
 		if (useOwnFluid) {
 			fluidPropertyApplier.accept(fluid);
 		} else {
@@ -154,6 +172,10 @@ public class ModRegistry {
 		blockCable.initModel();
 		blockPipe.initModel();
 		itemTechComponent.registerModels();
+
+		for (IBlockState s : allStones) {
+			registerBlockItemModel(s);
+		}
 	}
 
 	@SubscribeEvent
@@ -216,6 +238,32 @@ public class ModRegistry {
 		blockPipe = new BlockPipe();
 		event.getRegistry().register(blockPipe);
 		GameRegistry.registerTileEntity(TilePipe.class, SuperTechTweaksMod.MODID + "_tilepipe");
+
+		// Rocks
+
+		igneousStones
+				.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE));
+		addStoneType(RockType.IGNEOUS, "basalt", 5, 100, 2, event);
+		igneousStones.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE));
+		igneousStones.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE));
+		addStoneType(RockType.IGNEOUS, "rhyolite", 1.5, 10, 0, event);
+		addStoneType(RockType.IGNEOUS, "gabbro", 1.5, 10, 0, event);
+		addStoneType(RockType.IGNEOUS, "scoria", 1.5, 10, 0, event);
+		addStoneType(RockType.IGNEOUS, "pegmatite", 1.5, 10, 0, event);
+
+		sedimentaryStones.add(Blocks.GRAVEL.getDefaultState());
+		addStoneType(RockType.SEDIMENTARY, "shale", 1.5, 10, 0, event);
+		addStoneType(RockType.SEDIMENTARY, "chert", 1.5, 10, 0, event);
+		addStoneType(RockType.SEDIMENTARY, "conglomerate", 1.5, 10, 0, event);
+		addStoneType(RockType.SEDIMENTARY, "dolomite", 3, 15, 1, event);
+		addStoneType(RockType.SEDIMENTARY, "limestone", 1.5, 10, 0, event);
+
+		addStoneType(RockType.METAMORPHIC, "schist", 3, 15, 1, event);
+		addStoneType(RockType.METAMORPHIC, "gneiss", 3, 15, 1, event);
+		addStoneType(RockType.SEDIMENTARY, "marble", 1.5, 10, 0, event);
+		addStoneType(RockType.METAMORPHIC, "phyllite", 1.5, 10, 0, event);
+		addStoneType(RockType.METAMORPHIC, "amphibolite", 3, 15, 1, event);
+		addStoneType(RockType.METAMORPHIC, "slate", 1.5, 10, 0, event);
 
 	}
 
@@ -556,7 +604,26 @@ public class ModRegistry {
 		new MaterialBuilder("StainlessSteel").setColor(0xe0dfdb).setHarvestLevel(2).setDensity(8)
 				.setElectricalResistance(7200).setThermalExpansion(17.3).setShearModulus(86)
 				.setThermalConductivity(16.2).setYoungsModulus(198).setBulkModulus(143).build().registerMaterial();
-
+		Material thorium = new MaterialBuilder("Thorium").setBulkModulus(54).setColor(0xD3D3D3).setDensity(11.7)
+				.setElectricalResistance(157).setNativeHarvest(3).setHarvestLevel(3).setShearModulus(31)
+				.setThermalConductivity(54).setThermalExpansion(11).setYoungsModulus(79).build();
+		thorium.registerMaterial();
+		thorium.addBasicProcessing();
+		Material lithium = new MaterialBuilder("Lithium").setBulkModulus(11).setColor(0xD3D3C0).setDensity(0.534)
+				.setElectricalResistance(92.8).setHarvestLevel(1).setNativeHarvest(1).setShearModulus(4)
+				.setThermalConductivity(84.8).setThermalExpansion(46).setYoungsModulus(5).build();
+		lithium.registerMaterial();
+		lithium.addBasicProcessing();
+		Material boron = new MaterialBuilder("Boron").setColor(0xBC8F8).setDensity(2.37)
+				.setElectricalResistance(1000000).setHarvestLevel(0).setNativeHarvest(0).setThermalConductivity(27.4)
+				.setThermalExpansion(6).build();
+		boron.registerMaterial();
+		boron.addBasicProcessing();
+		Material magnesium = new MaterialBuilder("Magnesium").setBulkModulus(35).setColor(0xd3d3e5).setDensity(1.738)
+				.setElectricalResistance(43.9).setHarvestLevel(1).setNativeHarvest(1).setShearModulus(17)
+				.setThermalConductivity(156).setThermalExpansion(24.8).setYoungsModulus(45).build();
+		magnesium.registerMaterial();
+		magnesium.addBasicProcessing();
 	}
 
 	@SubscribeEvent
@@ -596,6 +663,20 @@ public class ModRegistry {
 				return new ItemStack(Items.REDSTONE, (int) (Math.random() * 4 + 2));
 			}
 		}.registerOre();
+		ItemStack electrotine;
+		if (OreDictionary.doesOreNameExist("dustElectrotine")) {
+			electrotine = OreDictionary.getOres("dustElectrotine").get(0);
+		} else {
+			electrotine = OreDictionary.getOres("dustRedstone").get(0);
+		}
+		new Ore("Electrotine", 2, 1.4, 0x483D8B) {
+			@Override
+			public ItemStack getDrops(byte base) {
+
+				return new ItemStack(electrotine.getItem(), (int) (Math.random() * 4 + 2));
+			}
+		}.registerOre();
+
 		new Ore("Quartz", 1, 1.3, 0xdddddd) {
 			@Override
 			public ItemStack getDrops(byte base) {
@@ -627,18 +708,14 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerResearch(RegistryEvent.Register<Research> event) {
 		event.getRegistry()
-				.register(
-						new Research("automation").setEnergyRequired(1000)
-								.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1,
-										ItemTechComponent.SMALL_POWER_UNIT))
-								.setTitle("Basic Automation").addItemRequirement(new ItemStack(Items.REDSTONE, 4)));
+				.register(new Research("automation").setEnergyRequired(1000)
+						.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1, ItemTechComponent.SMALL_POWER_UNIT))
+						.setTitle("Basic Automation").addItemRequirement(new ItemStack(Items.REDSTONE, 4)));
 		event.getRegistry()
-				.register(
-						new Research("electronics")
-								.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1,
-										ItemTechComponent.BASIC_CIRCUIT))
-								.setTitle("Basic Electrinics").setEnergyRequired(1000)
-								.addRequirement(new ResourceLocation("supertechtweaks:automation")));
+				.register(new Research("electronics")
+						.setDisplay(new ItemStack(ModRegistry.itemTechComponent, 1, ItemTechComponent.BASIC_CIRCUIT))
+						.setTitle("Basic Electrinics").setEnergyRequired(1000)
+						.addRequirement(new ResourceLocation("supertechtweaks:automation")));
 		event.getRegistry().register(new Research("optics").setTitle("Optics").setDisplay(new ItemStack(Blocks.TORCH)));
 		event.getRegistry()
 				.register(new Research("combustion").setTitle("Combustion").setDisplay(new ItemStack(Items.GUNPOWDER)));
@@ -652,12 +729,10 @@ public class ModRegistry {
 						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron")).getMaterialItem(), 1,
 						MaterialItem.DUST))
 				.addRequirement(new ResourceLocation("supertechtweaks:metallurgy")));
-		event.getRegistry()
-				.register(
-						new Research("bronze1").setTitle("Bronze 1")
-								.setDisplay(new ItemStack(Material.REGISTRY
-										.getValue(new ResourceLocation("supertechtweaks:bronze")).getMaterialItem(), 1,
-								MaterialItem.DUST))
+		event.getRegistry().register(new Research("bronze1").setTitle("Bronze 1")
+				.setDisplay(new ItemStack(
+						Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:bronze")).getMaterialItem(), 1,
+						MaterialItem.DUST))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancedcopper1"))
 				.addRequirement(new ResourceLocation("supertechtweaks:advancedtin1")));
 		event.getRegistry().register(new Research("advancediron2").setTitle("Advanced Iron Processing 2")
@@ -723,4 +798,102 @@ public class ModRegistry {
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		// add smelting, since there's no json for that
 	}
+
+	/**
+	 * 
+	 * @param type              Igneous, sedimentary, or metamorphic
+	 * @param name              id-name of the block
+	 * @param hardness          How hard (time duration) the block is to pick. For
+	 *                          reference, dirt is 0.5, stone is 1.5, ores are 3,
+	 *                          and obsidian is 50
+	 * @param blastResistance   how resistant the block is to explosions. For
+	 *                          reference, dirt is 0, stone is 10, and blast-proof
+	 *                          materials are 2000
+	 * @param toolHardnessLevel 0 for wood tools, 1 for stone, 2 for iron, 3 for
+	 *                          diamond
+	 */
+	private static void addStoneType(RockType type, String name, double hardness, double blastResistance,
+			int toolHardnessLevel, RegistryEvent.Register<Block> event) {
+		final Block rock, rockStairs, rockSlab, rockSlabDouble;
+		rock = new BlockRock(name, true, (float) hardness, (float) blastResistance, toolHardnessLevel, SoundType.STONE);
+		switch (type) {
+		case IGNEOUS:
+			igneousStones.add(rock.getDefaultState());
+			break;
+		case METAMORPHIC:
+			metamorphicStones.add(rock.getDefaultState());
+			break;
+		case SEDIMENTARY:
+			sedimentaryStones.add(rock.getDefaultState());
+			break;
+		}
+		allStones.add(rock.getDefaultState());
+
+		OreDictionary.registerOre("stone", rock);
+		GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
+		/*
+		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,
+		 * (float) blastResistance, toolHardnessLevel, SoundType.STONE); rockSlab = new
+		 * BlockRockSlab.Half(name + "_slab", (float) hardness, (float) blastResistance,
+		 * toolHardnessLevel, SoundType.STONE); rockSlabDouble = new
+		 * BlockRockSlab.Double(name + "_slab_double", (float) hardness, (float)
+		 * blastResistance, toolHardnessLevel, SoundType.STONE);
+		 */
+
+		ItemBlock itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
+		ForgeRegistries.ITEMS.register(itemBlock);
+
+		event.getRegistry().registerAll(rock/* , rockStairs, rockSlab, rockSlabDouble */);
+
+		/*
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(rockStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', rock)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(rockSlab, 6),
+		 * "xxx", 'x', rock));
+		 * 
+		 * GameRegistry.findRegistry(IRecipe.class).register( new ShapedOreRecipe(new
+		 * ResourceLocation("blocks"), new ItemStack(brick, 4), "xx", "xx", 'x', rock));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(brickStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', brick)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(brickSlab, 6),
+		 * "xxx", 'x', brick));
+		 * 
+		 * GameRegistry.findRegistry(IRecipe.class) .register(new ShapedOreRecipe(new
+		 * ResourceLocation("blocks"), new ItemStack(smooth, 1), rock, "sand"));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(smoothStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(smoothSlab, 6),
+		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register(new
+		 * ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(smoothBrick,
+		 * 4), "xx", "xx", 'x', smooth));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(smoothBrickStairs, 4), "x  ",
+		 * "xx ", "xxx", 'x', smoothBrick));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("slabs"), new ItemStack(smoothBrickSlab, 6), "xxx", 'x',
+		 * smoothBrick));
+		 */
+	}
+
+	/**
+	 * Register a single model for the {@link Block}'s {@link Item}.
+	 * <p>
+	 * Uses the registry name as the domain/path and the {@link IBlockState} as the
+	 * variant.
+	 *
+	 * @param state The state to use as the variant
+	 */
+	private static void registerBlockItemModel(final IBlockState state) {
+		final Block block = state.getBlock();
+		final Item item = Item.getItemFromBlock(block);
+
+		if (item != Items.AIR) {
+			ModelLoader.setCustomModelResourceLocation(item, 0,
+					new ModelResourceLocation(block.getRegistryName(), "normal"));
+		}
+	}
+
 }
