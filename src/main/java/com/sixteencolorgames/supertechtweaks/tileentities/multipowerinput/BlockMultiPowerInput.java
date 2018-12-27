@@ -54,8 +54,8 @@ public class BlockMultiPowerInput extends Block implements ITileEntityProvider {
 	}
 
 	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks
-	 * for render
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for
+	 * render
 	 */
 	@Override
 	public boolean isFullCube(IBlockState state) {
@@ -63,34 +63,8 @@ public class BlockMultiPowerInput extends Block implements ITileEntityProvider {
 	}
 
 	/**
-	 * Called when the block is right clicked by a player.
-	 */
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		// Only execute on the server
-		if (world.isRemote) {
-			return true;
-		}
-		TileMultiBlock te = (TileMultiBlock) world.getTileEntity(pos);
-		if (te.hasMaster()) {
-			IEnergyStorage capability = te.getMaster().getCapability(CapabilityEnergy.ENERGY, side);
-
-			if (capability != null) {
-				player.sendMessage(new TextComponentString("Controller power: " + capability.getEnergyStored() + "/"
-						+ capability.getMaxEnergyStored() + " FE"));
-			} else {
-				player.sendMessage(new TextComponentString("Controller does not support energy"));
-			}
-		} else {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place
+	 * logic
 	 */
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,

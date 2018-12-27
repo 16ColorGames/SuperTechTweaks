@@ -49,9 +49,8 @@ public class BlockMultiWall extends BlockMulti {
 	}
 
 	/**
-	 * Get the actual Block state of this Block at the given position. This
-	 * applies properties not visible in the metadata, such as fence
-	 * connections.
+	 * Get the actual Block state of this Block at the given position. This applies
+	 * properties not visible in the metadata, such as fence connections.
 	 */
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -101,35 +100,12 @@ public class BlockMultiWall extends BlockMulti {
 	}
 
 	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks
-	 * for render
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for
+	 * render
 	 */
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		// Only execute on the server
-		if (world.isRemote) {
-			return true;
-		}
-		TileEntity te = world.getTileEntity(pos);
-		if (!(te instanceof TileMultiWall)) {
-			return false;
-		}
-		TileMultiWall wall = (TileMultiWall) te;
-		if (wall.hasMaster()) {
-			TileMultiBlock master = wall.getMaster();
-			if (master instanceof TileBasicResearcher) {
-				TileBasicResearcher res = (TileBasicResearcher) master;
-				player.sendMessage(new TextComponentString("Selected: " + res.getSelector().getSelected().toString()
-						+ ", Owner: " + res.getOwner().getName()));
-			}
-		}
-		return true;
 	}
 
 }

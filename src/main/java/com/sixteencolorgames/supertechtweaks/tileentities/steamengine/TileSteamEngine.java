@@ -44,10 +44,10 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			TileEntity behind1 = world.getTileEntity(getPos().offset(face, 1));
 			TileEntity behind2 = world.getTileEntity(getPos().offset(face, 2));
 			TileEntity behind3 = world.getTileEntity(getPos().offset(face, 3));
-			if (!(behind1 instanceof TilePressureTank)) {
+			if (!(behind1 instanceof TilePressureTank) || ((TilePressureTank) behind1).getMaterial() == null) {
 				continue;
 			}
-			if (!(behind2 instanceof TilePressureTank)) {
+			if (!(behind2 instanceof TilePressureTank) || ((TilePressureTank) behind2).getMaterial() == null) {
 				continue;
 			}
 			if (!(behind3 instanceof TileMultiBlock)) {

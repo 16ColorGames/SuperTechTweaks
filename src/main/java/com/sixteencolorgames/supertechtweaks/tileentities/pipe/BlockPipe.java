@@ -184,27 +184,6 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 		return false;
 	}
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (worldIn.isRemote) {
-			return true;
-		}
-		if (playerIn.isSneaking()) {
-			return false;
-		} else {
-			if (!worldIn.isRemote) {
-				if (worldIn.getTileEntity(pos) instanceof TilePipe) {
-					TilePipe te = (TilePipe) worldIn.getTileEntity(pos);
-					playerIn.sendMessage(new TextComponentString("Transfer Rate: "
-							+ te.getMaterial().getFluidTransferRate() + ", current fill: " + te.tank.getFluidAmount()));
-				}
-			}
-		}
-		return true;
-
-	}
-
 	/**
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place
 	 * logic

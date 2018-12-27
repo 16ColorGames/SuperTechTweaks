@@ -108,27 +108,6 @@ public class BlockSteamEngine extends Block implements ITileEntityProvider, Bloc
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (worldIn.isRemote) {
-			return true;
-		}
-		if (playerIn.isSneaking()) {
-			return false;
-		} else {
-			if (!worldIn.isRemote) {
-				if (worldIn.getTileEntity(pos) instanceof TileSteamEngine) {
-					TileSteamEngine te = (TileSteamEngine) worldIn.getTileEntity(pos);
-					playerIn.sendMessage(new TextComponentString(
-							"current steam: " + te.steamInternal.getFluidAmount() + ", current power: " + te.energy));
-				}
-			}
-		}
-		return true;
-
-	}
-
-	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
 			IBlockState blockState, IProbeHitData data) {
 		TileEntity te = world.getTileEntity(data.getPos());

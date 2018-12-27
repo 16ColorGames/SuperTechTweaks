@@ -96,7 +96,7 @@ public class TileBoiler extends TileMultiBlockController {
 	@Override
 	public boolean checkMultiBlockForm() {
 		TileEntity tile = world.getTileEntity(getPos().add(0, 1, 0));
-		if (tile != null && (tile instanceof TilePressureTank)) {
+		if (tile != null && (tile instanceof TilePressureTank) && ((TilePressureTank) tile).getMaterial() != null) {
 			return true;
 		}
 		return false;
@@ -215,8 +215,6 @@ public class TileBoiler extends TileMultiBlockController {
 		}
 	}
 
-
-
 	@Override
 	public void resetStructure() {
 		TileEntity tile = world.getTileEntity(getPos().add(0, 1, 0));
@@ -263,8 +261,8 @@ public class TileBoiler extends TileMultiBlockController {
 			tank.setIsMaster(false);
 			tank.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			Material tankMat = tank.getMaterial();
-			steam.setCapacity(tankMat.getFluidCapacity());
 			water.setCapacity(material.getFluidCapacity());
+			steam.setCapacity(tankMat.getFluidCapacity());
 		}
 		setIsMaster(true);
 		setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
