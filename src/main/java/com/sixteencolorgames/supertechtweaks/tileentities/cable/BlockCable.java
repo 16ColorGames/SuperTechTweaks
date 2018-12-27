@@ -5,7 +5,9 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyMaterial;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
 import net.minecraft.block.BlockContainer;
@@ -43,6 +45,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCable extends BlockContainer {
 
+	public static final PropertyMaterial MATERIAL = new PropertyMaterial("material");
 	public static final UnlistedPropertyBlockAvailable NORTH = new UnlistedPropertyBlockAvailable("north");
 	public static final UnlistedPropertyBlockAvailable SOUTH = new UnlistedPropertyBlockAvailable("south");
 	public static final UnlistedPropertyBlockAvailable WEST = new UnlistedPropertyBlockAvailable("west");
@@ -68,7 +71,8 @@ public class BlockCable extends BlockContainer {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		IProperty[] listedProperties = new IProperty[0]; // no listed properties
-		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { NORTH, SOUTH, WEST, EAST, UP, DOWN };
+		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { NORTH, SOUTH, WEST, EAST, UP, DOWN,
+				MATERIAL };
 		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
 	}
 
@@ -95,7 +99,15 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
-
+		TileEntity te = world.getTileEntity(pos);
+		Material mat = Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:silver"));
+		if (te instanceof TileCable) {
+			TileCable dataTileEntity = (TileCable) te;
+			mat = dataTileEntity.getMaterial();
+		}
+		if (mat == null) {
+			mat = Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:silver"));
+		}
 		boolean north = canConnect(world, pos, EnumFacing.NORTH);
 		boolean south = canConnect(world, pos, EnumFacing.SOUTH);
 		boolean west = canConnect(world, pos, EnumFacing.WEST);
@@ -104,7 +116,7 @@ public class BlockCable extends BlockContainer {
 		boolean down = canConnect(world, pos, EnumFacing.DOWN);
 
 		return extendedBlockState.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(WEST, west)
-				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down);
+				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down).withProperty(MATERIAL, mat);
 	}
 
 	@Override
@@ -186,8 +198,8 @@ public class BlockCable extends BlockContainer {
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place
+	 * logic
 	 */
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,

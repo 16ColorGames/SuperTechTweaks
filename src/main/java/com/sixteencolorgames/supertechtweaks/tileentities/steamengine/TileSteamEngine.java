@@ -254,7 +254,6 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 			steamInternal.setCapacity(steamCap);
 			setIsMaster(true);
 			setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
-			System.out.println("Structure formed in " + face);
 			facing = face;
 			return;
 		}

@@ -2,6 +2,8 @@ package com.sixteencolorgames.supertechtweaks.tileentities.cable;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -70,32 +72,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 	}
 
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		// Prepare a packet for syncing our TE to the client. Since we only have
-		// to sync the stack
-		// and that's all we have we just write our entire NBT here. If you have
-		// a complex
-		// tile entity that doesn't need to have all information on the client
-		// you can write
-		// a more optimal NBT here.
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
-	}
-
-	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
 			return true;
 		}
 		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		// Here we get the packet from the server and read it into our client
-		// side tile entity
-		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
@@ -189,4 +170,20 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage {
 		return compound;
 	}
 
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return this.writeToNBT(new NBTTagCompound());
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		super.onDataPacket(net, pkt);
+		handleUpdateTag(pkt.getNbtCompound());
+	}
 }

@@ -1,11 +1,13 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.pipe;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -36,16 +38,17 @@ public class BakedModelPipe implements IBakedModel {
 		sprite = bakedTextureGetter.apply(new ResourceLocation(SuperTechTweaksMod.MODID, "blocks/blockpipe"));
 	}
 
-	private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite) {
+	private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite, Color color,
+			int tint) {
 		Vec3d normal = v3.subtract(v2).crossProduct(v1.subtract(v2)).normalize();
 
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(format);
 		builder.setTexture(sprite);
-
-		putVertex(builder, normal, v1.x, v1.y, v1.z, 0, 0);
-		putVertex(builder, normal, v2.x, v2.y, v2.z, 0, 16);
-		putVertex(builder, normal, v3.x, v3.y, v3.z, 16, 16);
-		putVertex(builder, normal, v4.x, v4.y, v4.z, 16, 0);
+		builder.setQuadTint(tint);
+		putVertex(builder, normal, v1.x, v1.y, v1.z, 0, 0, color, sprite);
+		putVertex(builder, normal, v2.x, v2.y, v2.z, 0, 16, color, sprite);
+		putVertex(builder, normal, v3.x, v3.y, v3.z, 16, 16, color, sprite);
+		putVertex(builder, normal, v4.x, v4.y, v4.z, 16, 0, color, sprite);
 		return builder.build();
 	}
 
@@ -79,94 +82,95 @@ public class BakedModelPipe implements IBakedModel {
 		Boolean east = extendedBlockState.getValue(BlockPipe.EAST);
 		Boolean up = extendedBlockState.getValue(BlockPipe.UP);
 		Boolean down = extendedBlockState.getValue(BlockPipe.DOWN);
+		Material mat = extendedBlockState.getValue(BlockPipe.MATERIAL);
 		List<BakedQuad> quads = new ArrayList<>();
-		double o = .25;
+		double o = .33;
 
-		// For each side we either cap it off if there is no similar block
-		// adjacent on that side
-		// or else we extend so that we touch the adjacent block:
+		// For each side we either cap it off if there is no similar block adjacent on
+		// that side or else we extend so that we touch the adjacent block:
 
+		Color color = new Color(mat.getColor());
 		if (up) {
 			quads.add(createQuad(new Vec3d(1 - o, 1 - o, o), new Vec3d(1 - o, 1, o), new Vec3d(1 - o, 1, 1 - o),
-					new Vec3d(1 - o, 1 - o, 1 - o), sprite));
+					new Vec3d(1 - o, 1 - o, 1 - o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, 1 - o, 1 - o), new Vec3d(o, 1, 1 - o), new Vec3d(o, 1, o),
-					new Vec3d(o, 1 - o, o), sprite));
+					new Vec3d(o, 1 - o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, 1, o), new Vec3d(1 - o, 1, o), new Vec3d(1 - o, 1 - o, o),
-					new Vec3d(o, 1 - o, o), sprite));
+					new Vec3d(o, 1 - o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, 1 - o, 1 - o), new Vec3d(1 - o, 1 - o, 1 - o), new Vec3d(1 - o, 1, 1 - o),
-					new Vec3d(o, 1, 1 - o), sprite));
+					new Vec3d(o, 1, 1 - o), sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(o, 1 - o, 1 - o), new Vec3d(1 - o, 1 - o, 1 - o), new Vec3d(1 - o, 1 - o, o),
-					new Vec3d(o, 1 - o, o), sprite));
+					new Vec3d(o, 1 - o, o), sprite, color, 0));
 		}
 
 		if (down) {
 			quads.add(createQuad(new Vec3d(1 - o, 0, o), new Vec3d(1 - o, o, o), new Vec3d(1 - o, o, 1 - o),
-					new Vec3d(1 - o, 0, 1 - o), sprite));
+					new Vec3d(1 - o, 0, 1 - o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, 0, 1 - o), new Vec3d(o, o, 1 - o), new Vec3d(o, o, o), new Vec3d(o, 0, o),
-					sprite));
+					sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, o, o), new Vec3d(1 - o, o, o), new Vec3d(1 - o, 0, o), new Vec3d(o, 0, o),
-					sprite));
+					sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, 0, 1 - o), new Vec3d(1 - o, 0, 1 - o), new Vec3d(1 - o, o, 1 - o),
-					new Vec3d(o, o, 1 - o), sprite));
+					new Vec3d(o, o, 1 - o), sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(o, o, o), new Vec3d(1 - o, o, o), new Vec3d(1 - o, o, 1 - o),
-					new Vec3d(o, o, 1 - o), sprite));
+					new Vec3d(o, o, 1 - o), sprite, color, 0));
 		}
 
 		if (east) {
 			quads.add(createQuad(new Vec3d(1 - o, 1 - o, 1 - o), new Vec3d(1, 1 - o, 1 - o), new Vec3d(1, 1 - o, o),
-					new Vec3d(1 - o, 1 - o, o), sprite));
+					new Vec3d(1 - o, 1 - o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(1 - o, o, o), new Vec3d(1, o, o), new Vec3d(1, o, 1 - o),
-					new Vec3d(1 - o, o, 1 - o), sprite));
+					new Vec3d(1 - o, o, 1 - o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(1 - o, 1 - o, o), new Vec3d(1, 1 - o, o), new Vec3d(1, o, o),
-					new Vec3d(1 - o, o, o), sprite));
+					new Vec3d(1 - o, o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(1 - o, o, 1 - o), new Vec3d(1, o, 1 - o), new Vec3d(1, 1 - o, 1 - o),
-					new Vec3d(1 - o, 1 - o, 1 - o), sprite));
+					new Vec3d(1 - o, 1 - o, 1 - o), sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(1 - o, o, o), new Vec3d(1 - o, 1 - o, o), new Vec3d(1 - o, 1 - o, 1 - o),
-					new Vec3d(1 - o, o, 1 - o), sprite));
+					new Vec3d(1 - o, o, 1 - o), sprite, color, 0));
 		}
 
 		if (west) {
 			quads.add(createQuad(new Vec3d(0, 1 - o, 1 - o), new Vec3d(o, 1 - o, 1 - o), new Vec3d(o, 1 - o, o),
-					new Vec3d(0, 1 - o, o), sprite));
+					new Vec3d(0, 1 - o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(0, o, o), new Vec3d(o, o, o), new Vec3d(o, o, 1 - o), new Vec3d(0, o, 1 - o),
-					sprite));
+					sprite, color, 0));
 			quads.add(createQuad(new Vec3d(0, 1 - o, o), new Vec3d(o, 1 - o, o), new Vec3d(o, o, o), new Vec3d(0, o, o),
-					sprite));
+					sprite, color, 0));
 			quads.add(createQuad(new Vec3d(0, o, 1 - o), new Vec3d(o, o, 1 - o), new Vec3d(o, 1 - o, 1 - o),
-					new Vec3d(0, 1 - o, 1 - o), sprite));
+					new Vec3d(0, 1 - o, 1 - o), sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(o, o, 1 - o), new Vec3d(o, 1 - o, 1 - o), new Vec3d(o, 1 - o, o),
-					new Vec3d(o, o, o), sprite));
+					new Vec3d(o, o, o), sprite, color, 0));
 		}
 
 		if (north) {
 			quads.add(createQuad(new Vec3d(o, 1 - o, o), new Vec3d(1 - o, 1 - o, o), new Vec3d(1 - o, 1 - o, 0),
-					new Vec3d(o, 1 - o, 0), sprite));
+					new Vec3d(o, 1 - o, 0), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, o, 0), new Vec3d(1 - o, o, 0), new Vec3d(1 - o, o, o), new Vec3d(o, o, o),
-					sprite));
+					sprite, color, 0));
 			quads.add(createQuad(new Vec3d(1 - o, o, 0), new Vec3d(1 - o, 1 - o, 0), new Vec3d(1 - o, 1 - o, o),
-					new Vec3d(1 - o, o, o), sprite));
+					new Vec3d(1 - o, o, o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, o, o), new Vec3d(o, 1 - o, o), new Vec3d(o, 1 - o, 0), new Vec3d(o, o, 0),
-					sprite));
+					sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(o, 1 - o, o), new Vec3d(1 - o, 1 - o, o), new Vec3d(1 - o, o, o),
-					new Vec3d(o, o, o), sprite));
+					new Vec3d(o, o, o), sprite, color, 0));
 		}
 		if (south) {
 			quads.add(createQuad(new Vec3d(o, 1 - o, 1), new Vec3d(1 - o, 1 - o, 1), new Vec3d(1 - o, 1 - o, 1 - o),
-					new Vec3d(o, 1 - o, 1 - o), sprite));
+					new Vec3d(o, 1 - o, 1 - o), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, o, 1 - o), new Vec3d(1 - o, o, 1 - o), new Vec3d(1 - o, o, 1),
-					new Vec3d(o, o, 1), sprite));
+					new Vec3d(o, o, 1), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(1 - o, o, 1 - o), new Vec3d(1 - o, 1 - o, 1 - o), new Vec3d(1 - o, 1 - o, 1),
-					new Vec3d(1 - o, o, 1), sprite));
+					new Vec3d(1 - o, o, 1), sprite, color, 0));
 			quads.add(createQuad(new Vec3d(o, o, 1), new Vec3d(o, 1 - o, 1), new Vec3d(o, 1 - o, 1 - o),
-					new Vec3d(o, o, 1 - o), sprite));
+					new Vec3d(o, o, 1 - o), sprite, color, 0));
 		} else {
 			quads.add(createQuad(new Vec3d(o, o, 1 - o), new Vec3d(1 - o, o, 1 - o), new Vec3d(1 - o, 1 - o, 1 - o),
-					new Vec3d(o, 1 - o, 1 - o), sprite));
+					new Vec3d(o, 1 - o, 1 - o), sprite, color, 0));
 		}
 
 		return quads;
@@ -188,14 +192,15 @@ public class BakedModelPipe implements IBakedModel {
 	}
 
 	private void putVertex(UnpackedBakedQuad.Builder builder, Vec3d normal, double x, double y, double z, float u,
-			float v) {
+			float v, Color color, TextureAtlasSprite sprite) {
 		for (int e = 0; e < format.getElementCount(); e++) {
 			switch (format.getElement(e).getUsage()) {
 			case POSITION:
 				builder.put(e, (float) x, (float) y, (float) z, 1.0f);
 				break;
 			case COLOR:
-				builder.put(e, 1.0f, 1.0f, 1.0f, 1.0f);
+				builder.put(e, ((float) color.getRed()) / 255, ((float) color.getGreen()) / 255,
+						((float) color.getBlue()) / 255, 1.0f);
 				break;
 			case UV:
 				if (format.getElement(e).getIndex() == 0) {

@@ -1,11 +1,14 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.pipe;
 
-import java.util.List;
+import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
+import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
+
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.properties.PropertyMaterial;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
 import com.sixteencolorgames.supertechtweaks.compat.top.TOPInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
@@ -14,8 +17,6 @@ import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
-import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -27,7 +28,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +39,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -54,6 +53,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 
+	public static final PropertyMaterial MATERIAL = new PropertyMaterial("material");
 	public static final UnlistedPropertyBlockAvailable NORTH = new UnlistedPropertyBlockAvailable("north");
 	public static final UnlistedPropertyBlockAvailable SOUTH = new UnlistedPropertyBlockAvailable("south");
 	public static final UnlistedPropertyBlockAvailable WEST = new UnlistedPropertyBlockAvailable("west");
@@ -79,7 +79,8 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		IProperty[] listedProperties = new IProperty[0]; // no listed properties
-		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { NORTH, SOUTH, WEST, EAST, UP, DOWN };
+		IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[] { NORTH, SOUTH, WEST, EAST, UP, DOWN,
+				MATERIAL };
 		return new ExtendedBlockState(this, listedProperties, unlistedProperties);
 	}
 
@@ -92,8 +93,8 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		state = state.getActualState(source, pos);
-		float minSize = 0.25F;
-		float maxSize = 0.75F;
+		float minSize = 0.33F;
+		float maxSize = 0.66F;
 		float minX = canConnect(source, pos, EnumFacing.WEST) ? 0.0F : minSize;
 		float minY = canConnect(source, pos, EnumFacing.DOWN) ? 0.0F : minSize;
 		float minZ = canConnect(source, pos, EnumFacing.NORTH) ? 0.0F : minSize;
@@ -106,6 +107,15 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+		TileEntity te = world.getTileEntity(pos);
+		Material mat = Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:silver"));
+		if (te instanceof TilePipe) {
+			TilePipe dataTileEntity = (TilePipe) te;
+			mat = dataTileEntity.getMaterial();
+		}
+		if (mat == null) {
+			mat = Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:silver"));
+		}
 
 		boolean north = canConnect(world, pos, EnumFacing.NORTH);
 		boolean south = canConnect(world, pos, EnumFacing.SOUTH);
@@ -115,7 +125,7 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 		boolean down = canConnect(world, pos, EnumFacing.DOWN);
 
 		return extendedBlockState.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(WEST, west)
-				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down);
+				.withProperty(EAST, east).withProperty(UP, up).withProperty(DOWN, down).withProperty(MATERIAL, mat);
 	}
 
 	@Override
@@ -206,6 +216,7 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 		System.out.println(ItemHelper.getItemMaterial(stack).getName());
 		TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
 		pipe.setMaterial(ItemHelper.getItemMaterial(stack));
+		pipe.setNetwork(pos.toLong());
 		pipe.markDirty();
 	}
 
@@ -235,11 +246,15 @@ public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 			TilePipe dataTileEntity = (TilePipe) te;
 			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Material:" + ENDLOC + " "
 					+ dataTileEntity.getMaterial().getName());
-			probeInfo.horizontal()
-					.text(TextFormatting.GREEN + STARTLOC + "Fluid( "
-							+ dataTileEntity.tank.getFluid().getLocalizedName() + " ):" + ENDLOC + " "
-							+ dataTileEntity.tank.getFluidAmount() + "/" + dataTileEntity.tank.getCapacity());
+			if (dataTileEntity.tank.getFluid() != null) {
+				probeInfo.horizontal()
+						.text(TextFormatting.GREEN + STARTLOC + "Fluid( "
+								+ dataTileEntity.tank.getFluid().getLocalizedName() + " ):" + ENDLOC + " "
+								+ dataTileEntity.tank.getFluidAmount() + "/" + dataTileEntity.tank.getCapacity());
+			} else {
+				probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Fluid( Empty ):" + ENDLOC + " 0/"
+						+ dataTileEntity.tank.getCapacity());
+			}
 		}
 	}
-
 }

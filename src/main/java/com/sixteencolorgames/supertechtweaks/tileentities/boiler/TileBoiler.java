@@ -250,7 +250,6 @@ public class TileBoiler extends TileMultiBlockController {
 	}
 
 	public void setMaterial(Material material) {
-		System.out.println("Setting Material: " + material.getName());
 		this.material = material;
 		water.setCapacity(material.getFluidCapacity());
 		boilRate = calcBoilRate(material);
