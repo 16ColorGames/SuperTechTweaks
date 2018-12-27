@@ -1,5 +1,7 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import org.apache.logging.log4j.Logger;
+
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
@@ -18,9 +20,10 @@ public class SuperTechTweaksMod {
 	@Mod.Instance(MODID)
 	public static SuperTechTweaksMod instance;
 
+	public static Logger logger;
 	/**
-	 * The proxy to be used. Holds various functions and objects that may need
-	 * to be different based on side.
+	 * The proxy to be used. Holds various functions and objects that may need to be
+	 * different based on side.
 	 */
 	@SidedProxy(clientSide = "com.sixteencolorgames.supertechtweaks.proxy.ClientProxy", serverSide = "com.sixteencolorgames.supertechtweaks.proxy.ServerProxy")
 	public static CommonProxy proxy;
@@ -37,7 +40,8 @@ public class SuperTechTweaksMod {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		System.out.println(MODNAME + " is loading!");
+		logger = event.getModLog();
+		logger.info(MODNAME + " is loading!");
 		SuperTechTweaksMod.proxy.preInit(event);
 	}
 

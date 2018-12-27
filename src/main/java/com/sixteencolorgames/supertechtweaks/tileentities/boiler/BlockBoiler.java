@@ -1,13 +1,21 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.boiler;
 
+import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
+import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
+
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockContainerBase;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockMaster;
+import com.sixteencolorgames.supertechtweaks.compat.top.TOPInfoProvider;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -26,6 +34,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -34,7 +43,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockBoiler extends BlockContainerBase implements ITileEntityProvider {
+public class BlockBoiler extends BlockContainerBase implements ITileEntityProvider, BlockMaster {
 	public static final PropertyBool PART = PropertyBool.create("part");
 
 	public static void setState(boolean active, World worldIn, BlockPos pos) {
@@ -89,9 +98,8 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 	}
 
 	/**
-	 * Get the actual Block state of this Block at the given position. This
-	 * applies properties not visible in the metadata, such as fence
-	 * connections.
+	 * Get the actual Block state of this Block at the given position. This applies
+	 * properties not visible in the metadata, such as fence connections.
 	 */
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -172,8 +180,8 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place
+	 * logic
 	 */
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
@@ -224,6 +232,21 @@ public class BlockBoiler extends BlockContainerBase implements ITileEntityProvid
 			}
 
 			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
+		}
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TileBoiler) {
+			TileBoiler dataTileEntity = (TileBoiler) te;
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Material:" + ENDLOC + " "
+					+ dataTileEntity.getMaterial().getName());
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Fluid (Water):" + ENDLOC + " "
+					+ dataTileEntity.water.getFluidAmount() + "/" + dataTileEntity.water.getCapacity());
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Fluid (Steam):" + ENDLOC + " "
+					+ dataTileEntity.steam.getFluidAmount() + "/" + dataTileEntity.steam.getCapacity());
 		}
 	}
 }

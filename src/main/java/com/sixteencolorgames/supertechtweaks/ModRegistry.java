@@ -10,8 +10,6 @@ import javax.annotation.Nullable;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMultiWall;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockOre;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockRock;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockRockSlab;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockRockStairs;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
@@ -65,7 +63,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -77,8 +74,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber()
@@ -277,24 +272,8 @@ public class ModRegistry {
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
-				tooltip.add("Internal Capacity: " + (material.getYoungs() * 30) + " mb");
-
-			}
-
-			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
+				tooltip.add("Material: " + material.getName());
+				tooltip.add("Internal Capacity: " + material.getFluidCapacity() + " mb");
 			}
 		}.setRegistryName(blockPressureTank.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockBoiler) {
@@ -303,26 +282,10 @@ public class ModRegistry {
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Material: " + material.getName());
 				tooltip.add("Boilrate: " + TileBoiler.calcBoilRate(material) + " mb/t");
-				tooltip.add("Water Capacity: " + TilePressureTank.getMaxCapacity(material) + " mb");
+				tooltip.add("Water Capacity: " + material.getFluidCapacity() + " mb");
 				tooltip.add("Steam Capacity: Based on Pressure Tank");
-
-			}
-
-			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
 			}
 		}.setRegistryName(blockBoiler.getRegistryName()));
 		event.getRegistry()
@@ -334,19 +297,13 @@ public class ModRegistry {
 		event.getRegistry().register(new ItemBlock(blockMultiWall).setRegistryName(blockMultiWall.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockMultiPowerInput) {
 			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
+					ITooltipFlag flagIn) {
+				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Material: " + material.getName());
+				tooltip.add("Max Power Input: " + material.getTransferRate() + " FE/t");
+
 			}
 		}.setRegistryName(blockMultiPowerInput.getRegistryName()));
 		event.getRegistry()
@@ -359,24 +316,9 @@ public class ModRegistry {
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Material: " + material.getName());
 				tooltip.add("Max Power Output: " + material.getTransferRate() + " FE/t");
 
-			}
-
-			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
 			}
 		}.setRegistryName(blockMultiPowerOutput.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockCable) {
@@ -385,24 +327,9 @@ public class ModRegistry {
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
+				tooltip.add("Material: " + material.getName());
 				tooltip.add("Max Power Transfer: " + material.getTransferRate() + " FE/t");
 
-			}
-
-			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
 			}
 		}.setRegistryName(blockCable.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockPipe) {
@@ -411,23 +338,8 @@ public class ModRegistry {
 			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip,
 					ITooltipFlag flagIn) {
 				Material material = ItemHelper.getItemMaterial(stack);
-				tooltip.add("Max Fluid Transfer: " + TilePipe.getTransferRate(material) + " mb/t");
-			}
-
-			@Override
-			public String getItemStackDisplayName(ItemStack stack) {
-				try {
-					Material material = ItemHelper.getItemMaterial(stack);
-					if (I18n.canTranslate(getUnlocalizedNameInefficiently(stack) + '.' + material.getName())) {
-						return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + '.' + material.getName());
-					}
-					return String.format(super.getItemStackDisplayName(stack),
-							I18n.canTranslate("supertechtweaks.entry." + material.getName())
-									? I18n.translateToLocal("supertechtweaks.entry." + material.getName())
-									: material.getName());
-				} catch (Exception e) {
-					return super.getItemStackDisplayName(stack);
-				}
+				tooltip.add("Material: " + material.getName());
+				tooltip.add("Max Fluid Transfer: " + material.getFluidTransferRate() + " mb/t");
 			}
 		}.setRegistryName(blockPipe.getRegistryName()));
 

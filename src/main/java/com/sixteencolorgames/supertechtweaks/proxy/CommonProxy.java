@@ -95,11 +95,11 @@ public abstract class CommonProxy {
 		Config.parseTypes();
 
 		IForgeRegistryModifiable recipies = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
-		recipies.remove(new ResourceLocation("minecraft:diamond_pickaxe"));
-		recipies.remove(new ResourceLocation("minecraft:iron_pickaxe"));
-		recipies.remove(new ResourceLocation("minecraft:stone_pickaxe"));
-		recipies.remove(new ResourceLocation("minecraft:wooden_pickaxe"));
-		recipies.remove(new ResourceLocation("minecraft:golden_pickaxe"));
+//		recipies.remove(new ResourceLocation("minecraft:diamond_pickaxe"));
+//		recipies.remove(new ResourceLocation("minecraft:iron_pickaxe"));
+//		recipies.remove(new ResourceLocation("minecraft:stone_pickaxe"));
+//		recipies.remove(new ResourceLocation("minecraft:wooden_pickaxe"));
+//		recipies.remove(new ResourceLocation("minecraft:golden_pickaxe"));
 		for (File gen : configFolder.listFiles()) {
 			if (gen.getName().contains(".json")) {
 				try {
@@ -126,7 +126,6 @@ public abstract class CommonProxy {
 			});
 		});
 
-		MainCompatHandler.registerTOP();
 	}
 
 	public void preInit(FMLPreInitializationEvent e) {
@@ -142,6 +141,7 @@ public abstract class CommonProxy {
 		serverEvents = new ServerEvents();
 		MinecraftForge.EVENT_BUS.register(serverEvents);
 		MinecraftForge.ORE_GEN_BUS.register(serverEvents);
+		MainCompatHandler.registerTOP();
 	}
 
 	public void registerItemRenderer(Item item, int meta, String id) {

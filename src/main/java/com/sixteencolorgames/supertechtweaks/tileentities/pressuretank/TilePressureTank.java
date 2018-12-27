@@ -11,9 +11,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class TilePressureTank extends TileMultiBlock {
-	public static int getMaxCapacity(Material tankMat) {
-		return tankMat.getYoungs() * 30;
-	}
 
 	private Material material;
 

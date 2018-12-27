@@ -1,12 +1,19 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.pressuretank;
 
+import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
+import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
+
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMulti;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiBlock;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -20,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -50,9 +58,8 @@ public class BlockPressureTank extends BlockMulti {
 	}
 
 	/**
-	 * Get the actual Block state of this Block at the given position. This
-	 * applies properties not visible in the metadata, such as fence
-	 * connections.
+	 * Get the actual Block state of this Block at the given position. This applies
+	 * properties not visible in the metadata, such as fence connections.
 	 */
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -84,8 +91,8 @@ public class BlockPressureTank extends BlockMulti {
 	}
 
 	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks
-	 * for render
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for
+	 * render
 	 */
 	@Override
 	public boolean isFullCube(IBlockState state) {
@@ -93,16 +100,16 @@ public class BlockPressureTank extends BlockMulti {
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place
+	 * logic
 	 */
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		TilePressureTank cable = (TilePressureTank) worldIn.getTileEntity(pos);
-		cable.setMaterial(ItemHelper.getItemMaterial(stack));
-		cable.markDirty();
+		TilePressureTank tank = (TilePressureTank) worldIn.getTileEntity(pos);
+		tank.setMaterial(ItemHelper.getItemMaterial(stack));
+		tank.markDirty();
 	}
 
 	@Override
@@ -121,5 +128,18 @@ public class BlockPressureTank extends BlockMulti {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
 		return true;
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
+		super.addProbeInfo(mode, probeInfo, player, world, blockState, data);
+
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TilePressureTank) {
+			TilePressureTank dataTileEntity = (TilePressureTank) te;
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Material:" + ENDLOC + " "
+					+ dataTileEntity.getMaterial().getName());
+		}
 	}
 }

@@ -40,7 +40,7 @@ public class TileBoiler extends TileMultiBlockController {
 			return fluid.getFluid().equals(FluidRegistry.WATER);
 		}
 	};
-	private FluidTank steam = new FluidTank(5000);
+	protected FluidTank steam = new FluidTank(0);
 	/**
 	 * how many ticks are left for this burn
 	 */
@@ -203,19 +203,19 @@ public class TileBoiler extends TileMultiBlockController {
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
-		if (tag.hasKey("items")) {
-			itemStackHandler.deserializeNBT((NBTTagCompound) tag.getTag("items"));
+		if (tag.hasKey("TileBoiler")) {
+			water.readFromNBT(tag.getCompoundTag("TileBoiler").getCompoundTag("water"));
+			steam.readFromNBT(tag.getCompoundTag("TileBoiler").getCompoundTag("steam"));
+			itemStackHandler.deserializeNBT((NBTTagCompound) tag.getCompoundTag("TileBoiler").getTag("items"));
+			water.readFromNBT(tag.getCompoundTag("TileBoiler").getCompoundTag("water"));
+			burnTime = tag.getInteger("burnTime");
+			totalBurnTime = tag.getInteger("totalBurnTime");
+			setMaterial(Material.REGISTRY
+					.getValue(new ResourceLocation(tag.getCompoundTag("TileBoiler").getString("material"))));
 		}
-		if (tag.hasKey("water")) {
-			water.readFromNBT(tag.getCompoundTag("water"));
-		}
-		if (tag.hasKey("steam")) {
-			getSteam().readFromNBT(tag.getCompoundTag("steam"));
-		}
-		burnTime = tag.getInteger("burnTime");
-		totalBurnTime = tag.getInteger("totalBurnTime");
-		setMaterial(Material.REGISTRY.getValue(new ResourceLocation(tag.getString("sttMaterial"))));
 	}
+
+
 
 	@Override
 	public void resetStructure() {
@@ -250,7 +250,9 @@ public class TileBoiler extends TileMultiBlockController {
 	}
 
 	public void setMaterial(Material material) {
+		System.out.println("Setting Material: " + material.getName());
 		this.material = material;
+		water.setCapacity(material.getFluidCapacity());
 		boilRate = calcBoilRate(material);
 	}
 
@@ -262,8 +264,8 @@ public class TileBoiler extends TileMultiBlockController {
 			tank.setIsMaster(false);
 			tank.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			Material tankMat = tank.getMaterial();
-			steam.setCapacity(TilePressureTank.getMaxCapacity(tankMat));
-			water.setCapacity(TilePressureTank.getMaxCapacity(material));
+			steam.setCapacity(tankMat.getFluidCapacity());
+			water.setCapacity(material.getFluidCapacity());
 		}
 		setIsMaster(true);
 		setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
@@ -273,17 +275,18 @@ public class TileBoiler extends TileMultiBlockController {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
 		tag = super.writeToNBT(tag);
+		NBTTagCompound data = new NBTTagCompound();
 		NBTTagCompound waterTag = new NBTTagCompound();
 		water.writeToNBT(waterTag);
-		tag.setTag("water", waterTag);
+		data.setTag("water", waterTag);
 		NBTTagCompound steamTag = new NBTTagCompound();
-		getSteam().writeToNBT(steamTag);
-		tag.setTag("steam", steamTag);
-		tag.setTag("items", itemStackHandler.serializeNBT());
-
-		tag.setInteger("burnTime", burnTime);
-		tag.setInteger("totalBurnTime", totalBurnTime);
-		tag.setString("sttMaterial", material.getRegistryName().toString());
+		steam.writeToNBT(steamTag);
+		data.setTag("steam", steamTag);
+		data.setTag("items", itemStackHandler.serializeNBT());
+		data.setInteger("burnTime", burnTime);
+		data.setInteger("totalBurnTime", totalBurnTime);
+		data.setString("material", Material.REGISTRY.getKey(material).toString());
+		tag.setTag("TileBoiler", data);
 		return tag;
 	}
 }

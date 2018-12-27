@@ -104,8 +104,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		/**
 		 * Shear modulus measured in GPa
 		 *
-		 * This is how much pressure applied sideways this material can
-		 * withstand.
+		 * This is how much pressure applied sideways this material can withstand.
 		 */
 		public MaterialBuilder setShearModulus(int shear) {
 			building.shear = shear;
@@ -139,8 +138,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		/**
 		 * Young's modulus measured in GPa
 		 *
-		 * This is how much pressure applied outward this material can
-		 * withstand.
+		 * This is how much pressure applied outward this material can withstand.
 		 */
 		public MaterialBuilder setYoungsModulus(int mod) {
 			building.young = mod;
@@ -226,6 +224,14 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		this.conductivity = conductivity;
 		this.young = young;
 		this.bulk = bulk;
+	}
+
+	public int getFluidTransferRate() {
+		return getYoungs() * 3;
+	}
+
+	public int getFluidCapacity() {
+		return getYoungs() * 30;
 	}
 
 	public void addBasicProcessing() {
@@ -378,29 +384,23 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("drawplate" + getName(), subItemStack);
 		OreDictionary.registerOre("toolDrawPlate", subItemStack);
 
-		
 		// register block
 		GameRegistry.findRegistry(IRecipe.class)
-				.register(
-						new ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(block),
-								new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x',
-										new OreIngredient("ingot" + name), }).setRegistryName(SuperTechTweaksMod.MODID,
-												"ingot_block" + name));
+				.register(new ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(block),
+						new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x', new OreIngredient("ingot" + name), })
+								.setRegistryName(SuperTechTweaksMod.MODID, "ingot_block" + name));
 		// register ingot
-		GameRegistry.findRegistry(IRecipe.class).register(
-				new ShapedOreRecipe(new ResourceLocation("ingots"), new ItemStack(itemMaterial, 1, MaterialItem.INGOT),
+		GameRegistry.findRegistry(IRecipe.class)
+				.register(new ShapedOreRecipe(new ResourceLocation("ingots"),
+						new ItemStack(itemMaterial, 1, MaterialItem.INGOT),
 						new Object[] { new String[] { "xxx", "xxx", "xxx" }, 'x', new OreIngredient("nugget" + name), })
 								.setRegistryName(SuperTechTweaksMod.MODID, "nugget_ingot" + name));
-		GameRegistry.findRegistry(IRecipe.class)
-				.register(new ShapelessOreRecipe(new ResourceLocation("nuggets"),
-						new ItemStack(itemMaterial, 9, MaterialItem.NUGGET),
-						new Object[] { new OreIngredient("ingot" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
-								"ingot_nugget" + name));
-		GameRegistry.findRegistry(IRecipe.class)
-				.register(new ShapelessOreRecipe(new ResourceLocation("ingots"),
-						new ItemStack(itemMaterial, 9, MaterialItem.INGOT),
-						new Object[] { new OreIngredient("block" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
-								"block_ingot" + name));
+		GameRegistry.findRegistry(IRecipe.class).register(new ShapelessOreRecipe(new ResourceLocation("nuggets"),
+				new ItemStack(itemMaterial, 9, MaterialItem.NUGGET), new Object[] { new OreIngredient("ingot" + name) })
+						.setRegistryName(SuperTechTweaksMod.MODID, "ingot_nugget" + name));
+		GameRegistry.findRegistry(IRecipe.class).register(new ShapelessOreRecipe(new ResourceLocation("ingots"),
+				new ItemStack(itemMaterial, 9, MaterialItem.INGOT), new Object[] { new OreIngredient("block" + name) })
+						.setRegistryName(SuperTechTweaksMod.MODID, "block_ingot" + name));
 
 		// register hammer
 		GameRegistry.findRegistry(IRecipe.class)
@@ -422,11 +422,9 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		ItemStack pipeStack = new ItemStack(ModRegistry.blockPipe, 3);
 		ItemHelper.setItemMaterial(pipeStack, getRegistryName().toString());
 		GameRegistry.findRegistry(IRecipe.class)
-				.register(
-						new ShapedOreRecipe(new ResourceLocation("pipe"), pipeStack,
-								new Object[] { new String[] { "xxx", "   ", "xxx" }, 'x',
-										new OreIngredient("plate" + name) }).setRegistryName(SuperTechTweaksMod.MODID,
-												"pipe" + name));
+				.register(new ShapedOreRecipe(new ResourceLocation("pipe"), pipeStack,
+						new Object[] { new String[] { "xxx", "   ", "xxx" }, 'x', new OreIngredient("plate" + name) })
+								.setRegistryName(SuperTechTweaksMod.MODID, "pipe" + name));
 
 		// register dust to ingot
 		GameRegistry.addSmelting(new ItemStack(getMaterialItem(), 1, MaterialItem.DUST),
@@ -445,7 +443,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 			GameRegistry.addSmelting(new ItemStack(nat.getItemOre(), 1, OreItem.ORE),
 					new ItemStack(getMaterialItem(), 1, MaterialItem.INGOT), 1);
-			
+
 			GameRegistry.findRegistry(IRecipe.class)
 					.register(new ShapelessOreRecipe(new ResourceLocation("native"),
 							new ItemStack(itemMaterial, 2, MaterialItem.DUST),
@@ -457,8 +455,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	}
 
 	/**
-	 * @param nativeHarvest
-	 *            the nativeHarvest to set
+	 * @param nativeHarvest the nativeHarvest to set
 	 */
 	private void setNativeHarvest(int nativeHarvest) {
 		this.nativeHarvest = nativeHarvest;

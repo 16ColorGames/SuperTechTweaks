@@ -1,13 +1,21 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.pipe;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.properties.UnlistedPropertyBlockAvailable;
+import com.sixteencolorgames.supertechtweaks.compat.top.TOPInfoProvider;
+import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
+import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
+import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -19,6 +27,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +38,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -41,7 +52,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockPipe extends BlockContainer {
+public class BlockPipe extends BlockContainer implements TOPInfoProvider {
 
 	public static final UnlistedPropertyBlockAvailable NORTH = new UnlistedPropertyBlockAvailable("north");
 	public static final UnlistedPropertyBlockAvailable SOUTH = new UnlistedPropertyBlockAvailable("south");
@@ -175,9 +186,8 @@ public class BlockPipe extends BlockContainer {
 			if (!worldIn.isRemote) {
 				if (worldIn.getTileEntity(pos) instanceof TilePipe) {
 					TilePipe te = (TilePipe) worldIn.getTileEntity(pos);
-					playerIn.sendMessage(
-							new TextComponentString("Transfer Rate: " + TilePipe.getTransferRate(te.getMaterial())
-									+ ", current fill: " + te.tank.getFluidAmount()));
+					playerIn.sendMessage(new TextComponentString("Transfer Rate: "
+							+ te.getMaterial().getFluidTransferRate() + ", current fill: " + te.tank.getFluidAmount()));
 				}
 			}
 		}
@@ -186,13 +196,14 @@ public class BlockPipe extends BlockContainer {
 	}
 
 	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow
-	 * post-place logic
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place
+	 * logic
 	 */
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+		System.out.println(ItemHelper.getItemMaterial(stack).getName());
 		TilePipe pipe = (TilePipe) worldIn.getTileEntity(pos);
 		pipe.setMaterial(ItemHelper.getItemMaterial(stack));
 		pipe.markDirty();
@@ -216,10 +227,19 @@ public class BlockPipe extends BlockContainer {
 		return true;
 	}
 
-	// @Override
-	// public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-	// for (EnumCableType cableType : EnumCableType.values()) {
-	// list.add(new ItemStack(this, 1, cableType.ordinal()));
-	// }
-	// }
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TilePipe) {
+			TilePipe dataTileEntity = (TilePipe) te;
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Material:" + ENDLOC + " "
+					+ dataTileEntity.getMaterial().getName());
+			probeInfo.horizontal()
+					.text(TextFormatting.GREEN + STARTLOC + "Fluid( "
+							+ dataTileEntity.tank.getFluid().getLocalizedName() + " ):" + ENDLOC + " "
+							+ dataTileEntity.tank.getFluidAmount() + "/" + dataTileEntity.tank.getCapacity());
+		}
+	}
+
 }

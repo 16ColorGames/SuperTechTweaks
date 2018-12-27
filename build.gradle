@@ -32,7 +32,11 @@ repositories {
     name = "ModMaven"
     url = "modmaven.k-4u.nl"
   }
-  maven { // TOP
+    maven { // waila
+        name "Mobius Repo"
+        url "http://tehnut.info/maven"
+    }
+    maven { // TOP
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
     }
@@ -84,6 +88,7 @@ dependencies {
     compile files('libs/')
     
     deobfCompile "cofh:RedstoneFlux:${redstoneflux_version}"
+//    deobfCompile "mcp.mobius.waila:Hwyla:${HWYLA_VERSION}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.14-7"
 }
 

@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.tileentities.pipe;
 
 import java.util.ArrayList;
 
+import com.sixteencolorgames.supertechtweaks.compat.top.TOPInfoProvider;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,9 +21,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
-	public static int getTransferRate(Material mat) {
-		return mat.getYoungs() * 3;
-	}
 
 	private Material mat;
 
@@ -105,7 +103,8 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 
 	public void setMaterial(Material material) {
 		mat = material;
-		tank.setCapacity(mat.getYoungs() * 10);
+		tank.setCapacity(mat.getFluidCapacity());
+		System.out.println(mat.getName());
 	}
 
 	@Override
@@ -141,7 +140,7 @@ public class TilePipe extends TileEntity implements ITickable, IFluidHandler {
 		}
 
 		if (acceptors.size() > 0) {
-			int drain = Math.min(tank.getFluidAmount(), getTransferRate(mat));
+			int drain = Math.min(tank.getFluidAmount(), mat.getTransferRate());
 			int fluidShare = (int) Math.ceil(((double) drain) / ((double) acceptors.size()));
 			int remainingFluid = drain;
 

@@ -11,6 +11,9 @@ public abstract class TileMultiBlockController extends TileMultiBlock implements
 	 */
 	public abstract boolean checkMultiBlockForm();
 
+	/**
+	 * called every tick for multi-block functions
+	 */
 	public abstract void masterTick();
 
 	/**
@@ -23,6 +26,13 @@ public abstract class TileMultiBlockController extends TileMultiBlock implements
 	 * controller that it is the master of this structure
 	 */
 	public abstract void setupStructure();
+
+	@Override
+	public void onLoad() {
+		if (checkMultiBlockForm()) {
+			setupStructure();
+		}
+	}
 
 	@Override
 	public void update() {

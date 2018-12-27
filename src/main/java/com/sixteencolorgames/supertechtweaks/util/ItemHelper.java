@@ -12,7 +12,7 @@ public class ItemHelper {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("sttMaterial")) {
 			return Material.REGISTRY.getValue(new ResourceLocation(stack.getTagCompound().getString("sttMaterial")));
 		}
-		return Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:iron"));
+		return Material.REGISTRY.getValue(new ResourceLocation("supertechtweaks:silver"));
 	}
 
 	public static void setItemMaterial(ItemStack stack, Material material) {

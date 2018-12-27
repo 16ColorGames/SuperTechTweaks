@@ -1,7 +1,15 @@
 package com.sixteencolorgames.supertechtweaks.tileentities.steamengine;
 
-import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import static mcjty.theoneprobe.api.IProbeInfo.ENDLOC;
+import static mcjty.theoneprobe.api.IProbeInfo.STARTLOC;
 
+import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
+import com.sixteencolorgames.supertechtweaks.blocks.BlockMaster;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
+
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -18,13 +26,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockSteamEngine extends Block implements ITileEntityProvider {
+public class BlockSteamEngine extends Block implements ITileEntityProvider, BlockMaster {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
 	public BlockSteamEngine() {
@@ -57,9 +66,8 @@ public class BlockSteamEngine extends Block implements ITileEntityProvider {
 	}
 
 	/**
-	 * Get the actual Block state of this Block at the given position. This
-	 * applies properties not visible in the metadata, such as fence
-	 * connections.
+	 * Get the actual Block state of this Block at the given position. This applies
+	 * properties not visible in the metadata, such as fence connections.
 	 */
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -91,8 +99,8 @@ public class BlockSteamEngine extends Block implements ITileEntityProvider {
 	}
 
 	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks
-	 * for render
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for
+	 * render
 	 */
 	@Override
 	public boolean isFullCube(IBlockState state) {
@@ -118,6 +126,17 @@ public class BlockSteamEngine extends Block implements ITileEntityProvider {
 		}
 		return true;
 
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TileSteamEngine) {
+			TileSteamEngine dataTileEntity = (TileSteamEngine) te;
+			probeInfo.horizontal().text(TextFormatting.GREEN + STARTLOC + "Fluid (Steam):" + ENDLOC + " "
+					+ dataTileEntity.steamInternal.getFluidAmount() + "/" + dataTileEntity.steamInternal.getCapacity());
+		}
 	}
 
 }

@@ -16,7 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 public class TileSteamEngine extends TileMultiBlockController implements IEnergyStorage {
-	public FluidTank steamInternal = new FluidTank(10000);
+	public FluidTank steamInternal = new FluidTank(0);
 	protected int energy;
 	protected int capacity;
 	protected int maxExtract;
@@ -146,6 +146,7 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 		energy = compound.getInteger("energy");
 		capacity = compound.getInteger("capacity");
 		facing = EnumFacing.values()[compound.getInteger("facing")];
+		steamInternal.readFromNBT(compound.getCompoundTag("steam"));
 	}
 
 	@Override
@@ -248,8 +249,8 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 				multi.setIsMaster(false);
 				multi.setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
 			});
-			steamCap += TilePressureTank.getMaxCapacity(((TilePressureTank) behind1).getMaterial());
-			steamCap += TilePressureTank.getMaxCapacity(((TilePressureTank) behind2).getMaterial());
+			steamCap += ((TilePressureTank) behind1).getMaterial().getFluidCapacity();
+			steamCap += ((TilePressureTank) behind2).getMaterial().getFluidCapacity();
 			steamInternal.setCapacity(steamCap);
 			setIsMaster(true);
 			setMasterCoords(getPos().getX(), getPos().getY(), getPos().getZ());
@@ -266,6 +267,9 @@ public class TileSteamEngine extends TileMultiBlockController implements IEnergy
 		compound.setInteger("capacity", capacity);
 		compound.setInteger("maxExport", maxExtract);
 		compound.setInteger("facing", facing.ordinal());
+		NBTTagCompound steamTag = new NBTTagCompound();
+		steamInternal.writeToNBT(steamTag);
+		compound.setTag("steam", steamTag);
 		return compound;
 	}
 

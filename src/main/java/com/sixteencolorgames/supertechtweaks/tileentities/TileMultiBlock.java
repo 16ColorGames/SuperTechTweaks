@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class TileMultiBlock extends TileEntity {
-	private boolean hasMaster, isMaster;
+	private boolean isMaster;
 	private int masterX, masterY, masterZ;
 
 	public boolean checkForMaster() {
@@ -46,7 +46,10 @@ public abstract class TileMultiBlock extends TileEntity {
 	}
 
 	public boolean hasMaster() {
-		return hasMaster;
+		if (masterX == 0 && masterY == 0 && masterZ == 0) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean isMaster() {
@@ -65,16 +68,11 @@ public abstract class TileMultiBlock extends TileEntity {
 		masterX = data.getInteger("masterX");
 		masterY = data.getInteger("masterY");
 		masterZ = data.getInteger("masterZ");
-		hasMaster = data.getBoolean("hasMaster");
 		isMaster = data.getBoolean("isMaster");
-		if (hasMaster() && isMaster()) {
-			// Any other values should ONLY BE READ BY THE MASTER
-		}
 	}
 
 	public void reset() {
 		setMasterCoords(0, 0, 0);
-		hasMaster = false;
 		isMaster = false;
 		markDirty();
 	}
@@ -88,11 +86,6 @@ public abstract class TileMultiBlock extends TileEntity {
 		masterX = x;
 		masterY = y;
 		masterZ = z;
-		if (x == y && z == 0 && x == 0) {
-			hasMaster = false;
-		} else {
-			hasMaster = true;
-		}
 		markDirty();
 		IBlockState iblockstate = world.getBlockState(pos);
 		final int FLAGS = 3; // I'm not sure what these flags do, exactly.
@@ -105,11 +98,7 @@ public abstract class TileMultiBlock extends TileEntity {
 		data.setInteger("masterX", masterX);
 		data.setInteger("masterY", masterY);
 		data.setInteger("masterZ", masterZ);
-		data.setBoolean("hasMaster", hasMaster);
 		data.setBoolean("isMaster", isMaster);
-		if (hasMaster() && isMaster()) {
-			// Any other values should ONLY BE SAVED TO THE MASTER
-		}
 		return data;
 	}
 }
