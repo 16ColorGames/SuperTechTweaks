@@ -26,15 +26,4 @@ public class ItemHelper {
 		stack.setTagCompound(tag);
 	}
 
-	public static void setItemMaterial(ItemStack stack, String material) {
-		NBTTagCompound tag;
-		if (stack.hasTagCompound()) {
-			tag = stack.getTagCompound();
-		} else {
-			tag = new NBTTagCompound();
-		}
-		tag.setString("sttMaterial", material);
-		stack.setTagCompound(tag);
-	}
-
 }

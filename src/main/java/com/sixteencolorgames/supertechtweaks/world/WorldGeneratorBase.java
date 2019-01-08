@@ -72,7 +72,16 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 
 	abstract boolean generate(World world, Random random, BlockPos pos);
 
-	public boolean generateOre(World world, BlockPos pos) {
+	/**
+	 * Create/update a single ore block in the world. This reads the availible ores
+	 * from the given generator and sets up a new ore block, ore adds ore data to an
+	 * existing one if present
+	 * 
+	 * @param world
+	 * @param pos
+	 * @return
+	 */
+	public boolean generateOreBlock(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
 		if (Config.stone.containsKey(state)) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();

@@ -289,9 +289,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return name;
 	}
 
-	/**
-	 * @return the nativeHarvest
-	 */
+
 	private int getNativeHarvest() {
 		return nativeHarvest;
 	}
@@ -420,7 +418,7 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 
 		// register pipe block
 		ItemStack pipeStack = new ItemStack(ModRegistry.blockPipe, 3);
-		ItemHelper.setItemMaterial(pipeStack, getRegistryName().toString());
+		ItemHelper.setItemMaterial(pipeStack, this);
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapedOreRecipe(new ResourceLocation("pipe"), pipeStack,
 						new Object[] { new String[] { "xxx", "   ", "xxx" }, 'x', new OreIngredient("plate" + name) })

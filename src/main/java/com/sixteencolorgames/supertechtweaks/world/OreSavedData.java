@@ -8,6 +8,8 @@ package com.sixteencolorgames.supertechtweaks.world;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 
@@ -30,11 +32,7 @@ public class OreSavedData extends WorldSavedData {
 	private static final String DATA_NAME = SuperTechTweaksMod.MODID + "_OreData";
 
 	public static OreSavedData get(World world) {
-		// OreSavedData data = (OreSavedData)
-		// world.loadItemData(OreSavedData.class, DATA_NAME);
-		// The IS_GLOBAL constant is there for clarity, and should be simplified
-		// into the right branch.
-		MapStorage storage = world.getPerWorldStorage();
+		MapStorage storage = world.getPerWorldStorage();// get the ore data per dimension, we don't want it shared here
 		OreSavedData instance = (OreSavedData) storage.getOrLoadData(OreSavedData.class, DATA_NAME);
 
 		if (instance == null) {
@@ -50,8 +48,8 @@ public class OreSavedData extends WorldSavedData {
 	}
 
 	/**
-	 * <X,<Y,<Z,Data>>> where Data[0] is the base type of the ore and the
-	 * remaining elements are the ore data
+	 * <X,<Y,<Z,Data>>> where Data[0] is the base type of the ore and the remaining
+	 * elements are the ore data
 	 */
 	HashMap<Integer, HashMap<Integer, HashMap<Integer, ResourceLocation[]>>> data = new HashMap();
 
@@ -72,10 +70,24 @@ public class OreSavedData extends WorldSavedData {
 		markDirty();
 	}
 
+	/**
+	 * Get the base rock texture location
+	 * 
+	 * @param pos
+	 * @return
+	 */
 	public ResourceLocation getBase(BlockPos pos) {
 		return getBase(pos.getX(), pos.getY(), pos.getZ());
 	}
 
+	/**
+	 * Get the base rock texture location
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
 	public ResourceLocation getBase(int x, int y, int z) {
 		try {
 			return data.get(x).get(y).get(z)[0];
@@ -85,8 +97,7 @@ public class OreSavedData extends WorldSavedData {
 	}
 
 	/**
-	 * Creates a tag of ore data in a chunk. Intended for use with
-	 * #updateFromTag.
+	 * Creates a tag of ore data in a chunk. Intended for use with #updateFromTag.
 	 *
 	 * @param chunkX
 	 * @param chunkZ
@@ -122,8 +133,8 @@ public class OreSavedData extends WorldSavedData {
 	}
 
 	/**
-	 * Creates a tag of ore data in a single position. Intended for use with
-	 * block break updates.
+	 * Creates a tag of ore data in a single position. Intended for use with block
+	 * break updates.
 	 *
 	 * @return
 	 */
@@ -202,6 +213,14 @@ public class OreSavedData extends WorldSavedData {
 		markDirty();
 	}
 
+	/**
+	 * used to set the texture for the background rock for a ore tile
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param base The texture location for the rock
+	 */
 	public void setBase(int x, int y, int z, ResourceLocation base) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());
@@ -226,23 +245,29 @@ public class OreSavedData extends WorldSavedData {
 		}
 	}
 
+	/**
+	 * Create the oreblock data
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param base The texture location for the background rock
+	 * @param ores The ore location for the ore data.
+	 */
 	public void setData(int x, int y, int z, ResourceLocation base, ResourceLocation[] ores) {
-		if (!data.containsKey(x)) {
-			data.put(x, new HashMap());
-		}
-		if (!data.get(x).containsKey(y)) {
-			data.get(x).put(y, new HashMap());
-		}
-		ResourceLocation[] newData = new ResourceLocation[ores.length + 1];
-		newData[0] = base;
-		for (int i = 0; i < ores.length; i++) {
-			newData[i + 1] = ores[i];
-		}
-		data.get(x).get(y).put(z, newData);
-
-		markDirty();
+		setData(x, y, z, ArrayUtils.add(ores.clone(), 0, base));
 	}
 
+	/**
+	 * Create the oreblock data
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param dataList An array of ResourceLocations, the first item is the texture
+	 *                 location for the background rock, all others are ore
+	 *                 locations for contained ores
+	 */
 	public void setData(int x, int y, int z, ResourceLocation[] dataList) {
 		if (!data.containsKey(x)) {
 			data.put(x, new HashMap());

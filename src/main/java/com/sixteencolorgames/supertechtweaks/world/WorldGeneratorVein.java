@@ -9,6 +9,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+/**
+ * Generates a vein based loosely on perlin worms. This one needs heavy work
+ * still
+ * 
+ * @author oa10712
+ *
+ */
 public class WorldGeneratorVein extends WorldGeneratorBase {
 
 	private static final double SCALE = 1.3726;// e log(2)
@@ -61,7 +68,7 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 		for (int i = 0; i < size * (int) params.getOrDefault("branchLength", 5); i++) {
 			BlockPos check = new BlockPos(pos);
 			for (BlockPos adj : facing(check)) {
-				super.generateOre(world, adj);
+				super.generateOreBlock(world, adj);
 			}
 			while (pos.y + dir.y > maxY) {
 				dir = DIRS[rand.nextInt(DIRS.length)];

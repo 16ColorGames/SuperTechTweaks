@@ -20,12 +20,12 @@ public class Ore extends IForgeRegistryEntry.Impl<Ore> {
 	private ArrayList<String> altNames = new ArrayList();
 
 	/**
-	 * The RGB code for the color of this
+	 * The RGB code for the color of this ore
 	 */
 	private int color;
 
 	/**
-	 * The harvest level of this
+	 * The harvest level of this ore
 	 */
 	private int harvest;
 

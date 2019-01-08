@@ -8,6 +8,12 @@ import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * A generator that creates ores in a manner roughly similar to vanilla
+ * 
+ * @author oa10712
+ *
+ */
 public class WorldGeneratorCluster extends WorldGeneratorBase {
 
 	private final int width;
@@ -36,14 +42,15 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 	public boolean generateCluster(World worldIn, Random rand, BlockPos position) {
 		int height = rand.nextInt(maxY - minY) + minY;
 		int variance = ((int) params.getOrDefault("clusterVariance", 1) > 0)
-				? (int) params.getOrDefault("clusterVariance", 1) : 1;
+				? (int) params.getOrDefault("clusterVariance", 1)
+				: 1;
 		int numBlocks = size + rand.nextInt(variance * 2) - variance;
 		if (numBlocks < 1) {
 			numBlocks = 1;
 		}
 		for (int i = 0; i < numBlocks; i++) {
 			BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
-			super.generateOre(worldIn, newPos);
+			super.generateOreBlock(worldIn, newPos);
 		}
 		return true;
 	}

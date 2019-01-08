@@ -39,7 +39,7 @@ public class WorldGeneratorPlate extends WorldGeneratorBase {
 		for (int i = -r; i < r; i++) {
 			for (int j = -r; j < r; j++) {
 				if ((i * i + j * j) <= (r * r)) {
-					super.generateOre(worldIn, new BlockPos(i + x, height, j + z));
+					super.generateOreBlock(worldIn, new BlockPos(i + x, height, j + z));
 				}
 			}
 		}
