@@ -15,10 +15,14 @@ import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
 import com.sixteencolorgames.supertechtweaks.noise.NoiseGen;
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
+import com.sixteencolorgames.supertechtweaks.tileentities.conveyor.TileEntityConveyorBase;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,6 +44,7 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  *
@@ -73,6 +78,20 @@ public class ServerEvents {
 	public void handleOreGenEvent(OreGenEvent.GenerateMinable event) {
 		if (Config.removeVanilla && vanillaOreGeneration.contains(event.getType())) {
 			event.setResult(Result.DENY);
+		}
+	}
+
+	@SubscribeEvent
+	public void tick(TickEvent.ClientTickEvent event) {
+		World world = Minecraft.getMinecraft().world;
+
+		if (world == null)
+			return;
+
+		for (Entity e : world.loadedEntityList) {
+			if (e instanceof EntityItem && e.ticksExisted % 15 == 0
+					&& !(world.getTileEntity(new BlockPos(e)) instanceof TileEntityConveyorBase))
+				e.getEntityData().setBoolean("onBelt", false);
 		}
 	}
 

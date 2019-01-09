@@ -24,8 +24,14 @@ import com.sixteencolorgames.supertechtweaks.tileentities.boiler.BlockBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.boiler.TileBoiler;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.BlockCable;
 import com.sixteencolorgames.supertechtweaks.tileentities.cable.TileCable;
+import com.sixteencolorgames.supertechtweaks.tileentities.conveyor.BlockConveyor;
+import com.sixteencolorgames.supertechtweaks.tileentities.conveyor.TileEntityConveyor;
 import com.sixteencolorgames.supertechtweaks.tileentities.crusher.BlockCrusher;
 import com.sixteencolorgames.supertechtweaks.tileentities.crusher.TileCrusher;
+import com.sixteencolorgames.supertechtweaks.tileentities.extractor.BlockExtractor;
+import com.sixteencolorgames.supertechtweaks.tileentities.extractor.TileEntityExtractor;
+import com.sixteencolorgames.supertechtweaks.tileentities.inserter.BlockInserter;
+import com.sixteencolorgames.supertechtweaks.tileentities.inserter.TileEntityInserter;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.BlockMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multifluidinput.TileMultiFluidInput;
 import com.sixteencolorgames.supertechtweaks.tileentities.multiiteminterface.BlockMultiItemInterface;
@@ -99,6 +105,9 @@ public class ModRegistry {
 	public static BlockPressureTank blockPressureTank;
 	public static BlockSteamEngine blockSteamEngine;
 	public static BlockCrusher blockCrusher;
+	public static BlockConveyor blockConveyor;
+	public static BlockExtractor blockExtractor;
+	public static BlockInserter blockInserter;
 
 	public static final List<IBlockState> allStones = new ArrayList<IBlockState>();
 	/** stone block replacements that are sedimentary */
@@ -176,6 +185,18 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		System.out.println("Attempting block registry");
+
+		blockConveyor = new BlockConveyor();
+		event.getRegistry().register(blockConveyor);
+		GameRegistry.registerTileEntity(TileEntityConveyor.class, SuperTechTweaksMod.MODID + "_conveyor");
+
+		blockExtractor = new BlockExtractor();
+		event.getRegistry().register(blockExtractor);
+		GameRegistry.registerTileEntity(TileEntityExtractor.class, SuperTechTweaksMod.MODID + "_extractor");
+
+		blockInserter = new BlockInserter();
+		event.getRegistry().register(blockInserter);
+		GameRegistry.registerTileEntity(TileEntityInserter.class, SuperTechTweaksMod.MODID + "_inserter");
 
 		basicResearcherBlock = new BlockBasicResearcher();
 		event.getRegistry().register(basicResearcherBlock);
@@ -264,6 +285,9 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
+		event.getRegistry().register(new ItemBlock(blockConveyor).setRegistryName(blockConveyor.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockExtractor).setRegistryName(blockExtractor.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(blockInserter).setRegistryName(blockInserter.getRegistryName()));
 		event.getRegistry()
 				.register(new ItemBlock(basicResearcherBlock).setRegistryName(basicResearcherBlock.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockPressureTank) {
@@ -741,8 +765,6 @@ public class ModRegistry {
 		}
 		allStones.add(rock.getDefaultState());
 
-		OreDictionary.registerOre("stone", rock);
-		GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
 		/*
 		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,
 		 * (float) blastResistance, toolHardnessLevel, SoundType.STONE); rockSlab = new
@@ -755,6 +777,7 @@ public class ModRegistry {
 		ItemBlock itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
 		ForgeRegistries.ITEMS.register(itemBlock);
 
+		// GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
 		event.getRegistry().registerAll(rock/* , rockStairs, rockSlab, rockSlabDouble */);
 
 		/*
@@ -788,6 +811,8 @@ public class ModRegistry {
 		 * ResourceLocation("slabs"), new ItemStack(smoothBrickSlab, 6), "xxx", 'x',
 		 * smoothBrick));
 		 */
+
+		OreDictionary.registerOre("stone", rock);
 	}
 
 	/**

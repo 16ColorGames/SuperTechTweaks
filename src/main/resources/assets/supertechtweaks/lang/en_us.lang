@@ -12,6 +12,7 @@ tile.supertechtweaks.blockboiler.name=Solid Fuel Boiler
 tile.supertechtweaks.blocksteamengine.name=Steam Engine
 tile.supertechtweaks.blockcrusher.name=Mechanical Crusher
 tile.supertechtweaks.pressuretank.name=Pressurized Tank
+tile.supertechtweaks.conveyor.name=Conveyor Belt
 tile.supertechtweaks.blockpipe.name=Fluid Pipe
 
 item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit

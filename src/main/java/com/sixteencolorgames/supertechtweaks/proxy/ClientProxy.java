@@ -10,18 +10,18 @@ import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.BlockColor;
 import com.sixteencolorgames.supertechtweaks.render.MetalColor;
 import com.sixteencolorgames.supertechtweaks.render.OreColor;
-import com.sixteencolorgames.supertechtweaks.tileentities.cable.ModelLoaderCable;
-import com.sixteencolorgames.supertechtweaks.tileentities.pipe.ModelLoaderPipe;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -96,6 +96,26 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
+		
+		
+		Render<EntityItem> previous = (Render<EntityItem>) Minecraft.getMinecraft().getRenderManager().entityRenderMap
+				.get(EntityItem.class);
+		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityItem.class, new RenderEntityItem(
+				Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()) {
+			@Override
+			public void doRender(EntityItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
+				float f1 = entity.getEntityData().getBoolean("onBelt") && shouldBob()
+						? MathHelper.sin((entity.getAge() + Minecraft.getMinecraft().getRenderPartialTicks()) / 10.0F
+								+ entity.hoverStart) * 0.1F + 0.1F
+						: 0;
+				GlStateManager.translate(0f, -f1, 0f);
+				if (previous != null)
+					previous.doRender(entity, x, y, z, entityYaw, partialTicks);
+				else
+					super.doRender(entity, x, y, z, entityYaw, partialTicks);
+				GlStateManager.translate(0f, f1, 0f);
+			}
+		});
 	}
 
 	@Override
@@ -117,8 +137,6 @@ public class ClientProxy extends CommonProxy {
 		super.preInit(e);
 		// ((ItemTechComponent) ModRegistry.itemTechComponent).registerModels();
 		ModelLoaderRegistry.registerLoader(new BakedModelLoader());
-		ModelLoaderRegistry.registerLoader(new ModelLoaderCable());
-		ModelLoaderRegistry.registerLoader(new ModelLoaderPipe());
 		OBJLoader.INSTANCE.addDomain(SuperTechTweaksMod.MODID);
 		// ModelLoaderRegistry.registerLoader(ModelLoaderRock.INSTANCE);
 	}
