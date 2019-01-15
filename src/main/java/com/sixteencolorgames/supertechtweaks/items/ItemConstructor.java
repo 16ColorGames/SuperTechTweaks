@@ -14,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class ItemConstructor extends ItemBase {
@@ -29,6 +30,8 @@ public class ItemConstructor extends ItemBase {
 		ItemStack stack = player.getHeldItem(hand);
 		for (MultiblockHandler.IMultiblock mb : MultiblockHandler.getMultiblocks()) {
 			if (mb.isBlockTrigger(world.getBlockState(pos))) {
+
+				player.sendMessage(new TextComponentString("Block hit trigger"));
 				if (MultiblockHandler.postMultiblockFormationEvent(player, mb, pos, stack).isCanceled()) {
 					continue;
 				}

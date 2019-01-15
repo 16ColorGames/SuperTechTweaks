@@ -20,6 +20,9 @@ import com.sixteencolorgames.supertechtweaks.enums.RockType;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
+import com.sixteencolorgames.supertechtweaks.tileentities.MultiblockHandler;
+import com.sixteencolorgames.supertechtweaks.tileentities.boiler.MultiblockBoiler;
+import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.MultiblockSteamEngine;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
@@ -88,6 +91,9 @@ public abstract class CommonProxy {
 				.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE));
 		vanillaReplace
 				.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE));
+
+		MultiblockHandler.registerMultiblock(new MultiblockBoiler());
+		MultiblockHandler.registerMultiblock(new MultiblockSteamEngine());
 	}
 
 	public void postInit(FMLPostInitializationEvent e) {

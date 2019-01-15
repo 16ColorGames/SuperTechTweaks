@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -61,17 +63,34 @@ public class MultiblockHandler {
 		 * @return if the structure was valid.
 		 */
 		default boolean checkStructure(World world, BlockPos pos, EnumFacing side, EntityPlayer player) {
-			//TODO make a rotate CCW method/store the other rotations somewhere
+			// TODO make a rotate CCW method/store the other rotations somewhere
 			BlockPos fll = pos.add(getTriggerOffset());
-			IBlockState[][][] check = this.getStructureManual();
+			Block[][][] check = this.getStructureManual();
 			switch (side) {
 			case EAST:
 				check = rotateCW(check);
 				break;
 			case NORTH:
+				fll = pos.add(getTriggerOffset());
 				break;
 			case SOUTH:
-				check = rotateCW(rotateCW(check));
+				fll = pos.add(-getTriggerOffset().getX(), getTriggerOffset().getY(), -getTriggerOffset().getZ());
+				for (int i = 0; i < getStructureManual().length; i++) {
+					for (int j = 0; j < getStructureManual()[0].length; j++) {
+						for (int k = 0; k < getStructureManual()[0][0].length; k++) {
+							if (!getStructureManual()[i][j][k].equals(Blocks.AIR)) {
+								if (!world.getBlockState(fll.add(i, j, k)).getBlock()
+										.equals(getStructureManual()[i][j][k])) {
+									player.sendMessage(
+											new TextComponentString("Invalid Multiblock at " + fll.add(i, j, k)
+													+ ", found " + world.getBlockState(fll.add(i, j, k)).getBlock()
+													+ " expected " + getStructureManual()[i][j][k]));
+									return false;
+								}
+							}
+						}
+					}
+				}
 				break;
 			case WEST:
 				check = rotateCW(rotateCW(rotateCW(check)));
@@ -80,22 +99,14 @@ public class MultiblockHandler {
 				break;
 
 			}
-			for (int i = 0; i < getStructureManual().length; i++) {
-				for (int j = 0; j < getStructureManual()[0].length; j++) {
-					for (int k = 0; k < getStructureManual()[0][0].length; k++) {
-						if (world.getBlockState(fll.add(i, j, k)).equals(getStructureManual()[i][j][k])) {
-							return false;
-						}
-					}
-				}
-			}
+			player.sendMessage(new TextComponentString("Valid Multiblock"));
 			return true;
 		}
 
-		static IBlockState[][][] rotateCW(IBlockState[][][] mat) {
+		static Block[][][] rotateCW(Block[][][] mat) {
 			final int M = mat[0].length;
 			final int N = mat[0][0].length;
-			IBlockState[][][] ret = new IBlockState[mat.length][N][M];
+			Block[][][] ret = new Block[mat.length][N][M];
 			for (int h = 0; h < mat.length; h++) {
 				for (int r = 0; r < M; r++) {
 					for (int c = 0; c < N; c++) {
@@ -117,7 +128,7 @@ public class MultiblockHandler {
 		 * A three-dimensional array (height, width, length) of the structure to be
 		 * rendered in the Engineers Manual
 		 */
-		IBlockState[][][] getStructureManual();
+		Block[][][] getStructureManual();
 
 		/**
 		 * Returns the blockpos offset
