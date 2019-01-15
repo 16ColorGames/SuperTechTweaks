@@ -13,6 +13,8 @@ tile.supertechtweaks.blocksteamengine.name=Steam Engine
 tile.supertechtweaks.blockcrusher.name=Mechanical Crusher
 tile.supertechtweaks.pressuretank.name=Pressurized Tank
 tile.supertechtweaks.conveyor.name=Conveyor Belt
+tile.supertechtweaks.extractor.name=Extractor Belt
+tile.supertechtweaks.inserter.name=Inserter Belt
 tile.supertechtweaks.blockpipe.name=Fluid Pipe
 
 tile.supertechtweaks.amphibolite.name=Amphibolite
@@ -39,6 +41,7 @@ item.supertechtweaks.itemTechComponent.circuitUltimate.name=Ultimate Circuit
 item.supertechtweaks.itemTechComponent.casingBasic.name=Basic Casing
 item.supertechtweaks.itemTechComponent.heatingElement.name=Heating Element
 item.supertechtweaks.itemTechComponent.powerUnitSmall.name=Small Power Unit
+item.supertechtweaks.itemConstructor.name=Constructor
 
 
 #generic titles

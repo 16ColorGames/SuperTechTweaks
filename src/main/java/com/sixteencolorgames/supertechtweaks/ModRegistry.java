@@ -15,6 +15,7 @@ import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.enums.RockType;
+import com.sixteencolorgames.supertechtweaks.items.ItemConstructor;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
@@ -108,6 +109,8 @@ public class ModRegistry {
 	public static BlockConveyor blockConveyor;
 	public static BlockExtractor blockExtractor;
 	public static BlockInserter blockInserter;
+
+	public static ItemConstructor itemConstructor;
 
 	public static final List<IBlockState> allStones = new ArrayList<IBlockState>();
 	/** stone block replacements that are sedimentary */
@@ -285,6 +288,9 @@ public class ModRegistry {
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
+		itemConstructor = new ItemConstructor();
+		event.getRegistry().register(itemConstructor);
+
 		event.getRegistry().register(new ItemBlock(blockConveyor).setRegistryName(blockConveyor.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockExtractor).setRegistryName(blockExtractor.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockInserter).setRegistryName(blockInserter.getRegistryName()));

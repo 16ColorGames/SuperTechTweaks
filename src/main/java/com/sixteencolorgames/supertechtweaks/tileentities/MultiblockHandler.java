@@ -7,20 +7,22 @@
 
 package com.sixteencolorgames.supertechtweaks.tileentities;
 
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
 
 /**
  * @author BluSunrize - 27.04.2015 <br>
@@ -54,17 +56,73 @@ public class MultiblockHandler {
 		boolean isBlockTrigger(IBlockState state);
 
 		/**
-		 * This method checks the structure and sets the new one.
+		 * This method checks the structure .
 		 *
-		 * @return if the structure was valid and transformed
+		 * @return if the structure was valid.
+		 */
+		default boolean checkStructure(World world, BlockPos pos, EnumFacing side, EntityPlayer player) {
+			//TODO make a rotate CCW method/store the other rotations somewhere
+			BlockPos fll = pos.add(getTriggerOffset());
+			IBlockState[][][] check = this.getStructureManual();
+			switch (side) {
+			case EAST:
+				check = rotateCW(check);
+				break;
+			case NORTH:
+				break;
+			case SOUTH:
+				check = rotateCW(rotateCW(check));
+				break;
+			case WEST:
+				check = rotateCW(rotateCW(rotateCW(check)));
+				break;
+			default:
+				break;
+
+			}
+			for (int i = 0; i < getStructureManual().length; i++) {
+				for (int j = 0; j < getStructureManual()[0].length; j++) {
+					for (int k = 0; k < getStructureManual()[0][0].length; k++) {
+						if (world.getBlockState(fll.add(i, j, k)).equals(getStructureManual()[i][j][k])) {
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		static IBlockState[][][] rotateCW(IBlockState[][][] mat) {
+			final int M = mat[0].length;
+			final int N = mat[0][0].length;
+			IBlockState[][][] ret = new IBlockState[mat.length][N][M];
+			for (int h = 0; h < mat.length; h++) {
+				for (int r = 0; r < M; r++) {
+					for (int c = 0; c < N; c++) {
+						ret[h][c][M - 1 - r] = mat[h][r][c];
+					}
+				}
+			}
+			return ret;
+		}
+
+		/**
+		 * This method sets up the structure.
+		 *
+		 * @return if the structure was transformed.
 		 */
 		boolean createStructure(World world, BlockPos pos, EnumFacing side, EntityPlayer player);
 
 		/**
-		 * A three-dimensional array (height, length, width) of the structure to be
+		 * A three-dimensional array (height, width, length) of the structure to be
 		 * rendered in the Engineers Manual
 		 */
-		ItemStack[][][] getStructureManual();
+		IBlockState[][][] getStructureManual();
+
+		/**
+		 * Returns the blockpos offset
+		 */
+		Vec3i getTriggerOffset();
 
 		default IBlockState getBlockstateFromStack(int index, ItemStack stack) {
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock)
@@ -77,7 +135,6 @@ public class MultiblockHandler {
 		 */
 		@SideOnly(Side.CLIENT)
 		boolean overwriteBlockRender(ItemStack stack, int iterator);
-
 
 		/**
 		 * returns true to add a button that will switch between the assembly of
