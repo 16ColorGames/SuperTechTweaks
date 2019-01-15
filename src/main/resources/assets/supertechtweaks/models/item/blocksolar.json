@@ -1,5 +1,5 @@
 {
-  "parent": "supertechtweaks:block/extractor",
+  "parent": "supertechtweaks:block/blocksolar",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

@@ -47,6 +47,8 @@ import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.BlockPres
 import com.sixteencolorgames.supertechtweaks.tileentities.pressuretank.TilePressureTank;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.BlockResearchSelector;
 import com.sixteencolorgames.supertechtweaks.tileentities.researchselector.TileResearchSelector;
+import com.sixteencolorgames.supertechtweaks.tileentities.solarpanel.BlockSolarPanel;
+import com.sixteencolorgames.supertechtweaks.tileentities.solarpanel.TileSolarPanel;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.BlockSteamEngine;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
@@ -109,6 +111,7 @@ public class ModRegistry {
 	public static BlockConveyor blockConveyor;
 	public static BlockExtractor blockExtractor;
 	public static BlockInserter blockInserter;
+	public static BlockSolarPanel blockSolarPanel;
 
 	public static ItemConstructor itemConstructor;
 
@@ -188,6 +191,10 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		System.out.println("Attempting block registry");
+
+		blockSolarPanel = new BlockSolarPanel();
+		event.getRegistry().register(blockSolarPanel);
+		GameRegistry.registerTileEntity(TileSolarPanel.class, SuperTechTweaksMod.MODID + "_solarpanel");
 
 		blockConveyor = new BlockConveyor();
 		event.getRegistry().register(blockConveyor);
@@ -291,6 +298,7 @@ public class ModRegistry {
 		itemConstructor = new ItemConstructor();
 		event.getRegistry().register(itemConstructor);
 
+		event.getRegistry().register(new ItemBlock(blockSolarPanel).setRegistryName(blockSolarPanel.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockConveyor).setRegistryName(blockConveyor.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockExtractor).setRegistryName(blockExtractor.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockInserter).setRegistryName(blockInserter.getRegistryName()));
