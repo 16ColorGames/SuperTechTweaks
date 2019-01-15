@@ -15,6 +15,23 @@ tile.supertechtweaks.pressuretank.name=Pressurized Tank
 tile.supertechtweaks.conveyor.name=Conveyor Belt
 tile.supertechtweaks.blockpipe.name=Fluid Pipe
 
+tile.supertechtweaks.amphibolite.name=Amphibolite
+tile.supertechtweaks.basalt.name=Basalt
+tile.supertechtweaks.chert.name=Chert
+tile.supertechtweaks.dolomite.name=Dolomite
+tile.supertechtweaks.conglomerate.name=Conglomerate
+tile.supertechtweaks.gabbro.name=Gabbro
+tile.supertechtweaks.gneiss.name=Gneiss
+tile.supertechtweaks.limestone.name=Limestone
+tile.supertechtweaks.marble.name=Marble
+tile.supertechtweaks.pegmatite.name=Pegmatite
+tile.supertechtweaks.phyllite.name=Phyllite
+tile.supertechtweaks.rhyolite.name=Rhyolite
+tile.supertechtweaks.schist.name=Schist
+tile.supertechtweaks.scoria.name=Scoria
+tile.supertechtweaks.shale.name=Shale
+tile.supertechtweaks.slate.name=Slate
+
 item.supertechtweaks.itemTechComponent.circuitBasic.name=Basic Circuit
 item.supertechtweaks.itemTechComponent.circuitAdvanced.name=Advanced Circuit
 item.supertechtweaks.itemTechComponent.circuitElite.name=Elite Circuit
@@ -47,6 +64,8 @@ tile.supertechtweaks.block.name=Block of %s
 item.supertechtweaks.hammer.name=%s Hammer
 item.supertechtweaks.pickaxe.name=%s Pickaxe
 item.supertechtweaks.pliers.name=%s Pliers
+item.supertechtweaks.shovel.name=%s Shovel
+item.supertechtweaks.axe.name=%s Axe
 item.supertechtweaks.drawPlate.name=%s Draw Plate
 item.supertechtweaks.crushed.name=Crushed %s Ore
 

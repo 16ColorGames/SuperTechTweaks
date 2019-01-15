@@ -21,7 +21,7 @@ public class BlockRock extends net.minecraft.block.Block {
 			int toolHardnessLevel, SoundType sound) {
 		super(Material.ROCK);
 		this.setRegistryName(name);
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("supertechtweaks." + name);
 		this.isStoneEquivalent = isStoneEquivalent;
 		this.setHardness((float) hardness); // dirt is 0.5, grass is 0.6, stone
 											// is 1.5,iron ore is 3, obsidian is

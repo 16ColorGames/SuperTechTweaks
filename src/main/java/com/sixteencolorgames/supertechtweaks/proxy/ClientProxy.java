@@ -5,6 +5,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
+import com.sixteencolorgames.supertechtweaks.items.MaterialTool;
 import com.sixteencolorgames.supertechtweaks.items.OreItem;
 import com.sixteencolorgames.supertechtweaks.render.BakedModelLoader;
 import com.sixteencolorgames.supertechtweaks.render.BlockColor;
@@ -70,6 +71,8 @@ public class ClientProxy extends CommonProxy {
 	static ModelResourceLocation pliersLocation = new ModelResourceLocation("supertechtweaks:itemPliers", "inventory");
 	static ModelResourceLocation drawPlateLocation = new ModelResourceLocation("supertechtweaks:itemDrawPlate",
 			"inventory");
+	static ModelResourceLocation shovelLocation = new ModelResourceLocation("supertechtweaks:itemShovel", "inventory");
+	static ModelResourceLocation axeLocation = new ModelResourceLocation("supertechtweaks:itemAxe", "inventory");
 	public static ModelResourceLocation blockLocation = new ModelResourceLocation("supertechtweaks:blockMaterial",
 			"normal");
 	public static ModelResourceLocation itemLocation = new ModelResourceLocation("supertechtweaks:itemBlockMaterial",
@@ -96,8 +99,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		
-		
+
 		Render<EntityItem> previous = (Render<EntityItem>) Minecraft.getMinecraft().getRenderManager().entityRenderMap
 				.get(EntityItem.class);
 		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityItem.class, new RenderEntityItem(
@@ -123,6 +125,13 @@ public class ClientProxy extends CommonProxy {
 		super.postInit(e);
 		Material.REGISTRY.getValuesCollection().forEach((m) -> {
 			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getMaterialItem());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getItemPickaxe());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getItemAxe());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getItemShovel());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE,
+					m.getItemDrawplate());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getItemPliers());
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(MetalColor.INSTANCE, m.getItemHammer());
 			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(BlockColor.INSTANCE, m.getItemBlock());
 			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(BlockColor.INSTANCE, m.getBlock());
 		});
@@ -168,10 +177,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.TINY, tinyLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.COIN, coinLocation);
 		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.BLADE, bladeLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.HAMMER, hammerLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PICKAXE, pickaxeLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.PLIERS, pliersLocation);
-		ModelLoader.setCustomModelResourceLocation(mat.getMaterialItem(), MaterialItem.DRAW_PLATE, drawPlateLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getItemHammer(), 0, hammerLocation);
+
+		ModelLoader.setCustomModelResourceLocation(mat.getItemPickaxe(), 0, pickaxeLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getItemPliers(), 0, pliersLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getItemDrawplate(), 0, drawPlateLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getItemShovel(), 0, shovelLocation);
+		ModelLoader.setCustomModelResourceLocation(mat.getItemAxe(), 0, axeLocation);
 	}
 
 	@Override

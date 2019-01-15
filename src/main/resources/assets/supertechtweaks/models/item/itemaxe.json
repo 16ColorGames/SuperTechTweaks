@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "supertechtweaks:items/axe",
+		"layer1": "supertechtweaks:items/toolrod"
+    }
+}

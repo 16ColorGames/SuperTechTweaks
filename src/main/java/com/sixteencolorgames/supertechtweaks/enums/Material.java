@@ -8,6 +8,7 @@ import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
 import com.sixteencolorgames.supertechtweaks.blocks.BlockMaterial;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItemBlock;
+import com.sixteencolorgames.supertechtweaks.items.MaterialTool;
 import com.sixteencolorgames.supertechtweaks.items.OreItem;
 import com.sixteencolorgames.supertechtweaks.proxy.ClientProxy;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
@@ -16,11 +17,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -46,6 +49,12 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 			building.itemBlock.setRegistryName(building.block.getRegistryName());
 
 			building.itemMaterial = new MaterialItem(building);
+			building.itemAxe = new MaterialTool(building, MaterialTool.AXE);
+			building.itemDrawplate = new MaterialTool(building, MaterialTool.DRAW_PLATE);
+			building.itemHammer = new MaterialTool(building, MaterialTool.HAMMER);
+			building.itemPickaxe = new MaterialTool(building, MaterialTool.PICKAXE);
+			building.itemPliers = new MaterialTool(building, MaterialTool.PLIERS);
+			building.itemShovel = new MaterialTool(building, MaterialTool.SHOVEL);
 			return building;
 		}
 
@@ -208,6 +217,14 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	private ItemBlock itemBlock;
 
 	private MaterialItem itemMaterial;
+	// private MaterialTool itemTool;
+
+	private MaterialTool itemAxe;
+	private MaterialTool itemHammer;
+	private MaterialTool itemPliers;
+	private MaterialTool itemShovel;
+	private MaterialTool itemDrawplate;
+	private MaterialTool itemPickaxe;
 
 	private Ore ore;
 
@@ -289,7 +306,6 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		return name;
 	}
 
-
 	private int getNativeHarvest() {
 		return nativeHarvest;
 	}
@@ -325,6 +341,12 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("block" + getName(), new ItemStack(block));
 
 		GameRegistry.findRegistry(Item.class).register(itemMaterial);
+		GameRegistry.findRegistry(Item.class).register(itemPickaxe);
+		GameRegistry.findRegistry(Item.class).register(itemAxe);
+		GameRegistry.findRegistry(Item.class).register(itemHammer);
+		GameRegistry.findRegistry(Item.class).register(itemDrawplate);
+		GameRegistry.findRegistry(Item.class).register(itemShovel);
+		GameRegistry.findRegistry(Item.class).register(itemPliers);
 
 		registerOreDict();
 		SuperTechTweaksMod.proxy.registerModels(this);
@@ -369,16 +391,17 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 		OreDictionary.registerOre("coin" + getName(), subItemStack);
 		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.BLADE);
 		OreDictionary.registerOre("blade" + getName(), subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.HAMMER);
+
+		subItemStack = new ItemStack(itemHammer, 1, MaterialTool.HAMMER);
 		OreDictionary.registerOre("hammer" + getName(), subItemStack);
 		OreDictionary.registerOre("toolHammer", subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.PICKAXE);
+		subItemStack = new ItemStack(itemPickaxe, 1, MaterialTool.PICKAXE);
 		OreDictionary.registerOre("pickaxe" + getName(), subItemStack);
 		OreDictionary.registerOre("toolPickaxe", subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.PLIERS);
+		subItemStack = new ItemStack(itemPliers, 1, MaterialTool.PLIERS);
 		OreDictionary.registerOre("pliers" + getName(), subItemStack);
 		OreDictionary.registerOre("toolPliers", subItemStack);
-		subItemStack = new ItemStack(itemMaterial, 1, MaterialItem.DRAW_PLATE);
+		subItemStack = new ItemStack(itemDrawplate, 1, MaterialTool.DRAW_PLATE);
 		OreDictionary.registerOre("drawplate" + getName(), subItemStack);
 		OreDictionary.registerOre("toolDrawPlate", subItemStack);
 
@@ -401,17 +424,15 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 						.setRegistryName(SuperTechTweaksMod.MODID, "block_ingot" + name));
 
 		// register hammer
-		GameRegistry.findRegistry(IRecipe.class)
-				.register(new ShapedOreRecipe(new ResourceLocation("hammers"),
-						new ItemStack(getMaterialItem(), 1, MaterialItem.HAMMER),
-						new Object[] { new String[] { " x ", " sx", "s  " }, 'x', new OreIngredient("ingot" + name),
-								's', new OreIngredient("stickWood") }).setRegistryName(SuperTechTweaksMod.MODID,
-										"hammer" + name));
+		GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new ResourceLocation("hammers"),
+				new ItemStack(itemHammer, 1, MaterialTool.HAMMER), new Object[] { new String[] { " x ", " sx", "s  " },
+						'x', new OreIngredient("ingot" + name), 's', new OreIngredient("stickWood") })
+								.setRegistryName(SuperTechTweaksMod.MODID, "hammer" + name));
 
 		// register pliers
 		GameRegistry.findRegistry(IRecipe.class)
 				.register(new ShapedOreRecipe(new ResourceLocation("pliers"),
-						new ItemStack(getMaterialItem(), 1, MaterialItem.PLIERS),
+						new ItemStack(itemPliers, 1, MaterialTool.PLIERS),
 						new Object[] { new String[] { "x x", " p ", "s s" }, 'x', new OreIngredient("ingot" + name),
 								'p', new OreIngredient("plate" + name), 's', new OreIngredient("stickWood") })
 										.setRegistryName(SuperTechTweaksMod.MODID, "pliers" + name));
@@ -457,5 +478,43 @@ public class Material extends IForgeRegistryEntry.Impl<Material> {
 	 */
 	private void setNativeHarvest(int nativeHarvest) {
 		this.nativeHarvest = nativeHarvest;
+	}
+
+	public int getMaxToolDamage(int type) {
+		switch (type) {
+		case MaterialTool.PLIERS:
+			return shear * 2;
+		case MaterialTool.DRAW_PLATE:
+			return shear + bulk;
+		case MaterialTool.HAMMER:
+			return bulk * 3;
+		case MaterialTool.PICKAXE:
+			return bulk * 2;
+		}
+		return bulk;
+	}
+
+	public Item getItemPickaxe() {
+		return itemPickaxe;
+	}
+
+	public Item getItemAxe() {
+		return itemAxe;
+	}
+
+	public Item getItemShovel() {
+		return itemShovel;
+	}
+
+	public Item getItemDrawplate() {
+		return itemDrawplate;
+	}
+
+	public Item getItemHammer() {
+		return itemHammer;
+	}
+
+	public Item getItemPliers() {
+		return itemPliers;
 	}
 }
