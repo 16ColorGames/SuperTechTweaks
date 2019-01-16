@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.UpdateOresPacket;
-import com.sixteencolorgames.supertechtweaks.noise.NoiseGen;
+import com.sixteencolorgames.supertechtweaks.noise.SimplexNoise;
 import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 import com.sixteencolorgames.supertechtweaks.tileentities.conveyor.TileEntityConveyorBase;
 import com.sixteencolorgames.supertechtweaks.world.OreSavedData;
@@ -29,6 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
@@ -55,7 +56,7 @@ public class ServerEvents {
 
 	private static final ArrayList<EventType> vanillaOreGeneration = new ArrayList<EventType>();
 
-	// OpenSimplexNoise noise = new OpenSimplexNoise(7);
+	double genScale = 0.004;
 
 	static {
 		vanillaOreGeneration.add(OreGenEvent.GenerateMinable.EventType.COAL);
@@ -218,11 +219,17 @@ public class ServerEvents {
 		Chunk chunk = event.getChunk();
 		long seed = event.getWorld().getSeed();
 		NoiseGeneratorPerlin ngo = new NoiseGeneratorPerlin(event.getWorld().rand, 8);
+		SimplexNoise noise = new SimplexNoise();
+		Random offsetRandom = new Random(seed);
+		Vec3d offset = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+				10000.0F * offsetRandom.nextFloat());
 		for (ExtendedBlockStorage storage : chunk.getBlockStorageArray()) {
 			if (storage != null) {
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
-						int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
+						//System.out.println(noise.get2dNoiseValue(x, z, offset, genScale));
+						int gbase = (int) (noise.get2dNoiseValue(x, z, offset, genScale)*15);
+						//int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
 						// int gbase = (int) (noise.eval((double) x / 20, (double) z / 20) * 10);
 						for (int y = 255; y > 0; y--) {
 
@@ -233,22 +240,17 @@ public class ServerEvents {
 								if (geome < 10) {
 									// RockType.IGNEOUS;
 									chunk.setBlockState(coord,
-											pickBlockFromList(NoiseGen.gradientCoherentNoise3D((double) x / 100,
-													(double) y / 50, (double) z / 100, (int) seed),
+											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
 													ModRegistry.igneousStones));
 								} else if (geome < 30) {
 									// RockType.METAMORPHIC;
 									chunk.setBlockState(coord,
-											pickBlockFromList(
-													NoiseGen.gradientCoherentNoise3D((double) x / 100, (double) y / 50,
-															(double) z / 100, (int) seed),
+											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
 													ModRegistry.metamorphicStones));
 								} else {
 									// RockType.SEDIMENTARY;
 									chunk.setBlockState(coord,
-											pickBlockFromList(
-													NoiseGen.gradientCoherentNoise3D((double) x / 100, (double) y / 50,
-															(double) z / 100, (int) seed),
+											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
 													ModRegistry.sedimentaryStones));
 								}
 							}

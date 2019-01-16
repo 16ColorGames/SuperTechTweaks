@@ -1,6 +1,7 @@
 package com.sixteencolorgames.supertechtweaks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -18,6 +19,7 @@ import com.sixteencolorgames.supertechtweaks.enums.RockType;
 import com.sixteencolorgames.supertechtweaks.items.ItemConstructor;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
+import com.sixteencolorgames.supertechtweaks.render.StateMapperRock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.TileBasicResearcher;
@@ -68,8 +70,11 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -164,6 +169,8 @@ public class ModRegistry {
 	public static void initItemModels() {
 		blockCable.initItemModel();
 		blockPipe.initItemModel();
+
+		allStones.get(0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -184,7 +191,12 @@ public class ModRegistry {
 		itemTechComponent.registerModels();
 
 		for (IBlockState s : allStones) {
-			registerBlockItemModel(s);
+			final Block block = s.getBlock();
+			final Item item = Item.getItemFromBlock(block);
+			ModelLoader.setCustomModelResourceLocation(item, 0,
+					new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getResourceDomain(), "rock"),
+							block.getRegistryName().getResourcePath()));
+			ModelLoader.setCustomStateMapper(block, new StateMapperRock());
 		}
 	}
 
@@ -764,8 +776,25 @@ public class ModRegistry {
 	 */
 	private static void addStoneType(RockType type, String name, double hardness, double blastResistance,
 			int toolHardnessLevel, RegistryEvent.Register<Block> event) {
-		final Block rock, rockStairs, rockSlab, rockSlabDouble;
-		rock = new BlockRock(name, true, (float) hardness, (float) blastResistance, toolHardnessLevel, SoundType.STONE);
+		final Block rock, rockStairs, rockSlab, rockSlabDouble, rockCobble;
+		// rockCobble = new BlockRock(name + "cobble", true, (float) hardness, (float)
+		// blastResistance, toolHardnessLevel,SoundType.STONE);
+
+		ItemBlock itemBlock /*
+							 * = (ItemBlock) new
+							 * ItemBlock(rockCobble).setRegistryName(rockCobble.getRegistryName())
+							 */;
+		// ForgeRegistries.ITEMS.register(itemBlock);
+		rock = new BlockRock(name, true, (float) hardness, (float) blastResistance, toolHardnessLevel,
+				SoundType.STONE) {
+			/*
+			 * @Override public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos,
+			 * IBlockState state, int fortune) { return Arrays.asList(new
+			 * ItemStack(Item.getItemFromBlock(rockCobble)));
+			 * 
+			 * }
+			 */
+		};
 		switch (type) {
 		case IGNEOUS:
 			igneousStones.add(rock.getDefaultState());
@@ -788,11 +817,11 @@ public class ModRegistry {
 		 * blastResistance, toolHardnessLevel, SoundType.STONE);
 		 */
 
-		ItemBlock itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
+		itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
 		ForgeRegistries.ITEMS.register(itemBlock);
 
 		// GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
-		event.getRegistry().registerAll(rock/* , rockStairs, rockSlab, rockSlabDouble */);
+		event.getRegistry().registerAll(rock/* , rockCobble , rockStairs, rockSlab, rockSlabDouble */);
 
 		/*
 		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
@@ -827,6 +856,7 @@ public class ModRegistry {
 		 */
 
 		OreDictionary.registerOre("stone", rock);
+		// OreDictionary.registerOre("cobblestone", rockCobble);
 	}
 
 	/**

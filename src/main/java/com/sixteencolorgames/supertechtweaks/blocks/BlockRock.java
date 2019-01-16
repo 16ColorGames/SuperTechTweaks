@@ -36,10 +36,6 @@ public class BlockRock extends net.minecraft.block.Block {
 
 	public final boolean isStoneEquivalent;
 
-	public StateMapperBase getStateMapper() {
-		return new StateMapperRock(this.getRegistryName().getResourcePath());
-	}
-
 	@Override
 	public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos,
 			com.google.common.base.Predicate<IBlockState> target) {
