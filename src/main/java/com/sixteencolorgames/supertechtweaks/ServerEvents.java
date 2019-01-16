@@ -227,9 +227,9 @@ public class ServerEvents {
 			if (storage != null) {
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
-						//System.out.println(noise.get2dNoiseValue(x, z, offset, genScale));
-						int gbase = (int) (noise.get2dNoiseValue(x, z, offset, genScale)*15);
-						//int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
+						int gbase = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset, genScale)
+								* 15);
+						// int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
 						// int gbase = (int) (noise.eval((double) x / 20, (double) z / 20) * 10);
 						for (int y = 255; y > 0; y--) {
 
@@ -237,21 +237,17 @@ public class ServerEvents {
 
 							if (CommonProxy.vanillaReplace.contains(chunk.getBlockState(coord))) {
 								int geome = gbase + y;
+								double val = noise.get3dNoiseValue(x+ chunk.x * 16, y, z+ chunk.z * 16, offset, genScale);
+								// System.out.println(val);
 								if (geome < 10) {
 									// RockType.IGNEOUS;
-									chunk.setBlockState(coord,
-											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
-													ModRegistry.igneousStones));
+									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.igneousStones));
 								} else if (geome < 30) {
 									// RockType.METAMORPHIC;
-									chunk.setBlockState(coord,
-											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
-													ModRegistry.metamorphicStones));
+									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.metamorphicStones));
 								} else {
 									// RockType.SEDIMENTARY;
-									chunk.setBlockState(coord,
-											pickBlockFromList(noise.get3dNoiseValue(x, y, z, offset, genScale),
-													ModRegistry.sedimentaryStones));
+									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.sedimentaryStones));
 								}
 							}
 						}
