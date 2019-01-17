@@ -2,38 +2,28 @@ package com.sixteencolorgames.supertechtweaks.proxy;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.config.RegistryBuilder;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ServerEvents;
 import com.sixteencolorgames.supertechtweaks.SuperTechTweaksMod;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockRock;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockRockSlab;
-import com.sixteencolorgames.supertechtweaks.blocks.BlockRockStairs;
 import com.sixteencolorgames.supertechtweaks.compat.MainCompatHandler;
 import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
-import com.sixteencolorgames.supertechtweaks.enums.RockType;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
 import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
@@ -46,9 +36,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 

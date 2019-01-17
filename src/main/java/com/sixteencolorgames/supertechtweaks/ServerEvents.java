@@ -7,8 +7,8 @@ package com.sixteencolorgames.supertechtweaks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
@@ -229,25 +229,27 @@ public class ServerEvents {
 					for (int z = 0; z < 16; ++z) {
 						int gbase = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset, genScale)
 								* 15);
-						// int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
-						// int gbase = (int) (noise.eval((double) x / 20, (double) z / 20) * 10);
 						for (int y = 255; y > 0; y--) {
 
 							BlockPos coord = new BlockPos(x, y, z);
 
 							if (CommonProxy.vanillaReplace.contains(chunk.getBlockState(coord))) {
 								int geome = gbase + y;
-								double val = noise.get3dNoiseValue(x+ chunk.x * 16, y, z+ chunk.z * 16, offset, genScale);
+								double val = noise.get3dNoiseValue(x + chunk.x * 16, y, z + chunk.z * 16, offset,
+										genScale);
 								// System.out.println(val);
 								if (geome < 10) {
 									// RockType.IGNEOUS;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.igneousStones));
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("igneous")));
 								} else if (geome < 30) {
 									// RockType.METAMORPHIC;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.metamorphicStones));
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("metamorphic")));
 								} else {
 									// RockType.SEDIMENTARY;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.sedimentaryStones));
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("sedimentary")));
 								}
 							}
 						}
@@ -258,8 +260,8 @@ public class ServerEvents {
 		chunk.setModified(true);// this is important as it marks it to be saved
 	}
 
-	private IBlockState pickBlockFromList(double value, List<IBlockState> list) {
+	private IBlockState pickBlockFromSet(double value, Set<IBlockState> list) {
 		value = ((value + 1) / 2) * list.size();
-		return list.get((int) value);
+		return list.stream().skip((int) value).findFirst().get();
 	}
 }

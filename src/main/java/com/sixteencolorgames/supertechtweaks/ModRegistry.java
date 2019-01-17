@@ -15,7 +15,6 @@ import com.sixteencolorgames.supertechtweaks.enums.Material;
 import com.sixteencolorgames.supertechtweaks.enums.Material.MaterialBuilder;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 import com.sixteencolorgames.supertechtweaks.enums.Research;
-import com.sixteencolorgames.supertechtweaks.enums.RockType;
 import com.sixteencolorgames.supertechtweaks.items.ItemConstructor;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
@@ -120,14 +119,6 @@ public class ModRegistry {
 
 	public static ItemConstructor itemConstructor;
 
-	public static final List<IBlockState> allStones = new ArrayList<IBlockState>();
-	/** stone block replacements that are sedimentary */
-	public static final List<IBlockState> sedimentaryStones = new ArrayList<IBlockState>();
-	/** stone block replacements that are metamorphic */
-	public static final List<IBlockState> metamorphicStones = new ArrayList<IBlockState>();
-	/** stone block replacements that are igneous */
-	public static final List<IBlockState> igneousStones = new ArrayList<IBlockState>();
-
 	public static ItemTechComponent itemTechComponent;
 
 	public static Fluid steam = createFluid("steam", true,
@@ -169,8 +160,6 @@ public class ModRegistry {
 	public static void initItemModels() {
 		blockCable.initItemModel();
 		blockPipe.initItemModel();
-
-		allStones.get(0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -190,14 +179,6 @@ public class ModRegistry {
 		blockPipe.initModel();
 		itemTechComponent.registerModels();
 
-		for (IBlockState s : allStones) {
-			final Block block = s.getBlock();
-			final Item item = Item.getItemFromBlock(block);
-			ModelLoader.setCustomModelResourceLocation(item, 0,
-					new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getResourceDomain(), "rock"),
-							block.getRegistryName().getResourcePath()));
-			ModelLoader.setCustomStateMapper(block, new StateMapperRock());
-		}
 	}
 
 	@SubscribeEvent
@@ -279,29 +260,46 @@ public class ModRegistry {
 
 		// Rocks
 
-		igneousStones
-				.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE));
-		addStoneType(RockType.IGNEOUS, "basalt", 5, 100, 2, event);
-		igneousStones.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE));
-		igneousStones.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE));
-		addStoneType(RockType.IGNEOUS, "rhyolite", 1.5, 10, 0, event);
-		addStoneType(RockType.IGNEOUS, "gabbro", 1.5, 10, 0, event);
-		addStoneType(RockType.IGNEOUS, "scoria", 1.5, 10, 0, event);
-		addStoneType(RockType.IGNEOUS, "pegmatite", 1.5, 10, 0, event);
+		RockManager.addRockTypes(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE),
+				"igneous");
+		RockManager.addTextureOverride(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE),
+				new ResourceLocation("minecraft:blocks/andesite"));
+		createStoneType("basalt", 5, 100, 2, event, "igneous");
+		RockManager.addRockTypes(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE),
+				"igneous");
+		RockManager.addTextureOverride(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE),
+				new ResourceLocation("minecraft:blocks/diorite"));
+		RockManager.addRockTypes(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE),
+				"igneous");
+		RockManager.addTextureOverride(
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE),
+				new ResourceLocation("minecraft:blocks/granite"));
+		createStoneType("rhyolite", 1.5, 10, 0, event, "igneous");
+		createStoneType("gabbro", 1.5, 10, 0, event, "igneous");
+		createStoneType("scoria", 1.5, 10, 0, event, "igneous");
+		createStoneType("pegmatite", 1.5, 10, 0, event, "igneous");
 
-		sedimentaryStones.add(Blocks.GRAVEL.getDefaultState());
-		addStoneType(RockType.SEDIMENTARY, "shale", 1.5, 10, 0, event);
-		addStoneType(RockType.SEDIMENTARY, "chert", 1.5, 10, 0, event);
-		addStoneType(RockType.SEDIMENTARY, "conglomerate", 1.5, 10, 0, event);
-		addStoneType(RockType.SEDIMENTARY, "dolomite", 3, 15, 1, event);
-		addStoneType(RockType.SEDIMENTARY, "limestone", 1.5, 10, 0, event);
+		// RockManager.addRockTypes(Blocks.GRAVEL.getDefaultState(), "sedimentary");
+		createStoneType("shale", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("chert", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("conglomerate", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("dolomite", 3, 15, 1, event, "sedimentary");
+		createStoneType("limestone", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("chalk", 1.5, 10, 0, event, "sedimentary");
 
-		addStoneType(RockType.METAMORPHIC, "schist", 3, 15, 1, event);
-		addStoneType(RockType.METAMORPHIC, "gneiss", 3, 15, 1, event);
-		addStoneType(RockType.SEDIMENTARY, "marble", 1.5, 10, 0, event);
-		addStoneType(RockType.METAMORPHIC, "phyllite", 1.5, 10, 0, event);
-		addStoneType(RockType.METAMORPHIC, "amphibolite", 3, 15, 1, event);
-		addStoneType(RockType.METAMORPHIC, "slate", 1.5, 10, 0, event);
+		createStoneType("schist", 3, 15, 1, event, "metamorphic");
+		createStoneType("gneiss", 3, 15, 1, event, "metamorphic");
+		createStoneType("marble", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("phyllite", 1.5, 10, 0, event, "metamorphic");
+		createStoneType("amphibolite", 3, 15, 1, event, "metamorphic");
+		createStoneType("slate", 1.5, 10, 0, event, "metamorphic");
+
+		createStoneType("kimberlite", 2.0, 14, 3, event, "gabbro");
 
 	}
 
@@ -774,8 +772,8 @@ public class ModRegistry {
 	 * @param toolHardnessLevel 0 for wood tools, 1 for stone, 2 for iron, 3 for
 	 *                          diamond
 	 */
-	private static void addStoneType(RockType type, String name, double hardness, double blastResistance,
-			int toolHardnessLevel, RegistryEvent.Register<Block> event) {
+	private static void createStoneType(String name, double hardness, double blastResistance, int toolHardnessLevel,
+			RegistryEvent.Register<Block> event, String... types) {
 		final Block rock, rockStairs, rockSlab, rockSlabDouble, rockCobble;
 		// rockCobble = new BlockRock(name + "cobble", true, (float) hardness, (float)
 		// blastResistance, toolHardnessLevel,SoundType.STONE);
@@ -795,18 +793,7 @@ public class ModRegistry {
 			 * }
 			 */
 		};
-		switch (type) {
-		case IGNEOUS:
-			igneousStones.add(rock.getDefaultState());
-			break;
-		case METAMORPHIC:
-			metamorphicStones.add(rock.getDefaultState());
-			break;
-		case SEDIMENTARY:
-			sedimentaryStones.add(rock.getDefaultState());
-			break;
-		}
-		allStones.add(rock.getDefaultState());
+		RockManager.addRockTypes(rock.getDefaultState(), types);
 
 		/*
 		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,
@@ -857,6 +844,12 @@ public class ModRegistry {
 
 		OreDictionary.registerOre("stone", rock);
 		// OreDictionary.registerOre("cobblestone", rockCobble);
+
+		final Item item = Item.getItemFromBlock(rock);
+		ModelLoader.setCustomModelResourceLocation(item, 0,
+				new ModelResourceLocation(new ResourceLocation(rock.getRegistryName().getResourceDomain(), "rock"),
+						rock.getRegistryName().getResourcePath()));
+		ModelLoader.setCustomStateMapper(rock, new StateMapperRock());
 	}
 
 	/**

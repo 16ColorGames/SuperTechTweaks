@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -40,6 +42,7 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
+		Block start = worldIn.getBlockState(position).getBlock();
 		if (chance <= 1) {
 			if ((int) params.getOrDefault("perChunk", 1) <= 1) {
 				return generateVein(worldIn, rand, position);
@@ -65,10 +68,11 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 		int height = rand.nextInt(maxY - minY) + minY;
 		Vec3d pos = new Vec3d(position.getX(), position.getY() + height, position.getZ());
 		Vec3d dir = DIRS[rand.nextInt(DIRS.length)];
+		IBlockState start = world.getBlockState(position.add(0, height, 0));
 		for (int i = 0; i < size * (int) params.getOrDefault("branchLength", 5); i++) {
 			BlockPos check = new BlockPos(pos);
 			for (BlockPos adj : facing(check)) {
-				super.generateOreBlock(world, adj);
+				super.generateOreBlock(world, adj, start);
 			}
 			while (pos.y + dir.y > maxY) {
 				dir = DIRS[rand.nextInt(DIRS.length)];

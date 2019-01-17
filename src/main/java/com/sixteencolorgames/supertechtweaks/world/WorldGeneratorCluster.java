@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -48,9 +50,11 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 		if (numBlocks < 1) {
 			numBlocks = 1;
 		}
+
+		IBlockState start = worldIn.getBlockState(position.add(0, height, 0));
 		for (int i = 0; i < numBlocks; i++) {
 			BlockPos newPos = position.add(rand.nextInt(width), height + rand.nextInt(width), rand.nextInt(width));
-			super.generateOreBlock(worldIn, newPos);
+			super.generateOreBlock(worldIn, newPos, start);
 		}
 		return true;
 	}
