@@ -20,11 +20,13 @@ tile.supertechtweaks.blockSolar.name=Solar Panel
 
 tile.supertechtweaks.amphibolite.name=Amphibolite
 tile.supertechtweaks.basalt.name=Basalt
+tile.supertechtweaks.chalk.name=Chalk
 tile.supertechtweaks.chert.name=Chert
 tile.supertechtweaks.dolomite.name=Dolomite
 tile.supertechtweaks.conglomerate.name=Conglomerate
 tile.supertechtweaks.gabbro.name=Gabbro
 tile.supertechtweaks.gneiss.name=Gneiss
+tile.supertechtweaks.kimberlite.name=Kimberlite
 tile.supertechtweaks.limestone.name=Limestone
 tile.supertechtweaks.marble.name=Marble
 tile.supertechtweaks.pegmatite.name=Pegmatite

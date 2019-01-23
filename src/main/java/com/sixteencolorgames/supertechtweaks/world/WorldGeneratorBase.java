@@ -2,12 +2,14 @@ package com.sixteencolorgames.supertechtweaks.world;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.Config;
 import com.sixteencolorgames.supertechtweaks.ModRegistry;
+import com.sixteencolorgames.supertechtweaks.RockManager;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
 import net.minecraft.block.state.IBlockState;
@@ -16,32 +18,37 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.fml.common.IWorldGenerator;
 
-public abstract class WorldGeneratorBase implements IWorldGenerator {
+public abstract class WorldGeneratorBase {
+
+	public static Map<Ore, Double> singleOre(Ore ore) {
+		HashMap<Ore, Double> ores = new HashMap();
+		ores.put(ore, 1d);
+		return ores;
+	}
 
 	public Map<Ore, Double> ores;// List of metals in this generator along
-									// with
+	// with
 	// their chance to generate per block
 	public int size;// Size of the generator. This means different things
 	// depending on the implementation
-	public Map<String, Object> params;// Other parameters specific to
-	// implementations
-	public int maxY;// Maximum height for the generator (rough)
-	public int minY;// Minimum Height for the generator (rough)
+	public List<IBlockState> validStoneTypes = new ArrayList();
 	public int chance;// Chance per chunk to generate an instance
 	private String name;// The identifying name for this generator
-	public ArrayList<Integer> dims;
 
-	public WorldGeneratorBase(Map<Ore, Double> ores, int size, int min, int max, int chance,
-			Map<String, Object> params) {
+	public ArrayList<Integer> dims = new ArrayList();
+
+	public WorldGeneratorBase(Map<Ore, Double> ores, String name, int[] dims, int size, int chance, String... stones) {
 		this.ores = ores;
 		this.size = size;
-		maxY = max;
-		minY = min;
+		this.name = name;
 		this.chance = chance >= 1 ? chance : 1;
-		this.params = params;
-		dims = new ArrayList();
+		for (int i : dims) {
+			addDim(i);
+		}
+		for (String s : stones) {
+			validStoneTypes.addAll(RockManager.getStones(s));
+		}
 	}
 
 	public void addDim(int i) {
@@ -60,7 +67,6 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		return ret;
 	}
 
-	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
 		if (dims.contains(world.provider.getDimension())) {
@@ -76,66 +82,75 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	 * Create/update a single ore block in the world. This reads the availible ores
 	 * from the given generator and sets up a new ore block, ore adds ore data to an
 	 * existing one if present
-	 * 
+	 *
 	 * @param world
 	 * @param pos
 	 * @return
 	 */
-	public boolean generateOreBlock(World world, BlockPos pos) {
+	public boolean generateOreBlock(World world, BlockPos pos, IBlockState generatorStart) {
 		IBlockState state = world.getBlockState(pos);
-		if (Config.stone.containsKey(state)) {
+		if (validStoneTypes.contains(state) && state.equals(generatorStart)) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
 			});
-			ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
-			for (int i = 0; i < newOres.length; i++) {
-				newOres[i] = oresAdded.get(i);
+			if (!oresAdded.isEmpty()) {
+				ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
+				for (int i = 0; i < newOres.length; i++) {
+					newOres[i] = oresAdded.get(i);
+				}
+				OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), RockManager.getTexture(state),
+						newOres);
+				world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), Config.stone.get(state), newOres);
-			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
-		} else if (Config.nether.containsKey(state)) {
+		} else if (Config.nether.containsKey(state) && state.equals(generatorStart)) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
 			});
-			ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
-			for (int i = 0; i < newOres.length; i++) {
-				newOres[i] = oresAdded.get(i);
+			if (!oresAdded.isEmpty()) {
+				ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
+				for (int i = 0; i < newOres.length; i++) {
+					newOres[i] = oresAdded.get(i);
+				}
+				OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), Config.nether.get(state), newOres);
+				world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), Config.nether.get(state), newOres);
-			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
-		} else if (Config.end.containsKey(state)) {
+		} else if (Config.end.containsKey(state) && state.equals(generatorStart)) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
 					oresAdded.add(k.getRegistryName());
 				}
 			});
-			ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
-			for (int i = 0; i < newOres.length; i++) {
-				newOres[i] = oresAdded.get(i);
+			if (!oresAdded.isEmpty()) {
+				ResourceLocation[] newOres = new ResourceLocation[oresAdded.size()];
+				for (int i = 0; i < newOres.length; i++) {
+					newOres[i] = oresAdded.get(i);
+				}
+				OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), Config.end.get(state), newOres);
+				world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), Config.end.get(state), newOres);
-			world.setBlockState(pos, ModRegistry.superore.getDefaultState());
 		} else if (state.getBlock() == ModRegistry.superore) {
-			ArrayList<ResourceLocation> oresAdded = new ArrayList();
-			ores.forEach((Ore k, Double v) -> {
-				if (world.rand.nextDouble() < v) {
-					oresAdded.add(k.getRegistryName());
+			if (OreSavedData.get(world).getBase(pos).equals(RockManager.getTexture(generatorStart))) {
+				ArrayList<ResourceLocation> oresAdded = new ArrayList();
+				ores.forEach((Ore k, Double v) -> {
+					if (world.rand.nextDouble() < v) {
+						oresAdded.add(k.getRegistryName());
+					}
+				});
+				ResourceLocation[] oldOres = OreSavedData.get(world).getOres(pos.getX(), pos.getY(), pos.getZ());
+				ResourceLocation[] newOres = Arrays.copyOf(oldOres, oldOres.length + oresAdded.size());
+				for (int i = 0; i < oresAdded.size(); i++) {
+					newOres[i + oldOres.length] = oresAdded.get(i);
 				}
-			});
-			ResourceLocation[] oldOres = OreSavedData.get(world).getOres(pos.getX(), pos.getY(), pos.getZ());
-			ResourceLocation[] newOres = Arrays.copyOf(oldOres, oldOres.length + oresAdded.size());
-			for (int i = 0; i < oresAdded.size(); i++) {
-				newOres[i + oldOres.length] = oresAdded.get(i);
+				OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(),
+						OreSavedData.get(world).getBase(pos), newOres);
 			}
-			OreSavedData.get(world).setData(pos.getX(), pos.getY(), pos.getZ(), OreSavedData.get(world).getBase(pos),
-					newOres);
 		}
 		return true;
 	}
@@ -150,10 +165,6 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 
 	public Map<Ore, Double> getOres() {
 		return ores;
-	}
-
-	public Map<String, Object> getParams() {
-		return params;
 	}
 
 	public int getSize() {

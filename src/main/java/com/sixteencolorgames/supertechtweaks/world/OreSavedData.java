@@ -72,7 +72,7 @@ public class OreSavedData extends WorldSavedData {
 
 	/**
 	 * Get the base rock texture location
-	 * 
+	 *
 	 * @param pos
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class OreSavedData extends WorldSavedData {
 
 	/**
 	 * Get the base rock texture location
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -215,7 +215,7 @@ public class OreSavedData extends WorldSavedData {
 
 	/**
 	 * used to set the texture for the background rock for a ore tile
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -247,7 +247,7 @@ public class OreSavedData extends WorldSavedData {
 
 	/**
 	 * Create the oreblock data
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -260,7 +260,7 @@ public class OreSavedData extends WorldSavedData {
 
 	/**
 	 * Create the oreblock data
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z

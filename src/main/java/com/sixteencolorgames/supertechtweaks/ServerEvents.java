@@ -7,8 +7,8 @@ package com.sixteencolorgames.supertechtweaks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
@@ -174,9 +174,8 @@ public class ServerEvents {
 
 	@SubscribeEvent
 	public void onPlayerWatchChunk(ChunkWatchEvent.Watch e) {
-		int x = e.getChunk().x;
-		int z = e.getChunk().z;
-		handleOreUpdate(e.getPlayer(), x, z);
+		int x = e.getChunkInstance().x;
+		int z = e.getChunkInstance().z;
 
 		OreSavedData get = OreSavedData.get(e.getPlayer().world);
 		Chunk chunk = e.getPlayer().world.getChunkFromChunkCoords(x, z);
@@ -208,6 +207,7 @@ public class ServerEvents {
 			get.setChunkGenerated(x, z);
 		}
 
+		handleOreUpdate(e.getPlayer(), x, z);
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
@@ -221,34 +221,67 @@ public class ServerEvents {
 		NoiseGeneratorPerlin ngo = new NoiseGeneratorPerlin(event.getWorld().rand, 8);
 		SimplexNoise noise = new SimplexNoise();
 		Random offsetRandom = new Random(seed);
-		Vec3d offset = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+		Vec3d offset1 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+				10000.0F * offsetRandom.nextFloat());
+		Vec3d offset2 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+				10000.0F * offsetRandom.nextFloat());
+		Vec3d offset3 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
 				10000.0F * offsetRandom.nextFloat());
 		for (ExtendedBlockStorage storage : chunk.getBlockStorageArray()) {
 			if (storage != null) {
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
-						int gbase = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset, genScale)
-								* 15);
-						// int gbase = (int) (ngo.getValue((double) x / 20, (double) z / 20));
-						// int gbase = (int) (noise.eval((double) x / 20, (double) z / 20) * 10);
-						for (int y = 255; y > 0; y--) {
+						int igneous = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
+								genScale) * 15) + 20;
+						int sedimentary = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
+								genScale) * 15) + 20;
+						int height = chunk.getHeightValue(x & 15, z & 15);
+//						int height = 255;
+						for (int y = 0; y < height; y++) {
 
 							BlockPos coord = new BlockPos(x, y, z);
 
 							if (CommonProxy.vanillaReplace.contains(chunk.getBlockState(coord))) {
-								int geome = gbase + y;
-								double val = noise.get3dNoiseValue(x+ chunk.x * 16, y, z+ chunk.z * 16, offset, genScale);
-								// System.out.println(val);
-								if (geome < 10) {
+								double val = noise.get3dNoiseValue(x + chunk.x * 16, y, z + chunk.z * 16, offset3,
+										genScale);
+								if (y < igneous) {
 									// RockType.IGNEOUS;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.igneousStones));
-								} else if (geome < 30) {
-									// RockType.METAMORPHIC;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.metamorphicStones));
-								} else {
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("igneous")));
+								} else if (y > height - sedimentary) {
 									// RockType.SEDIMENTARY;
-									chunk.setBlockState(coord, pickBlockFromList(val, ModRegistry.sedimentaryStones));
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("sedimentary")));
+								} else {
+									// RockType.METAMORPHIC;
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("metamorphic")));
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+		Random chunkRandom = chunk.getRandomWithSeed(seed);
+		if (chunkRandom.nextDouble() <= 0.25) {
+			int cx = chunkRandom.nextInt(10) + 3;
+			int cz = chunkRandom.nextInt(10) + 3;
+			double height = chunkRandom.nextInt(6) + 12;
+			IBlockState kimberlite = RockManager.stoneSpawns.get("kimberlite").iterator().next();
+			ResourceLocation[] oresAdded = new ResourceLocation[] { new ResourceLocation("supertechtweaks:diamond") };
+			for (double y = 0; y < height; y++) {
+				int s = (int) (4.0d * ((height - y) / height)) + 1;
+				for (int x = -s; x < s; x++) {
+					for (int z = -s; z < s; z++) {
+						BlockPos pos = new BlockPos(cx + x + chunk.x * 16, y, cz + z + chunk.z * 16);
+						if (!chunk.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
+							if (chunkRandom.nextDouble() < .1) {
+								OreSavedData.get(event.getWorld()).setData(pos.getX(), pos.getY(), pos.getZ(),
+										RockManager.getTexture(kimberlite), oresAdded);
+								chunk.setBlockState(pos, ModRegistry.superore.getDefaultState());
+							} else {
+								chunk.setBlockState(pos, kimberlite);
 							}
 						}
 					}
@@ -258,8 +291,8 @@ public class ServerEvents {
 		chunk.setModified(true);// this is important as it marks it to be saved
 	}
 
-	private IBlockState pickBlockFromList(double value, List<IBlockState> list) {
+	private IBlockState pickBlockFromSet(double value, Set<IBlockState> list) {
 		value = ((value + 1) / 2) * list.size();
-		return list.get((int) value);
+		return list.stream().skip((int) value).findFirst().get();
 	}
 }
