@@ -2,6 +2,7 @@ package com.sixteencolorgames.supertechtweaks.world;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -11,7 +12,6 @@ import com.sixteencolorgames.supertechtweaks.ModRegistry;
 import com.sixteencolorgames.supertechtweaks.RockManager;
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -27,23 +27,22 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	// their chance to generate per block
 	public int size;// Size of the generator. This means different things
 	// depending on the implementation
-	public Map<String, Object> params;// Other parameters specific to
-	// implementations
-	public int maxY;// Maximum height for the generator (rough)
-	public int minY;// Minimum Height for the generator (rough)
+	public List<IBlockState> validStoneTypes = new ArrayList();
 	public int chance;// Chance per chunk to generate an instance
 	private String name;// The identifying name for this generator
-	public ArrayList<Integer> dims;
+	public ArrayList<Integer> dims = new ArrayList();
 
-	public WorldGeneratorBase(Map<Ore, Double> ores, int size, int min, int max, int chance,
-			Map<String, Object> params) {
+	public WorldGeneratorBase(Map<Ore, Double> ores, String name, int[] dims, int size, int chance, String... stones) {
 		this.ores = ores;
 		this.size = size;
-		maxY = max;
-		minY = min;
+		this.name = name;
 		this.chance = chance >= 1 ? chance : 1;
-		this.params = params;
-		dims = new ArrayList();
+		for (int i : dims) {
+			addDim(i);
+		}
+		for (String s : stones) {
+			validStoneTypes.addAll(RockManager.getStones(s));
+		}
 	}
 
 	public void addDim(int i) {
@@ -85,7 +84,7 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 	 */
 	public boolean generateOreBlock(World world, BlockPos pos, IBlockState generatorStart) {
 		IBlockState state = world.getBlockState(pos);
-		if (RockManager.allStones.contains(state) && state.equals(generatorStart)) {
+		if (validStoneTypes.contains(state) && state.equals(generatorStart)) {
 			ArrayList<ResourceLocation> oresAdded = new ArrayList();
 			ores.forEach((Ore k, Double v) -> {
 				if (world.rand.nextDouble() < v) {
@@ -163,15 +162,17 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		return ores;
 	}
 
-	public Map<String, Object> getParams() {
-		return params;
-	}
-
 	public int getSize() {
 		return size;
 	}
 
 	public void setName(String n) {
 		name = n;
+	}
+
+	public static Map<Ore, Double> singleOre(Ore ore) {
+		HashMap<Ore, Double> ores = new HashMap();
+		ores.put(ore, 1d);
+		return ores;
 	}
 }

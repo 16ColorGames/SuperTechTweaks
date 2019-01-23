@@ -221,37 +221,60 @@ public class ServerEvents {
 		NoiseGeneratorPerlin ngo = new NoiseGeneratorPerlin(event.getWorld().rand, 8);
 		SimplexNoise noise = new SimplexNoise();
 		Random offsetRandom = new Random(seed);
-		Vec3d offset = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+		Vec3d offset1 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+				10000.0F * offsetRandom.nextFloat());
+		Vec3d offset2 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
+				10000.0F * offsetRandom.nextFloat());
+		Vec3d offset3 = new Vec3d(10000.0F * offsetRandom.nextFloat(), 10000.0F * offsetRandom.nextFloat(),
 				10000.0F * offsetRandom.nextFloat());
 		for (ExtendedBlockStorage storage : chunk.getBlockStorageArray()) {
 			if (storage != null) {
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
-						int gbase = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset, genScale)
-								* 15);
-						for (int y = 255; y > 0; y--) {
+						int igneous = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
+								genScale) * 7) + 15;
+						int sedimentary = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
+								genScale) * 7) + 15;
+//						int height = event.getWorld().getHeight(x, z);
+						int height = 255;
+						for (int y = 0; y < height; y++) {
 
 							BlockPos coord = new BlockPos(x, y, z);
 
 							if (CommonProxy.vanillaReplace.contains(chunk.getBlockState(coord))) {
-								int geome = gbase + y;
-								double val = noise.get3dNoiseValue(x + chunk.x * 16, y, z + chunk.z * 16, offset,
+								double val = noise.get3dNoiseValue(x + chunk.x * 16, y, z + chunk.z * 16, offset3,
 										genScale);
-								// System.out.println(val);
-								if (geome < 10) {
+								if (y < igneous) {
 									// RockType.IGNEOUS;
 									chunk.setBlockState(coord,
 											pickBlockFromSet(val, RockManager.stoneSpawns.get("igneous")));
-								} else if (geome < 30) {
-									// RockType.METAMORPHIC;
-									chunk.setBlockState(coord,
-											pickBlockFromSet(val, RockManager.stoneSpawns.get("metamorphic")));
-								} else {
+								} else if (y > height - sedimentary) {
 									// RockType.SEDIMENTARY;
 									chunk.setBlockState(coord,
 											pickBlockFromSet(val, RockManager.stoneSpawns.get("sedimentary")));
+								} else {
+									// RockType.METAMORPHIC;
+									chunk.setBlockState(coord,
+											pickBlockFromSet(val, RockManager.stoneSpawns.get("metamorphic")));
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+		Random chunkRandom = chunk.getRandomWithSeed(seed);
+		if (chunkRandom.nextDouble() <= 0.25) {
+			int cx = chunkRandom.nextInt(10) + 3;
+			int cz = chunkRandom.nextInt(10) + 3;
+			double height = chunkRandom.nextInt(6) + 12;
+			for (double y = 0; y < height; y++) {
+				int s = (int) (4.0d * ((height - y) / height)) + 1;
+				for (int x = -s; x < s; x++) {
+					for (int z = -s; z < s; z++) {
+						BlockPos pos = new BlockPos(cx + x + chunk.x * 16, y, cz + z + chunk.z * 16);
+						if (!chunk.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
+							chunk.setBlockState(pos, RockManager.stoneSpawns.get("kimberlite").iterator().next());
 						}
 					}
 				}

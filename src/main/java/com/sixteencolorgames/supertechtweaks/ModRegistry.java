@@ -2,7 +2,9 @@ package com.sixteencolorgames.supertechtweaks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -18,6 +20,7 @@ import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.items.ItemConstructor;
 import com.sixteencolorgames.supertechtweaks.items.ItemTechComponent;
 import com.sixteencolorgames.supertechtweaks.items.MaterialItem;
+import com.sixteencolorgames.supertechtweaks.proxy.CommonProxy;
 import com.sixteencolorgames.supertechtweaks.render.StateMapperRock;
 import com.sixteencolorgames.supertechtweaks.tileentities.TileMultiWall;
 import com.sixteencolorgames.supertechtweaks.tileentities.basicresearcher.BlockBasicResearcher;
@@ -53,6 +56,10 @@ import com.sixteencolorgames.supertechtweaks.tileentities.solarpanel.TileSolarPa
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.BlockSteamEngine;
 import com.sixteencolorgames.supertechtweaks.tileentities.steamengine.TileSteamEngine;
 import com.sixteencolorgames.supertechtweaks.util.ItemHelper;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorCluster;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorPlate;
+import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorVein;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
@@ -262,32 +269,33 @@ public class ModRegistry {
 
 		RockManager.addRockTypes(
 				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE),
-				"igneous");
+				"igneous", "andesite", "vanilla", "extrusive", "intermediate");
 		RockManager.addTextureOverride(
 				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE),
 				new ResourceLocation("minecraft:blocks/andesite"));
-		createStoneType("basalt", 5, 100, 2, event, "igneous");
+		createStoneType("basalt", 5, 100, 2, event, "igneous", "extrusive");
+		RockManager.addRockTypes(Blocks.SANDSTONE.getDefaultState(), "sedimentary", "sandstone", "vanilla", "clastic");
 		RockManager.addRockTypes(
-				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE),
-				"igneous");
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), "igneous",
+				"diorite", "vanilla", "intrusive", "intermediate");
 		RockManager.addTextureOverride(
 				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE),
 				new ResourceLocation("minecraft:blocks/diorite"));
 		RockManager.addRockTypes(
-				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE),
-				"igneous");
+				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), "igneous",
+				"granite", "vanilla", "felsic", "intrusive");
 		RockManager.addTextureOverride(
 				Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE),
 				new ResourceLocation("minecraft:blocks/granite"));
-		createStoneType("rhyolite", 1.5, 10, 0, event, "igneous");
-		createStoneType("gabbro", 1.5, 10, 0, event, "igneous");
-		createStoneType("scoria", 1.5, 10, 0, event, "igneous");
-		createStoneType("pegmatite", 1.5, 10, 0, event, "igneous");
+		createStoneType("rhyolite", 1.5, 10, 0, event, "igneous", "felsic", "extrusive");
+		createStoneType("gabbro", 1.5, 10, 0, event, "igneous", "mafic", "intrusive");
+		createStoneType("scoria", 1.5, 10, 0, event, "igneous", "mafic", "extrusive");
+		createStoneType("pegmatite", 1.5, 10, 0, event, "igneous", "felsic", "intrusive");
 
 		// RockManager.addRockTypes(Blocks.GRAVEL.getDefaultState(), "sedimentary");
-		createStoneType("shale", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("shale", 1.5, 10, 0, event, "sedimentary", "clastic");
 		createStoneType("chert", 1.5, 10, 0, event, "sedimentary");
-		createStoneType("conglomerate", 1.5, 10, 0, event, "sedimentary");
+		createStoneType("conglomerate", 1.5, 10, 0, event, "sedimentary", "clastic");
 		createStoneType("dolomite", 3, 15, 1, event, "sedimentary");
 		createStoneType("limestone", 1.5, 10, 0, event, "sedimentary");
 		createStoneType("chalk", 1.5, 10, 0, event, "sedimentary");
@@ -306,7 +314,7 @@ public class ModRegistry {
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		itemConstructor = new ItemConstructor();
-		event.getRegistry().register(itemConstructor);
+		// event.getRegistry().register(itemConstructor);
 
 		event.getRegistry().register(new ItemBlock(blockSolarPanel).setRegistryName(blockSolarPanel.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(blockConveyor).setRegistryName(blockConveyor.getRegistryName()));
@@ -623,19 +631,6 @@ public class ModRegistry {
 				return new ItemStack(Items.REDSTONE, (int) (Math.random() * 4 + 2));
 			}
 		}.registerOre();
-		ItemStack electrotine;
-		if (OreDictionary.doesOreNameExist("dustElectrotine")) {
-			electrotine = OreDictionary.getOres("dustElectrotine").get(0);
-		} else {
-			electrotine = OreDictionary.getOres("dustRedstone").get(0);
-		}
-		new Ore("Electrotine", 2, 1.4, 0x483D8B) {
-			@Override
-			public ItemStack getDrops(byte base) {
-
-				return new ItemStack(electrotine.getItem(), (int) (Math.random() * 4 + 2));
-			}
-		}.registerOre();
 
 		new Ore("Quartz", 1, 1.3, 0xdddddd) {
 			@Override
@@ -649,6 +644,67 @@ public class ModRegistry {
 				return new ItemStack(Items.DIAMOND);
 			}
 		}.registerOre();
+
+		CommonProxy.parsed.add(new WorldGeneratorPlate(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:galena"))),
+				"galena", new int[] { 0 }, 10, 10, "extrusive", "metamorphic", "granite", "sandstone"));
+
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase
+						.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:nativeAluminum"))),
+				"nativeAluminum", new int[] { 0 }, 15, 1, 1, 5, "extrusive"));
+		CommonProxy.parsed
+				.add(new WorldGeneratorCluster(
+						WorldGeneratorBase.singleOre(
+								Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:bauxite"))),
+						"bauxite", new int[] { 0 }, 20, 1, 1, 5, "limestone", "dolomite", "granite", "gneiss", "basalt",
+						"shale"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:bornite"))),
+				"bornite", new int[] { 0 }, 20, 1, 2, 5, "mafic", "pegmatite", "shale"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:chalcocite"))),
+				"chalcocite", new int[] { 0 }, 10, 1, 3, 5, "sedimentary", ""));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase
+						.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cassiterite"))),
+				"cassiterite", new int[] { 0 }, 20, 1, 3, 5, "sedimentary"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:chromite"))),
+				"chromite", new int[] { 0 }, 20, 1, 4, 5, "intrusive", "metamorphic"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cinnabar"))),
+				"cinnabar", new int[] { 0 }, 2, 1, 1, 2, "extrusive", "shale"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cobaltite"))),
+				"cobaltite", new int[] { 0 }, 2, 1, 1, 2, "igneous", "metamorphic"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:hematite"))),
+				"hematite", new int[] { 0 }, 2, 1, 2, 7, "extrusive", "sedimentary"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:ilmenite"))),
+				"ilmenite", new int[] { 0 }, 10, 1, 8, 5, "gabbro"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:sphalerite"))),
+				"sphalerite", new int[] { 0 }, 2, 1, 2, 3, "metamorphic", "dolomite"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:coal"))),
+				"lignite", new int[] { 0 }, 2, 1, 2, 8, "sedimentary"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:coal"))),
+				"bitumin", new int[] { 0 }, 10, 1, 15, 2, "sedimentary"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:redstone"))),
+				"redstone", new int[] { 0 }, 10, 1, 7, 2, "igneous"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:diamond"))),
+				"diamond", new int[] { 0 }, 5, 1, 40, 2, "kimberlite"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:emerald"))),
+				"emerald", new int[] { 0 }, 5, 1, 7, 2, "granite", "schist", "marble"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:lapis"))),
+				"lapis", new int[] { 0 }, 5, 1, 7, 2, "intrusive", "marble"));
 	}
 
 	@SubscribeEvent
@@ -793,7 +849,11 @@ public class ModRegistry {
 			 * }
 			 */
 		};
-		RockManager.addRockTypes(rock.getDefaultState(), types);
+
+		String[] newArray = new String[types.length + 1];
+		System.arraycopy(types, 0, newArray, 0, types.length);
+		newArray[newArray.length - 1] = name;
+		RockManager.addRockTypes(rock.getDefaultState(), newArray);
 
 		/*
 		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,

@@ -15,7 +15,6 @@ import com.sixteencolorgames.supertechtweaks.enums.Research;
 import com.sixteencolorgames.supertechtweaks.network.PacketHandler;
 import com.sixteencolorgames.supertechtweaks.network.ReceiveResearchUpdate;
 import com.sixteencolorgames.supertechtweaks.network.ResearchUpdatePacket;
-import com.sixteencolorgames.supertechtweaks.world.GenerationParser;
 import com.sixteencolorgames.supertechtweaks.world.WorldGeneratorBase;
 
 import net.minecraft.block.BlockStone;
@@ -50,7 +49,7 @@ public abstract class CommonProxy {
 	public static Configuration config;
 	public static SimpleNetworkWrapper simpleNetworkWrapper;
 	public static final byte RESEARCH_MESSAGE_ID = 35;
-	public static ArrayList<WorldGeneratorBase> parsed;
+	public static ArrayList<WorldGeneratorBase> parsed = new ArrayList();
 	private File configFolder;
 	private ServerEvents serverEvents;
 
@@ -87,20 +86,6 @@ public abstract class CommonProxy {
 //		recipies.remove(new ResourceLocation("minecraft:stone_pickaxe"));
 //		recipies.remove(new ResourceLocation("minecraft:wooden_pickaxe"));
 //		recipies.remove(new ResourceLocation("minecraft:golden_pickaxe"));
-		for (File gen : configFolder.listFiles()) {
-			if (gen.getName().contains(".json")) {
-				try {
-					parsed = GenerationParser.parseScripts(gen);
-					parsed.forEach((WorldGeneratorBase base) -> {
-						GameRegistry.registerWorldGenerator(base, 3 + base.params.hashCode() + base.hashCode());
-					});
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-		// GameRegistry.registerWorldGenerator(new StoneReplacer(), 0);
-		System.out.println("Generators Loaded");
 		IForgeRegistry<Research> research = GameRegistry.findRegistry(Research.class);
 		research.forEach((res) -> {
 			res.getRequirements().forEach((req) -> {

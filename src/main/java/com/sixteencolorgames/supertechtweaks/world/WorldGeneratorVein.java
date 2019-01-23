@@ -19,6 +19,16 @@ import net.minecraft.world.World;
  *
  */
 public class WorldGeneratorVein extends WorldGeneratorBase {
+	int heightVar = 10;
+	int perChunk = 1;
+	int length = 5;
+
+	public WorldGeneratorVein(Map<Ore, Double> ores, String name, int[] dims, int size, int chance, int perChunk,
+			int length, String... stones) {
+		super(ores, name, dims, size, chance, stones);
+		this.perChunk = perChunk;
+		this.length = length;
+	}
 
 	private static final double SCALE = 1.3726;// e log(2)
 	private static final Vec3d[] DIRS = new Vec3d[] { new Vec3d(+0.0000, +0.0000, +1.0000).scale(SCALE),
@@ -35,49 +45,36 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 			new Vec3d(-0.6666, -0.3333, +0.6666).scale(SCALE), new Vec3d(+0.6666, -0.3333, -0.6666).scale(SCALE),
 			new Vec3d(-0.6666, -0.3333, -0.6666).scale(SCALE) };
 
-	public WorldGeneratorVein(Map<Ore, Double> ores, int size, int min, int max, int chance,
-			Map<String, Object> params) {
-		super(ores, size, min, max, chance, params);
-	}
-
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
 		Block start = worldIn.getBlockState(position).getBlock();
-		if (chance <= 1) {
-			if ((int) params.getOrDefault("perChunk", 1) <= 1) {
-				return generateVein(worldIn, rand, position);
-			} else {
-				for (int i = 0; i < (int) params.getOrDefault("perChunk", 1); i++) {
-					generateVein(worldIn, rand, position);
-				}
-			}
-		} else if (rand.nextInt(chance - 1) == 0) {
-			if ((int) params.getOrDefault("perChunk", 1) <= 1) {
-				return generateVein(worldIn, rand, position);
-			} else {
-				for (int i = 0; i < (int) params.getOrDefault("perChunk", 1); i++) {
-					generateVein(worldIn, rand, position);
-				}
+		
+		if (rand.nextInt(chance) == 0) {
+			for (int i = 0; i < perChunk; i++) {
+				generateVein(worldIn, rand, position);
 			}
 		}
+
 		OreSavedData.get(worldIn).setChunkGenerated((position.getX() / 16), (position.getZ() / 16));
 		return true;
 	}
 
 	public boolean generateVein(World world, Random rand, BlockPos position) {
-		int height = rand.nextInt(maxY - minY) + minY;
+		int x = position.getX();
+		int z = position.getZ();
+		int height = rand.nextInt(world.getChunkFromChunkCoords(x >> 4, z >> 4).getHeightValue(x & 15, z & 15));
 		Vec3d pos = new Vec3d(position.getX(), position.getY() + height, position.getZ());
 		Vec3d dir = DIRS[rand.nextInt(DIRS.length)];
 		IBlockState start = world.getBlockState(position.add(0, height, 0));
-		for (int i = 0; i < size * (int) params.getOrDefault("branchLength", 5); i++) {
+		for (int i = 0; i < size * length; i++) {
 			BlockPos check = new BlockPos(pos);
 			for (BlockPos adj : facing(check)) {
 				super.generateOreBlock(world, adj, start);
 			}
-			while (pos.y + dir.y > maxY) {
+			while (pos.y + dir.y > height + heightVar) {
 				dir = DIRS[rand.nextInt(DIRS.length)];
 			}
-			while (pos.y + dir.y < minY) {
+			while (pos.y + dir.y < height - heightVar) {
 				dir = DIRS[rand.nextInt(DIRS.length)];
 			}
 			pos = pos.add(dir);

@@ -1,5 +1,6 @@
 package com.sixteencolorgames.supertechtweaks;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
@@ -39,5 +40,14 @@ public class RockManager {
 					"blocks/" + state.getBlock().getRegistryName().getResourcePath());
 			return rl;
 		}
+	}
+
+	public static LinkedHashSet<IBlockState> getStones(String s) {
+		LinkedHashSet<IBlockState> ret = new LinkedHashSet();
+		if (stoneSpawns.containsKey(s)) {
+			ret.addAll(stoneSpawns.get(s));
+		}
+		// TODO Auto-generated method stub
+		return ret;
 	}
 }
