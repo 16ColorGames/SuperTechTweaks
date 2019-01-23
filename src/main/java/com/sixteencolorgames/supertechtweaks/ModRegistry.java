@@ -155,6 +155,103 @@ public class ModRegistry {
 		return fluid;
 	}
 
+	/**
+	 *
+	 * @param type              Igneous, sedimentary, or metamorphic
+	 * @param name              id-name of the block
+	 * @param hardness          How hard (time duration) the block is to pick. For
+	 *                          reference, dirt is 0.5, stone is 1.5, ores are 3,
+	 *                          and obsidian is 50
+	 * @param blastResistance   how resistant the block is to explosions. For
+	 *                          reference, dirt is 0, stone is 10, and blast-proof
+	 *                          materials are 2000
+	 * @param toolHardnessLevel 0 for wood tools, 1 for stone, 2 for iron, 3 for
+	 *                          diamond
+	 */
+	private static void createStoneType(String name, double hardness, double blastResistance, int toolHardnessLevel,
+			RegistryEvent.Register<Block> event, String... types) {
+		final Block rock;
+		// rockCobble = new BlockRock(name + "cobble", true, (float) hardness, (float)
+		// blastResistance, toolHardnessLevel,SoundType.STONE);
+
+		ItemBlock itemBlock /*
+							 * = (ItemBlock) new
+							 * ItemBlock(rockCobble).setRegistryName(rockCobble.getRegistryName())
+							 */;
+		// ForgeRegistries.ITEMS.register(itemBlock);
+		rock = new BlockRock(name, true, (float) hardness, (float) blastResistance, toolHardnessLevel,
+				SoundType.STONE) {
+			/*
+			 * @Override public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos,
+			 * IBlockState state, int fortune) { return Arrays.asList(new
+			 * ItemStack(Item.getItemFromBlock(rockCobble)));
+			 *
+			 * }
+			 */
+		};
+
+		String[] newArray = new String[types.length + 1];
+		System.arraycopy(types, 0, newArray, 0, types.length);
+		newArray[newArray.length - 1] = name;
+		RockManager.addRockTypes(rock.getDefaultState(), newArray);
+
+		/*
+		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,
+		 * (float) blastResistance, toolHardnessLevel, SoundType.STONE); rockSlab = new
+		 * BlockRockSlab.Half(name + "_slab", (float) hardness, (float) blastResistance,
+		 * toolHardnessLevel, SoundType.STONE); rockSlabDouble = new
+		 * BlockRockSlab.Double(name + "_slab_double", (float) hardness, (float)
+		 * blastResistance, toolHardnessLevel, SoundType.STONE);
+		 */
+
+		itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
+		ForgeRegistries.ITEMS.register(itemBlock);
+
+		// GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
+		event.getRegistry().registerAll(rock/* , rockCobble , rockStairs, rockSlab, rockSlabDouble */);
+
+		/*
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(rockStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', rock)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(rockSlab, 6),
+		 * "xxx", 'x', rock));
+		 *
+		 * GameRegistry.findRegistry(IRecipe.class).register( new ShapedOreRecipe(new
+		 * ResourceLocation("blocks"), new ItemStack(brick, 4), "xx", "xx", 'x', rock));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(brickStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', brick)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(brickSlab, 6),
+		 * "xxx", 'x', brick));
+		 *
+		 * GameRegistry.findRegistry(IRecipe.class) .register(new ShapedOreRecipe(new
+		 * ResourceLocation("blocks"), new ItemStack(smooth, 1), rock, "sand"));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(smoothStairs, 4), "x  ", "xx ",
+		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register( new
+		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(smoothSlab, 6),
+		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register(new
+		 * ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(smoothBrick,
+		 * 4), "xx", "xx", 'x', smooth));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("stairs"), new ItemStack(smoothBrickStairs, 4), "x  ",
+		 * "xx ", "xxx", 'x', smoothBrick));
+		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
+		 * ResourceLocation("slabs"), new ItemStack(smoothBrickSlab, 6), "xxx", 'x',
+		 * smoothBrick));
+		 */
+
+		OreDictionary.registerOre("stone", rock);
+		// OreDictionary.registerOre("cobblestone", rockCobble);
+
+		final Item item = Item.getItemFromBlock(rock);
+		ModelLoader.setCustomModelResourceLocation(item, 0,
+				new ModelResourceLocation(new ResourceLocation(rock.getRegistryName().getResourceDomain(), "rock"),
+						rock.getRegistryName().getResourcePath()));
+		ModelLoader.setCustomStateMapper(rock, new StateMapperRock());
+	}
+
 	@SideOnly(Side.CLIENT)
 	public static void initItemModels() {
 		blockCable.initItemModel();
@@ -178,6 +275,24 @@ public class ModRegistry {
 		blockPipe.initModel();
 		itemTechComponent.registerModels();
 
+	}
+
+	/**
+	 * Register a single model for the {@link Block}'s {@link Item}.
+	 * <p>
+	 * Uses the registry name as the domain/path and the {@link IBlockState} as the
+	 * variant.
+	 *
+	 * @param state The state to use as the variant
+	 */
+	private static void registerBlockItemModel(final IBlockState state) {
+		final Block block = state.getBlock();
+		final Item item = Item.getItemFromBlock(block);
+
+		if (item != Items.AIR) {
+			ModelLoader.setCustomModelResourceLocation(item, 0,
+					new ModelResourceLocation(block.getRegistryName(), "normal"));
+		}
 	}
 
 	@SubscribeEvent
@@ -810,121 +925,6 @@ public class ModRegistry {
 	@SubscribeEvent
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		// add smelting, since there's no json for that
-	}
-
-	/**
-	 * 
-	 * @param type              Igneous, sedimentary, or metamorphic
-	 * @param name              id-name of the block
-	 * @param hardness          How hard (time duration) the block is to pick. For
-	 *                          reference, dirt is 0.5, stone is 1.5, ores are 3,
-	 *                          and obsidian is 50
-	 * @param blastResistance   how resistant the block is to explosions. For
-	 *                          reference, dirt is 0, stone is 10, and blast-proof
-	 *                          materials are 2000
-	 * @param toolHardnessLevel 0 for wood tools, 1 for stone, 2 for iron, 3 for
-	 *                          diamond
-	 */
-	private static void createStoneType(String name, double hardness, double blastResistance, int toolHardnessLevel,
-			RegistryEvent.Register<Block> event, String... types) {
-		final Block rock, rockStairs, rockSlab, rockSlabDouble, rockCobble;
-		// rockCobble = new BlockRock(name + "cobble", true, (float) hardness, (float)
-		// blastResistance, toolHardnessLevel,SoundType.STONE);
-
-		ItemBlock itemBlock /*
-							 * = (ItemBlock) new
-							 * ItemBlock(rockCobble).setRegistryName(rockCobble.getRegistryName())
-							 */;
-		// ForgeRegistries.ITEMS.register(itemBlock);
-		rock = new BlockRock(name, true, (float) hardness, (float) blastResistance, toolHardnessLevel,
-				SoundType.STONE) {
-			/*
-			 * @Override public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos,
-			 * IBlockState state, int fortune) { return Arrays.asList(new
-			 * ItemStack(Item.getItemFromBlock(rockCobble)));
-			 * 
-			 * }
-			 */
-		};
-
-		String[] newArray = new String[types.length + 1];
-		System.arraycopy(types, 0, newArray, 0, types.length);
-		newArray[newArray.length - 1] = name;
-		RockManager.addRockTypes(rock.getDefaultState(), newArray);
-
-		/*
-		 * rockStairs = new BlockRockStairs(name + "_stairs", rock, (float) hardness,
-		 * (float) blastResistance, toolHardnessLevel, SoundType.STONE); rockSlab = new
-		 * BlockRockSlab.Half(name + "_slab", (float) hardness, (float) blastResistance,
-		 * toolHardnessLevel, SoundType.STONE); rockSlabDouble = new
-		 * BlockRockSlab.Double(name + "_slab_double", (float) hardness, (float)
-		 * blastResistance, toolHardnessLevel, SoundType.STONE);
-		 */
-
-		itemBlock = (ItemBlock) new ItemBlock(rock).setRegistryName(rock.getRegistryName());
-		ForgeRegistries.ITEMS.register(itemBlock);
-
-		// GameRegistry.addSmelting(rock, new ItemStack(Blocks.STONE), 0.1F);
-		event.getRegistry().registerAll(rock/* , rockCobble , rockStairs, rockSlab, rockSlabDouble */);
-
-		/*
-		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
-		 * ResourceLocation("stairs"), new ItemStack(rockStairs, 4), "x  ", "xx ",
-		 * "xxx", 'x', rock)); GameRegistry.findRegistry(IRecipe.class).register( new
-		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(rockSlab, 6),
-		 * "xxx", 'x', rock));
-		 * 
-		 * GameRegistry.findRegistry(IRecipe.class).register( new ShapedOreRecipe(new
-		 * ResourceLocation("blocks"), new ItemStack(brick, 4), "xx", "xx", 'x', rock));
-		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
-		 * ResourceLocation("stairs"), new ItemStack(brickStairs, 4), "x  ", "xx ",
-		 * "xxx", 'x', brick)); GameRegistry.findRegistry(IRecipe.class).register( new
-		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(brickSlab, 6),
-		 * "xxx", 'x', brick));
-		 * 
-		 * GameRegistry.findRegistry(IRecipe.class) .register(new ShapedOreRecipe(new
-		 * ResourceLocation("blocks"), new ItemStack(smooth, 1), rock, "sand"));
-		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
-		 * ResourceLocation("stairs"), new ItemStack(smoothStairs, 4), "x  ", "xx ",
-		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register( new
-		 * ShapedOreRecipe(new ResourceLocation("slabs"), new ItemStack(smoothSlab, 6),
-		 * "xxx", 'x', smooth)); GameRegistry.findRegistry(IRecipe.class).register(new
-		 * ShapedOreRecipe(new ResourceLocation("blocks"), new ItemStack(smoothBrick,
-		 * 4), "xx", "xx", 'x', smooth));
-		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
-		 * ResourceLocation("stairs"), new ItemStack(smoothBrickStairs, 4), "x  ",
-		 * "xx ", "xxx", 'x', smoothBrick));
-		 * GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(new
-		 * ResourceLocation("slabs"), new ItemStack(smoothBrickSlab, 6), "xxx", 'x',
-		 * smoothBrick));
-		 */
-
-		OreDictionary.registerOre("stone", rock);
-		// OreDictionary.registerOre("cobblestone", rockCobble);
-
-		final Item item = Item.getItemFromBlock(rock);
-		ModelLoader.setCustomModelResourceLocation(item, 0,
-				new ModelResourceLocation(new ResourceLocation(rock.getRegistryName().getResourceDomain(), "rock"),
-						rock.getRegistryName().getResourcePath()));
-		ModelLoader.setCustomStateMapper(rock, new StateMapperRock());
-	}
-
-	/**
-	 * Register a single model for the {@link Block}'s {@link Item}.
-	 * <p>
-	 * Uses the registry name as the domain/path and the {@link IBlockState} as the
-	 * variant.
-	 *
-	 * @param state The state to use as the variant
-	 */
-	private static void registerBlockItemModel(final IBlockState state) {
-		final Block block = state.getBlock();
-		final Item item = Item.getItemFromBlock(block);
-
-		if (item != Items.AIR) {
-			ModelLoader.setCustomModelResourceLocation(item, 0,
-					new ModelResourceLocation(block.getRegistryName(), "normal"));
-		}
 	}
 
 }

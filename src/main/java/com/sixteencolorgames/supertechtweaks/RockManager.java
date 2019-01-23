@@ -1,6 +1,5 @@
 package com.sixteencolorgames.supertechtweaks;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
@@ -9,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RockManager {
 
-	public static final LinkedHashSet<IBlockState> allStones = new LinkedHashSet<IBlockState>();
+	public static final LinkedHashSet<IBlockState> allStones = new LinkedHashSet<>();
 
 	public static final HashMap<String, LinkedHashSet<IBlockState>> stoneSpawns = new HashMap();
 
@@ -32,6 +31,14 @@ public class RockManager {
 		textureOverrides.put(state, rl);
 	}
 
+	public static LinkedHashSet<IBlockState> getStones(String s) {
+		LinkedHashSet<IBlockState> ret = new LinkedHashSet();
+		if (stoneSpawns.containsKey(s)) {
+			ret.addAll(stoneSpawns.get(s));
+		}
+		return ret;
+	}
+
 	public static ResourceLocation getTexture(IBlockState state) {
 		if (textureOverrides.containsKey(state)) {
 			return textureOverrides.get(state);
@@ -40,14 +47,5 @@ public class RockManager {
 					"blocks/" + state.getBlock().getRegistryName().getResourcePath());
 			return rl;
 		}
-	}
-
-	public static LinkedHashSet<IBlockState> getStones(String s) {
-		LinkedHashSet<IBlockState> ret = new LinkedHashSet();
-		if (stoneSpawns.containsKey(s)) {
-			ret.addAll(stoneSpawns.get(s));
-		}
-		// TODO Auto-generated method stub
-		return ret;
 	}
 }

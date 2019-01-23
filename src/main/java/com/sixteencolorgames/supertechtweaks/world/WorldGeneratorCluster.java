@@ -11,13 +11,15 @@ import net.minecraft.world.World;
 
 /**
  * A generator that creates ores in a manner roughly similar to vanilla
- * 
+ *
  * @author oa10712
  *
  */
 public class WorldGeneratorCluster extends WorldGeneratorBase {
 	int perChunk = 1;
 	int variance = 1;
+
+	private final int width;
 
 	public WorldGeneratorCluster(Map<Ore, Double> ores, String name, int[] dims, int size, int chance, int perChunk,
 			int clusterVariance, String... stones) {
@@ -26,8 +28,6 @@ public class WorldGeneratorCluster extends WorldGeneratorBase {
 		this.perChunk = perChunk;
 		width = (int) Math.sqrt(size);
 	}
-
-	private final int width;
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {

@@ -174,8 +174,8 @@ public class ServerEvents {
 
 	@SubscribeEvent
 	public void onPlayerWatchChunk(ChunkWatchEvent.Watch e) {
-		int x = e.getChunk().x;
-		int z = e.getChunk().z;
+		int x = e.getChunkInstance().x;
+		int z = e.getChunkInstance().z;
 
 		OreSavedData get = OreSavedData.get(e.getPlayer().world);
 		Chunk chunk = e.getPlayer().world.getChunkFromChunkCoords(x, z);

@@ -21,14 +21,21 @@ import net.minecraft.world.gen.IChunkGenerator;
 
 public abstract class WorldGeneratorBase {
 
+	public static Map<Ore, Double> singleOre(Ore ore) {
+		HashMap<Ore, Double> ores = new HashMap();
+		ores.put(ore, 1d);
+		return ores;
+	}
+
 	public Map<Ore, Double> ores;// List of metals in this generator along
-									// with
+	// with
 	// their chance to generate per block
 	public int size;// Size of the generator. This means different things
 	// depending on the implementation
 	public List<IBlockState> validStoneTypes = new ArrayList();
 	public int chance;// Chance per chunk to generate an instance
 	private String name;// The identifying name for this generator
+
 	public ArrayList<Integer> dims = new ArrayList();
 
 	public WorldGeneratorBase(Map<Ore, Double> ores, String name, int[] dims, int size, int chance, String... stones) {
@@ -75,7 +82,7 @@ public abstract class WorldGeneratorBase {
 	 * Create/update a single ore block in the world. This reads the availible ores
 	 * from the given generator and sets up a new ore block, ore adds ore data to an
 	 * existing one if present
-	 * 
+	 *
 	 * @param world
 	 * @param pos
 	 * @return
@@ -166,11 +173,5 @@ public abstract class WorldGeneratorBase {
 
 	public void setName(String n) {
 		name = n;
-	}
-
-	public static Map<Ore, Double> singleOre(Ore ore) {
-		HashMap<Ore, Double> ores = new HashMap();
-		ores.put(ore, 1d);
-		return ores;
 	}
 }
