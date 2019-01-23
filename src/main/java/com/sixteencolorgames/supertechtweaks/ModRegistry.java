@@ -1,10 +1,6 @@
 package com.sixteencolorgames.supertechtweaks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -76,11 +72,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -598,6 +590,8 @@ public class ModRegistry {
 	public static void registerOres(RegistryEvent.Register<Ore> event) {
 		new Ore("Bauxite", 2, 2, 0x7CFC00).registerOre();
 		new Ore("Bornite", 2, 2.5, 0x8B4513).registerOre();
+		new Ore("Magnetite", 2, 2.5, 0x494d51).registerOre();
+		new Ore("Limonite", 2, 2.5, 0xFFF44F).registerOre();
 		new Ore("Chalcocite", 2, 2.75, 0x2F4F4F).registerOre();
 		new Ore("Cassiterite", 1, 1.5, 0x654321).registerOre();
 		new Ore("Chromite", 2, 1.5, 0xC0C0CC).registerOre();
@@ -664,41 +658,44 @@ public class ModRegistry {
 				"bornite", new int[] { 0 }, 20, 1, 2, 5, "mafic", "pegmatite", "shale"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:chalcocite"))),
-				"chalcocite", new int[] { 0 }, 10, 1, 3, 5, "sedimentary", ""));
+				"chalcocite", new int[] { 0 }, 20, 1, 3, 5, "sedimentary", ""));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase
 						.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cassiterite"))),
-				"cassiterite", new int[] { 0 }, 20, 1, 3, 5, "sedimentary"));
+				"cassiterite", new int[] { 0 }, 10, 1, 3, 5, "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:chromite"))),
-				"chromite", new int[] { 0 }, 20, 1, 4, 5, "intrusive", "metamorphic"));
+				"chromite", new int[] { 0 }, 10, 1, 4, 5, "intrusive", "metamorphic"));
+		CommonProxy.parsed.add(new WorldGeneratorCluster(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:magnetite"))),
+				"magnetite", new int[] { 0 }, 10, 1, 6, 5, "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorVein(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cinnabar"))),
 				"cinnabar", new int[] { 0 }, 2, 1, 1, 2, "extrusive", "shale"));
+		CommonProxy.parsed.add(new WorldGeneratorVein(
+				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:limonite"))),
+				"limonite", new int[] { 0 }, 2, 1, 2, 8, "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorVein(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:cobaltite"))),
 				"cobaltite", new int[] { 0 }, 2, 1, 1, 2, "igneous", "metamorphic"));
 		CommonProxy.parsed.add(new WorldGeneratorVein(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:hematite"))),
-				"hematite", new int[] { 0 }, 2, 1, 2, 7, "extrusive", "sedimentary"));
+				"hematite", new int[] { 0 }, 2, 1, 2, 4, "extrusive", "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:ilmenite"))),
 				"ilmenite", new int[] { 0 }, 10, 1, 8, 5, "gabbro"));
 		CommonProxy.parsed.add(new WorldGeneratorVein(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:sphalerite"))),
-				"sphalerite", new int[] { 0 }, 2, 1, 2, 3, "metamorphic", "dolomite"));
+				"sphalerite", new int[] { 0 }, 2, 1, 1, 3, "metamorphic", "dolomite"));
 		CommonProxy.parsed.add(new WorldGeneratorVein(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:coal"))),
-				"lignite", new int[] { 0 }, 2, 1, 2, 8, "sedimentary"));
+				"lignite", new int[] { 0 }, 2, 3, 1, 8, "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:coal"))),
 				"bitumin", new int[] { 0 }, 10, 1, 15, 2, "sedimentary"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:redstone"))),
 				"redstone", new int[] { 0 }, 10, 1, 7, 2, "igneous"));
-		CommonProxy.parsed.add(new WorldGeneratorCluster(
-				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:diamond"))),
-				"diamond", new int[] { 0 }, 5, 1, 40, 2, "kimberlite"));
 		CommonProxy.parsed.add(new WorldGeneratorCluster(
 				WorldGeneratorBase.singleOre(Ore.REGISTRY.getValue(new ResourceLocation("supertechtweaks:emerald"))),
 				"emerald", new int[] { 0 }, 5, 1, 7, 2, "granite", "schist", "marble"));

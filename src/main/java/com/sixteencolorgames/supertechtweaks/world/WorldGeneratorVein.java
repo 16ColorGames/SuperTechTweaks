@@ -48,8 +48,8 @@ public class WorldGeneratorVein extends WorldGeneratorBase {
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
 		Block start = worldIn.getBlockState(position).getBlock();
-		
-		if (rand.nextInt(chance) == 0) {
+
+		if (chance == 1 || rand.nextInt(chance) == 0) {
 			for (int i = 0; i < perChunk; i++) {
 				generateVein(worldIn, rand, position);
 			}

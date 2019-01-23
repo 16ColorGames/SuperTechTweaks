@@ -1,12 +1,10 @@
 package com.sixteencolorgames.supertechtweaks.world;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import com.sixteencolorgames.supertechtweaks.enums.Ore;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,7 +23,7 @@ public class WorldGeneratorPlate extends WorldGeneratorBase {
 
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		if (rand.nextInt(chance - 1) == 0) {
+		if (chance == 1 || rand.nextInt(chance) == 0) {
 			return generatePlate(worldIn, rand, position);
 		}
 		OreSavedData.get(worldIn).setChunkGenerated((position.getX() / 16), (position.getZ() / 16));

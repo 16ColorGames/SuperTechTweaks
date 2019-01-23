@@ -18,9 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.fml.common.IWorldGenerator;
 
-public abstract class WorldGeneratorBase implements IWorldGenerator {
+public abstract class WorldGeneratorBase {
 
 	public Map<Ore, Double> ores;// List of metals in this generator along
 									// with
@@ -61,7 +60,6 @@ public abstract class WorldGeneratorBase implements IWorldGenerator {
 		return ret;
 	}
 
-	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
 		if (dims.contains(world.provider.getDimension())) {

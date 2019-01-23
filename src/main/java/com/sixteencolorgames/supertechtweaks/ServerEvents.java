@@ -176,7 +176,6 @@ public class ServerEvents {
 	public void onPlayerWatchChunk(ChunkWatchEvent.Watch e) {
 		int x = e.getChunk().x;
 		int z = e.getChunk().z;
-		handleOreUpdate(e.getPlayer(), x, z);
 
 		OreSavedData get = OreSavedData.get(e.getPlayer().world);
 		Chunk chunk = e.getPlayer().world.getChunkFromChunkCoords(x, z);
@@ -208,6 +207,7 @@ public class ServerEvents {
 			get.setChunkGenerated(x, z);
 		}
 
+		handleOreUpdate(e.getPlayer(), x, z);
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
@@ -232,11 +232,11 @@ public class ServerEvents {
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
 						int igneous = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
-								genScale) * 7) + 15;
+								genScale) * 15) + 20;
 						int sedimentary = (int) (noise.get2dNoiseValue(x + chunk.x * 16, z + chunk.z * 16, offset1,
-								genScale) * 7) + 15;
-//						int height = event.getWorld().getHeight(x, z);
-						int height = 255;
+								genScale) * 15) + 20;
+						int height = chunk.getHeightValue(x & 15, z & 15);
+//						int height = 255;
 						for (int y = 0; y < height; y++) {
 
 							BlockPos coord = new BlockPos(x, y, z);
@@ -268,13 +268,21 @@ public class ServerEvents {
 			int cx = chunkRandom.nextInt(10) + 3;
 			int cz = chunkRandom.nextInt(10) + 3;
 			double height = chunkRandom.nextInt(6) + 12;
+			IBlockState kimberlite = RockManager.stoneSpawns.get("kimberlite").iterator().next();
+			ResourceLocation[] oresAdded = new ResourceLocation[] { new ResourceLocation("supertechtweaks:diamond") };
 			for (double y = 0; y < height; y++) {
 				int s = (int) (4.0d * ((height - y) / height)) + 1;
 				for (int x = -s; x < s; x++) {
 					for (int z = -s; z < s; z++) {
 						BlockPos pos = new BlockPos(cx + x + chunk.x * 16, y, cz + z + chunk.z * 16);
 						if (!chunk.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
-							chunk.setBlockState(pos, RockManager.stoneSpawns.get("kimberlite").iterator().next());
+							if (chunkRandom.nextDouble() < .1) {
+								OreSavedData.get(event.getWorld()).setData(pos.getX(), pos.getY(), pos.getZ(),
+										RockManager.getTexture(kimberlite), oresAdded);
+								chunk.setBlockState(pos, ModRegistry.superore.getDefaultState());
+							} else {
+								chunk.setBlockState(pos, kimberlite);
+							}
 						}
 					}
 				}
